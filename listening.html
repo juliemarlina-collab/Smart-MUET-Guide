@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartListening · MUET SmartHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/muet-neopop.css"/>
+  <style>
+    .listening-hero{background:var(--yellow);color:var(--ink)}
+    .listening-hero p{font-weight:900}
+    .session-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+    .session-tab{border:var(--line);box-shadow:3px 3px 0 var(--ink);border-radius:16px;background:white;padding:12px;font-weight:1000}
+    .session-tab.active{background:var(--blue);color:white}
+    .audio-panel{background:var(--ink);color:white;border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
+    .audio-panel .tiny{color:rgba(255,255,255,.7)}
+    .wave{height:54px;border:2px solid white;border-radius:16px;background:repeating-linear-gradient(90deg, var(--yellow) 0 7px, transparent 7px 14px);margin:12px 0;animation:waveMove 2.2s linear infinite}
+    @keyframes waveMove{from{background-position:0 0}to{background-position:84px 0}}
+    .audio-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .part-nav{display:flex;gap:8px;overflow-x:auto;padding:4px 4px 12px;margin-bottom:10px}
+    .part-btn{flex:0 0 auto;border:var(--line);box-shadow:3px 3px 0 var(--ink);border-radius:14px;background:white;padding:10px 12px;font-weight:1000}
+    .part-btn.active{background:var(--pink)}
+    .coach-card{background:#b8ff36;border:var(--line);box-shadow:var(--shadow);border-radius:22px;padding:14px;margin-bottom:16px;font-weight:900}
+    .question-card{background:var(--paper);border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
+    .question-card h3{font-size:17px;margin-bottom:10px}
+    .options{display:grid;gap:10px}
+    .option{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;border:2px solid var(--ink);border-radius:14px;background:white;padding:11px;font-weight:800}
+    .option input{width:20px;height:20px;box-shadow:none;margin-top:1px}
+    .option.correct{background:#bbf7d0}
+    .option.wrong{background:#fecaca}
+    .note-box{width:100%;min-height:64px;margin-top:10px;border:2px dashed var(--ink);border-radius:14px;background:#fff;padding:10px;font:inherit;font-weight:700}
+    .explain{display:none;margin-top:10px;border:2px solid var(--ink);border-radius:14px;background:#fff7cc;padding:10px;font-weight:800}
+    .explain.show{display:block}
+    .transcript-box{display:none;background:white;border:var(--line);border-radius:18px;padding:12px;margin-top:12px;font-weight:800;white-space:pre-line}
+    .transcript-box.show{display:block}
+    .qtag{display:inline-block;background:var(--blue);color:white;border:2px solid var(--ink);border-radius:999px;padding:4px 8px;font-size:11px;font-weight:1000;margin-bottom:8px}
+    .button-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    .button-row .wide{grid-column:1/-1}
+    .result-card{display:none;background:#b8ff36;border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
+    .result-card.show{display:block}
+    .part-summary{display:grid;gap:10px;margin-top:12px}
+    .part-row{background:white;border:2px solid var(--ink);border-radius:14px;padding:10px;font-weight:900}
+    .mode-note{font-size:12px;color:rgba(255,255,255,.72);font-weight:800}
+  </style>
+</head>
+<body>
+  <main class="phone-shell">
+    <section class="screen active">
+      <div class="brand-bar dark">
+        <button onclick="location.href='index.html'" class="hamb">←</button>
+        <div>
+          <div class="brand-small">MUET SmartHub Module</div>
+          <div class="brand-title">SmartListening</div>
+        </div>
+        <button class="hamb">🎧</button>
+      </div>
+
+      <div class="hero-neo listening-hero">
+        <div>
+          <p class="tiny">Listening 800/1</p>
+          <h1>Listen for keywords.</h1>
+          <p>Practise notes, distractors, answer checking and transcript review.</p>
+        </div>
+      </div>
+
+      <div class="session-tabs">
+        <button id="tabS1" class="session-tab active" onclick="ListeningApp.setSession('S1')">Session 1</button>
+        <button id="tabS2" class="session-tab" onclick="ListeningApp.setSession('S2')">Session 2</button>
+      </div>
+
+      <div class="audio-panel">
+        <p class="tiny" id="sessionLabel">Listening Practice Session 1</p>
+        <h2 id="audioTitle">Audio Simulation</h2>
+        <p class="mode-note">Prototype mode: use the “Play Script” button for browser speech audio. Later we will replace this with real MUET audio files.</p>
+        <div class="wave"></div>
+        <div class="audio-actions">
+          <button class="neo-btn yellow" onclick="ListeningApp.playScript()">▶ Play Script</button>
+          <button class="neo-btn pink" onclick="ListeningApp.stopScript()">■ Stop</button>
+        </div>
+      </div>
+
+      <div class="part-nav" id="partNav"></div>
+
+      <div class="coach-card" style="background:#D97706;color:var(--ink)">
+        <div class="tag">LISTENING STRATEGY</div>
+        <p id="coachTip">Read questions during silence. Write keywords, not full sentences.</p>
+      </div>
+
+      <div id="questionList"></div>
+
+      <div class="neo-panel">
+        <div class="button-row">
+          <button class="neo-btn yellow wide" onclick="ListeningApp.submit()">Submit Listening Answers</button>
+          <button class="neo-btn black" onclick="ListeningApp.resetPractice()">Reset</button>
+          <button class="neo-btn pink" onclick="location.href='index.html'">Hub</button>
+        </div>
+      </div>
+
+      <div id="resultCard" class="result-card">
+        <p class="tiny">Listening Practice Saved</p>
+        <h2 id="resultScore">Score</h2>
+        <p id="resultFeedback"></p>
+        <div id="partSummary" class="part-summary"></div>
+        <button class="neo-btn black" onclick="location.href='index.html'">Return to Hub Dashboard</button>
+      </div>
+    </section>
+
+    <div id="toast" class="toast">Saved</div>
+  </main>
+
+  <script>
+    const ListeningApp = (() => {
+      const LS_PROFILE = "muet_profile";
+      const LS_SESSIONS = "muet_listening_sessions";
+
+      const sessions = {
+        S1: {
+          title: "Session 1 — Campus Announcement",
+          label: "Listening Practice Session 1",
+          tip: "Read the questions first. Predict what you need to listen for: date, place, reason, action or speaker attitude.",
+          transcript: `Good morning students. This is a reminder about the English Language Unit workshop next Wednesday. The session will begin at 4.30 p.m. in Lecture Hall 2, not the language lab as stated earlier. Students are advised to bring their own notebooks and earphones. The workshop will focus on MUET Speaking and Writing strategies. Although attendance is encouraged, it is not compulsory. However, students who attend will receive extra practice materials after the session.`,
+          parts: [
+            {
+              name: "Part 1",
+              focus: "Direct Details",
+              questions: [
+                {
+                  type: "Detail",
+                  q: "When will the workshop be held?",
+                  options: ["Monday", "Tuesday", "Wednesday", "Friday"],
+                  answer: 2,
+                  why: "The announcement says the workshop is next Wednesday."
+                },
+                {
+                  type: "Location",
+                  q: "Where will the workshop be held?",
+                  options: ["Language lab", "Lecture Hall 2", "Main hall", "Library"],
+                  answer: 1,
+                  why: "The speaker corrects the earlier venue and says it will be in Lecture Hall 2."
+                },
+                {
+                  type: "Purpose",
+                  q: "What will the workshop focus on?",
+                  options: ["Reading and Listening", "Grammar and vocabulary", "Speaking and Writing strategies", "Essay marking only"],
+                  answer: 2,
+                  why: "The transcript states the workshop will focus on MUET Speaking and Writing strategies."
+                }
+              ]
+            },
+            {
+              name: "Part 2",
+              focus: "Inference and Attitude",
+              questions: [
+                {
+                  type: "Inference",
+                  q: "Is attendance compulsory?",
+                  options: ["Yes, for all students", "No, but students are encouraged to attend", "Only for weak students", "Only for lecturers"],
+                  answer: 1,
+                  why: "The speaker says attendance is encouraged but not compulsory."
+                },
+                {
+                  type: "Benefit",
+                  q: "What will students receive if they attend?",
+                  options: ["Free meals", "Extra practice materials", "A certificate", "Transport allowance"],
+                  answer: 1,
+                  why: "The final sentence says students who attend will receive extra practice materials."
+                }
+              ]
+            }
+          ]
+        },
+        S2: {
+          title: "Session 2 — Student Interview",
+          label: "Listening Practice Session 2",
+          tip: "Watch for distractors. A speaker may mention one option first, then correct it later.",
+          transcript: `Interviewer: How do you usually prepare for MUET?
+Student: At first, I only focused on reading because I thought it was the hardest paper. But after doing a few practices, I realised writing was actually my weakest skill. Now I spend more time planning essays and checking grammar. I also record myself speaking twice a week. My friend suggested joining a weekend class, but I prefer online materials because I can study at night after my part-time job.`,
+          parts: [
+            {
+              name: "Part 1",
+              focus: "Distractor Awareness",
+              questions: [
+                {
+                  type: "Distractor",
+                  q: "Which skill did the student initially focus on?",
+                  options: ["Writing", "Reading", "Speaking", "Listening"],
+                  answer: 1,
+                  why: "The student says at first they only focused on reading."
+                },
+                {
+                  type: "Weakness",
+                  q: "Which skill became the student's weakest skill?",
+                  options: ["Reading", "Writing", "Listening", "Speaking"],
+                  answer: 1,
+                  why: "The student says writing was actually the weakest skill."
+                },
+                {
+                  type: "Routine",
+                  q: "How often does the student record speaking practice?",
+                  options: ["Every day", "Once a month", "Twice a week", "Only before exam"],
+                  answer: 2,
+                  why: "The student says they record themselves speaking twice a week."
+                }
+              ]
+            },
+            {
+              name: "Part 2",
+              focus: "Reason and Preference",
+              questions: [
+                {
+                  type: "Preference",
+                  q: "What does the student prefer?",
+                  options: ["Weekend class", "Online materials", "Group tuition", "Face-to-face workshop"],
+                  answer: 1,
+                  why: "The student says they prefer online materials."
+                },
+                {
+                  type: "Reason",
+                  q: "Why does the student prefer that option?",
+                  options: ["It is free", "They can study at night after a part-time job", "Their friend dislikes classes", "It has no homework"],
+                  answer: 1,
+                  why: "The reason given is that the student can study at night after their part-time job."
+                }
+              ]
+            }
+          ]
+        }
+      };
+
+      let currentSession = "S1";
+      let currentPart = 0;
+      let submitted = false;
+      let utterance = null;
+
+      function init(){
+        setSession("S1");
+      }
+
+      function setSession(id){
+        currentSession = id;
+        currentPart = 0;
+        submitted = false;
+        stopScript();
+        document.getElementById("tabS1").classList.toggle("active", id==="S1");
+        document.getElementById("tabS2").classList.toggle("active", id==="S2");
+        renderSession();
+        document.getElementById("resultCard").classList.remove("show");
+      }
+
+      function renderSession(){
+        const s = sessions[currentSession];
+        document.getElementById("sessionLabel").textContent = s.label;
+        document.getElementById("audioTitle").textContent = s.title;
+        document.getElementById("coachTip").textContent = s.tip;
+
+        const nav = document.getElementById("partNav");
+        nav.innerHTML = s.parts.map((p, i) => `
+          <button class="part-btn ${i===currentPart ? "active" : ""}" onclick="ListeningApp.setPart(${i})">${p.name}</button>
+        `).join("");
+
+        renderQuestions();
+      }
+
+      function setPart(index){
+        currentPart = index;
+        renderSession();
+      }
+
+      function renderQuestions(){
+        const s = sessions[currentSession];
+        const part = s.parts[currentPart];
+        const list = document.getElementById("questionList");
+
+        list.innerHTML = `
+          <div class="question-card">
+            <p class="tiny">${part.name}</p>
+            <h2>${part.focus}</h2>
+            <p class="sub">Use the notes boxes while listening. Transcript will appear only after submission.</p>
+            <div id="transcriptBox" class="transcript-box">${s.transcript}</div>
+          </div>
+          ${part.questions.map((q, qi) => {
+            const globalId = `${currentSession}-${currentPart}-${qi}`;
+            return `
+              <div class="question-card" data-q="${qi}">
+                <span class="qtag">${q.type}</span>
+                <h3>Q${qi+1}. ${q.q}</h3>
+                <div class="options">
+                  ${q.options.map((op, oi) => `
+                    <label class="option" data-option="${oi}">
+                      <input type="radio" name="q${qi}" value="${oi}">
+                      <span>${String.fromCharCode(65+oi)}. ${op}</span>
+                    </label>
+                  `).join("")}
+                </div>
+                <textarea class="note-box" id="note-${globalId}" placeholder="Write listening keywords here..."></textarea>
+                <div class="explain" id="explain-${qi}"></div>
+              </div>
+            `;
+          }).join("")}
+        `;
+      }
+
+      function playScript(){
+        stopScript();
+        const text = sessions[currentSession].transcript;
+        if(!("speechSynthesis" in window)){
+          toast("Speech playback is not supported in this browser.");
+          return;
+        }
+        utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.88;
+        utterance.pitch = 1;
+        utterance.lang = "en-GB";
+        speechSynthesis.speak(utterance);
+        toast("Playing script audio simulation.");
+      }
+
+      function stopScript(){
+        if("speechSynthesis" in window) speechSynthesis.cancel();
+        utterance = null;
+      }
+
+      function submit(){
+        if(submitted){
+          toast("This part has already been submitted.");
+          return;
+        }
+        submitted = true;
+        stopScript();
+
+        const s = sessions[currentSession];
+        const part = s.parts[currentPart];
+        let correct = 0;
+        const notes = [];
+        const typeErrors = {};
+
+        part.questions.forEach((q, qi) => {
+          const selected = document.querySelector(`input[name="q${qi}"]:checked`);
+          const ans = selected ? Number(selected.value) : -1;
+          const isCorrect = ans === q.answer;
+          if(isCorrect) correct++;
+          if(!isCorrect) typeErrors[q.type] = (typeErrors[q.type] || 0) + 1;
+
+          const noteEl = document.getElementById(`note-${currentSession}-${currentPart}-${qi}`);
+          notes.push(noteEl ? noteEl.value : "");
+
+          const card = document.querySelector(`.question-card[data-q="${qi}"]`);
+          card.querySelectorAll(".option").forEach(opt => {
+            const oi = Number(opt.dataset.option);
+            if(oi === q.answer) opt.classList.add("correct");
+            if(oi === ans && oi !== q.answer) opt.classList.add("wrong");
+          });
+
+          const explain = document.getElementById(`explain-${qi}`);
+          explain.innerHTML = `<b>Answer: ${String.fromCharCode(65+q.answer)}</b><br>${q.why}`;
+          explain.classList.add("show");
+        });
+
+        document.getElementById("transcriptBox").classList.add("show");
+
+        const totalQ = part.questions.length;
+        const score90 = Math.round((correct / totalQ) * 90);
+        const percent = Math.round((correct / totalQ) * 100);
+        const weakestType = Object.entries(typeErrors).sort((a,b)=>b[1]-a[1])[0]?.[0] || "None";
+
+        const session = {
+          session: s.label,
+          part: part.name,
+          date: new Date().toISOString(),
+          cycleNumber: (JSON.parse(localStorage.getItem('muet_profile') || '{}').currentCycle || 1),
+          rawScore: correct,
+          totalQ,
+          score90,
+          percent,
+          parts: { [part.name]: { correct, total: totalQ } },
+          strongestPart: percent >= 70 ? part.name : "",
+          weakestType,
+          notes,
+          transcriptRevealed: true,
+          xpEarned: 70 + correct * 10
+        };
+
+        const history = JSON.parse(localStorage.getItem(LS_SESSIONS) || "[]");
+        history.push(session);
+        localStorage.setItem(LS_SESSIONS, JSON.stringify(history));
+        updateProfile(session);
+
+        document.getElementById("resultScore").textContent = `${correct}/${totalQ} · ${score90}/90`;
+        document.getElementById("resultFeedback").textContent = feedback(percent, weakestType);
+        document.getElementById("partSummary").innerHTML = `
+          <div class="part-row">${part.name}: ${correct}/${totalQ}</div>
+          <div class="part-row">Question Focus: ${part.focus}</div>
+          <div class="part-row">Weakest Listening Type: ${weakestType}</div>
+        `;
+
+        document.getElementById("resultCard").classList.add("show");
+        toast("Listening score saved to Hub.");
+        window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+      }
+
+      function feedback(percent, weakestType){
+        if(percent >= 80) return "Excellent listening focus. Continue practising longer parts and multiple-answer questions.";
+        if(percent >= 65) return `Good progress. Review transcript and check ${weakestType} items carefully.`;
+        if(percent >= 50) return `Developing. Read questions first and listen for signal words. Focus area: ${weakestType}.`;
+        return `Foundation practice needed. Write keywords during audio and avoid choosing the first option you hear. Focus area: ${weakestType}.`;
+      }
+
+      function updateProfile(session){
+        const profile = JSON.parse(localStorage.getItem(LS_PROFILE) || "{}");
+        profile.xp = (profile.xp || 0) + (session.xpEarned || 70);
+        // streak managed by daily login
+        profile.badges = profile.badges || ["first_step"];
+        profile.badges.push("audio_focus");
+        if(session.percent >= 80) profile.badges.push("sharp_ears");
+        profile.badges = [...new Set(profile.badges)];
+        profile.lastVisit = new Date().toISOString();
+        profile.lastVisit = new Date().toISOString();
+        localStorage.setItem(LS_PROFILE, JSON.stringify(profile));
+        if(typeof MuetNeo !== 'undefined') MuetNeo.afterSessionSave();
+      }
+
+      function resetPractice(){
+        submitted = false;
+        stopScript();
+        renderQuestions();
+        document.getElementById("resultCard").classList.remove("show");
+        toast("Listening practice reset.");
+      }
+
+      function toast(msg){
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 2500);
+      }
+
+      return {init,setSession,setPart,playScript,stopScript,submit,resetPractice};
+    })();
+
+    document.addEventListener("DOMContentLoaded", ListeningApp.init);
+  </script>
+</body>
+</html>

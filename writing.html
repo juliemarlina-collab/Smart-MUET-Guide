@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartWriting · MUET SmartHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/muet-neopop.css"/>
+  <style>
+    .writing-hero{background:var(--pink);color:var(--ink)}
+    .writing-hero p{font-weight:900}
+    .task-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+    .task-tab{border:var(--line);box-shadow:3px 3px 0 var(--ink);border-radius:16px;background:white;padding:12px;font-weight:1000}
+    .task-tab.active{background:var(--yellow)}
+    .prompt-card{background:white;border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
+    .topic-select{margin-top:10px}
+    .timer-card{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;background:var(--yellow);border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
+    .timer-big{font-family:Sora;font-size:34px;font-weight:800}
+    .writing-box{width:100%;min-height:260px;border:var(--line);border-radius:18px;background:white;padding:14px;font:inherit;font-weight:700;line-height:1.5}
+    .writing-tools{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px}
+    .tool-card{border:var(--line);border-radius:16px;background:white;box-shadow:3px 3px 0 var(--ink);padding:10px;text-align:center}
+    .tool-card b{display:block;font-family:Sora;font-size:20px}
+    .tool-card small{font-weight:900;color:var(--muted);text-transform:uppercase;font-size:10px}
+    .rubric-list{display:grid;gap:10px}
+    .rubric-item{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border:2px solid var(--ink);border-radius:14px;background:white;padding:10px;font-weight:900}
+    .rubric-item input{width:20px;height:20px;box-shadow:none}
+    .score-pill{border:2px solid var(--ink);border-radius:999px;background:var(--yellow);padding:5px 9px;font-size:12px}
+    .coach-note{background:var(--blue);color:white;border:var(--line);box-shadow:var(--shadow);border-radius:20px;padding:14px;margin-bottom:16px;font-weight:800}
+    .coach-note .tag{color:var(--ink)}
+    .button-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    .button-row .wide{grid-column:1/-1}
+    .result-card{display:none;background:#b8ff36;border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
+    .result-card.show{display:block}
+    .mini-feedback{background:white;border:var(--line);border-radius:16px;padding:12px;margin-top:12px;font-weight:800}
+    .word-status.good{color:#047857}
+    .word-status.warn{color:#b45309}
+    .word-status.danger{color:#dc2626}
+  </style>
+</head>
+<body>
+  <main class="phone-shell">
+    <section class="screen active">
+      <div class="brand-bar dark">
+        <button onclick="location.href='index.html'" class="hamb">←</button>
+        <div>
+          <div class="brand-small">MUET SmartHub Module</div>
+          <div class="brand-title">SmartWriting</div>
+        </div>
+        <button class="hamb">✍️</button>
+      </div>
+
+      <div class="hero-neo writing-hero">
+        <div>
+          <p class="tiny">Writing 800/4</p>
+          <h1>Write with purpose.</h1>
+          <p>Task 1 email/letter + Task 2 essay with rubric-based practice.</p>
+        </div>
+      </div>
+
+      <div class="task-tabs">
+        <button id="tab1" class="task-tab active" onclick="WritingApp.setTask('1')">Task 1</button>
+        <button id="tab2" class="task-tab" onclick="WritingApp.setTask('2')">Task 2</button>
+      </div>
+
+      <div class="prompt-card">
+        <p class="tiny">Writing Prompt</p>
+        <h2 id="taskTitle">Task 1 — Email / Letter</h2>
+        <select id="topicSelect" class="topic-select" onchange="WritingApp.changeTopic()"></select>
+        <p id="topicPrompt" class="sub"></p>
+      </div>
+
+      <div class="coach-note" style="background:#7C3AED;color:white">
+        <div class="tag" style="background:white;color:#7C3AED">✍️ MIRA — Writing Coach</div>
+        <p id="coachTip">Cover all bullet points. Missing one point will reduce your task fulfilment score.</p>
+      </div>
+
+      <div class="timer-card">
+        <div>
+          <p class="tiny" id="timerLabel">Task 1 Timer</p>
+          <div id="timer" class="timer-big">25:00</div>
+        </div>
+        <button id="timerBtn" class="neo-btn black" onclick="WritingApp.toggleTimer()">Start</button>
+      </div>
+
+      <div class="neo-panel">
+        <h2>Your Answer</h2>
+        <p class="sub" id="writingInstruction">Recommended: 150–180 words. Cover all bullet points.</p>
+        <textarea id="answerBox" class="writing-box" placeholder="Type your answer here..." oninput="WritingApp.updateWordCount()"></textarea>
+
+        <div class="writing-tools">
+          <div class="tool-card">
+            <b id="wordCount">0</b>
+            <small>Words</small>
+          </div>
+          <div class="tool-card">
+            <b id="targetWords">150+</b>
+            <small>Target</small>
+          </div>
+          <div class="tool-card">
+            <b id="wordStatus" class="word-status danger">Low</b>
+            <small>Status</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="neo-panel">
+        <h2>Writing Rubric Check</h2>
+        <p class="sub">Tick what your answer achieved. The app estimates your practice score out of 90.</p>
+        <div id="rubricList" class="rubric-list"></div>
+        <div class="button-row">
+          <button class="neo-btn yellow wide" onclick="WritingApp.submit()">Submit Writing Practice</button>
+          <button class="neo-btn black" onclick="WritingApp.resetPractice()">Reset</button>
+          <button class="neo-btn pink" onclick="location.href='index.html'">Hub</button>
+        </div>
+      </div>
+
+      <div id="resultCard" class="result-card">
+        <p class="tiny">Writing Practice Saved</p>
+        <h2 id="resultBand">Band Estimate</h2>
+        <p id="resultFeedback"></p>
+        <div id="miniFeedback" class="mini-feedback"></div>
+        <button class="neo-btn black" onclick="location.href='index.html'">Return to Hub Dashboard</button>
+      </div>
+    </section>
+
+    <div id="toast" class="toast">Saved</div>
+  </main>
+
+  <script>
+    const WritingApp = (() => {
+      const LS_PROFILE = "muet_profile";
+      const LS_SESSIONS = "muet_writing_sessions";
+
+      const topics1 = [
+        {
+          id:"T1-1",
+          title:"Email to Lecturer",
+          prompt:"You missed an important class due to a family emergency. Write an email to your lecturer explaining your absence, apologising, and asking how you can catch up.",
+          tip:"Use a polite tone. Include greeting, reason, apology, request and closing."
+        },
+        {
+          id:"T1-2",
+          title:"Reply to Friend",
+          prompt:"Your friend has invited you to join a study group for MUET. Write a reply accepting the invitation, asking about the time and suggesting what materials to bring.",
+          tip:"Make sure you respond to every point. Keep your tone friendly but clear."
+        },
+        {
+          id:"T1-3",
+          title:"Complaint Email",
+          prompt:"You ordered MUET reference books online but received the wrong items. Write an email to the seller explaining the issue and requesting a replacement.",
+          tip:"Be clear and formal. State the problem, evidence and action requested."
+        }
+      ];
+
+      const topics2 = [
+        {
+          id:"T2-1",
+          title:"Technology and Learning",
+          prompt:"Online learning is more effective than traditional classroom learning. Do you agree? Write an essay of at least 350 words.",
+          tip:"State your thesis in the first paragraph. Use PEEL for each body paragraph."
+        },
+        {
+          id:"T2-2",
+          title:"Social Media",
+          prompt:"Social media has done more harm than good to young people. Discuss your opinion in an essay of at least 350 words.",
+          tip:"Avoid one-sided generalisation. Explain your stand clearly and support it with examples."
+        },
+        {
+          id:"T2-3",
+          title:"Student Lifestyle",
+          prompt:"Students should be encouraged to take part in co-curricular activities. To what extent do you agree? Write at least 350 words.",
+          tip:"Use clear paragraphing: introduction, two or three body paragraphs and conclusion."
+        }
+      ];
+
+      const rubric1 = [
+        ["fulfilment", "Task fulfilment", "All bullet points / task requirements are addressed", 8],
+        ["tone", "Tone and register", "Tone is suitable for the reader and situation", 6],
+        ["organisation", "Organisation", "Email/letter has clear opening, body and closing", 6],
+        ["language", "Language accuracy", "Grammar and sentence structure are mostly accurate", 6],
+        ["vocab", "Vocabulary", "Word choice is appropriate and clear", 4]
+      ];
+
+      const rubric2 = [
+        ["position", "Position / thesis", "Clear stand is stated early and maintained", 12],
+        ["content", "Content and elaboration", "Ideas are relevant, developed and supported", 14],
+        ["organisation", "Organisation", "Essay has clear paragraphing and logical flow", 10],
+        ["cohesion", "Cohesion", "Connectors and linking are used effectively", 8],
+        ["language", "Language accuracy", "Grammar and sentence control are strong", 10],
+        ["vocab", "Vocabulary range", "Uses suitable academic vocabulary", 6]
+      ];
+
+      let task = "1";
+      let seconds = 25 * 60;
+      let timerId = null;
+
+      function init(){
+        setTask("1");
+        updateWordCount();
+      }
+
+      function setTask(t){
+        task = t;
+        document.getElementById("tab1").classList.toggle("active", task==="1");
+        document.getElementById("tab2").classList.toggle("active", task==="2");
+        document.getElementById("taskTitle").textContent = task==="1" ? "Task 1 — Email / Letter" : "Task 2 — Essay";
+        document.getElementById("writingInstruction").textContent = task==="1"
+          ? "Recommended: 150–180 words. Cover all bullet points."
+          : "Recommended: 380–420 words. State your thesis clearly and use PEEL.";
+        document.getElementById("targetWords").textContent = task==="1" ? "150+" : "350+";
+        seconds = task==="1" ? 25 * 60 : 50 * 60;
+        stopTimer();
+        renderTimer();
+        renderTopics();
+        renderRubric();
+        changeTopic();
+        updateWordCount();
+      }
+
+      function renderTopics(){
+        const select = document.getElementById("topicSelect");
+        const data = task==="1" ? topics1 : topics2;
+        select.innerHTML = data.map(x => `<option value="${x.id}">${x.title}</option>`).join("");
+      }
+
+      function getTopic(){
+        const id = document.getElementById("topicSelect").value;
+        const data = task==="1" ? topics1 : topics2;
+        return data.find(x => x.id === id) || data[0];
+      }
+
+      function changeTopic(){
+        const topic = getTopic();
+        document.getElementById("topicPrompt").textContent = topic.prompt;
+        document.getElementById("coachTip").textContent = topic.tip;
+      }
+
+      function renderRubric(){
+        const list = document.getElementById("rubricList");
+        const data = task==="1" ? rubric1 : rubric2;
+        list.innerHTML = data.map(item => `
+          <label class="rubric-item">
+            <input type="checkbox" data-score="${item[3]}" data-id="${item[0]}"/>
+            <span><b>${item[1]}</b><br><small>${item[2]}</small></span>
+            <span class="score-pill">${item[3]}</span>
+          </label>
+        `).join("");
+      }
+
+      function toggleTimer(){
+        if(timerId){ stopTimer(); return; }
+        timerId = setInterval(() => {
+          seconds--;
+          renderTimer();
+          if(task==="1" && seconds === 5*60) toast("5 minutes left for Task 1. Finish your closing.");
+          if(task==="2" && seconds === 5*60) toast("5 minutes left. Proofread grammar and connectors.");
+          if(seconds <= 0){
+            stopTimer();
+            toast(task==="1" ? "Task 1 time finished. Move to Task 2." : "Task 2 time finished. Submit and review.");
+          }
+        }, 1000);
+        document.getElementById("timerBtn").textContent = "Pause";
+      }
+
+      function stopTimer(){
+        if(timerId) clearInterval(timerId);
+        timerId = null;
+        const btn = document.getElementById("timerBtn");
+        if(btn) btn.textContent = "Start";
+      }
+
+      function renderTimer(){
+        const m = String(Math.floor(seconds/60)).padStart(2,"0");
+        const s = String(seconds%60).padStart(2,"0");
+        document.getElementById("timer").textContent = `${m}:${s}`;
+        document.getElementById("timerLabel").textContent = task==="1" ? "25-Minute Task 1 Timer" : "50-Minute Task 2 Timer";
+      }
+
+      function countWords(text){
+        return text.trim().split(/\s+/).filter(Boolean).length;
+      }
+
+      function updateWordCount(){
+        const words = countWords(document.getElementById("answerBox").value);
+        const min = task==="1" ? 120 : 350;
+        const ideal = task==="1" ? 150 : 380;
+        const status = document.getElementById("wordStatus");
+        document.getElementById("wordCount").textContent = words;
+
+        status.classList.remove("good","warn","danger");
+        if(words >= ideal){
+          status.textContent = "Good";
+          status.classList.add("good");
+        } else if(words >= min){
+          status.textContent = "Okay";
+          status.classList.add("warn");
+        } else {
+          status.textContent = "Low";
+          status.classList.add("danger");
+        }
+      }
+
+      function scoreToBand(score){
+        if(score >= 83) return "5.0";
+        if(score >= 74) return "4.5";
+        if(score >= 64) return "4.0";
+        if(score >= 53) return "3.5";
+        if(score >= 41) return "3.0";
+        if(score >= 31) return "2.5";
+        if(score >= 20) return "2.0";
+        return "1.0";
+      }
+
+      function generateFeedback(score, words, checkedCount){
+        if(score >= 74) return "Strong writing response. Focus next on precision, natural expression and proofreading.";
+        if(score >= 64) return "Target zone. Your writing has structure, but strengthen examples, connectors and accuracy.";
+        if(score >= 53) return "Developing response. Improve task fulfilment, paragraph depth and sentence control.";
+        if(words < (task==="1" ? 120 : 350)) return "Your answer is too short. Build content before worrying about advanced vocabulary.";
+        if(checkedCount <= 2) return "Your writing needs clearer task response. Use the checklist before submitting.";
+        return "Keep practising. Focus on structure, task fulfilment and grammar accuracy.";
+      }
+
+      function miniDiagnostic(words, checks){
+        const needed = task==="1" ? 120 : 350;
+        const missing = [];
+        if(words < needed) missing.push("Increase word count to meet the minimum expectation.");
+        if(!checks.includes(task==="1" ? "fulfilment" : "position")) missing.push(task==="1" ? "Make sure all bullet points are covered." : "State a clear thesis or position early.");
+        if(!checks.includes("language")) missing.push("Proofread grammar, sentence structure and verb forms.");
+        if(!checks.includes("organisation")) missing.push("Improve paragraphing and logical flow.");
+        return missing.length ? "<b>Next improvement:</b><br>• " + missing.join("<br>• ") : "<b>Great:</b> Your checklist shows a balanced response. Now refine vocabulary and accuracy.";
+      }
+
+      function submit(){
+        const answer = document.getElementById("answerBox").value.trim();
+        const words = countWords(answer);
+        const checks = [...document.querySelectorAll("#rubricList input:checked")];
+        const checkedIds = checks.map(c => c.dataset.id);
+        const raw = checks.reduce((sum, c) => sum + Number(c.dataset.score), 0);
+        const max = (task==="1" ? rubric1 : rubric2).reduce((sum, item) => sum + item[3], 0);
+        let score90 = Math.round((raw / max) * 90);
+
+        const minWords = task==="1" ? 120 : 350;
+        if(words < minWords) score90 = Math.max(0, score90 - 10);
+
+        const band = scoreToBand(score90);
+        const topic = getTopic();
+
+        const session = {
+          task: task==="1" ? "Task 1" : "Task 2",
+          topicId: topic.id,
+          topicTitle: topic.title,
+          prompt: topic.prompt,
+          answer,
+          wordCount: words,
+          score: score90,
+          score90,
+          band: Number(band.replace("+","")),
+          bandLabel: band,
+          checks: checkedIds,
+          feedback: generateFeedback(score90, words, checks.length),
+          taskType: task,
+          cycleNumber: (JSON.parse(localStorage.getItem('muet_profile') || '{}').currentCycle || 1),
+          duration: task==="1" ? 25 : 50,
+          date: new Date().toISOString(),
+          xpEarned: 90 + checks.length * 5
+        };
+
+        const sessions = JSON.parse(localStorage.getItem(LS_SESSIONS) || "[]");
+        sessions.push(session);
+        localStorage.setItem(LS_SESSIONS, JSON.stringify(sessions));
+
+        updateProfileBadges(session);
+
+        document.getElementById("resultBand").textContent = `Estimated Band ${band} · ${score90}/90`;
+        document.getElementById("resultFeedback").textContent = session.feedback;
+        document.getElementById("miniFeedback").innerHTML = miniDiagnostic(words, checkedIds);
+        document.getElementById("resultCard").classList.add("show");
+        toast("Writing practice saved to Hub.");
+        window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+      }
+
+      function updateProfileBadges(session){
+        const profile = JSON.parse(localStorage.getItem(LS_PROFILE) || "{}");
+        profile.xp = (profile.xp || 0) + (session.xpEarned || 90);
+        profile.streak = profile.streak || 1;
+        profile.badges = profile.badges || ["first_step"];
+        if(session.task === "Task 1") profile.badges.push("email_ready");
+        if(session.task === "Task 2") profile.badges.push("essay_builder");
+        profile.badges = [...new Set(profile.badges)];
+        profile.lastVisit = new Date().toISOString();
+        localStorage.setItem(LS_PROFILE, JSON.stringify(profile));
+      }
+
+      function resetPractice(){
+        document.getElementById("answerBox").value = "";
+        document.querySelectorAll("#rubricList input").forEach(x => x.checked = false);
+        document.getElementById("resultCard").classList.remove("show");
+        seconds = task==="1" ? 25 * 60 : 50 * 60;
+        stopTimer();
+        renderTimer();
+        updateWordCount();
+        toast("Writing practice reset.");
+      }
+
+      function toast(msg){
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 2500);
+      }
+
+      return {init,setTask,changeTopic,toggleTimer,updateWordCount,submit,resetPractice};
+    })();
+
+    document.addEventListener("DOMContentLoaded", WritingApp.init);
+  </script>
+</body>
+</html>

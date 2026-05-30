@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartReading · MUET SmartHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/muet-neopop.css"/>
+  <style>
+    .reading-hero{background:#19d58a;color:var(--ink)}
+    .reading-hero p{font-weight:900}
+    .paper-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+    .paper-tab{border:var(--line);box-shadow:3px 3px 0 var(--ink);border-radius:16px;background:white;padding:12px;font-weight:1000}
+    .paper-tab.active{background:var(--yellow)}
+    .strategy-card{background:var(--yellow);border:var(--line);box-shadow:var(--shadow);border-radius:22px;padding:14px;margin-bottom:16px;font-weight:900}
+    .timer-card{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;background:var(--blue);color:white;border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
+    .timer-card .tiny{color:rgba(255,255,255,.82)}
+    .timer-big{font-family:Sora;font-size:34px;font-weight:800}
+    .passage-card,.question-card{background:var(--paper);border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
+    .passage-text{background:white;border:2px solid var(--ink);border-radius:18px;padding:14px;font-weight:700;line-height:1.55;white-space:pre-line}
+    .question-card h3{font-size:17px;margin-bottom:10px}
+    .options{display:grid;gap:10px}
+    .option{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;border:2px solid var(--ink);border-radius:14px;background:white;padding:11px;font-weight:800}
+    .option input{width:20px;height:20px;box-shadow:none;margin-top:1px}
+    .option.correct{background:#bbf7d0}
+    .option.wrong{background:#fecaca}
+    .explain{display:none;margin-top:10px;border:2px solid var(--ink);border-radius:14px;background:#fff7cc;padding:10px;font-weight:800}
+    .explain.show{display:block}
+    .button-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    .button-row .wide{grid-column:1/-1}
+    .result-card{display:none;background:#b8ff36;border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
+    .result-card.show{display:block}
+    .part-summary{display:grid;gap:10px;margin-top:12px}
+    .part-row{background:white;border:2px solid var(--ink);border-radius:14px;padding:10px;font-weight:900}
+    .qtag{display:inline-block;background:var(--pink);border:2px solid var(--ink);border-radius:999px;padding:4px 8px;font-size:11px;font-weight:1000;margin-bottom:8px}
+  </style>
+</head>
+<body>
+  <main class="phone-shell">
+    <section class="screen active">
+      <div class="brand-bar dark">
+        <button onclick="location.href='index.html'" class="hamb">←</button>
+        <div>
+          <div class="brand-small">MUET SmartHub Module</div>
+          <div class="brand-title">SmartReading</div>
+        </div>
+        <button class="hamb">📖</button>
+      </div>
+
+      <div class="hero-neo reading-hero">
+        <div>
+          <p class="tiny">Reading 800/3</p>
+          <h1>Read questions first.</h1>
+          <p>Practise targeted reading, answer checking and explanation review.</p>
+        </div>
+      </div>
+
+      <div class="paper-tabs">
+        <button id="tabP1" class="paper-tab active" onclick="ReadingApp.setPaper('P1')">Set 1</button>
+        <button id="tabP2" class="paper-tab" onclick="ReadingApp.setPaper('P2')">Set 2</button>
+      </div>
+
+      <div class="strategy-card" style="background:#059669;color:white">
+        <div class="tag" style="background:white;color:#059669">📖 RIZ — Reading Coach</div>
+        <p id="strategyText">Read the questions first. Underline keywords. Then scan the passage for direct answers, paraphrases and inference clues.</p>
+      </div>
+
+      <div class="timer-card">
+        <div>
+          <p class="tiny">Reading Practice Timer</p>
+          <div id="timer" class="timer-big">15:00</div>
+        </div>
+        <button id="timerBtn" class="neo-btn yellow" onclick="ReadingApp.toggleTimer()">Start</button>
+      </div>
+
+      <div class="passage-card">
+        <p class="tiny" id="paperLabel">Practice Set 1</p>
+        <h2 id="passageTitle">Passage Title</h2>
+        <div id="passageText" class="passage-text"></div>
+      </div>
+
+      <div id="questionList"></div>
+
+      <div class="neo-panel">
+        <div class="button-row">
+          <button class="neo-btn yellow wide" onclick="ReadingApp.submit()">Submit Reading Answers</button>
+          <button class="neo-btn black" onclick="ReadingApp.resetPractice()">Reset</button>
+          <button class="neo-btn pink" onclick="location.href='index.html'">Hub</button>
+        </div>
+      </div>
+
+      <div id="resultCard" class="result-card">
+        <p class="tiny">Reading Practice Saved</p>
+        <h2 id="resultScore">Score</h2>
+        <p id="resultFeedback"></p>
+        <div id="partSummary" class="part-summary"></div>
+        <button class="neo-btn black" onclick="location.href='index.html'">Return to Hub Dashboard</button>
+      </div>
+    </section>
+
+    <div id="toast" class="toast">Saved</div>
+  </main>
+
+  <script>
+    const ReadingApp = (() => {
+      const LS_PROFILE = "muet_profile";
+      const LS_HISTORY = "muet_reading_history";
+
+      const papers = {
+        P1: {
+          title: "Students and Online Learning",
+          label: "Set 1 — Foundation Reading",
+          time: 15 * 60,
+          strategy: "Read the questions first. This set focuses on direct retrieval and paraphrase recognition.",
+          passage: `Online learning has become a common part of student life. Many diploma students use online platforms to attend classes, submit assignments and communicate with lecturers. One major advantage of online learning is flexibility. Students can access recorded lessons and revise at their own pace.
+
+However, online learning also requires discipline. Some students find it difficult to focus when studying from home because of distractions such as social media, household responsibilities and unstable internet connections. Lecturers also need to design lessons that are interactive so students do not become passive learners.
+
+A blended learning approach may be more practical for many institutions. In this approach, students attend some classes face-to-face while completing selected activities online. This allows students to benefit from classroom interaction and digital flexibility at the same time.`,
+          questions: [
+            {
+              part: "Part 1",
+              type: "Direct retrieval",
+              q: "What is one major advantage of online learning mentioned in the passage?",
+              options: ["It is always cheaper", "It provides flexibility", "It removes all distractions", "It replaces lecturers"],
+              answer: 1,
+              why: "The passage directly states that one major advantage of online learning is flexibility."
+            },
+            {
+              part: "Part 1",
+              type: "Paraphrase",
+              q: "The phrase 'revise at their own pace' means students can...",
+              options: ["study according to their own speed", "avoid all assignments", "finish classes earlier than others", "replace classroom learning"],
+              answer: 0,
+              why: "At their own pace means according to their own speed or timing."
+            },
+            {
+              part: "Part 2",
+              type: "Direct retrieval",
+              q: "Which problem is NOT mentioned as a distraction when studying from home?",
+              options: ["Social media", "Household responsibilities", "Unstable internet", "Lack of textbooks"],
+              answer: 3,
+              why: "The passage mentions social media, household responsibilities and unstable internet, but not lack of textbooks."
+            },
+            {
+              part: "Part 2",
+              type: "Inference",
+              q: "Why does the writer suggest interactive online lessons?",
+              options: ["To make students passive", "To reduce student engagement", "To prevent students from becoming passive learners", "To remove face-to-face classes completely"],
+              answer: 2,
+              why: "The writer says lecturers need interactive lessons so students do not become passive learners."
+            },
+            {
+              part: "Part 3",
+              type: "Main idea",
+              q: "What is the main idea of the final paragraph?",
+              options: ["Online learning should be stopped", "Blended learning can combine classroom interaction and digital flexibility", "Students should only learn at home", "Lecturers should not use online platforms"],
+              answer: 1,
+              why: "The final paragraph explains that blended learning gives both classroom interaction and digital flexibility."
+            }
+          ]
+        },
+        P2: {
+          title: "Managing Screen Time",
+          label: "Set 2 — Developing Reading",
+          time: 18 * 60,
+          strategy: "This set focuses on inference and writer’s purpose. Watch for implied meaning, not only repeated words.",
+          passage: `Many young people spend several hours a day using digital devices. Phones, tablets and laptops help students search for information, complete assignments and stay connected with friends. Digital tools are useful, but excessive screen time may affect sleep quality, concentration and emotional well-being.
+
+Experts recommend that students set clear boundaries. For example, they can avoid using their phones thirty minutes before sleeping, turn off unnecessary notifications and schedule short breaks during study sessions. These habits may seem small, but they can improve focus and reduce stress.
+
+The goal is not to reject technology. Instead, students should learn to control how they use it. When digital tools are used intentionally, they can support learning without harming health.`,
+          questions: [
+            {
+              part: "Part 1",
+              type: "Direct retrieval",
+              q: "According to the passage, digital devices help students...",
+              options: ["avoid assignments", "search for information", "sleep longer", "reject technology"],
+              answer: 1,
+              why: "The first paragraph states that devices help students search for information and complete assignments."
+            },
+            {
+              part: "Part 1",
+              type: "Paraphrase",
+              q: "The word 'excessive' in the passage is closest in meaning to...",
+              options: ["limited", "balanced", "too much", "useful"],
+              answer: 2,
+              why: "Excessive means more than necessary or too much."
+            },
+            {
+              part: "Part 2",
+              type: "Direct retrieval",
+              q: "Which habit is recommended before sleeping?",
+              options: ["Use phone for one hour", "Avoid phone thirty minutes before sleeping", "Turn on notifications", "Study without breaks"],
+              answer: 1,
+              why: "The passage recommends avoiding phone use thirty minutes before sleeping."
+            },
+            {
+              part: "Part 3",
+              type: "Inference",
+              q: "What does the writer imply about technology?",
+              options: ["It is always harmful", "It should be used intentionally", "It should be banned in colleges", "It cannot support learning"],
+              answer: 1,
+              why: "The writer says the goal is not to reject technology but to control how it is used."
+            },
+            {
+              part: "Part 3",
+              type: "Writer's purpose",
+              q: "The writer's main purpose is to...",
+              options: ["persuade students to stop studying", "explain how to manage screen time wisely", "promote more gaming", "criticise all digital tools"],
+              answer: 1,
+              why: "The passage explains benefits and risks, then gives practical screen-time management advice."
+            }
+          ]
+        }
+      };
+
+      let currentPaper = "P1";
+      let seconds = papers.P1.time;
+      let timerId = null;
+      let submitted = false;
+
+      function init(){
+        setPaper("P1");
+      }
+
+      function setPaper(id){
+        currentPaper = id;
+        submitted = false;
+        document.getElementById("tabP1").classList.toggle("active", id==="P1");
+        document.getElementById("tabP2").classList.toggle("active", id==="P2");
+        seconds = papers[id].time;
+        stopTimer();
+        renderTimer();
+        renderPaper();
+        document.getElementById("resultCard").classList.remove("show");
+      }
+
+      function renderPaper(){
+        const p = papers[currentPaper];
+        document.getElementById("paperLabel").textContent = p.label;
+        document.getElementById("passageTitle").textContent = p.title;
+        document.getElementById("passageText").textContent = p.passage;
+        document.getElementById("strategyText").textContent = p.strategy;
+
+        const list = document.getElementById("questionList");
+        list.innerHTML = p.questions.map((q, qi) => `
+          <div class="question-card" data-q="${qi}">
+            <span class="qtag">${q.part} · ${q.type}</span>
+            <h3>Q${qi+1}. ${q.q}</h3>
+            <div class="options">
+              ${q.options.map((op, oi) => `
+                <label class="option" data-option="${oi}">
+                  <input type="radio" name="q${qi}" value="${oi}">
+                  <span>${String.fromCharCode(65+oi)}. ${op}</span>
+                </label>
+              `).join("")}
+            </div>
+            <div class="explain" id="explain-${qi}"></div>
+          </div>
+        `).join("");
+      }
+
+      function toggleTimer(){
+        if(timerId){ stopTimer(); return; }
+        timerId = setInterval(() => {
+          seconds--;
+          renderTimer();
+          if(seconds === 5*60) toast("5 minutes left. Answer remaining questions first.");
+          if(seconds <= 0){
+            stopTimer();
+            toast("Time is up. Submit your answers.");
+          }
+        }, 1000);
+        document.getElementById("timerBtn").textContent = "Pause";
+      }
+
+      function stopTimer(){
+        if(timerId) clearInterval(timerId);
+        timerId = null;
+        const btn = document.getElementById("timerBtn");
+        if(btn) btn.textContent = "Start";
+      }
+
+      function renderTimer(){
+        const m = String(Math.floor(seconds/60)).padStart(2,"0");
+        const s = String(seconds%60).padStart(2,"0");
+        document.getElementById("timer").textContent = `${m}:${s}`;
+      }
+
+      function submit(){
+        if(submitted){
+          toast("This attempt has already been submitted.");
+          return;
+        }
+        submitted = true;
+        stopTimer();
+
+        const p = papers[currentPaper];
+        let correct = 0;
+        const parts = {};
+        const typeErrors = {};
+
+        p.questions.forEach((q, qi) => {
+          const selected = document.querySelector(`input[name="q${qi}"]:checked`);
+          const ans = selected ? Number(selected.value) : -1;
+          const isCorrect = ans === q.answer;
+          if(isCorrect) correct++;
+
+          parts[q.part] = parts[q.part] || { correct:0, total:0 };
+          parts[q.part].total++;
+          if(isCorrect) parts[q.part].correct++;
+
+          if(!isCorrect){
+            typeErrors[q.type] = (typeErrors[q.type] || 0) + 1;
+          }
+
+          const card = document.querySelector(`.question-card[data-q="${qi}"]`);
+          card.querySelectorAll(".option").forEach(opt => {
+            const oi = Number(opt.dataset.option);
+            if(oi === q.answer) opt.classList.add("correct");
+            if(oi === ans && oi !== q.answer) opt.classList.add("wrong");
+          });
+
+          const explain = document.getElementById(`explain-${qi}`);
+          explain.innerHTML = `<b>Answer: ${String.fromCharCode(65+q.answer)}</b><br>${q.why}`;
+          explain.classList.add("show");
+        });
+
+        const totalQ = p.questions.length;
+        const score90 = Math.round((correct / totalQ) * 90);
+        const percent = Math.round((correct / totalQ) * 100);
+        const weakestType = Object.entries(typeErrors).sort((a,b)=>b[1]-a[1])[0]?.[0] || "None";
+
+        const session = {
+          paper: p.label,
+          date: new Date().toISOString(),
+          rawScore: correct,
+          totalQ,
+          score90,
+          percent,
+          parts,
+          weakestType,
+          timeTaken: Math.round((p.time - seconds) / 60),
+          cycleNumber: (JSON.parse(localStorage.getItem('muet_profile') || '{}').currentCycle || 1),
+          xpEarned: 70 + correct * 8
+        };
+
+        const history = JSON.parse(localStorage.getItem(LS_HISTORY) || "[]");
+        history.push(session);
+        localStorage.setItem(LS_HISTORY, JSON.stringify(history));
+        updateProfile(session);
+
+        document.getElementById("resultScore").textContent = `${correct}/${totalQ} · ${score90}/90`;
+        document.getElementById("resultFeedback").textContent = feedback(percent, weakestType);
+        document.getElementById("partSummary").innerHTML = Object.entries(parts).map(([part, data]) => `
+          <div class="part-row">${part}: ${data.correct}/${data.total}</div>
+        `).join("") + `<div class="part-row">Weakest Question Type: ${weakestType}</div>`;
+
+        document.getElementById("resultCard").classList.add("show");
+        toast("Reading score saved to Hub.");
+        window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+      }
+
+      function feedback(percent, weakestType){
+        if(percent >= 80) return `Excellent. Your reading accuracy is strong. Continue with timed full-paper practice.`;
+        if(percent >= 65) return `Good progress. Review your mistakes, especially ${weakestType} questions.`;
+        if(percent >= 50) return `Developing. Use question-first strategy and underline keywords before reading. Weak area: ${weakestType}.`;
+        return `Foundation practice needed. Focus on direct retrieval and paraphrase questions before inference. Weak area: ${weakestType}.`;
+      }
+
+      function updateProfile(session){
+        const profile = JSON.parse(localStorage.getItem(LS_PROFILE) || "{}");
+        profile.xp = (profile.xp || 0) + (session.xpEarned || 70);
+        profile.lastVisit = new Date().toISOString();
+        localStorage.setItem(LS_PROFILE, JSON.stringify(profile));
+        if(typeof MuetNeo !== 'undefined') MuetNeo.afterSessionSave();
+      }
+
+      function resetPractice(){
+        submitted = false;
+        seconds = papers[currentPaper].time;
+        stopTimer();
+        renderTimer();
+        renderPaper();
+        document.getElementById("resultCard").classList.remove("show");
+        toast("Reading practice reset.");
+      }
+
+      function toast(msg){
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 2500);
+      }
+
+      return {init,setPaper,toggleTimer,submit,resetPractice};
+    })();
+
+    document.addEventListener("DOMContentLoaded", ReadingApp.init);
+  </script>
+</body>
+</html>

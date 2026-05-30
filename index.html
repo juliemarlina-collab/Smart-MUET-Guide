@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>MUET SmartHub 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/muet-neopop.css"/>
+  <style>
+    /* ── XP Level pill ── */
+    .xp-level-pill{
+      display:inline-block;
+      background:var(--yellow);
+      border:var(--line);
+      border-radius:999px;
+      padding:4px 12px;
+      font-size:11px;
+      font-weight:1000;
+      margin-top:6px;
+    }
+    /* ── Cycle strip ── */
+    .cycle-node{
+      flex:0 0 100px;
+      min-height:100px;
+      border:var(--line);
+      border-radius:18px;
+      background:white;
+      box-shadow:3px 3px 0 var(--ink);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:10px 8px;
+      font-weight:1000;
+      position:relative;
+      transition:transform .1s;
+    }
+    .cycle-node.done{background:#b8ff36;}
+    .cycle-node.current{background:var(--yellow);border-color:var(--ink);}
+    .cycle-node.locked{background:#e2e8f0;color:#94a3b8;box-shadow:none;}
+    .cycle-label{font-family:'Sora';font-size:13px;font-weight:800}
+    .cycle-diff{font-size:10px;font-weight:900;text-transform:uppercase;color:var(--muted);margin-top:2px}
+    .cycle-node.done .cycle-diff{color:#166534}
+    .cycle-node.current .cycle-diff{color:#92400e}
+    .cycle-node small{font-size:11px;font-weight:1000;margin-top:4px;display:block}
+    .lock-icon{font-size:22px;margin-bottom:4px}
+    /* ── Current cycle label ── */
+    .cycle-status-bar{
+      background:var(--blue);
+      color:white;
+      border:var(--line);
+      border-radius:16px;
+      padding:10px 14px;
+      font-weight:900;
+      font-size:13px;
+      margin-bottom:12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .cycle-status-bar span{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.7)}
+    /* ── Resource cards ── */
+    .resource-card{
+      background:var(--paper);
+      border:var(--line);
+      box-shadow:var(--shadow);
+      border-radius:22px;
+      padding:16px;
+      margin-bottom:14px;
+    }
+    .res-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px}
+    .res-header h3{font-size:13px;line-height:1.3;flex:1}
+    .res-badge{
+      flex-shrink:0;
+      padding:3px 10px;
+      border-radius:999px;
+      font-size:10px;
+      font-weight:1000;
+      color:white;
+      border:2px solid var(--ink);
+    }
+    .resource-card p{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:10px;line-height:1.45}
+    .res-links{display:flex;flex-wrap:wrap;gap:8px}
+    .res-link{
+      display:inline-block;
+      background:var(--ink);
+      color:white;
+      border:2px solid var(--ink);
+      border-radius:10px;
+      padding:6px 12px;
+      font-size:11px;
+      font-weight:900;
+      text-decoration:none;
+      box-shadow:2px 2px 0 rgba(0,0,0,.3);
+    }
+    .res-link:active{transform:translate(2px,2px);box-shadow:none}
+    /* ── Cycle result rows on progress screen ── */
+    .cycle-result-row{
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      align-items:center;
+      gap:10px;
+      background:white;
+      border:2px solid var(--ink);
+      border-radius:14px;
+      padding:10px 12px;
+      margin-bottom:10px;
+    }
+    .cr-left b{display:block;font-family:'Sora';font-size:14px}
+    .cr-left small{font-size:11px;color:var(--muted);font-weight:900}
+    .cr-scores{display:flex;gap:8px;flex-wrap:wrap}
+    .cr-scores span{font-size:11px;font-weight:1000;background:var(--teal);border:1.5px solid var(--ink);border-radius:8px;padding:3px 7px}
+    .cr-total{font-family:'Sora';font-size:20px;font-weight:800}
+    .cr-total small{font-size:11px;font-weight:900;color:var(--muted)}
+    /* ── XP progress bar ── */
+    .xp-bar-wrap{margin-top:8px}
+    .xp-bar-wrap label{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;display:flex;justify-content:space-between;margin-bottom:4px}
+    .xp-bar{height:8px;background:rgba(255,255,255,.3);border:1.5px solid var(--ink);border-radius:99px;overflow:hidden}
+    .xp-bar-fill{height:100%;background:var(--yellow);border-radius:99px;transition:width .4s}
+  </style>
+</head>
+<body>
+  <main class="phone-shell">
+
+    <!-- REGISTER SCREEN -->
+    <section id="registerScreen" class="screen active">
+      <div class="brand-bar">
+        <div class="crown-logo">M</div>
+        <div>
+          <div class="brand-small">POLIPD · ELU · 2026</div>
+          <div class="brand-title">MUET SmartHub</div>
+        </div>
+        <button class="hamb">☰</button>
+      </div>
+
+      <div class="hero-neo hero-yellow">
+        <div class="hero-copy">
+          <p class="tiny">AI-Powered MUET Companion</p>
+          <h1>Practise.<br>Check.<br>Improve.</h1>
+          <p>One dashboard for Speaking, Reading, Listening and Writing.</p>
+        </div>
+        <div class="hero-illustration">
+          <div class="face hair"></div>
+          <div class="bubble b1">B4</div>
+          <div class="bubble b2">XP</div>
+        </div>
+      </div>
+
+      <div class="neo-panel">
+        <h2>Create Profile</h2>
+        <p class="sub">Register once. Your data saves automatically to this device.</p>
+        <form id="profileForm" class="form">
+          <label>Full Name
+            <input id="name" required placeholder="e.g. Aisyah Ahmad"/>
+          </label>
+          <label>Student No.
+            <input id="regNo" required placeholder="e.g. 06DPR23F1001"/>
+          </label>
+          <label>Class / Group
+            <input id="group" required placeholder="e.g. DPR3A"/>
+          </label>
+          <label>Target Band
+            <select id="targetBand">
+              <option value="3.5">Band 3.5</option>
+              <option value="4.0" selected>Band 4.0</option>
+              <option value="4.5">Band 4.5</option>
+              <option value="5.0">Band 5.0</option>
+              <option value="5+">Band 5+</option>
+            </select>
+          </label>
+          <button class="neo-btn yellow" type="submit">Start My Journey →</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- HOME SCREEN -->
+    <section id="homeScreen" class="screen">
+      <div class="brand-bar dark">
+        <div class="crown-logo yellow">M</div>
+        <div style="flex:1">
+          <div class="brand-small">Welcome back</div>
+          <div id="welcomeName" class="brand-title">MUET Learner</div>
+          <div id="xpLevel" class="xp-level-pill">Band Rookie</div>
+        </div>
+        <button onclick="MuetNeo.show('profileScreen')" class="hamb">👤</button>
+      </div>
+
+      <div class="dashboard-card">
+        <div style="flex:1">
+          <p class="tiny">Overall Band Estimate</p>
+          <h1 id="overallBand">Band 0.0</h1>
+          <p id="bandMessage">Complete your first task to activate tracking.</p>
+          <div class="xp-bar-wrap">
+            <label><span>⭐ <span id="xp">0</span> XP</span><span id="xpNext"></span></label>
+            <div class="xp-bar"><div id="xpBarFill" class="xp-bar-fill" style="width:0%"></div></div>
+          </div>
+        </div>
+        <div class="band-disc">
+          <span id="overallPercent">0%</span>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-card red"><span>🔥</span><b id="streak">0</b><small>Day Streak</small></div>
+        <div class="stat-card blue"><span>🎯</span><b id="targetDisplay">4.0</b><small>Target</small></div>
+        <div class="stat-card green"><span>📅</span><b id="currentCycleLabel">Cycle 1</b><small>Current</small></div>
+      </div>
+
+      <div class="section-head">
+        <h2>Skill Modules</h2>
+        <button onclick="MuetNeo.seedDemo()" class="small-action">Demo</button>
+      </div>
+
+      <div class="module-grid">
+        <button class="module-card m-speaking" onclick="MuetNeo.openModule('speaking.html')">
+          <div class="module-icon">🎤</div>
+          <h3>Speaking</h3>
+          <p>PREP · Task A/B</p>
+          <div class="scorebar"><span id="speakingBar"></span></div>
+          <small id="speakingScore">No attempt</small>
+        </button>
+        <button class="module-card m-reading" onclick="MuetNeo.openModule('reading.html')">
+          <div class="module-icon">📖</div>
+          <h3>Reading</h3>
+          <p>Q-first · Timed</p>
+          <div class="scorebar"><span id="readingBar"></span></div>
+          <small id="readingScore">No attempt</small>
+        </button>
+        <button class="module-card m-listening" onclick="MuetNeo.openModule('listening.html')">
+          <div class="module-icon">🎧</div>
+          <h3>Listening</h3>
+          <p>Audio · Keywords</p>
+          <div class="scorebar"><span id="listeningBar"></span></div>
+          <small id="listeningScore">No attempt</small>
+        </button>
+        <button class="module-card m-writing" onclick="MuetNeo.openModule('writing.html')">
+          <div class="module-icon">✍️</div>
+          <h3>Writing</h3>
+          <p>Email · Essay</p>
+          <div class="scorebar"><span id="writingBar"></span></div>
+          <small id="writingScore">No attempt</small>
+        </button>
+      </div>
+
+      <div id="focusBox" class="focus-box">
+        <div class="tag">TODAY'S FOCUS</div>
+        <h2 id="focusTitle">Start with Speaking</h2>
+        <p id="focusText">Complete one short Task A using PREP structure.</p>
+        <button id="focusBtn" class="neo-btn black">Open Focus Skill</button>
+      </div>
+
+      <div class="neo-panel">
+        <div class="section-head no-margin">
+          <h2>10-Cycle Journey</h2>
+          <span class="mini-badge">NEW FORMAT</span>
+        </div>
+        <div id="currentCycleLabel2" class="cycle-status-bar" style="display:none">
+          <div><span>Currently on</span><br><b id="cycleStatusText">Cycle 1 of 10</b></div>
+          <span style="font-size:22px">📍</span>
+        </div>
+        <div class="cycle-strip" id="cycleStrip"></div>
+      </div>
+    </section>
+
+    <!-- MATERIALS SCREEN -->
+    <section id="materialsScreen" class="screen">
+      <div class="brand-bar dark">
+        <button onclick="MuetNeo.show('homeScreen')" class="hamb">←</button>
+        <div>
+          <div class="brand-small">Resources</div>
+          <div class="brand-title">MUET Materials</div>
+        </div>
+        <button class="hamb">📚</button>
+      </div>
+
+      <div class="hero-neo hero-blue">
+        <div>
+          <p class="tiny">⚠️ Important Rule</p>
+          <h1>New Format Only</h1>
+          <p style="font-weight:800;color:rgba(255,255,255,.85)">Use 2021 onwards papers only. Old format has different timing and weighting.</p>
+        </div>
+      </div>
+
+      <div class="neo-panel" style="background:#fff7cc;margin-bottom:14px">
+        <h2 style="font-size:16px">Cycle → Paper Map</h2>
+        <div style="display:grid;gap:6px;margin-top:10px">
+          <div style="font-weight:900;font-size:12px">Cycle 1 → MPM Official Sample</div>
+          <div style="font-weight:900;font-size:12px">Cycle 2 → Session 1 2021</div>
+          <div style="font-weight:900;font-size:12px">Cycle 3 → Session 2 2021</div>
+          <div style="font-weight:900;font-size:12px">Cycle 4 → Session 3 2021</div>
+          <div style="font-weight:900;font-size:12px">Cycle 5 → Session 1 2022</div>
+          <div style="font-weight:900;font-size:12px">Cycle 6 → Session 2 2022</div>
+          <div style="font-weight:900;font-size:12px">Cycle 7 → Session 1 2023</div>
+          <div style="font-weight:900;font-size:12px">Cycle 8 → Session 2 2023</div>
+          <div style="font-weight:900;font-size:12px">Cycle 9 → Session 1 2024</div>
+          <div style="font-weight:900;font-size:12px">Cycle 10 → Session 1 2025</div>
+          <div style="font-weight:900;font-size:12px">Mock 1 → Session 2 2025</div>
+          <div style="font-weight:900;font-size:12px">Mock 2 → Session 1 2026</div>
+        </div>
+      </div>
+
+      <div class="resource-list" id="resourceList"></div>
+    </section>
+
+    <!-- PROGRESS SCREEN -->
+    <section id="progressScreen" class="screen">
+      <div class="brand-bar dark">
+        <button onclick="MuetNeo.show('homeScreen')" class="hamb">←</button>
+        <div>
+          <div class="brand-small">Analytics</div>
+          <div class="brand-title">Progress</div>
+        </div>
+        <button class="hamb">📈</button>
+      </div>
+
+      <div class="neo-panel">
+        <h2>Component Performance</h2>
+        <div id="progressRows"></div>
+      </div>
+
+      <div class="neo-panel">
+        <h2>🏅 Band Achiever — Cycle Results</h2>
+        <p class="sub" style="margin-bottom:12px">Complete all 4 skills in a cycle to earn your Band Achiever result.</p>
+        <div id="cycleHistory"></div>
+      </div>
+
+      <div class="neo-panel">
+        <h2>Badges Earned</h2>
+        <div id="badges" class="badge-grid"></div>
+      </div>
+    </section>
+
+    <!-- PROFILE SCREEN -->
+    <section id="profileScreen" class="screen">
+      <div class="brand-bar dark">
+        <button onclick="MuetNeo.show('homeScreen')" class="hamb">←</button>
+        <div>
+          <div class="brand-small">Settings</div>
+          <div class="brand-title">Profile</div>
+        </div>
+        <button class="hamb">⚙️</button>
+      </div>
+
+      <div class="neo-panel">
+        <h2>Student Profile</h2>
+        <form id="editForm" class="form">
+          <label>Full Name<input id="editName"/></label>
+          <label>Student No.<input id="editRegNo"/></label>
+          <label>Class / Group<input id="editGroup"/></label>
+          <label>Target Band
+            <select id="editTarget">
+              <option value="3.5">Band 3.5</option>
+              <option value="4.0">Band 4.0</option>
+              <option value="4.5">Band 4.5</option>
+              <option value="5.0">Band 5.0</option>
+              <option value="5+">Band 5+</option>
+            </select>
+          </label>
+          <button class="neo-btn yellow" type="submit">Save Profile</button>
+          <button class="neo-btn pink" type="button" onclick="MuetNeo.resetAll()">Reset App Data</button>
+        </form>
+      </div>
+
+      <div class="neo-panel" style="background:#f0fdf4">
+        <h2 style="font-size:16px">Blueprint v2.1 — What's Built</h2>
+        <div style="display:grid;gap:6px;margin-top:10px;font-size:12px;font-weight:800">
+          <div>✅ All 4 skill modules working</div>
+          <div>✅ XP system with level titles</div>
+          <div>✅ Daily streak with auto-increment</div>
+          <div>✅ Badge engine (18 badges)</div>
+          <div>✅ Cycle schema + Band Achiever</div>
+          <div>✅ Materials screen with real links</div>
+          <div>⏳ Cycle unlock with real content</div>
+          <div>⏳ Named coach AI feedback</div>
+          <div>⏳ Mock Exam module</div>
+          <div>⏳ Real Listening audio files</div>
+        </div>
+      </div>
+    </section>
+
+    <nav id="nav" class="bottom-nav" style="display:none">
+      <button class="active" onclick="MuetNeo.show('homeScreen')">⌂<span>Home</span></button>
+      <button onclick="MuetNeo.show('materialsScreen')">▣<span>Materials</span></button>
+      <button onclick="MuetNeo.show('progressScreen')">◉<span>Progress</span></button>
+      <button onclick="MuetNeo.show('profileScreen')">☻<span>Profile</span></button>
+    </nav>
+
+    <div id="toast" class="toast">Saved</div>
+  </main>
+
+  <script src="js/muet-neopop.js"></script>
+  <script>
+    // Extra hub-specific render: XP bar fill
+    const _origRender = MuetNeo.render ?? (() => {});
+    document.addEventListener('DOMContentLoaded', () => {
+      // Patch render to also update XP bar
+      const origInit = document.MuetNeoPatched;
+      if(!origInit){
+        document.MuetNeoPatched = true;
+        const checkXPBar = () => {
+          const p = MuetNeo.loadProfile?.();
+          if(!p) return;
+          const xp = p.xp || 0;
+          const LEVELS = [[0,'Band Rookie'],[700,'MUET Explorer'],[1500,'Band Climber'],[3000,'SmartSpeaker'],[5000,'Band Champion']];
+          let curr = 0, next = 700;
+          for(let i = 0; i < LEVELS.length; i++){
+            if(xp >= LEVELS[i][0]){
+              curr = LEVELS[i][0];
+              next = LEVELS[i+1]?.[0] ?? null;
+            }
+          }
+          const fill = next ? Math.round(((xp - curr) / (next - curr)) * 100) : 100;
+          const bar = document.getElementById('xpBarFill');
+          const nxt = document.getElementById('xpNext');
+          if(bar) bar.style.width = fill + '%';
+          if(nxt) nxt.textContent = next ? `Next: ${next} XP` : 'Max Level!';
+        };
+        // Run after each render cycle
+        setInterval(checkXPBar, 800);
+      }
+    });
+  </script>
+</body>
+</html>
