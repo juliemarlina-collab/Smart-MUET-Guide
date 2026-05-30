@@ -162,3 +162,29 @@ textarea:focus{outline:4px solid rgba(7,87,255,.22)}
 .focus-box{background:var(--yellow);border:var(--line);box-shadow:var(--shadow);border-radius:var(--r2);padding:16px;margin-bottom:16px}
 
 @media(max-width:370px){h1{font-size:29px}.screen{padding-left:12px;padding-right:12px}}
+
+
+/* Progress tabs and vault history */
+.prog-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.prog-tabs button{border:var(--line);border-radius:14px;background:white;box-shadow:3px 3px 0 var(--ink);padding:10px 6px;font-weight:1000;font-size:12px;cursor:pointer}
+.prog-tabs button.active{background:var(--yellow)}
+.prog-panel{display:none}
+.prog-panel.active{display:block;animation:popin .18s ease}
+.progress-list,.feedback-list,.vault-history-list{display:grid;gap:12px;margin-top:12px}
+.progress-row-card{border:2px solid var(--ink);border-radius:16px;background:white;padding:12px;box-shadow:3px 3px 0 rgba(16,16,20,.2)}
+.progress-row-head{display:flex;justify-content:space-between;gap:10px;font-weight:1000;margin-bottom:6px;font-size:13px}
+.progress-row-head span:last-child{color:var(--muted);text-align:right}
+.feedback-card{border:2px solid var(--ink);border-radius:16px;padding:12px;box-shadow:3px 3px 0 rgba(16,16,20,.2)}
+.feedback-head{display:flex;justify-content:space-between;gap:10px;font-weight:1000;margin-bottom:6px}
+.feedback-head small,.feedback-meta{color:var(--muted);font-weight:900}.feedback-card p{font-size:13px;font-weight:800;line-height:1.42;margin-bottom:6px}
+.vault-history-card{background:var(--paper);border:var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.vault-history-card summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:14px;background:white}
+.vault-history-card summary::-webkit-details-marker{display:none}
+.vault-history-card summary h3{font-size:18px}.vault-history-card summary p{font-size:12px;font-weight:800;color:var(--muted);margin-top:3px}
+.vault-history-card summary span{border:2px solid var(--ink);border-radius:999px;background:var(--yellow);padding:5px 9px;font-size:11px;font-weight:1000;white-space:nowrap;box-shadow:2px 2px 0 var(--ink)}
+.vault-history-body{padding:14px;border-top:2px solid var(--ink)}
+.vault-score-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.vault-score{border:2px solid var(--ink);border-radius:14px;background:white;padding:9px;display:flex;justify-content:space-between;gap:8px;font-weight:1000;font-size:12px}.vault-score.done{background:#dcfce7}.vault-score.pending{opacity:.65}
+.vault-total-card{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}.vault-total-card>div{border:2px solid var(--ink);border-radius:14px;background:var(--lime);padding:9px;text-align:center}.vault-total-card small{display:block;font-size:10px;font-weight:1000;color:var(--muted);text-transform:uppercase}.vault-total-card b{font-family:"Sora";font-size:15px}
+.vault-feedback-note{border:2px dashed var(--ink);border-radius:14px;background:white;padding:10px;font-weight:850;font-size:13px;line-height:1.42}
+.badge-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.badge-card{border:var(--line);border-radius:16px;background:white;box-shadow:3px 3px 0 var(--ink);padding:12px 8px;text-align:center}.badge-card.earned{background:var(--lime)}.badge-card.locked{filter:grayscale(1);opacity:.6}.badge-card span{font-size:28px;display:block}.badge-card b{font-size:12px}
