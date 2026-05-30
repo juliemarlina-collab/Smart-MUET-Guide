@@ -221,23 +221,66 @@
   <section id="progressScreen" class="screen">
     <div class="brand-bar">
       <button class="icon-btn" onclick="Hub.goTo('homeScreen')" style="margin-left:0;margin-right:8px">←</button>
-      <div><div class="bar-label">Analytics</div><div class="bar-title">Progress</div></div>
+      <div><div class="bar-label">Vault Analytics</div><div class="bar-title">Progress</div></div>
       <button class="icon-btn">📈</button>
     </div>
 
-    <div class="card">
-      <h2>Component Scores</h2>
-      <div id="progRows" style="display:grid;gap:12px;margin-top:12px"></div>
+    <div class="prog-tabs" role="tablist" aria-label="Progress sections">
+      <button id="progTabDashboard" class="active" onclick="Hub.progTab('dashboard')">Dashboard</button>
+      <button id="progTabVaults" onclick="Hub.progTab('vaults')">Vault History</button>
+      <button id="progTabBadges" onclick="Hub.progTab('badges')">Badges</button>
     </div>
 
-    <div class="card">
-      <h2>Latest Feedback</h2>
-      <div id="feedbackRows" style="display:grid;gap:10px;margin-top:12px"></div>
+    <!-- Tab 1: Progress Dashboard -->
+    <div id="progPanelDashboard" class="prog-panel active">
+      <div class="dash-card">
+        <div>
+          <p class="tiny">Current Overall Progress</p>
+          <h1 id="progBand" style="color:white;margin-top:4px">Band 0.0</h1>
+          <p id="progBandMsg">Complete your first vault component to activate progress tracking.</p>
+        </div>
+        <div class="band-disc" id="progBandDisc"><span id="progPercent">0%</span></div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-card blue"><span>🎯</span><b id="progTarget">4.0</b><small>Target</small></div>
+        <div class="stat-card lime"><span>📊</span><b id="progTotal">0</b><small>/360</small></div>
+        <div class="stat-card red"><span>⬆️</span><b id="progGap">0</b><small>Gap</small></div>
+      </div>
+
+      <div class="card">
+        <h2>Component Performance</h2>
+        <p style="color:var(--muted);font-weight:800;font-size:13px;margin-top:4px">Latest score for each MUET component.</p>
+        <div id="progRows" class="progress-list"></div>
+      </div>
+
+      <div class="card">
+        <h2>Latest Feedback by Skill</h2>
+        <p style="color:var(--muted);font-weight:800;font-size:13px;margin-top:4px">Quick coaching notes based on the latest saved attempt.</p>
+        <div id="feedbackRows" class="feedback-list"></div>
+      </div>
     </div>
 
-    <div class="card">
-      <h2>Completion Badges</h2>
-      <div id="badgeGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"></div>
+    <!-- Tab 2: Vault History -->
+    <div id="progPanelVaults" class="prog-panel">
+      <div class="instr-card yellow">
+        <h2>Vault History</h2>
+        <ol>
+          <li>Progress is grouped by vault, from Starter Vault to Final Mock 2.</li>
+          <li>Each vault shows Speaking, Reading, Listening and Writing scores.</li>
+          <li>A vault is completed only when all four component scores are saved.</li>
+        </ol>
+      </div>
+      <div id="vaultHistoryRows" class="vault-history-list"></div>
+    </div>
+
+    <!-- Tab 3: Badges -->
+    <div id="progPanelBadges" class="prog-panel">
+      <div class="card">
+        <h2>Completion Badges</h2>
+        <p style="color:var(--muted);font-weight:800;font-size:13px;margin-top:4px">Badges unlock when students complete key Smart MUET actions.</p>
+        <div id="badgeGrid" class="badge-grid"></div>
+      </div>
     </div>
   </section>
 
@@ -340,7 +383,7 @@ const Hub = (() => {
     MUET.goTo(id);
     if (id === 'homeScreen')    renderHome();
     if (id === 'vaultScreen')   renderVault();
-    if (id === 'progressScreen') renderProgress();
+    if (id === 'progressScreen') { renderProgress(); progTab('dashboard'); }
     if (id === 'profileScreen') fillEdit();
     const nav = document.getElementById('nav');
     if (nav) nav.style.display = (id === 'registerScreen') ? 'none' : 'grid';
@@ -414,58 +457,211 @@ const Hub = (() => {
   }
 
   function renderProgress() {
-    const SKILLS_LIST = [
-      ['speaking','Speaking','🎤'],
-      ['reading','Reading','📖'],
-      ['listening','Listening','🎧'],
-      ['writing','Writing','✍️']
-    ];
+    renderProgressDashboard();
+    renderVaultHistory();
+    renderBadges();
+  }
+
+  function progTab(tab) {
+    const panels = {
+      dashboard: document.getElementById('progPanelDashboard'),
+      vaults: document.getElementById('progPanelVaults'),
+      badges: document.getElementById('progPanelBadges')
+    };
+    const tabs = {
+      dashboard: document.getElementById('progTabDashboard'),
+      vaults: document.getElementById('progTabVaults'),
+      badges: document.getElementById('progTabBadges')
+    };
+
+    Object.values(panels).forEach(p => p?.classList.remove('active'));
+    Object.values(tabs).forEach(t => t?.classList.remove('active'));
+    panels[tab]?.classList.add('active');
+    tabs[tab]?.classList.add('active');
+
+    if (tab === 'badges') renderBadges();
+  }
+
+  function renderProgressDashboard() {
+    const p = MUET.loadProfile() || {};
+    const scores = {};
+    SKILLS.forEach(([skill]) => scores[skill] = MUET.latestScore(skill));
+
+    const total = scores.speaking + scores.reading + scores.listening + scores.writing;
+    const band  = MUET.calcBand(total);
+    const pct   = Math.round(total / 360 * 100);
+    const targetBand = p.targetBand || '4.0';
+    const targetScore = targetBandScore(targetBand);
+    const gap = Math.max(0, targetScore - total);
+
+    setText('progBand', 'Band ' + band);
+    setText('progBandMsg', MUET.bandMessage(band));
+    setText('progPercent', pct + '%');
+    setText('progTarget', targetBand);
+    setText('progTotal', total);
+    setText('progGap', gap);
+    document.getElementById('progBandDisc')?.style.setProperty('--p', pct + '%');
+
     const pr = document.getElementById('progRows');
     if (pr) {
-      pr.innerHTML = SKILLS_LIST.map(([skill, label, icon]) => {
-        const s  = MUET.latestScore(skill);
+      pr.innerHTML = SKILLS.map(([skill, label, icon]) => {
+        const s = scores[skill];
         const pc = Math.round(s / 90 * 100);
-        return `<div>
-          <div style="display:flex;justify-content:space-between;font-weight:1000;margin-bottom:6px">
-            <span>${icon} ${label}</span><span>${s}/90</span></div>
-          <div class="prog-bar"><span style="width:${pc}%"></span></div></div>`;
+        const status = s ? `${s}/90 · Band ${MUET.scoreToBand(s)}` : 'No attempt yet';
+        return `<div class="progress-row-card">
+          <div class="progress-row-head"><span>${icon} ${label}</span><span>${status}</span></div>
+          <div class="prog-bar"><span style="width:${Math.min(100, pc)}%"></span></div>
+        </div>`;
       }).join('');
     }
 
     const fr = document.getElementById('feedbackRows');
     if (fr) {
-      fr.innerHTML = SKILLS_LIST.map(([skill, label, icon]) => {
-        const s  = MUET.latestScore(skill);
-        const fb = MUET.feedbackText(skill, s);
+      fr.innerHTML = SKILLS.map(([skill, label, icon]) => {
+        const s = scores[skill];
+        const fb = s ? MUET.feedbackText(skill, s) : 'No attempt yet. Open this component from a Study Vault to start.';
         const clr = s >= 74 ? '#dcfce7' : s >= 53 ? '#fef9c3' : '#fce7f3';
-        const list = MUET.loadSessions(skill);
-        const last = list.length ? list[list.length-1] : null;
-        const date = last?.date ? new Date(last.date).toLocaleDateString('en-MY',{day:'numeric',month:'short'}) : '—';
-        return `<div style="background:${clr};border:2px solid var(--ink);border-radius:14px;padding:12px">
-          <div style="display:flex;justify-content:space-between;font-weight:1000;margin-bottom:6px">
-            <span>${icon} ${label}</span><small style="color:var(--muted)">${date}</small></div>
-          <p style="font-size:13px;font-weight:800">${fb || 'No attempt yet. Open this module to start.'}</p></div>`;
+        const last = latestSession(skill);
+        const date = formatDate(last?.date);
+        const vaultLabel = last?.vaultId ? friendlyVaultName(last.vaultId) : '—';
+        return `<div class="feedback-card" style="background:${clr}">
+          <div class="feedback-head"><span>${icon} ${label}</span><small>${date}</small></div>
+          <p>${fb}</p>
+          <small class="feedback-meta">${vaultLabel}</small>
+        </div>`;
       }).join('');
     }
+  }
 
+  function renderVaultHistory() {
+    const list = document.getElementById('vaultHistoryRows');
+    if (!list) return;
+
+    const vaults = progressVaultList();
+    list.innerHTML = vaults.map(v => vaultHistoryCard(v)).join('');
+  }
+
+  function vaultHistoryCard(v) {
+    const scores = {};
+    const dates = [];
+    SKILLS.forEach(([skill]) => {
+      const sess = latestSession(skill, v.id);
+      scores[skill] = sess ? sessionScore(sess) : 0;
+      if (sess?.date) dates.push(new Date(sess.date));
+    });
+
+    const count = Object.values(scores).filter(Boolean).length;
+    const total = scores.speaking + scores.reading + scores.listening + scores.writing;
+    const pct = Math.round(count / 4 * 100);
+    const band = count === 4 ? MUET.calcBand(total) : 'In progress';
+    const completedDate = count === 4 && dates.length ? formatDate(new Date(Math.max(...dates.map(d => d.getTime()))).toISOString()) : '—';
+    const status = count === 4 ? 'Completed ✅' : count ? `${count}/4 completed` : 'Not started';
+
+    const componentRows = SKILLS.map(([skill, label, icon]) => {
+      const s = scores[skill];
+      const cls = s ? 'done' : 'pending';
+      return `<div class="vault-score ${cls}">
+        <span>${icon} ${label}</span>
+        <b>${s ? s + '/90' : '—'}</b>
+      </div>`;
+    }).join('');
+
+    const advice = count === 4
+      ? vaultAdvice(scores)
+      : (count ? 'Continue this vault until all four component scores are saved.' : 'Open this vault from Study Vault when ready.');
+
+    return `<details class="vault-history-card" ${v.id === 'VAULT-01' ? 'open' : ''}>
+      <summary>
+        <div>
+          <h3>${v.title}</h3>
+          <p>${v.subtitle}</p>
+        </div>
+        <span>${status}</span>
+      </summary>
+      <div class="vault-history-body">
+        <div class="prog-bar"><span style="width:${pct}%"></span></div>
+        <div class="vault-score-grid">${componentRows}</div>
+        <div class="vault-total-card">
+          <div><small>Total</small><b>${total}/360</b></div>
+          <div><small>Band</small><b>${band}</b></div>
+          <div><small>Date</small><b>${completedDate}</b></div>
+        </div>
+        <div class="vault-feedback-note">${advice}</div>
+      </div>
+    </details>`;
+  }
+
+  function renderBadges() {
     const p = MUET.loadProfile();
     const bg = document.getElementById('badgeGrid');
-    if (bg && p) {
-      const earned = p.badges || [];
-      bg.innerHTML = [
-        ['✨','First Step','first_step'],
-        ['🎤','PREP Starter','prep_starter'],
-        ['💬','Discussion Builder','discussion_builder'],
-        ['📖','Passage Hunter','passage_hunter'],
-        ['🎧','Audio Focus','audio_focus'],
-        ['✍️','Essay Builder','essay_builder'],
-        ['🏆','Vault Finisher','vault_finisher'],
-        ['🎯','Mock Finisher','mock_finisher']
-      ].map(([icon,name,id]) => `
-        <div style="border:var(--line);border-radius:16px;background:${earned.includes(id)?'var(--lime)':'white'};box-shadow:3px 3px 0 var(--ink);padding:12px 8px;text-align:center;${earned.includes(id)?'':'filter:grayscale(1);opacity:.6'}">
-          <span style="font-size:28px;display:block">${earned.includes(id)?icon:'🔒'}</span>
-          <b style="font-size:12px">${name}</b></div>`).join('');
-    }
+    if (!bg || !p) return;
+    const earned = p.badges || [];
+    bg.innerHTML = BADGES.map(([icon,name,id]) => `
+      <div class="badge-card ${earned.includes(id) ? 'earned' : 'locked'}">
+        <span>${earned.includes(id) ? icon : '🔒'}</span>
+        <b>${name}</b>
+      </div>`).join('');
+  }
+
+  function progressVaultList() {
+    const list = [
+      { id:'VAULT-00', title:'Starter Vault', subtitle:'Guided sample practice' },
+      ...Array.from({ length:10 }, (_,i) => ({
+        id:'VAULT-' + String(i+1).padStart(2,'0'),
+        title:'Vault ' + (i+1),
+        subtitle:'Practice Set ' + (i+1)
+      })),
+      { id:'MOCK-01', title:'Final Mock Exam 1', subtitle:'Strict timer exam mode' },
+      { id:'MOCK-02', title:'Final Mock Exam 2', subtitle:'Final readiness check' }
+    ];
+    return list;
+  }
+
+  function latestSession(skill, vaultId=null) {
+    let list = MUET.loadSessions(skill);
+    if (vaultId) list = list.filter(s => s.vaultId === vaultId);
+    if (!list.length) return null;
+    return list.slice().sort((a,b) => new Date(b.date || 0) - new Date(a.date || 0))[0];
+  }
+
+  function sessionScore(sess) {
+    if (!sess) return 0;
+    if (typeof sess.score90 === 'number') return sess.score90;
+    if (typeof sess.score === 'number') return sess.score;
+    if (typeof sess.rawScore === 'number' && typeof sess.totalQ === 'number') return Math.round(sess.rawScore / sess.totalQ * 90);
+    return 0;
+  }
+
+  function targetBandScore(band) {
+    const map = { '3.5':164, '4.0':211, '4.5':258, '5.0':294, '5+':331 };
+    return map[String(band)] || 211;
+  }
+
+  function friendlyVaultName(vaultId) {
+    if (vaultId === 'VAULT-00') return 'Starter Vault';
+    if (vaultId?.startsWith('VAULT-')) return 'Vault ' + Number(vaultId.replace('VAULT-',''));
+    if (vaultId === 'MOCK-01') return 'Final Mock Exam 1';
+    if (vaultId === 'MOCK-02') return 'Final Mock Exam 2';
+    return vaultId || 'Free Practice';
+  }
+
+  function formatDate(d) {
+    if (!d) return '—';
+    const date = new Date(d);
+    if (Number.isNaN(date.getTime())) return '—';
+    return date.toLocaleDateString('en-MY', { day:'numeric', month:'short', year:'2-digit' });
+  }
+
+  function vaultAdvice(scores) {
+    const entries = SKILLS.map(([skill, label, icon]) => ({ skill, label, icon, score:scores[skill] || 0 }));
+    const strongest = entries.slice().sort((a,b) => b.score - a.score)[0];
+    const weakest = entries.slice().sort((a,b) => a.score - b.score)[0];
+    return `Strongest skill: ${strongest.icon} ${strongest.label}. Focus area: ${weakest.icon} ${weakest.label}. ${MUET.feedbackText(weakest.skill, weakest.score)}`;
+  }
+
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
   }
 
   function fillEdit() {
@@ -485,7 +681,7 @@ const Hub = (() => {
   }
 
   document.addEventListener('DOMContentLoaded', init);
-  return { goTo, openVault, resetAll };
+  return { goTo, openVault, resetAll, progTab, renderBadges };
 })();
 </script>
 </body>

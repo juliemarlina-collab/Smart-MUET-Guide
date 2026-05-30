@@ -49,14 +49,60 @@
       <span id="chev-step1">▴</span>
     </div>
     <div class="flow-step-body" id="body-step1" style="padding-top:14px">
-      <div class="instr-card blue">
-        <h2>What MUET Reading Tests</h2>
-        <ul>
-          <li><b>7 parts</b>, 40 questions, 90 minutes total.</li>
-          <li>Question types: main idea, detail, inference, vocabulary, writer's purpose and cohesion.</li>
-          <li>All questions are <b>multiple choice</b> — one best answer from 3–4 options.</li>
-          <li>This component tests your ability to read accurately, not just generally.</li>
-        </ul>
+      <div class="instr-card blue" style="background:transparent;border:none;padding:0">
+        <!-- ★ READING INFOGRAPHIC ★ -->
+        <div style="display:grid;gap:12px">
+
+          <!-- Header -->
+          <div style="background:var(--ink);color:white;border-radius:18px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border:3px solid var(--ink)">
+            <div>
+              <div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.6)">Paper 800/3</div>
+              <div style="font-size:22px;font-weight:1000;font-family:'Sora'">Reading</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:28px;font-weight:1000;font-family:'Sora';color:#b8ff36">90</div>
+              <div style="font-size:10px;font-weight:900;color:rgba(255,255,255,.6)">marks · 25%</div>
+            </div>
+          </div>
+
+          <!-- Stats row -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+            <div style="background:#dbeafe;border:3px solid var(--ink);border-radius:16px;padding:12px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
+              <div style="font-size:26px;font-weight:1000;font-family:'Sora'">7</div>
+              <div style="font-size:11px;font-weight:900">Parts</div>
+            </div>
+            <div style="background:#dbeafe;border:3px solid var(--ink);border-radius:16px;padding:12px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
+              <div style="font-size:26px;font-weight:1000;font-family:'Sora'">40</div>
+              <div style="font-size:11px;font-weight:900">Questions</div>
+            </div>
+            <div style="background:#dbeafe;border:3px solid var(--ink);border-radius:16px;padding:12px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
+              <div style="font-size:26px;font-weight:1000;font-family:'Sora'">75</div>
+              <div style="font-size:11px;font-weight:900">Minutes</div>
+            </div>
+          </div>
+
+          <!-- Question types -->
+          <div style="background:#f0f9ff;border:3px solid var(--ink);border-radius:18px;padding:14px;box-shadow:4px 4px 0 var(--ink)">
+            <div style="font-size:12px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px">📋 Question Types</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div style="background:white;border:2px solid var(--ink);border-radius:10px;padding:8px;font-size:12px;font-weight:900;text-align:center">🎯 Main Idea</div>
+              <div style="background:white;border:2px solid var(--ink);border-radius:10px;padding:8px;font-size:12px;font-weight:900;text-align:center">🔍 Detail</div>
+              <div style="background:white;border:2px solid var(--ink);border-radius:10px;padding:8px;font-size:12px;font-weight:900;text-align:center">💭 Inference</div>
+              <div style="background:white;border:2px solid var(--ink);border-radius:10px;padding:8px;font-size:12px;font-weight:900;text-align:center">📖 Vocabulary</div>
+              <div style="background:white;border:2px solid var(--ink);border-radius:10px;padding:8px;font-size:12px;font-weight:900;text-align:center">✍️ Writer's Purpose</div>
+              <div style="background:white;border:2px solid var(--ink);border-radius:10px;padding:8px;font-size:12px;font-weight:900;text-align:center">🔗 Cohesion</div>
+            </div>
+            <div style="background:#3E68FF;color:white;border-radius:10px;padding:8px 12px;margin-top:10px;font-size:12px;font-weight:900">
+              💡 All MCQ — choose the ONE best answer from 3–4 options
+            </div>
+          </div>
+
+          <!-- Key rule -->
+          <div style="background:#fef9c3;border:3px solid var(--ink);border-radius:14px;padding:12px;font-size:13px;font-weight:900;text-align:center;box-shadow:3px 3px 0 var(--ink)">
+            ⚡ Read the <b>questions first</b>, then scan the passage for answers
+          </div>
+
+        </div>
       </div>
       <button class="btn lime" onclick="Rd.openStep('step2')">I understand — show me tips →</button>
     </div>
