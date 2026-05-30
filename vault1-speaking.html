@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>Speaking · Vault 1 · MUET SmartHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/muet-guide.css"/>
+  <style>
+    .spk-hero { background:var(--blue); color:white; }
+    .spk-hero p { font-weight:800; color:rgba(255,255,255,.85); }
+    .task-tabs { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+    .task-tab  { border:var(--line); box-shadow:3px 3px 0 var(--ink); border-radius:14px; background:white; padding:11px; font-weight:1000; cursor:pointer; }
+    .task-tab.active { background:var(--yellow); }
+    .flow-step {
+      background:white; border:var(--line); border-radius:var(--r2);
+      box-shadow:var(--shadow); overflow:hidden; margin-bottom:14px;
+    }
+    .flow-step-head {
+      display:flex; align-items:center; gap:12px;
+      padding:14px 16px; cursor:pointer; font-weight:1000;
+    }
+    .step-num { width:36px;height:36px;border:var(--line);border-radius:50%;background:var(--yellow);display:grid;place-items:center;font-weight:1000;font-size:16px;flex-shrink:0; }
+    .flow-step-body { padding:0 16px 16px; border-top:2px solid rgba(0,0,0,.07); }
+    .prompt-box { background:white;border:var(--line);border-radius:var(--r2);padding:14px;margin-bottom:14px; }
+  </style>
+</head>
+<body>
+<main class="app-shell">
+<section class="screen active">
+
+  <div class="brand-bar">
+    <button class="icon-btn" onclick="location.href='vault1-welcome.html'" style="margin-left:0;margin-right:8px">←</button>
+    <div>
+      <div class="bar-label">Vault 1 · Component 1 of 4</div>
+      <div class="bar-title">SmartSpeaking</div>
+    </div>
+    <button class="icon-btn">🎤</button>
+  </div>
+
+  <!-- Vault progress bar -->
+  <div style="background:var(--paper);border:var(--line);border-radius:16px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:12px">
+    <div style="flex:1">
+      <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px">Vault 1 Progress</div>
+      <div class="prog-bar"><span id="vaultProgBar" style="width:0%"></span></div>
+    </div>
+    <div id="vaultProgLabel" style="font-weight:1000;font-size:13px;white-space:nowrap">0/4</div>
+  </div>
+
+  <!-- Hero -->
+  <div class="card spk-hero">
+    <p class="tiny" style="color:rgba(255,255,255,.7)">Speaking 800/2 · Vault 1</p>
+    <h1 style="margin-top:6px">Speak with structure.</h1>
+    <p style="margin-top:8px">Use PREP for Task A and interaction phrases for Task B.</p>
+  </div>
+
+  <!-- ── STEP 1: Before You Start ──────────────────────────────────── -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="Spk.toggle('step1')">
+      <div class="step-num">1</div>
+      <div style="flex:1"><b>Before You Start</b><br><small style="color:var(--muted)">What Speaking 800/2 tests</small></div>
+      <span id="chev-step1">▾</span>
+    </div>
+    <div class="flow-step-body" id="body-step1" style="padding-top:14px">
+      <div class="instr-card blue">
+        <h2>What MUET Speaking Tests</h2>
+        <ul>
+          <li><b>Task A</b> — Individual response. You respond to a question alone for 2 minutes (1 min prep + 1–2 min speaking).</li>
+          <li><b>Task B</b> — Group discussion. You discuss a topic with 3–4 candidates for 10 minutes. The group must reach a consensus.</li>
+          <li>Both tasks test: task fulfilment, idea development, language control, fluency and delivery.</li>
+          <li>Each task is worth 45 marks. Total: 90 marks (25% of MUET).</li>
+        </ul>
+      </div>
+      <button class="btn yellow" onclick="Spk.openStep('step2')">I understand — go to Tips →</button>
+    </div>
+  </div>
+
+  <!-- ── STEP 2: Tips & Tricks ─────────────────────────────────────── -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="Spk.toggle('step2')">
+      <div class="step-num">2</div>
+      <div style="flex:1"><b>Tips &amp; Tricks</b><br><small style="color:var(--muted)">Strategies before you practise</small></div>
+      <span id="chev-step2">▾</span>
+    </div>
+    <div class="flow-step-body" id="body-step2" style="display:none;padding-top:14px">
+
+      <div class="coach-note lime">
+        <div class="tag">TASK A STRATEGY</div>
+        <p>Always use <b>PREP</b>: Point → Reason → Example → Point again. Write 3–4 keywords during prep time, not full sentences. Start speaking the moment prep time ends — do not wait.</p>
+      </div>
+
+      <div class="coach-note pink">
+        <div class="tag">TASK B STRATEGY</div>
+        <p>Task B is a <b>group discussion</b>, not a lecture. Refer to other candidates by name. Ask questions: <i>"What do you think, Aisyah?"</i>. Help the group reach a consensus in the final minute.</p>
+      </div>
+
+      <div class="card" style="background:#f8fafc">
+        <h3>Top 5 Speaking Tips</h3>
+        <ol style="padding-left:20px;display:grid;gap:8px;margin-top:10px;font-weight:850;font-size:13px">
+          <li>State your <b>main point</b> in the first sentence. Examiners decide quickly.</li>
+          <li>Give <b>one strong reason</b>, not three weak ones.</li>
+          <li>Use a <b>specific example</b> — Malaysian context works well (e.g., PTPTN, EPU, JPA).</li>
+          <li>Avoid fillers: <i>um, uh, like, you know</i>. Pause briefly instead.</li>
+          <li>Close by restating your point — this is the second P in PREP.</li>
+        </ol>
+      </div>
+
+      <button class="btn yellow" onclick="Spk.openStep('step3')">I've read the tips — show me a sample →</button>
+    </div>
+  </div>
+
+  <!-- ── STEP 3: Sample Answer ─────────────────────────────────────── -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="Spk.toggle('step3')">
+      <div class="step-num">3</div>
+      <div style="flex:1"><b>Sample Answer</b><br><small style="color:var(--muted)">See what a good response looks like</small></div>
+      <span id="chev-step3">▾</span>
+    </div>
+    <div class="flow-step-body" id="body-step3" style="display:none;padding-top:14px">
+
+      <div class="card lime">
+        <h3>Sample Task A Question</h3>
+        <p style="margin-top:8px;font-weight:800">Do you think students should work part-time while studying? Give your opinion.</p>
+      </div>
+
+      <div class="card">
+        <h3>Sample PREP Response <span style="background:var(--lime);border:2px solid var(--ink);border-radius:999px;padding:2px 8px;font-size:11px">Band 4.0</span></h3>
+        <div class="sample-box">
+          <span class="sample-label">P — Point</span>
+          I believe students should work part-time while studying because it builds real-world skills.
+        </div>
+        <div class="sample-box" style="margin-top:8px">
+          <span class="sample-label">R — Reason</span>
+          Working part-time teaches students time management, financial responsibility and communication — skills that are hard to learn in a classroom alone.
+        </div>
+        <div class="sample-box" style="margin-top:8px">
+          <span class="sample-label">E — Example</span>
+          For example, a friend of mine worked as a barista during her diploma. She improved her English significantly by interacting with customers daily, and she saved enough to reduce her PTPTN loan.
+        </div>
+        <div class="sample-box" style="margin-top:8px">
+          <span class="sample-label">P — Point Again</span>
+          Therefore, I firmly believe part-time work enriches a student's overall development, provided it does not interfere with academic commitments.
+        </div>
+      </div>
+
+      <div class="coach-note lime">
+        <div class="tag">EXAMINER NOTE</div>
+        <p>This response scores well because it answers directly, gives one clear reason, uses a specific example and closes with a restatement. No filler words. Took approximately 90 seconds.</p>
+      </div>
+
+      <div class="card" style="background:#f8fafc">
+        <h3>Sample Task B Interaction Phrases</h3>
+        <div class="sample-box">I agree with what you said, but I would like to add that...</div>
+        <div class="sample-box" style="margin-top:8px">[Name], what is your opinion on this?</div>
+        <div class="sample-box" style="margin-top:8px">Can we agree that the most important factor is...?</div>
+        <div class="sample-box" style="margin-top:8px">I think we should conclude that... since most of us agree on this point.</div>
+      </div>
+
+      <button class="btn yellow" onclick="Spk.openStep('step4')">I'm ready — start my practice →</button>
+    </div>
+  </div>
+
+  <!-- ── STEP 4: Practice ──────────────────────────────────────────── -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="Spk.toggle('step4')">
+      <div class="step-num">4</div>
+      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Required: PREP + transcript + rubric</small></div>
+      <span id="chev-step4">▾</span>
+    </div>
+    <div class="flow-step-body" id="body-step4" style="display:none;padding-top:14px">
+
+      <!-- Task tabs -->
+      <div class="task-tabs">
+        <button id="tabA" class="task-tab active" onclick="Spk.setTask('A')">Task A</button>
+        <button id="tabB" class="task-tab" onclick="Spk.setTask('B')">Task B</button>
+      </div>
+
+      <!-- Topic selector -->
+      <div class="prompt-box">
+        <p class="tiny" style="color:var(--muted)">Practice Topic — Vault 1</p>
+        <h2 id="taskTitle" style="margin-top:6px">Task A — Individual Response</h2>
+        <select id="topicSelect" style="margin-top:10px" onchange="Spk.changeTopic()"></select>
+        <p id="topicPrompt" style="margin-top:10px;font-weight:800;font-size:14px;line-height:1.45"></p>
+      </div>
+
+      <!-- Coach tip -->
+      <div class="coach-note pink">
+        <div class="tag">COACH TIP FOR THIS TOPIC</div>
+        <p id="coachTip">Use PREP. Choose one clear stand. Give one specific example.</p>
+      </div>
+
+      <!-- Timer -->
+      <div class="timer-card yellow">
+        <div>
+          <p class="tiny" id="timerLabel">2-Minute Prep Timer</p>
+          <div id="timerDisp" class="timer-big">02:00</div>
+        </div>
+        <button class="btn black" style="width:auto;min-width:80px" id="timerBtn" onclick="Spk.toggleTimer()">Start</button>
+      </div>
+
+      <!-- PREP notes -->
+      <div class="card">
+        <h2>PREP Notes <span class="req">Required</span></h2>
+        <p style="font-size:13px;font-weight:800;color:var(--muted);margin-top:4px">Plan your answer using short keywords — do not write full sentences here.</p>
+        <div class="prep-grid" style="margin-top:12px">
+          <div class="prep-box"><h3>P — Point</h3><textarea id="prepP" placeholder="My main stand is..."></textarea></div>
+          <div class="prep-box"><h3>R — Reason</h3><textarea id="prepR" placeholder="This is because..."></textarea></div>
+          <div class="prep-box"><h3>E — Example</h3><textarea id="prepE" placeholder="For example..."></textarea></div>
+          <div class="prep-box"><h3>P — Point Again</h3><textarea id="prepClose" placeholder="Therefore, I believe..."></textarea></div>
+        </div>
+      </div>
+
+      <!-- Transcript -->
+      <div class="card">
+        <h2>Transcript / Speaking Notes <span class="req">Required</span></h2>
+        <p style="font-size:13px;font-weight:800;color:var(--muted);margin-top:4px">After speaking aloud, type your answer here. This helps track your vocabulary and structure.</p>
+        <textarea id="transcript" rows="5" style="margin-top:10px" placeholder="I believe students should work part-time because..."></textarea>
+      </div>
+
+      <!-- Checklist before submit -->
+      <div class="instr-card lime">
+        <h2>Checklist Before Submit</h2>
+        <ul>
+          <li>I filled in all four PREP boxes.</li>
+          <li>I practised speaking aloud at least once.</li>
+          <li>I typed my transcript or speaking notes.</li>
+          <li>My answer directly answers the question.</li>
+        </ul>
+      </div>
+
+      <!-- Rubric -->
+      <div class="card">
+        <h2>MUET Speaking Rubric</h2>
+        <p style="font-size:13px;font-weight:800;color:var(--muted);margin-top:4px">Tick each item your response achieved. Be honest — this gives you a useful score estimate.</p>
+        <div id="rubricList" class="rubric-list" style="margin-top:12px"></div>
+        <div class="btn-row" style="margin-top:16px">
+          <button class="btn yellow wide" onclick="Spk.submit()">Submit Speaking Practice</button>
+          <button class="btn white" onclick="Spk.resetPractice()">Reset</button>
+          <button class="btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── STEP 5: Score + Feedback + Achievement ────────────────────── -->
+  <div id="resultCard" class="result-card lime">
+    <div class="tag">SPEAKING RESULT SAVED</div>
+    <span id="resultScore" class="result-score">0/90</span>
+    <span id="resultBand"  class="result-band">Band —</span>
+    <div style="margin:12px 0;border:var(--line);border-radius:14px;background:white;padding:12px">
+      <p id="resultStrength" style="font-weight:900;font-size:13px"></p>
+      <p id="resultImprove"  style="font-weight:800;font-size:13px;color:var(--muted);margin-top:6px"></p>
+      <p id="resultNext"     style="font-weight:800;font-size:13px;margin-top:6px"></p>
+    </div>
+    <div style="background:var(--ink);color:white;border:var(--line);border-radius:14px;padding:10px 12px;margin-bottom:12px;font-weight:900;font-size:13px" id="achieveBadge"></div>
+    <div class="btn-row">
+      <button class="btn black wide" onclick="location.href='vault1-reading.html'">Next: Reading 📖 →</button>
+      <button class="btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+    </div>
+  </div>
+
+</section>
+</main>
+
+<div id="toast" class="toast"></div>
+<script src="js/muet-shared.js"></script>
+<script>
+const VAULT_ID = 'VAULT-01';
+
+// ── Topic data (Vault 1 — Foundation level) ─────────────────────────
+const topicsA = [
+  { id:'A1', title:'Part-time Jobs', prompt:'Do you think students should work part-time while studying? Give your opinion with reasons.', tip:'State one clear stand. Give one strong reason and a specific local example (PTPTN, campus jobs, family income).' },
+  { id:'A2', title:'Online Learning', prompt:'Online learning is more effective than face-to-face classes. Do you agree? Give your view.', tip:'Agree or disagree — one stand only. Use a specific example of online learning during COVID or a local platform.' },
+  { id:'A3', title:'Social Media', prompt:'Social media brings more benefits than harm to young Malaysians. Do you agree?', tip:'Choose one side clearly. Avoid generic points — give a specific app (TikTok, Instagram) and a real effect.' },
+  { id:'A4', title:'Public Transport', prompt:'The government should invest more in public transport rather than building more roads. Give your opinion.', tip:'Reason: environment, cost, traffic congestion. Example: MRT expansion, e-hailing issues, rural areas.' }
+];
+const topicsB = [
+  { id:'B1', title:'Best Way to Improve English', prompt:'Your group is discussing the most effective way for Malaysian students to improve their English. Which is most effective: reading books, watching English films, joining conversation clubs or writing journals?', tip:'Compare options fairly. Invite others: "What do you think, [name]?" Help reach consensus in the last 2 minutes.' },
+  { id:'B2', title:'Healthy Lifestyle Habits', prompt:'Your group is discussing the most important habit for a healthy student lifestyle: regular exercise, a balanced diet, adequate sleep or stress management?', tip:'Agree and build on others\' points. Use linking phrases: "That is a valid point. I would like to add..."' },
+  { id:'B3', title:'Choosing a Campus Activity', prompt:'Your student council is deciding which programme to organise: a career fair, a community service project, a cultural night or a sports tournament. Which should be chosen and why?', tip:'Justify your choice with benefits to the largest group. Guide the group toward one agreed conclusion.' }
+];
+const rubricA = [
+  ['task',       'Task Fulfilment',   'Answered the question directly and stayed on topic', 15],
+  ['prep',       'PREP Structure',    'Clear Point, Reason, Example and closing Point', 15],
+  ['idea',       'Idea Development',  'Reason and example were specific and relevant', 15],
+  ['language',   'Language Control',  'Grammar and vocabulary were mostly clear', 15],
+  ['fluency',    'Fluency',           'Speech flowed with minimal fillers or long pauses', 15],
+  ['confidence', 'Delivery',          'Voice sounded confident and easy to follow', 15]
+];
+const rubricB = [
+  ['task',        'Task Fulfilment',    'Discussed the task and compared options clearly', 12],
+  ['interaction', 'Interaction',        'Responded to others, asked questions, referred to names', 18],
+  ['idea',        'Idea Development',   'Supported ideas with reasons and examples', 15],
+  ['language',    'Language Control',   'Used clear sentences and suitable vocabulary', 15],
+  ['fluency',     'Fluency',            'Maintained flow with minimal fillers', 15],
+  ['consensus',   'Consensus Building', 'Helped the group reach a conclusion', 15]
+];
+
+const Spk = (() => {
+  let task = 'A', secs = 120, timerId = null;
+
+  function openStep(id) {
+    toggle(id, true);
+    setTimeout(() => {
+      document.getElementById('body-' + id)?.scrollIntoView({ behavior:'smooth', block:'start' });
+    }, 100);
+  }
+
+  function toggle(id, forceOpen = false) {
+    const body  = document.getElementById('body-' + id);
+    const chev  = document.getElementById('chev-' + id);
+    if (!body) return;
+    const open  = forceOpen || body.style.display === 'none';
+    body.style.display = open ? 'block' : 'none';
+    if (chev) chev.textContent = open ? '▴' : '▾';
+  }
+
+  function setTask(t) {
+    task = t;
+    document.getElementById('tabA').classList.toggle('active', t === 'A');
+    document.getElementById('tabB').classList.toggle('active', t === 'B');
+    document.getElementById('taskTitle').textContent = t === 'A' ? 'Task A — Individual Response' : 'Task B — Group Discussion';
+    secs = t === 'A' ? 120 : 180;
+    stopTimer(); renderTimer(); renderTopics(); renderRubric(); changeTopic();
+  }
+
+  function renderTopics() {
+    const sel  = document.getElementById('topicSelect');
+    const data = task === 'A' ? topicsA : topicsB;
+    sel.innerHTML = data.map(x => `<option value="${x.id}">${x.title}</option>`).join('');
+  }
+
+  function getTopic() {
+    const id   = document.getElementById('topicSelect').value;
+    const data = task === 'A' ? topicsA : topicsB;
+    return data.find(x => x.id === id) || data[0];
+  }
+
+  function changeTopic() {
+    const t = getTopic();
+    document.getElementById('topicPrompt').textContent = t.prompt;
+    document.getElementById('coachTip').textContent    = t.tip;
+  }
+
+  function renderRubric() {
+    const data = task === 'A' ? rubricA : rubricB;
+    document.getElementById('rubricList').innerHTML = data.map(([id, name, desc, pts]) => `
+      <label class="rubric-item">
+        <input type="checkbox" data-score="${pts}" data-id="${id}"/>
+        <span><b>${name}</b><br><small style="color:var(--muted);font-weight:900">${desc}</small></span>
+        <span class="score-pill">${pts}pts</span>
+      </label>`).join('');
+  }
+
+  function toggleTimer() {
+    if (timerId) { stopTimer(); return; }
+    timerId = setInterval(() => {
+      secs--;
+      renderTimer();
+      if (secs <= 0) { stopTimer(); MUET.toast(task === 'A' ? 'Prep time done. Start speaking!' : 'Prep time done. Begin your discussion.'); }
+    }, 1000);
+    document.getElementById('timerBtn').textContent = 'Pause';
+  }
+
+  function stopTimer() {
+    clearInterval(timerId); timerId = null;
+    const b = document.getElementById('timerBtn');
+    if (b) b.textContent = 'Start';
+  }
+
+  function renderTimer() {
+    const m = String(Math.floor(secs / 60)).padStart(2,'0');
+    const s = String(secs % 60).padStart(2,'0');
+    document.getElementById('timerDisp').textContent  = `${m}:${s}`;
+    document.getElementById('timerLabel').textContent = task === 'A' ? '2-Minute Prep Timer' : '3-Minute Prep Timer';
+  }
+
+  function submit() {
+    const checks   = [...document.querySelectorAll('#rubricList input:checked')];
+    const raw      = checks.reduce((sum, c) => sum + Number(c.dataset.score), 0);
+    const maxPts   = (task === 'A' ? rubricA : rubricB).reduce((s,r) => s + r[3], 0);
+    const score90  = Math.round((raw / maxPts) * 90);
+    const band     = MUET.scoreToBand(score90);
+    const topic    = getTopic();
+    const transcript = document.getElementById('transcript').value.trim();
+
+    if (!transcript) { MUET.toast('Please type your transcript or speaking notes before submitting.'); return; }
+
+    const session = {
+      vaultId:  VAULT_ID,
+      type:     task === 'A' ? 'Task A' : 'Task B',
+      topicId:  topic.id,
+      topicTitle:topic.title,
+      prompt:   topic.prompt,
+      score90, score: score90,
+      band, bandLabel: band,
+      checks: checks.map(c => c.dataset.id),
+      prep: {
+        point:   document.getElementById('prepP').value,
+        reason:  document.getElementById('prepR').value,
+        example: document.getElementById('prepE').value,
+        close:   document.getElementById('prepClose').value
+      },
+      transcript,
+      date: new Date().toISOString(),
+      xpEarned: 80 + checks.length * 5
+    };
+
+    const sessions = MUET.loadSessions('speaking');
+    sessions.push(session);
+    MUET.saveSessions('speaking', sessions);
+
+    // Award badges
+    MUET.awardBadge('first_step');
+    if (task === 'A') MUET.awardBadge('prep_starter');
+    if (task === 'B') MUET.awardBadge('discussion_builder');
+    MUET.addXP(session.xpEarned);
+
+    // Render result
+    const fb = MUET.feedbackText('speaking', score90);
+    document.getElementById('resultScore').textContent    = `${score90}/90`;
+    document.getElementById('resultBand').textContent     = `Estimated Band ${band}`;
+    document.getElementById('resultStrength').textContent = score90 >= 64 ? '✅ Strength: ' + fb : '📋 ' + fb;
+    document.getElementById('resultImprove').textContent  = checks.length < 3 ? '⚡ Improvement: Tick more rubric items by developing your PREP structure.' : '⚡ Improvement: Review your delivery — speak confidently and avoid fillers.';
+    document.getElementById('resultNext').textContent     = '→ Next action: Open Reading and apply Question-First strategy.';
+    document.getElementById('achieveBadge').textContent   = task === 'A' ? '🎤 Badge Unlocked: PREP Starter' : '💬 Badge Unlocked: Discussion Builder';
+
+    document.getElementById('resultCard').classList.add('show');
+    MUET.toast('Speaking practice saved. Great work!');
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    updateVaultProgress();
+  }
+
+  function resetPractice() {
+    ['prepP','prepR','prepE','prepClose','transcript'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.value = '';
+    });
+    document.querySelectorAll('#rubricList input').forEach(x => x.checked = false);
+    document.getElementById('resultCard').classList.remove('show');
+    secs = task === 'A' ? 120 : 180;
+    stopTimer(); renderTimer();
+    MUET.toast('Practice reset.');
+  }
+
+  return { openStep, toggle, setTask, changeTopic, toggleTimer, submit, resetPractice };
+})();
+
+function updateVaultProgress() {
+  const prog = MUET.vaultProgress(VAULT_ID);
+  const pct  = Math.round(prog.count / 4 * 100);
+  const bar  = document.getElementById('vaultProgBar');
+  const lbl  = document.getElementById('vaultProgLabel');
+  if (bar) bar.style.width = pct + '%';
+  if (lbl) lbl.textContent  = prog.count + '/4';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  Spk.setTask('A');
+  updateVaultProgress();
+  // Open step 1 by default
+  document.getElementById('body-step1').style.display = 'block';
+  document.getElementById('chev-step1').textContent   = '▴';
+});
+</script>
+</body>
+</html>

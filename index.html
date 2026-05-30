@@ -7,249 +7,486 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/muet-neopop.css"/>
+  <link rel="stylesheet" href="css/muet-guide.css"/>
 </head>
 <body>
-  <main class="phone-shell">
+<main class="app-shell">
 
-    <!-- REGISTER SCREEN -->
-    <section id="registerScreen" class="screen active">
-      <div class="brand-bar">
-        <div class="crown-logo">M</div>
+  <!-- ══ REGISTER ════════════════════════════════════════════════════ -->
+  <section id="registerScreen" class="screen active">
+    <div class="brand-bar">
+      <div class="crown">M</div>
+      <div>
+        <div class="bar-label">POLIPD · ELU · 2026</div>
+        <div class="bar-title">MUET SmartHub</div>
+      </div>
+    </div>
+
+    <div class="card yellow" style="min-height:200px;position:relative;overflow:hidden">
+      <p class="tiny" style="color:var(--muted)">AI-Powered MUET Learning Companion</p>
+      <h1 style="margin-top:10px">Practise.<br>Check.<br>Improve.</h1>
+      <p style="margin-top:10px;font-weight:800;max-width:220px">One guided dashboard for Speaking, Reading, Listening and Writing.</p>
+      <div style="position:absolute;right:16px;top:50%;transform:translateY(-50%);display:grid;gap:10px">
+        <div style="width:56px;height:56px;border:var(--line);border-radius:50%;background:var(--pink);box-shadow:3px 3px 0 var(--ink);display:grid;place-items:center;font-weight:1000">B4</div>
+        <div style="width:48px;height:48px;border:var(--line);border-radius:50%;background:var(--blue);color:white;box-shadow:3px 3px 0 var(--ink);display:grid;place-items:center;font-weight:1000">XP</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Create Your Profile</h2>
+      <p class="tiny" style="margin-top:4px;color:var(--muted)">Register once. Your profile is used across all vaults and modules.</p>
+      <form id="regForm" class="form">
+        <label>Full Name
+          <input id="regName" required placeholder="e.g. Aisyah Ahmad"/>
+        </label>
+        <label>Student No.
+          <input id="regNo" required placeholder="e.g. 06DPR23F1001"/>
+        </label>
+        <label>Class / Group
+          <input id="regGroup" required placeholder="e.g. DPR3A"/>
+        </label>
+        <label>Target Band
+          <select id="regBand">
+            <option value="3.5">Band 3.5</option>
+            <option value="4.0" selected>Band 4.0</option>
+            <option value="4.5">Band 4.5</option>
+            <option value="5.0">Band 5.0</option>
+            <option value="5+">Band 5+</option>
+          </select>
+        </label>
+        <button class="btn yellow" type="submit">Start My Journey →</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ══ HOME ════════════════════════════════════════════════════════ -->
+  <section id="homeScreen" class="screen">
+    <div class="brand-bar">
+      <div class="crown y">M</div>
+      <div>
+        <div class="bar-label">Welcome back</div>
+        <div class="bar-title" id="homeName">MUET Learner</div>
+      </div>
+      <button class="icon-btn" onclick="Hub.goTo('profileScreen')">👤</button>
+    </div>
+
+    <!-- Band overview -->
+    <div class="dash-card">
+      <div>
+        <p class="tiny">Overall Band Estimate</p>
+        <h1 id="homeBand" style="color:white;margin-top:4px">Band 0.0</h1>
+        <p id="homeBandMsg">Complete your first task to activate tracking.</p>
+      </div>
+      <div class="band-disc" id="bandDisc">
+        <span id="homePercent">0%</span>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stat-row">
+      <div class="stat-card red"><span>🔥</span><b id="homeStreak">0</b><small>Streak</small></div>
+      <div class="stat-card blue"><span>⭐</span><b id="homeXP">0</b><small>XP</small></div>
+      <div class="stat-card lime"><span>🎯</span><b id="homeTarget">4.0</b><small>Target</small></div>
+    </div>
+
+    <!-- How to flow -->
+    <div class="instr-card yellow">
+      <h2>Your Smart MUET Flow</h2>
+      <ol>
+        <li>Go to <b>Study Vault</b> and choose Vault 1 to start.</li>
+        <li>Complete a self-check, then go through each component with tips and sample answers.</li>
+        <li>Submit each component to save your score and feedback.</li>
+        <li>Check the Vault Round-Up after all four components are done.</li>
+      </ol>
+    </div>
+
+    <!-- Module quick access -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <h2>Skill Modules</h2>
+    </div>
+    <div class="module-grid">
+      <button class="module-card m-speaking" onclick="MUET.goPage('vault1-speaking.html')">
+        <div class="module-icon">🎤</div>
+        <h3>Speaking</h3><p>PREP · Task A/B</p>
+        <div class="scorebar"><span id="spkBar"></span></div>
+        <small id="spkScore">No attempt</small>
+      </button>
+      <button class="module-card m-reading" onclick="MUET.goPage('vault1-reading.html')">
+        <div class="module-icon">📖</div>
+        <h3>Reading</h3><p>Q-first · Timed</p>
+        <div class="scorebar"><span id="readBar"></span></div>
+        <small id="readScore">No attempt</small>
+      </button>
+      <button class="module-card m-listening" onclick="MUET.goPage('vault1-listening.html')">
+        <div class="module-icon">🎧</div>
+        <h3>Listening</h3><p>Audio · Keywords</p>
+        <div class="scorebar"><span id="lstBar"></span></div>
+        <small id="lstScore">No attempt</small>
+      </button>
+      <button class="module-card m-writing" onclick="MUET.goPage('vault1-writing.html')">
+        <div class="module-icon">✍️</div>
+        <h3>Writing</h3><p>Email · Essay</p>
+        <div class="scorebar"><span id="wrtBar"></span></div>
+        <small id="wrtScore">No attempt</small>
+      </button>
+    </div>
+
+    <!-- Today's focus -->
+    <div class="focus-box" id="focusBox">
+      <div class="tag">TODAY'S FOCUS</div>
+      <h2 id="focusTitle">Start with Speaking</h2>
+      <p id="focusText" style="margin-top:6px;font-weight:800">Complete one Task A using PREP structure.</p>
+      <button class="btn black" style="margin-top:12px" id="focusBtn">Open Focus Skill</button>
+    </div>
+
+    <!-- Go to vault -->
+    <button class="btn lime" onclick="Hub.goTo('vaultScreen')" style="margin-bottom:16px">🔒 Open Study Vault →</button>
+  </section>
+
+  <!-- ══ VAULT ════════════════════════════════════════════════════════ -->
+  <section id="vaultScreen" class="screen">
+    <div class="brand-bar">
+      <button class="icon-btn" onclick="Hub.goTo('homeScreen')" style="margin-left:0;margin-right:8px">←</button>
+      <div>
+        <div class="bar-label">Guided Practice</div>
+        <div class="bar-title">Study Vault</div>
+      </div>
+      <button class="icon-btn">🔒</button>
+    </div>
+
+    <div class="instr-card green">
+      <h2>How to Use Study Vault</h2>
+      <ol>
+        <li>Start with <b>Starter Vault</b> to learn the app flow.</li>
+        <li>Move to <b>Vault 1</b> for your first full guided practice set.</li>
+        <li>Each vault has all four components: Speaking, Reading, Listening and Writing.</li>
+        <li>Complete all four to unlock your Vault Round-Up score.</li>
+      </ol>
+    </div>
+
+    <!-- Starter Vault card -->
+    <div class="card" style="border-left:6px solid var(--lime)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
         <div>
-          <div class="brand-small">POLIPD · ELU · 2026</div>
-          <div class="brand-title">MUET SmartHub</div>
+          <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px">Starter</div>
+          <h3>Starter Vault</h3>
+          <p style="color:var(--muted);font-weight:800;font-size:13px;margin-top:2px">Guided sample practice — learn the app flow</p>
         </div>
+        <div style="background:var(--lime);border:var(--line);border-radius:999px;padding:6px 10px;font-size:11px;font-weight:1000;white-space:nowrap" id="starterStatus">0/4 Done</div>
       </div>
-
-      <div class="hero-neo hero-yellow">
-        <div class="hero-copy">
-          <p class="tiny">AI-Powered MUET Learning Companion</p>
-          <h1>Practise.<br>Check.<br>Improve.</h1>
-          <p>One guided dashboard for Speaking, Reading, Listening and Writing.</p>
-        </div>
-        <div class="hero-illustration">
-          <div class="face hair"></div>
-          <div class="bubble b1">B4</div>
-          <div class="bubble b2">XP</div>
-        </div>
+      <div class="comp-dots" style="margin:12px 0 8px" id="starterDots">
+        <div class="dot pending">🎤</div>
+        <div class="dot pending">📖</div>
+        <div class="dot pending">🎧</div>
+        <div class="dot pending">✍️</div>
       </div>
-
-      <div class="neo-panel">
-        <h2>Create Profile</h2>
-        <p class="sub">Register once. Use the same profile across all modules.</p>
-
-        <form id="profileForm" class="form">
-          <label>Full Name
-            <input id="name" required placeholder="e.g. Aisyah Ahmad"/>
-          </label>
-          <label>Student No.
-            <input id="regNo" required placeholder="e.g. 06DPR23F1001"/>
-          </label>
-          <label>Class / Group
-            <input id="group" required placeholder="e.g. DPR3A"/>
-          </label>
-          <label>Target Band
-            <select id="targetBand">
-              <option value="3.5">Band 3.5</option>
-              <option value="4.0" selected>Band 4.0</option>
-              <option value="4.5">Band 4.5</option>
-              <option value="5.0">Band 5.0</option>
-              <option value="5+">Band 5+</option>
-            </select>
-          </label>
-          <button class="neo-btn yellow" type="submit">Start My Journey →</button>
-        </form>
+      <div class="prog-bar" style="margin-bottom:12px"><span id="starterProg" style="width:0%"></span></div>
+      <div class="card lime" style="font-size:13px;font-weight:900;padding:10px 12px;margin-bottom:12px">
+        ⭐ Start here. This vault uses sample questions and does not count as one of your 10 main practice sets.
       </div>
-    </section>
+      <button class="btn black" onclick="Hub.openVault('VAULT-00')">Open Starter Vault →</button>
+    </div>
 
-    <!-- HOME SCREEN -->
-    <section id="homeScreen" class="screen">
-      <div class="brand-bar dark">
-        <div class="crown-logo yellow">M</div>
+    <!-- Vault 1 card -->
+    <div class="card" style="border-left:6px solid var(--yellow)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
         <div>
-          <div class="brand-small">Welcome back</div>
-          <div id="welcomeName" class="brand-title">MUET Learner</div>
+          <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px">Vault 1 · Foundation</div>
+          <h3>Vault 1</h3>
+          <p style="color:var(--muted);font-weight:800;font-size:13px;margin-top:2px">Foundation Practice Set 1 — full guided flow</p>
         </div>
-        <button onclick="MuetNeo.show('profileScreen')" class="hamb">👤</button>
+        <div style="background:var(--yellow);border:var(--line);border-radius:999px;padding:6px 10px;font-size:11px;font-weight:1000;white-space:nowrap" id="v1Status">0/4 Done</div>
       </div>
-
-      <div class="dashboard-card">
-        <div>
-          <p class="tiny">Overall Band Estimate</p>
-          <h1 id="overallBand">Band 0.0</h1>
-          <p id="bandMessage">Complete your first task to activate tracking.</p>
-        </div>
-        <div class="band-disc">
-          <span id="overallPercent">0%</span>
-        </div>
+      <div class="comp-dots" style="margin:12px 0 8px" id="v1Dots">
+        <div class="dot pending">🎤</div>
+        <div class="dot pending">📖</div>
+        <div class="dot pending">🎧</div>
+        <div class="dot pending">✍️</div>
       </div>
-
-      <div class="stat-row">
-        <div class="stat-card red"><span>🔥</span><b id="streak">0</b><small>Streak</small></div>
-        <div class="stat-card blue"><span>⭐</span><b id="xp">0</b><small>XP</small></div>
-        <div class="stat-card green"><span>🎯</span><b id="targetDisplay">4.0</b><small>Target</small></div>
+      <div class="prog-bar" style="margin-bottom:12px"><span id="v1Prog" style="width:0%"></span></div>
+      <div class="card blue" style="font-size:13px;font-weight:900;padding:10px 12px;margin-bottom:12px">
+        📋 Foundation level — heavy guidance, tips and sample answers before each component.
       </div>
+      <button class="btn yellow" onclick="Hub.openVault('VAULT-01')">Open Vault 1 →</button>
+    </div>
 
-      <div class="instruction-card yellow">
-        <h2>Your Smart MUET Flow</h2>
-        <ol>
-          <li>Go to <b>Study Vault</b> and choose one vault to start.</li>
-          <li>Complete all four components: Speaking, Reading, Listening and Writing.</li>
-          <li>Return to the Hub to check your score, progress and badges.</li>
-          <li>Use the dashboard to identify your weakest component before the next vault.</li>
-        </ol>
-      </div>
+    <!-- Vaults 2–10 placeholder -->
+    <div class="card" style="opacity:.65;border:3px dashed #94a3b8">
+      <h3 style="color:var(--muted)">🔒 Vault 2 – 10 &amp; Final Mock Exams</h3>
+      <p style="color:var(--muted);font-weight:800;font-size:13px;margin-top:6px">Papers are being verified and will be assigned before each vault opens. Complete Vault 1 first.</p>
+    </div>
+  </section>
 
-      <div class="section-head">
-        <h2>Skill Modules</h2>
-      </div>
+  <!-- ══ PROGRESS ═════════════════════════════════════════════════════ -->
+  <section id="progressScreen" class="screen">
+    <div class="brand-bar">
+      <button class="icon-btn" onclick="Hub.goTo('homeScreen')" style="margin-left:0;margin-right:8px">←</button>
+      <div><div class="bar-label">Analytics</div><div class="bar-title">Progress</div></div>
+      <button class="icon-btn">📈</button>
+    </div>
 
-      <div class="module-grid">
-        <button class="module-card m-speaking" onclick="MuetNeo.openModule('speaking.html')">
-          <div class="module-icon">🎤</div>
-          <h3>Speaking</h3>
-          <p>PREP · Task A/B</p>
-          <div class="scorebar"><span id="speakingBar"></span></div>
-          <small id="speakingScore">No attempt</small>
-        </button>
+    <div class="card">
+      <h2>Component Scores</h2>
+      <div id="progRows" style="display:grid;gap:12px;margin-top:12px"></div>
+    </div>
 
-        <button class="module-card m-reading" onclick="MuetNeo.openModule('reading.html')">
-          <div class="module-icon">📖</div>
-          <h3>Reading</h3>
-          <p>Q-first · Timed</p>
-          <div class="scorebar"><span id="readingBar"></span></div>
-          <small id="readingScore">No attempt</small>
-        </button>
+    <div class="card">
+      <h2>Latest Feedback</h2>
+      <div id="feedbackRows" style="display:grid;gap:10px;margin-top:12px"></div>
+    </div>
 
-        <button class="module-card m-listening" onclick="MuetNeo.openModule('listening.html')">
-          <div class="module-icon">🎧</div>
-          <h3>Listening</h3>
-          <p>Audio · Keywords</p>
-          <div class="scorebar"><span id="listeningBar"></span></div>
-          <small id="listeningScore">No attempt</small>
-        </button>
+    <div class="card">
+      <h2>Completion Badges</h2>
+      <div id="badgeGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"></div>
+    </div>
+  </section>
 
-        <button class="module-card m-writing" onclick="MuetNeo.openModule('writing.html')">
-          <div class="module-icon">✍️</div>
-          <h3>Writing</h3>
-          <p>Email · Essay</p>
-          <div class="scorebar"><span id="writingBar"></span></div>
-          <small id="writingScore">No attempt</small>
-        </button>
-      </div>
+  <!-- ══ PROFILE ═══════════════════════════════════════════════════════ -->
+  <section id="profileScreen" class="screen">
+    <div class="brand-bar">
+      <button class="icon-btn" onclick="Hub.goTo('homeScreen')" style="margin-left:0;margin-right:8px">←</button>
+      <div><div class="bar-label">Settings</div><div class="bar-title">Profile</div></div>
+      <button class="icon-btn">⚙️</button>
+    </div>
 
-      <div id="focusBox" class="focus-box">
-        <div class="tag">TODAY'S FOCUS</div>
-        <h2 id="focusTitle">Start with Speaking</h2>
-        <p id="focusText">Complete one short Task A using PREP structure.</p>
-        <button id="focusBtn" class="neo-btn black">Open Focus Skill</button>
-      </div>
+    <div class="card">
+      <h2>Student Profile</h2>
+      <form id="editForm" class="form">
+        <label>Full Name<input id="editName"/></label>
+        <label>Student No.<input id="editRegNo"/></label>
+        <label>Class / Group<input id="editGroup"/></label>
+        <label>Target Band
+          <select id="editBand">
+            <option value="3.5">Band 3.5</option>
+            <option value="4.0">Band 4.0</option>
+            <option value="4.5">Band 4.5</option>
+            <option value="5.0">Band 5.0</option>
+            <option value="5+">Band 5+</option>
+          </select>
+        </label>
+        <button class="btn yellow" type="submit">Save Profile</button>
+        <button class="btn pink" type="button" onclick="Hub.resetAll()">Reset App</button>
+      </form>
+    </div>
+  </section>
 
-      <div class="neo-panel">
-        <div class="section-head no-margin">
-          <h2>Study Vault Journey</h2>
-          <span class="mini-badge">NEW FORMAT</span>
-        </div>
-        <p class="sub" style="margin-bottom:10px">Complete all 4 components in each vault to track your progress.</p>
-        <div class="cycle-strip" id="cycleStrip"></div>
-      </div>
-    </section>
+  <nav id="nav" class="bottom-nav" style="display:none">
+    <button class="active" onclick="Hub.goTo('homeScreen')">⌂<span>Home</span></button>
+    <button onclick="Hub.goTo('vaultScreen')">🔒<span>Vault</span></button>
+    <button onclick="Hub.goTo('progressScreen')">◉<span>Progress</span></button>
+    <button onclick="Hub.goTo('profileScreen')">☻<span>Profile</span></button>
+  </nav>
 
-    <!-- STUDY VAULT SCREEN -->
-    <section id="vaultScreen" class="screen">
-      <div class="brand-bar dark">
-        <button onclick="MuetNeo.show('homeScreen')" class="hamb">←</button>
-        <div>
-          <div class="brand-small">Guided Practice</div>
-          <div class="brand-title">Study Vault</div>
-        </div>
-        <button class="hamb">🔒</button>
-      </div>
+  <div id="toast" class="toast"></div>
+</main>
 
-      <div class="instruction-card green">
-        <h2>How to Use Study Vault</h2>
-        <ol>
-          <li>Choose a vault below — start with <b>Starter Vault</b> if it's your first time.</li>
-          <li>Complete all four components: Speaking, Reading, Listening and Writing.</li>
-          <li>Your progress is saved after each component submission.</li>
-          <li>Return here after completing all four to see your Vault Round-Up score.</li>
-        </ol>
-      </div>
+<script src="js/muet-shared.js"></script>
+<script>
+const Hub = (() => {
 
-      <div id="vaultList" class="vault-list"></div>
-    </section>
+  const BADGES = [
+    ['✨','First Step','first_step'],
+    ['🎤','PREP Starter','prep_starter'],
+    ['💬','Discussion Builder','discussion_builder'],
+    ['📖','Passage Hunter','passage_hunter'],
+    ['🎧','Audio Focus','audio_focus'],
+    ['✍️','Essay Builder','essay_builder'],
+    ['🏆','Vault Finisher','vault_finisher'],
+    ['🎯','Mock Finisher','mock_finisher'],
+    ['📈','Band Climber','band_climber']
+  ];
 
-    <!-- PROGRESS SCREEN -->
-    <section id="progressScreen" class="screen">
-      <div class="brand-bar dark">
-        <button onclick="MuetNeo.show('homeScreen')" class="hamb">←</button>
-        <div>
-          <div class="brand-small">Analytics</div>
-          <div class="brand-title">Progress</div>
-        </div>
-        <button class="hamb">📈</button>
-      </div>
+  const SKILLS = [
+    ['speaking','Speaking','🎤','vault1-speaking.html'],
+    ['reading','Reading','📖','vault1-reading.html'],
+    ['listening','Listening','🎧','vault1-listening.html'],
+    ['writing','Writing','✍️','vault1-writing.html']
+  ];
 
-      <div class="neo-panel">
-        <h2>Component Performance</h2>
-        <div id="progressRows"></div>
-      </div>
+  function init() {
+    const p = MUET.loadProfile();
+    if (p) { goTo('homeScreen'); renderHome(); fillEdit(); }
+    else    { goTo('registerScreen'); }
 
-      <div class="neo-panel">
-        <h2>Completion Badges</h2>
-        <div id="badges" class="badge-grid"></div>
-      </div>
-    </section>
+    document.getElementById('regForm')?.addEventListener('submit', e => {
+      e.preventDefault();
+      const p = {
+        name:       document.getElementById('regName').value.trim(),
+        regNo:      document.getElementById('regNo').value.trim(),
+        group:      document.getElementById('regGroup').value.trim(),
+        targetBand: document.getElementById('regBand').value,
+        xp: 50, streak: 1, badges: ['first_step'],
+        createdAt: new Date().toISOString()
+      };
+      MUET.saveProfile(p);
+      MUET.toast('Welcome to MUET SmartHub! Your journey starts now.');
+      goTo('homeScreen'); renderHome(); fillEdit();
+    });
 
-    <!-- PROFILE SCREEN -->
-    <section id="profileScreen" class="screen">
-      <div class="brand-bar dark">
-        <button onclick="MuetNeo.show('homeScreen')" class="hamb">←</button>
-        <div>
-          <div class="brand-small">Settings</div>
-          <div class="brand-title">Profile</div>
-        </div>
-        <button class="hamb">⚙️</button>
-      </div>
+    document.getElementById('editForm')?.addEventListener('submit', e => {
+      e.preventDefault();
+      const p = MUET.loadProfile() || {};
+      p.name       = document.getElementById('editName').value.trim();
+      p.regNo      = document.getElementById('editRegNo').value.trim();
+      p.group      = document.getElementById('editGroup').value.trim();
+      p.targetBand = document.getElementById('editBand').value;
+      MUET.saveProfile(p);
+      MUET.toast('Profile saved.');
+      goTo('homeScreen'); renderHome();
+    });
+  }
 
-      <div class="neo-panel">
-        <h2>Student Profile</h2>
-        <form id="editForm" class="form">
-          <label>Full Name
-            <input id="editName"/>
-          </label>
-          <label>Student No.
-            <input id="editRegNo"/>
-          </label>
-          <label>Class / Group
-            <input id="editGroup"/>
-          </label>
-          <label>Target Band
-            <select id="editTarget">
-              <option value="3.5">Band 3.5</option>
-              <option value="4.0">Band 4.0</option>
-              <option value="4.5">Band 4.5</option>
-              <option value="5.0">Band 5.0</option>
-              <option value="5+">Band 5+</option>
-            </select>
-          </label>
-          <button class="neo-btn yellow" type="submit">Save Profile</button>
-          <button class="neo-btn pink" type="button" onclick="MuetNeo.resetAll()">Reset App</button>
-        </form>
-      </div>
-    </section>
+  function goTo(id) {
+    MUET.goTo(id);
+    if (id === 'homeScreen')    renderHome();
+    if (id === 'vaultScreen')   renderVault();
+    if (id === 'progressScreen') renderProgress();
+    if (id === 'profileScreen') fillEdit();
+    const nav = document.getElementById('nav');
+    if (nav) nav.style.display = (id === 'registerScreen') ? 'none' : 'grid';
+  }
 
-    <nav id="nav" class="bottom-nav">
-      <button class="active" onclick="MuetNeo.show('homeScreen')">⌂<span>Home</span></button>
-      <button onclick="MuetNeo.show('vaultScreen')">🔒<span>Vault</span></button>
-      <button onclick="MuetNeo.show('progressScreen')">◉<span>Progress</span></button>
-      <button onclick="MuetNeo.show('profileScreen')">☻<span>Profile</span></button>
-    </nav>
+  function renderHome() {
+    const p = MUET.loadProfile(); if (!p) return;
+    document.getElementById('homeName').textContent   = p.name || 'MUET Learner';
+    document.getElementById('homeStreak').textContent = p.streak || 0;
+    document.getElementById('homeXP').textContent     = p.xp || 0;
+    document.getElementById('homeTarget').textContent = p.targetBand || '4.0';
 
-    <div id="toast" class="toast">Saved</div>
-  </main>
+    const scores = {};
+    SKILLS.forEach(([skill]) => {
+      scores[skill] = MUET.latestScore(skill);
+      const pc = Math.round(scores[skill] / 90 * 100);
+      const barId = { speaking:'spkBar', reading:'readBar', listening:'lstBar', writing:'wrtBar' }[skill];
+      const txtId = { speaking:'spkScore', reading:'readScore', listening:'lstScore', writing:'wrtScore' }[skill];
+      const bar = document.getElementById(barId);
+      const txt = document.getElementById(txtId);
+      if (bar) bar.style.width = Math.min(100, pc) + '%';
+      if (txt) txt.textContent = scores[skill] ? `${scores[skill]}/90 · ${pc}%` : 'No attempt';
+    });
 
-  <script src="js/muet-neopop.js"></script>
+    const total = scores.speaking + scores.reading + scores.listening + scores.writing;
+    const b     = MUET.calcBand(total);
+    const pc    = Math.round(total / 360 * 100);
+    document.getElementById('homeBand').textContent    = 'Band ' + b;
+    document.getElementById('homeBandMsg').textContent = MUET.bandMessage(b);
+    document.getElementById('homePercent').textContent = pc + '%';
+    document.getElementById('bandDisc').style.setProperty('--p', pc + '%');
+
+    // Focus
+    const weakest = SKILLS.slice().sort((a,b) => scores[a[0]] - scores[b[0]])[0];
+    const tips = { speaking:'Complete one Task A using PREP: Point, Reason, Example, Point again.',
+                   reading:'Complete one part. Read questions first, then scan the passage.',
+                   listening:'Practise one part. Write keywords only, not full sentences.',
+                   writing:'Write one task. Check word count and tick the rubric before submitting.' };
+    document.getElementById('focusTitle').textContent = weakest[2] + ' Focus: ' + weakest[1];
+    document.getElementById('focusText').textContent  = tips[weakest[0]];
+    document.getElementById('focusBtn').onclick       = () => MUET.goPage(weakest[3]);
+  }
+
+  function renderVault() {
+    ['VAULT-00','VAULT-01'].forEach((vid, i) => {
+      const prefix = i === 0 ? 'starter' : 'v1';
+      const prog = MUET.vaultProgress(vid);
+      const count = prog.count;
+      const pct   = Math.round(count / 4 * 100);
+      const el = document.getElementById(prefix + 'Status');
+      if (el) el.textContent = count === 4 ? 'Completed ✅' : count + '/4 Done';
+      const bar = document.getElementById(prefix + 'Prog');
+      if (bar) bar.style.width = pct + '%';
+      // Dots
+      const dots = document.getElementById(prefix + 'Dots');
+      if (dots) {
+        const skills = ['speaking','reading','listening','writing'];
+        const icons  = ['🎤','📖','🎧','✍️'];
+        dots.innerHTML = skills.map((s, si) =>
+          `<div class="dot ${prog.done[s] ? 'done' : ''}">${icons[si]}</div>`
+        ).join('');
+      }
+    });
+  }
+
+  function openVault(vaultId) {
+    const vault = MUET.VAULT_MAP[vaultId];
+    if (!vault) return;
+    MUET.saveActiveVault({ vaultId: vault.id, vaultTitle: vault.title, vaultType: vault.type });
+    MUET.goPage('vault1-welcome.html');
+  }
+
+  function renderProgress() {
+    const SKILLS_LIST = [
+      ['speaking','Speaking','🎤'],
+      ['reading','Reading','📖'],
+      ['listening','Listening','🎧'],
+      ['writing','Writing','✍️']
+    ];
+    const pr = document.getElementById('progRows');
+    if (pr) {
+      pr.innerHTML = SKILLS_LIST.map(([skill, label, icon]) => {
+        const s  = MUET.latestScore(skill);
+        const pc = Math.round(s / 90 * 100);
+        return `<div>
+          <div style="display:flex;justify-content:space-between;font-weight:1000;margin-bottom:6px">
+            <span>${icon} ${label}</span><span>${s}/90</span></div>
+          <div class="prog-bar"><span style="width:${pc}%"></span></div></div>`;
+      }).join('');
+    }
+
+    const fr = document.getElementById('feedbackRows');
+    if (fr) {
+      fr.innerHTML = SKILLS_LIST.map(([skill, label, icon]) => {
+        const s  = MUET.latestScore(skill);
+        const fb = MUET.feedbackText(skill, s);
+        const clr = s >= 74 ? '#dcfce7' : s >= 53 ? '#fef9c3' : '#fce7f3';
+        const list = MUET.loadSessions(skill);
+        const last = list.length ? list[list.length-1] : null;
+        const date = last?.date ? new Date(last.date).toLocaleDateString('en-MY',{day:'numeric',month:'short'}) : '—';
+        return `<div style="background:${clr};border:2px solid var(--ink);border-radius:14px;padding:12px">
+          <div style="display:flex;justify-content:space-between;font-weight:1000;margin-bottom:6px">
+            <span>${icon} ${label}</span><small style="color:var(--muted)">${date}</small></div>
+          <p style="font-size:13px;font-weight:800">${fb || 'No attempt yet. Open this module to start.'}</p></div>`;
+      }).join('');
+    }
+
+    const p = MUET.loadProfile();
+    const bg = document.getElementById('badgeGrid');
+    if (bg && p) {
+      const earned = p.badges || [];
+      bg.innerHTML = [
+        ['✨','First Step','first_step'],
+        ['🎤','PREP Starter','prep_starter'],
+        ['💬','Discussion Builder','discussion_builder'],
+        ['📖','Passage Hunter','passage_hunter'],
+        ['🎧','Audio Focus','audio_focus'],
+        ['✍️','Essay Builder','essay_builder'],
+        ['🏆','Vault Finisher','vault_finisher'],
+        ['🎯','Mock Finisher','mock_finisher']
+      ].map(([icon,name,id]) => `
+        <div style="border:var(--line);border-radius:16px;background:${earned.includes(id)?'var(--lime)':'white'};box-shadow:3px 3px 0 var(--ink);padding:12px 8px;text-align:center;${earned.includes(id)?'':'filter:grayscale(1);opacity:.6'}">
+          <span style="font-size:28px;display:block">${earned.includes(id)?icon:'🔒'}</span>
+          <b style="font-size:12px">${name}</b></div>`).join('');
+    }
+  }
+
+  function fillEdit() {
+    const p = MUET.loadProfile(); if (!p) return;
+    const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
+    set('editName',  p.name       || '');
+    set('editRegNo', p.regNo      || '');
+    set('editGroup', p.group      || '');
+    set('editBand',  p.targetBand || '4.0');
+  }
+
+  function resetAll() {
+    if (!confirm('Reset all MUET SmartHub data? This cannot be undone.')) return;
+    Object.values(MUET.LS).forEach(k => localStorage.removeItem(k));
+    ['speaking','reading','listening','writing'].forEach(s => localStorage.removeItem(MUET.LS[s]));
+    MUET.toast('App reset.'); setTimeout(() => location.reload(), 500);
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+  return { goTo, openVault, resetAll };
+})();
+</script>
 </body>
 </html>

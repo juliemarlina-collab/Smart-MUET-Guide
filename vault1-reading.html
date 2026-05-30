@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>Reading · Vault 1 · MUET SmartHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/muet-guide.css"/>
+  <style>
+    .read-hero { background:var(--green); }
+    .flow-step { background:white;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px; }
+    .flow-step-head { display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;font-weight:1000; }
+    .step-num { width:36px;height:36px;border:var(--line);border-radius:50%;background:var(--green);display:grid;place-items:center;font-weight:1000;font-size:16px;flex-shrink:0; }
+    .flow-step-body { padding:0 16px 16px;border-top:2px solid rgba(0,0,0,.07); }
+    .passage-box { background:white;border:var(--line);border-radius:var(--r);padding:14px;font-weight:700;line-height:1.6;font-size:14px;max-height:280px;overflow-y:auto;margin-bottom:14px; }
+    .qtag { display:inline-block;background:var(--pink);border:2px solid var(--ink);border-radius:999px;padding:3px 8px;font-size:11px;font-weight:1000;margin-bottom:8px; }
+  </style>
+</head>
+<body>
+<main class="app-shell">
+<section class="screen active">
+
+  <div class="brand-bar">
+    <button class="icon-btn" onclick="location.href='vault1-welcome.html'" style="margin-left:0;margin-right:8px">←</button>
+    <div><div class="bar-label">Vault 1 · Component 2 of 4</div><div class="bar-title">SmartReading</div></div>
+    <button class="icon-btn">📖</button>
+  </div>
+
+  <div style="background:var(--paper);border:var(--line);border-radius:16px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:12px">
+    <div style="flex:1">
+      <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px">Vault 1 Progress</div>
+      <div class="prog-bar"><span id="vaultProgBar" style="width:0%"></span></div>
+    </div>
+    <div id="vaultProgLabel" style="font-weight:1000;font-size:13px;white-space:nowrap">0/4</div>
+  </div>
+
+  <div class="card read-hero">
+    <p class="tiny" style="color:rgba(0,0,0,.5)">Reading 800/3 · Vault 1</p>
+    <h1 style="margin-top:6px">Read questions first.</h1>
+    <p style="margin-top:8px;font-weight:800">Practise targeted reading, answer checking and explanation review.</p>
+  </div>
+
+  <!-- STEP 1: Before You Start -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="Rd.toggle('step1')">
+      <div class="step-num">1</div>
+      <div style="flex:1"><b>Before You Start</b><br><small style="color:var(--muted)">What Reading 800/3 tests</small></div>
+      <span id="chev-step1">▴</span>
+    </div>
+    <div class="flow-step-body" id="body-step1" style="padding-top:14px">
+      <div class="instr-card blue">
+        <h2>What MUET Reading Tests</h2>
+        <ul>
+          <li><b>7 parts</b>, 40 questions, 90 minutes total.</li>
+          <li>Question types: main idea, detail, inference, vocabulary, writer's purpose and cohesion.</li>
+          <li>All questions are <b>multiple choice</b> — one best answer from 3–4 options.</li>
+          <li>This component tests your ability to read accurately, not just generally.</li>
+        </ul>
+      </div>
+      <button class="btn lime" onclick="Rd.openStep('step2')">I understand — show me tips →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Tips -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="Rd.toggle('step2')">
+      <div class="step-num">2</div>
+      <div style="flex:1"><b>Tips &amp; Tricks</b><br><small style="color:var(--muted)">Question-First Strategy</small></div>
+      <span id="chev-step2">▾</span>
+    </div>
+    <div class="flow-step-body" id="body-step2" style="display:none;padding-top:14px">
+      <div class="coach-note lime">
+        <div class="tag">QUESTION-FIRST STRATEGY</div>
+        <p>Always <b>read the questions first</b> before reading the passage. Underline keywords in each question. Then scan the passage for those keywords — do not read every word.</p>
+      </div>
+      <div class="card" style="background:#f8fafc">
+        <h3>Identify the Question Type First</h3>
+        <div class="sample-box"><b>Direct retrieval:</b> Answer is copied almost word-for-word from the text.</div>
+        <div class="sample-box" style="margin-top:8px"><b>Paraphrase:</b> Answer is the same meaning as the text, but different words.</div>
+        <div class="sample-box" style="margin-top:8px"><b>Inference:</b> Answer is implied by the text — you need to read between the lines.</div>
+      </div>
+      <div class="coach-note pink">
+        <div class="tag">AVOID THIS MISTAKE</div>
+        <p>Do not choose an option just because the words appear in the passage. Distractors often use the same words with different meanings. Always check if the <b>idea</b> matches, not just the words.</p>
+      </div>
+      <button class="btn lime" onclick="Rd.openStep('step3')">I've read the tips — show me a sample →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Sample -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="Rd.toggle('step3')">
+      <div class="step-num">3</div>
+      <div style="flex:1"><b>Sample Explanation</b><br><small style="color:var(--muted)">See how answers are explained</small></div>
+      <span id="chev-step3">▾</span>
+    </div>
+    <div class="flow-step-body" id="body-step3" style="display:none;padding-top:14px">
+      <div class="card lime">
+        <h3>Sample Passage Extract</h3>
+        <p style="margin-top:8px;font-weight:800;font-size:13px">Despite the increasing availability of electric vehicles, many Malaysians still prefer conventional cars due to concerns about charging infrastructure. A 2023 survey revealed that 68% of respondents cited limited charging stations as the primary barrier to adoption.</p>
+      </div>
+      <div class="card">
+        <div class="qtag">Sample Question</div>
+        <p style="font-weight:800;margin-bottom:12px">What is the main reason Malaysians hesitate to buy electric vehicles?</p>
+        <div class="options">
+          <label class="option correct"><input type="radio" name="sq1" disabled checked/><span>A. Insufficient charging stations</span></label>
+          <label class="option wrong"><input type="radio" name="sq1" disabled/><span>B. Electric vehicles are too expensive</span></label>
+          <label class="option wrong"><input type="radio" name="sq1" disabled/><span>C. Lack of awareness about electric vehicles</span></label>
+        </div>
+        <div class="explain show" style="margin-top:12px">
+          <b>Why A is correct:</b> The passage states "limited charging stations as the primary barrier" — this directly maps to "insufficient charging stations." This is a <b>paraphrase</b> question.<br><br>
+          <b>Why B and C are wrong:</b> Neither cost nor awareness is mentioned in this extract. Options that are generally true but not stated in the passage are distractors.
+        </div>
+      </div>
+      <button class="btn lime" onclick="Rd.openStep('step4')">I'm ready — start my practice →</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: Practice -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="Rd.toggle('step4')">
+      <div class="step-num">4</div>
+      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Required: MCQ answers for all questions</small></div>
+      <span id="chev-step4">▾</span>
+    </div>
+    <div class="flow-step-body" id="body-step4" style="display:none;padding-top:14px">
+
+      <div class="timer-card blue">
+        <div>
+          <p class="tiny" id="timerLbl">Reading Timer (Practice)</p>
+          <div id="timerDisp" class="timer-big">15:00</div>
+        </div>
+        <button class="btn yellow" style="width:auto;min-width:80px" id="timerBtn" onclick="Rd.toggleTimer()">Start</button>
+      </div>
+
+      <div class="coach-note lime">
+        <div class="tag">BEFORE READING</div>
+        <p id="rdCoach">Read all questions first. Underline keywords. Then scan the passage.</p>
+      </div>
+
+      <!-- Passage -->
+      <div class="card">
+        <h3 id="passageTitle">Passage — Vault 1 Practice</h3>
+        <div class="passage-box" id="passageText"></div>
+      </div>
+
+      <!-- Questions -->
+      <div id="questionList" style="display:grid;gap:14px"></div>
+
+      <div class="instr-card lime" style="margin-top:14px">
+        <h2>Checklist Before Submit</h2>
+        <ul>
+          <li>I read all questions before reading the passage.</li>
+          <li>I selected one answer for every question.</li>
+          <li>I checked answers I was unsure about a second time.</li>
+        </ul>
+      </div>
+
+      <div class="btn-row" style="margin-top:14px">
+        <button class="btn lime wide" onclick="Rd.submit()">Submit Reading Practice</button>
+        <button class="btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div id="resultCard" class="result-card" style="background:#dcfce7">
+    <div class="tag">READING RESULT SAVED</div>
+    <span id="resultScore" class="result-score">0/90</span>
+    <span id="resultBand"  class="result-band">Band —</span>
+    <div id="resultDetails" style="margin:12px 0;border:var(--line);border-radius:14px;background:white;padding:12px;font-size:13px;font-weight:800;display:grid;gap:8px"></div>
+    <div id="questionReview" style="display:grid;gap:10px;margin-bottom:12px"></div>
+    <div class="btn-row">
+      <button class="btn black wide" onclick="location.href='vault1-listening.html'">Next: Listening 🎧 →</button>
+      <button class="btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+    </div>
+  </div>
+
+</section>
+</main>
+<div id="toast" class="toast"></div>
+<script src="js/muet-shared.js"></script>
+<script>
+const VAULT_ID = 'VAULT-01';
+
+// ── Reading content — Vault 1 sample passage ─────────────────────────
+const passage = {
+  title: 'Digital Literacy Among Malaysian Youth',
+  text:  `The rapid expansion of digital technology has transformed the way young Malaysians engage with information. A recent study by Universiti Malaya found that 82% of students aged 15 to 25 spend more than four hours daily on digital devices, primarily for entertainment rather than academic purposes. This trend has raised concerns among educators about students' ability to critically evaluate online information.
+
+Digital literacy, defined as the ability to find, evaluate and communicate information effectively through digital platforms, has become an essential skill in the 21st century. However, many schools in Malaysia still lack structured programmes to develop this competency. Teachers report that students can consume digital content easily but struggle to verify sources or identify misinformation.
+
+Experts argue that addressing this gap requires a systemic approach. Integrating digital literacy into the national curriculum, training teachers and partnering with technology companies are recommended as priority steps. Without these interventions, young Malaysians risk becoming passive consumers of information rather than critical and responsible digital citizens.`,
+  questions: [
+    { id:'Q1', type:'Main Idea', stem:'What is the main concern raised in the passage?', options:['A. Students spend too much time on entertainment.','B. Students lack critical digital literacy skills.','C. Digital devices are too expensive for students.','D. Schools do not have enough computers.'], answer:1, explanation:'The passage focuses on students\' inability to "critically evaluate online information" and the lack of digital literacy programmes — option B captures this main concern. Option A is a supporting detail, not the main idea.' },
+    { id:'Q2', type:'Detail', stem:'According to the Universiti Malaya study, what percentage of young Malaysians use digital devices mainly for entertainment?', options:['A. 25%','B. 15%','C. 82%','D. 72%'], answer:2, explanation:'The passage states "82% of students aged 15 to 25 spend more than four hours daily on digital devices, primarily for entertainment." This is direct retrieval — find the number in the text.' },
+    { id:'Q3', type:'Vocabulary', stem:'The word "systemic" in the third paragraph is closest in meaning to:', options:['A. medical','B. organised and comprehensive','C. slow and cautious','D. technological'], answer:1, explanation:'"Systemic" means relating to a whole system — it implies a broad, structured approach. The context clue is the list of solutions that follows: curriculum, teacher training and company partnerships.' },
+    { id:'Q4', type:'Inference', stem:'What can be inferred about digital literacy education in Malaysian schools?', options:['A. It is well-developed but underfunded.','B. It is being introduced in all schools this year.','C. It is not yet systematically taught in most schools.','D. It is only available in private schools.'], answer:2, explanation:'The passage says schools "still lack structured programmes" and teachers report students "struggle to verify sources." This implies systematic teaching has not yet happened — this is an inference, not directly stated.' },
+    { id:'Q5', type:'Writer\'s Purpose', stem:'Why does the writer mention teachers\' reports in paragraph two?', options:['A. To criticise teachers for poor performance.','B. To provide evidence that the problem is real in classrooms.','C. To suggest teachers should use more technology.','D. To show that students are not interested in learning.'], answer:1, explanation:'The writer uses teachers\' reports as evidence to support the argument that digital literacy is a real classroom problem. The purpose is to strengthen the argument, not to criticise teachers.' }
+  ]
+};
+
+const Rd = (() => {
+  let secs = 900, timerId = null;
+  let submitted = false;
+
+  function openStep(id) {
+    toggle(id, true);
+    setTimeout(() => document.getElementById('body-'+id)?.scrollIntoView({behavior:'smooth',block:'start'}), 100);
+  }
+
+  function toggle(id, forceOpen = false) {
+    const body = document.getElementById('body-'+id);
+    const chev = document.getElementById('chev-'+id);
+    if (!body) return;
+    const open = forceOpen || body.style.display === 'none';
+    body.style.display = open ? 'block' : 'none';
+    if (chev) chev.textContent = open ? '▴' : '▾';
+  }
+
+  function toggleTimer() {
+    if (timerId) { clearInterval(timerId); timerId = null; document.getElementById('timerBtn').textContent = 'Resume'; return; }
+    timerId = setInterval(() => {
+      secs--;
+      const m = String(Math.floor(secs/60)).padStart(2,'0');
+      const s = String(secs%60).padStart(2,'0');
+      document.getElementById('timerDisp').textContent = `${m}:${s}`;
+      if (secs <= 0) { clearInterval(timerId); MUET.toast('Time is up! Submit your answers now.'); }
+    }, 1000);
+    document.getElementById('timerBtn').textContent = 'Pause';
+  }
+
+  function renderPassage() {
+    document.getElementById('passageTitle').textContent = passage.title;
+    document.getElementById('passageText').textContent  = passage.text;
+    const ql = document.getElementById('questionList');
+    ql.innerHTML = passage.questions.map((q, qi) => `
+      <div class="card" id="qcard-${qi}">
+        <div class="qtag">${q.type}</div>
+        <p style="font-weight:900;margin-bottom:12px">${q.id}. ${q.stem}</p>
+        <div class="options" id="opts-${qi}">
+          ${q.options.map((opt, oi) => `
+            <label class="option" id="opt-${qi}-${oi}">
+              <input type="radio" name="q${qi}" value="${oi}"/>
+              <span>${opt}</span>
+            </label>`).join('')}
+        </div>
+        <div class="explain" id="exp-${qi}">${q.explanation}</div>
+      </div>`).join('');
+  }
+
+  function submit() {
+    if (submitted) return;
+    let correct = 0;
+    const weak = {};
+
+    passage.questions.forEach((q, qi) => {
+      const sel = document.querySelector(`input[name="q${qi}"]:checked`);
+      const ans = sel ? parseInt(sel.value) : -1;
+      const isCorrect = ans === q.answer;
+      if (isCorrect) correct++;
+      else weak[q.type] = (weak[q.type] || 0) + 1;
+
+      // Colour options
+      q.options.forEach((_, oi) => {
+        const el = document.getElementById(`opt-${qi}-${oi}`);
+        if (!el) return;
+        if (oi === q.answer) el.classList.add('correct');
+        else if (oi === ans) el.classList.add('wrong');
+      });
+      // Show explanation
+      document.getElementById(`exp-${qi}`)?.classList.add('show');
+    });
+
+    const rawScore = correct;
+    const total    = passage.questions.length;
+    const score90  = Math.round((rawScore / total) * 90);
+    const band     = MUET.scoreToBand(score90);
+    submitted = true;
+
+    const session = {
+      vaultId: VAULT_ID, rawScore, totalQ: total, score90,
+      band, bandLabel: band,
+      weakTypes: Object.keys(weak),
+      date: new Date().toISOString(), xpEarned: 70 + correct * 3
+    };
+    const list = MUET.loadSessions('reading');
+    list.push(session);
+    MUET.saveSessions('reading', list);
+    MUET.awardBadge('passage_hunter');
+    MUET.addXP(session.xpEarned);
+
+    document.getElementById('resultScore').textContent = `${correct}/${total} correct · ${score90}/90`;
+    document.getElementById('resultBand').textContent  = `Estimated Band ${band}`;
+    const fb = MUET.feedbackText('reading', score90);
+    const weakStr = Object.keys(weak).length ? `Weakest type: ${Object.keys(weak).join(', ')}` : 'No recurring weak type — great consistency!';
+    document.getElementById('resultDetails').innerHTML = `
+      <div>✅ Strength: ${score90 >= 64 ? 'Good accuracy' : 'Attempting all questions'}</div>
+      <div>⚡ ${fb}</div>
+      <div>📊 ${weakStr}</div>
+      <div>🏅 Badge Unlocked: Passage Hunter</div>`;
+
+    document.getElementById('resultCard').classList.add('show');
+    MUET.toast('Reading saved!');
+    window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
+    updateVaultProgress();
+  }
+
+  return { openStep, toggle, toggleTimer, renderPassage, submit };
+})();
+
+function updateVaultProgress() {
+  const prog = MUET.vaultProgress(VAULT_ID);
+  const pct  = Math.round(prog.count / 4 * 100);
+  const bar  = document.getElementById('vaultProgBar');
+  const lbl  = document.getElementById('vaultProgLabel');
+  if (bar) bar.style.width = pct + '%';
+  if (lbl) lbl.textContent  = prog.count + '/4';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  Rd.renderPassage();
+  updateVaultProgress();
+  document.getElementById('body-step1').style.display = 'block';
+  document.getElementById('chev-step1').textContent   = '▴';
+});
+</script>
+</body>
+</html>

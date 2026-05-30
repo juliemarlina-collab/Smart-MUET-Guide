@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>Writing · Vault 1 · MUET SmartHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/muet-guide.css"/>
+  <style>
+    .wrt-hero { background:var(--pink); }
+    .flow-step { background:white;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px; }
+    .flow-step-head { display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;font-weight:1000; }
+    .step-num { width:36px;height:36px;border:var(--line);border-radius:50%;background:var(--pink);display:grid;place-items:center;font-weight:1000;font-size:16px;flex-shrink:0; }
+    .flow-step-body { padding:0 16px 16px;border-top:2px solid rgba(0,0,0,.07); }
+    .task-tabs { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px; }
+    .task-tab  { border:var(--line);box-shadow:3px 3px 0 var(--ink);border-radius:14px;background:white;padding:11px;font-weight:1000;cursor:pointer; }
+    .task-tab.active { background:var(--yellow); }
+    .wc-display { font-family:"Sora";font-size:22px;font-weight:800; }
+    .wc-good   { color:#047857; }
+    .wc-warn   { color:#b45309; }
+    .wc-danger { color:#dc2626; }
+  </style>
+</head>
+<body>
+<main class="app-shell">
+<section class="screen active">
+
+  <div class="brand-bar">
+    <button class="icon-btn" onclick="location.href='vault1-welcome.html'" style="margin-left:0;margin-right:8px">←</button>
+    <div><div class="bar-label">Vault 1 · Component 4 of 4</div><div class="bar-title">SmartWriting</div></div>
+    <button class="icon-btn">✍️</button>
+  </div>
+
+  <div style="background:var(--paper);border:var(--line);border-radius:16px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:12px">
+    <div style="flex:1">
+      <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px">Vault 1 Progress</div>
+      <div class="prog-bar"><span id="vaultProgBar" style="width:0%"></span></div>
+    </div>
+    <div id="vaultProgLabel" style="font-weight:1000;font-size:13px;white-space:nowrap">0/4</div>
+  </div>
+
+  <div class="card wrt-hero">
+    <p class="tiny" style="color:rgba(0,0,0,.5)">Writing 800/4 · Vault 1</p>
+    <h1 style="margin-top:6px">Write with purpose.</h1>
+    <p style="margin-top:8px;font-weight:800">Task 1 email/letter + Task 2 essay with rubric-based practice.</p>
+  </div>
+
+  <!-- Task tabs -->
+  <div class="task-tabs">
+    <button id="tabT1" class="task-tab active" onclick="Wrt.setTask('T1')">Task 1 — Email/Letter</button>
+    <button id="tabT2" class="task-tab" onclick="Wrt.setTask('T2')">Task 2 — Essay</button>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="Wrt.toggle('w1')">
+      <div class="step-num">1</div>
+      <div style="flex:1"><b>Before You Start</b><br><small id="step1sub" style="color:var(--muted)">What Task 1 tests</small></div>
+      <span id="chev-w1">▴</span>
+    </div>
+    <div class="flow-step-body" id="body-w1" style="padding-top:14px">
+      <div id="beforeContent">
+        <div class="instr-card pink">
+          <h2>What MUET Writing Tests</h2>
+          <ul>
+            <li><b>Task 1:</b> Email or letter. Respond to all bullet points. Use appropriate formal or semi-formal tone. Minimum ~150 words. Time: 25 minutes.</li>
+            <li><b>Task 2:</b> Essay. Discursive or argumentative. State a clear thesis. Use PEEL paragraphs. Minimum ~350 words. Time: 50 minutes.</li>
+            <li>Both tasks are marked on: task fulfilment, organisation, language accuracy, vocabulary range and style.</li>
+            <li>Total: 90 marks (25% of MUET).</li>
+          </ul>
+        </div>
+      </div>
+      <button class="btn pink" onclick="Wrt.openStep('w2')">I understand — show me tips →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="Wrt.toggle('w2')">
+      <div class="step-num">2</div>
+      <div style="flex:1"><b>Tips &amp; Tricks</b><br><small style="color:var(--muted)">Strategy before writing</small></div>
+      <span id="chev-w2">▾</span>
+    </div>
+    <div class="flow-step-body" id="body-w2" style="display:none;padding-top:14px">
+      <div id="tipsContent"></div>
+      <button class="btn pink" onclick="Wrt.openStep('w3')">I've read the tips — show me a sample →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="Wrt.toggle('w3')">
+      <div class="step-num">3</div>
+      <div style="flex:1"><b>Sample Answer</b><br><small style="color:var(--muted)">Study a model response</small></div>
+      <span id="chev-w3">▾</span>
+    </div>
+    <div class="flow-step-body" id="body-w3" style="display:none;padding-top:14px">
+      <div id="sampleContent"></div>
+      <button class="btn pink" onclick="Wrt.openStep('w4')">I'm ready — start writing →</button>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="Wrt.toggle('w4')">
+      <div class="step-num">4</div>
+      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Required: written answer + rubric</small></div>
+      <span id="chev-w4">▾</span>
+    </div>
+    <div class="flow-step-body" id="body-w4" style="display:none;padding-top:14px">
+
+      <div class="timer-card yellow">
+        <div>
+          <p class="tiny" id="timerLbl">Task 1 Timer (25 min)</p>
+          <div id="timerDisp" class="timer-big">25:00</div>
+        </div>
+        <button class="btn black" style="width:auto;min-width:80px" id="timerBtn" onclick="Wrt.toggleTimer()">Start</button>
+      </div>
+
+      <!-- Prompt -->
+      <div class="card" style="background:#fce7f3">
+        <h3 id="promptLabel">Writing Prompt — Task 1</h3>
+        <p id="promptText" style="margin-top:10px;font-weight:800;font-size:14px;line-height:1.5"></p>
+        <div id="bulletPoints" style="margin-top:10px;font-weight:850;font-size:13px;line-height:1.6"></div>
+      </div>
+
+      <!-- Coach note -->
+      <div class="coach-note pink">
+        <div class="tag">COACH NOTE</div>
+        <p id="wrtCoach"></p>
+      </div>
+
+      <!-- Answer box -->
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <h2>Your Answer <span class="req">Required</span></h2>
+          <div>
+            <span class="wc-display" id="wcDisplay">0</span>
+            <small style="display:block;text-align:center;font-size:10px">words</small>
+          </div>
+        </div>
+        <p style="font-size:13px;font-weight:800;color:var(--muted);margin-bottom:10px" id="wcGuide">Task 1: aim for 150+ words</p>
+        <textarea id="answerBox" rows="10" placeholder="Begin writing your response here..." oninput="Wrt.countWords()"></textarea>
+      </div>
+
+      <!-- Checklist before submit -->
+      <div class="instr-card yellow">
+        <h2>Checklist Before Submit</h2>
+        <ul id="submitChecklist">
+          <li>I covered all the bullet points in my response.</li>
+          <li>I used an appropriate tone for this task type.</li>
+          <li>I checked my opening and closing.</li>
+          <li>My word count is within the required range.</li>
+        </ul>
+      </div>
+
+      <!-- Rubric -->
+      <div class="card">
+        <h2>Writing Rubric <span class="req">Required</span></h2>
+        <p style="font-size:13px;font-weight:800;color:var(--muted);margin-top:4px">Tick what your response achieved. Be honest — this gives a useful score estimate.</p>
+        <div id="wrtRubricList" class="rubric-list" style="margin-top:12px"></div>
+        <div class="btn-row" style="margin-top:16px">
+          <button class="btn yellow wide" onclick="Wrt.submit()">Submit Writing Practice</button>
+          <button class="btn white" onclick="Wrt.resetPractice()">Reset</button>
+          <button class="btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div id="resultCard" class="result-card pink">
+    <div class="tag">WRITING RESULT SAVED</div>
+    <span id="resultScore" class="result-score">0/90</span>
+    <span id="resultBand"  class="result-band">Band —</span>
+    <div id="resultDetails" style="margin:12px 0;border:var(--line);border-radius:14px;background:white;padding:12px;font-size:13px;font-weight:800;display:grid;gap:8px"></div>
+    <div style="background:var(--ink);color:white;border:var(--line);border-radius:14px;padding:12px;margin-bottom:12px;font-weight:900;font-size:14px">🏆 All four components complete! Check your Vault Round-Up.</div>
+    <div class="btn-row">
+      <button class="btn lime wide" onclick="location.href='vault1-roundup.html'">→ Vault 1 Round-Up</button>
+      <button class="btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+    </div>
+  </div>
+
+</section>
+</main>
+<div id="toast" class="toast"></div>
+<script src="js/muet-shared.js"></script>
+<script>
+const VAULT_ID = 'VAULT-01';
+
+const tasks = {
+  T1: {
+    label: 'Task 1 — Email / Letter',
+    timerSecs: 1500, timerLabel: 'Task 1 Timer (25 min)',
+    wcMin: 150, wcGuide: 'Task 1: aim for 150–200 words',
+    prompt: 'You are a student representative. Your lecturer has asked you to write an email to the Head of Department regarding a suggested change to the tutorial schedule.',
+    bullets: ['• State the problem with the current tutorial schedule.','• Suggest a specific change with a reason.','• Request approval or a meeting to discuss the matter.','• Use a formal and respectful tone throughout.'],
+    coach: 'Task 1: Cover all three bullet points. Use formal email format — proper greeting, paragraphs and closing. Check your tone.',
+    checklist: ['I covered all the bullet points.','I used a formal greeting and closing.','I used a respectful and professional tone.','My email is between 150 and 200 words.'],
+    sampleHtml: `<div class="card lime"><h3>Sample Response — Band 4.0</h3>
+      <div class="sample-box" style="margin-top:8px;font-size:13px;line-height:1.6"><b>Subject:</b> Request to Review Tutorial Schedule<br><br>
+Dear Professor Ahmad,<br><br>
+I am writing on behalf of the students in Group DPR3A to bring your attention to a concern regarding our current tutorial schedule. At present, our tutorial sessions are held on Friday afternoons from 4:30 to 6:30 pm. Many students have raised concerns that this slot conflicts with co-curricular commitments and long travel distances, resulting in poor attendance.<br><br>
+We would like to suggest that tutorials be moved to Wednesday afternoons at 2:00 pm instead. This time slot is currently free for most students, and we believe attendance and participation would improve significantly.<br><br>
+We kindly request your approval for this change, or alternatively, a brief meeting to discuss the matter further. We are committed to ensuring our tutorial sessions are productive and beneficial for all students.<br><br>
+Thank you for your kind consideration.<br><br>
+Yours sincerely,<br>Aisyah Ahmad<br>Student Representative, DPR3A</div></div>
+      <div class="coach-note lime" style="margin-top:10px"><div class="tag">EXAMINER NOTE</div><p>This response covers all three bullet points, uses correct email format and maintains a consistently formal and respectful tone. Word count: approximately 165 words. Vocabulary is varied but not overreaching.</p></div>`,
+    rubric: [
+      ['task','Task Fulfilment','Covered all bullet points completely and correctly',20],
+      ['org','Organisation','Clear structure: greeting, paragraphs, closing',20],
+      ['lang','Language Accuracy','Mostly correct grammar and sentence structure',20],
+      ['vocab','Vocabulary','Appropriate range for formal writing',15],
+      ['tone','Tone & Style','Formal, respectful tone maintained throughout',15]
+    ]
+  },
+  T2: {
+    label: 'Task 2 — Essay',
+    timerSecs: 3000, timerLabel: 'Task 2 Timer (50 min)',
+    wcMin: 350, wcGuide: 'Task 2: aim for 350–450 words',
+    prompt: 'Technology has made students less capable of independent thinking. Do you agree? Discuss.',
+    bullets: [],
+    coach: 'Task 2: State your thesis in the first paragraph. Use PEEL for each body paragraph. End with a strong conclusion that restates your position.',
+    checklist: ['I stated my thesis clearly in the introduction.','Each body paragraph uses PEEL structure.','I used formal, academic vocabulary throughout.','My essay is at least 350 words.'],
+    sampleHtml: `<div class="card lime"><h3>Sample Thesis &amp; PEEL Paragraph — Band 4.0</h3>
+      <div class="sample-box" style="margin-top:8px;font-size:13px;line-height:1.6"><b>Introduction + Thesis:</b><br>The rapid advancement of technology has transformed the educational landscape in profound ways. While some argue that technology undermines independent thinking, I believe it enhances it when used purposefully. The key lies not in the technology itself, but in how students and educators choose to engage with it.<br><br>
+<b>Body Paragraph 1 (PEEL):</b><br><b>P</b> — Technology provides students with access to diverse sources of information, which stimulates critical thinking.<br><b>E</b> — Students who use research tools and academic databases must evaluate, compare and synthesise multiple perspectives before forming their own conclusions.<br><b>E</b> — For example, Malaysian students preparing for debates or research papers often use Google Scholar and online journals to gather evidence, requiring them to assess credibility and relevance independently.<br><b>L</b> — Therefore, far from reducing independent thought, technology challenges students to engage with knowledge more actively and selectively.</div></div>
+      <div class="coach-note pink" style="margin-top:10px"><div class="tag">EXAMINER NOTE</div><p>This introduction states a clear thesis and the PEEL paragraph is well-structured. Point is specific, evidence is contextualised with a local example, and the link directly ties back to the thesis.</p></div>`,
+    rubric: [
+      ['task','Task Fulfilment','Thesis stated; argument is relevant and developed',20],
+      ['org','Organisation','Clear introduction, body paragraphs and conclusion',20],
+      ['lang','Language Accuracy','Mostly correct grammar; varied sentence structures',20],
+      ['vocab','Vocabulary Range','Academic vocabulary used appropriately',15],
+      ['depth','Depth of Argument','Ideas are elaborated with evidence and examples',15]
+    ]
+  }
+};
+
+const Wrt = (() => {
+  let currentTask = 'T1', secs = 1500, timerId = null;
+
+  function setTask(t) {
+    currentTask = t;
+    document.getElementById('tabT1').classList.toggle('active', t === 'T1');
+    document.getElementById('tabT2').classList.toggle('active', t === 'T2');
+    const td = tasks[t];
+    secs = td.timerSecs;
+    stopTimer(); renderTimer();
+    document.getElementById('step1sub').textContent  = t === 'T1' ? 'What Task 1 tests' : 'What Task 2 tests';
+    document.getElementById('promptLabel').textContent = td.label;
+    document.getElementById('promptText').textContent  = td.prompt;
+    document.getElementById('bulletPoints').innerHTML  = td.bullets.map(b => `<div style="margin-bottom:4px">${b}</div>`).join('');
+    document.getElementById('wrtCoach').textContent    = td.coach;
+    document.getElementById('wcGuide').textContent     = td.wcGuide;
+    document.getElementById('submitChecklist').innerHTML = td.checklist.map(c => `<li>${c}</li>`).join('');
+    document.getElementById('tipsContent').innerHTML   = t === 'T1' ? t1Tips() : t2Tips();
+    document.getElementById('sampleContent').innerHTML = td.sampleHtml;
+    renderRubric(td.rubric);
+    countWords();
+  }
+
+  function t1Tips() {
+    return `<div class="coach-note lime"><div class="tag">TASK 1 RULE</div><p>Cover <b>all bullet points</b>. Missing even one bullet point significantly reduces your task fulfilment score. Use one paragraph per bullet if possible.</p></div>
+    <div class="card" style="background:#f8fafc"><h3>Email Format Checklist</h3><div class="sample-box">Subject line (if required)</div><div class="sample-box" style="margin-top:6px">Salutation: Dear Mr/Ms/Professor [Name],</div><div class="sample-box" style="margin-top:6px">Opening line: purpose of the email</div><div class="sample-box" style="margin-top:6px">Body: one paragraph per bullet point</div><div class="sample-box" style="margin-top:6px">Closing: Thank you / Kind regards / Yours sincerely</div></div>`;
+  }
+
+  function t2Tips() {
+    return `<div class="coach-note pink"><div class="tag">PEEL STRUCTURE</div><p><b>P</b> — Point: state one clear argument.<br><b>E</b> — Explain: elaborate with reasoning.<br><b>E</b> — Evidence: give a specific example (Malaysian context preferred).<br><b>L</b> — Link: tie the paragraph back to your thesis.</p></div>
+    <div class="coach-note lime"><div class="tag">THESIS FIRST</div><p>Your introduction must state your thesis clearly in one sentence. The examiner decides within 30 seconds whether you understand the question. Do not write background first — state your stand immediately.</p></div>`;
+  }
+
+  function renderRubric(rubric) {
+    document.getElementById('wrtRubricList').innerHTML = rubric.map(([id,name,desc,pts]) => `
+      <label class="rubric-item">
+        <input type="checkbox" data-score="${pts}" data-id="${id}"/>
+        <span><b>${name}</b><br><small style="color:var(--muted);font-weight:900">${desc}</small></span>
+        <span class="score-pill">${pts}pts</span>
+      </label>`).join('');
+  }
+
+  function countWords() {
+    const text  = document.getElementById('answerBox').value.trim();
+    const wc    = text ? text.split(/\s+/).length : 0;
+    const min   = tasks[currentTask].wcMin;
+    const el    = document.getElementById('wcDisplay');
+    el.textContent = wc;
+    el.className   = 'wc-display ' + (wc >= min ? 'wc-good' : wc >= min * 0.7 ? 'wc-warn' : 'wc-danger');
+  }
+
+  function toggleTimer() {
+    if (timerId) { clearInterval(timerId); timerId = null; document.getElementById('timerBtn').textContent = 'Resume'; return; }
+    timerId = setInterval(() => {
+      secs--; renderTimer();
+      if (secs <= 300 && secs % 60 === 0) MUET.toast(`${Math.floor(secs/60)} minute${secs/60 === 1 ? '' : 's'} remaining.`);
+      if (secs <= 0) { clearInterval(timerId); MUET.toast('Time is up! Submit your writing now.'); }
+    }, 1000);
+    document.getElementById('timerBtn').textContent = 'Pause';
+  }
+
+  function stopTimer() { clearInterval(timerId); timerId = null; const b = document.getElementById('timerBtn'); if (b) b.textContent = 'Start'; }
+
+  function renderTimer() {
+    const m = String(Math.floor(secs/60)).padStart(2,'0');
+    const s = String(secs%60).padStart(2,'0');
+    document.getElementById('timerDisp').textContent = `${m}:${s}`;
+    document.getElementById('timerLbl').textContent  = tasks[currentTask].timerLabel;
+  }
+
+  function submit() {
+    const answer = document.getElementById('answerBox').value.trim();
+    if (!answer || answer.split(/\s+/).length < 50) { MUET.toast('Please write at least 50 words before submitting.'); return; }
+
+    const checks   = [...document.querySelectorAll('#wrtRubricList input:checked')];
+    const raw      = checks.reduce((s,c) => s + Number(c.dataset.score), 0);
+    const maxPts   = tasks[currentTask].rubric.reduce((s,r) => s + r[3], 0);
+    const score90  = Math.round(raw / maxPts * 90);
+    const band     = MUET.scoreToBand(score90);
+    const wc       = answer.split(/\s+/).length;
+
+    const session = {
+      vaultId: VAULT_ID, taskType: currentTask,
+      score90, score: score90, band, bandLabel: band,
+      wordCount: wc, checks: checks.map(c => c.dataset.id),
+      answer, date: new Date().toISOString(), xpEarned: 90 + checks.length * 5
+    };
+    const list = MUET.loadSessions('writing');
+    list.push(session);
+    MUET.saveSessions('writing', list);
+    MUET.awardBadge('essay_builder');
+    MUET.addXP(session.xpEarned);
+
+    // Check if all 4 complete → award vault finisher
+    const prog = MUET.vaultProgress(VAULT_ID);
+    if (prog.count >= 4) MUET.awardBadge('vault_finisher');
+
+    document.getElementById('resultScore').textContent = `${score90}/90`;
+    document.getElementById('resultBand').textContent  = `Estimated Band ${band}`;
+    const fb = MUET.feedbackText('writing', score90);
+    document.getElementById('resultDetails').innerHTML = `
+      <div>✅ Strength: ${score90 >= 64 ? 'Good response structure' : 'Attempted both task requirements'}</div>
+      <div>⚡ ${fb}</div>
+      <div>📝 Word count: ${wc} words</div>
+      <div>✍️ Badge Unlocked: Essay Builder</div>`;
+
+    document.getElementById('resultCard').classList.add('show');
+    MUET.toast('Writing saved! All 4 components done — check your Vault Round-Up!');
+    window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
+    updateVaultProgress();
+  }
+
+  function resetPractice() {
+    document.getElementById('answerBox').value = '';
+    document.querySelectorAll('#wrtRubricList input').forEach(x => x.checked = false);
+    document.getElementById('resultCard').classList.remove('show');
+    secs = tasks[currentTask].timerSecs;
+    stopTimer(); renderTimer(); countWords();
+    MUET.toast('Practice reset.');
+  }
+
+  function openStep(id) {
+    toggle(id, true);
+    setTimeout(() => document.getElementById('body-'+id)?.scrollIntoView({behavior:'smooth',block:'start'}), 100);
+  }
+
+  function toggle(id, forceOpen = false) {
+    const body = document.getElementById('body-'+id);
+    const chev = document.getElementById('chev-'+id);
+    if (!body) return;
+    const open = forceOpen || body.style.display === 'none';
+    body.style.display = open ? 'block' : 'none';
+    if (chev) chev.textContent = open ? '▴' : '▾';
+  }
+
+  return { setTask, countWords, toggleTimer, submit, resetPractice, openStep, toggle };
+})();
+
+function updateVaultProgress() {
+  const prog = MUET.vaultProgress(VAULT_ID);
+  const pct  = Math.round(prog.count / 4 * 100);
+  const bar  = document.getElementById('vaultProgBar');
+  const lbl  = document.getElementById('vaultProgLabel');
+  if (bar) bar.style.width = pct + '%';
+  if (lbl) lbl.textContent = prog.count + '/4';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  Wrt.setTask('T1');
+  updateVaultProgress();
+  document.getElementById('body-w1').style.display = 'block';
+  document.getElementById('chev-w1').textContent   = '▴';
+});
+</script>
+</body>
+</html>
