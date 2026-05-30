@@ -56,23 +56,10 @@
         <p id="rdCoach">Read all questions first. Underline keywords. Then scan the passage.</p>
       </div>
 
-      <!-- Passage -->
-      <div class="card">
-        <h3 id="passageTitle">Passage — Vault 1 Practice</h3>
-        <div class="passage-box" id="passageText"></div>
-      </div>
+      <!-- Per-part: article shown above its own questions -->
+      <div id="articleAndQuestions" style="display:grid;gap:16px"></div>
 
-      <!-- Questions -->
-      <div id="questionList" style="display:grid;gap:14px"></div>
 
-      <div class="instr-card lime" style="margin-top:14px">
-        <h2>Checklist Before Submit</h2>
-        <ul>
-          <li>I read all questions before reading the passage.</li>
-          <li>I selected one answer for every question.</li>
-          <li>I checked answers I was unsure about a second time.</li>
-        </ul>
-      </div>
 
       <div class="btn-row" style="margin-top:14px">
         <button class="btn lime wide" onclick="Rd.submit()">Submit Reading Practice</button>
@@ -178,23 +165,87 @@ const Rd = (() => {
     document.getElementById('timerBtn').textContent = 'Pause';
   }
 
+  // Group questions by part label for per-part rendering
+  const PART_TEXTS = {
+    'Part 1': `<b>Place A:</b> Modern meeting venue. RM200/person/day. Wi-fi RM10/day. Free parking. 100 meeting rooms. Ballroom max 300 people. Olympic-size pool.<br><br>
+<b>Place B:</b> Lakeside venue. RM100/person/day. Wi-fi RM20/day. Parking RM20/hour. 30 meeting rooms. Ballroom max 500 people. Adult-only pool.<br><br>
+<b>Place C:</b> Traditional decorations venue. RM300/person/day. Wi-fi RM20/day. Parking RM20/entry. 12 meeting rooms. Ballroom max 200 people. Kids swimming pool.`,
+
+    'Part 2': `Once a little mouse entered the den of a lion. The lion became very angry to see him there. He roared in a thundering voice and said, "How dare you intrude my den just like that? I will kill you!" The mouse begged for mercy, promising to remember the kindness. The lion spared him, but later the lion got caught in a hunter's net. Remembering his promise, the mouse nibbled the net until the lion was freed.`,
+
+    'Part 3': `Delhi is a historical city. I found it unique because it has been called by different names in different periods of time. We decided to visit the Lotus Temple, which is one of the wonders of modern times. It is shaped like a giant lotus flower and is open to people of all religions. Because of its holiness, cleanliness is a must. So, we had to take off our shoes and maintain silence before entering. The experience taught me a great deal about the rich history and cultural diversity of the city.`,
+
+    'Part 4': `<b>Text 1:</b> The greenhouse effect is a process that occurs when gases in Earth's atmosphere trap the sun's heat. This process makes the Earth much warmer than it would be without an atmosphere. Burning fossil fuels like coal and oil puts more carbon dioxide into our atmosphere. Carbon dioxide is one of the gases that traps heat. Plants can help to balance the greenhouse effect because they absorb carbon dioxide and release oxygen during photosynthesis.<br><br>
+<b>Text 2:</b> Global warming, which is a gradual rising of Earth's temperature, represents a scale of threat to humanity greater than anything humans have faced in recent history. Scientists have recorded an average temperature increase of more than one degree Celsius over the past century. The effects include melting polar ice caps, rising sea levels and increasingly extreme weather events. Without urgent action to reduce greenhouse gas emissions, these changes will accelerate significantly.`,
+
+    'Part 5': `<i>Read the text below and choose the sentence (A–G) that best fits each gap (21–26).</i><br><br>
+The collapse of property and oil prices in the mid-2010s created significant challenges for many businesses. <b>[Gap 21]</b> This situation made it extremely difficult for companies to maintain their previous levels of spending and staffing. Many businesses were forced to make painful decisions. <b>[Gap 22]</b> The management team faced enormous pressure to keep the company afloat while preserving as many jobs as possible. <b>[Gap 23]</b> No alternative existed — the losses were simply too great to absorb without reducing the workforce. Despite the hardship, those who survived emerged stronger. <b>[Gap 24]</b> The experience, though painful, ultimately proved transformative. Many people dream of a life without challenges. <b>[Gap 25]</b> Challenges shape our character and push us to develop skills we would never discover in a comfortable life. The most important lesson from this experience is simple: <b>[Gap 26]</b><br><br>
+<b>Sentence options:</b><br>
+A. A stronger U.S. dollar was one of the principal reasons for the falling of natural gas and oil prices.<br>
+B. This was a 62% cut in the staffing, with several experienced people losing their jobs.<br>
+C. So, don't bury yourself from the problems and challenges you are facing in life.<br>
+D. This is an impossible goal, and would make our life dull without character.<br>
+E. Downsizing could not be avoided as the problem was just as real.<br>
+F. No matter what the results would be, value the experience.<br>
+G. We managed to work ourselves out of the problems.`,
+
+    'Part 6': `The early twenties had been a busy and expensive time for my grandparents. After much deliberation, they decided to leave and move to Nuwara Eliya. Before departing, they made sure to clean the dogs thoroughly. Nuwara Eliya was unlike anywhere they had lived before. The cool highland air attracted many people of different cultures, and the social scene was vibrant. The Van Langenbergs threw wonderful parties. However, life there was also marked by tragedy — Wilfred Batholomeusz was killed in mysterious circumstances that shocked the entire community. Among the colourful characters was Dick de Vos, who had once been an enthusiastic dancer but had stopped because his wife was not good at dancing. Another notable figure was T. W. Roberts, an Englishman who was eventually forced to return to England after being bitten by a dog. My grandfather, Philip Ondaatje, observed all of this with quiet amusement, recording it carefully for the generations that followed.`,
+
+    'Part 7': `Over 180 million couples suffer from infertility worldwide, with Nigeria accounting for approximately 20% of cases on the African continent. This staggering figure underlines the urgent need for accessible and reliable fertility treatment in the country. In vitro fertilisation, commonly known as IVF, introduces a technique of giving birth to a child by fertilising an egg outside the womb and then implanting it. Despite growing awareness, many misconceptions surround the procedure. Contrary to popular belief, IVF does not guarantee pregnancy — success rates vary significantly depending on the age and health of the patient. The main reason for the high number of women with difficulty getting pregnant in Nigeria is the age factor; many women delay marriage and childbearing due to educational and career commitments. A significant challenge facing Nigeria's IVF industry is the presence of incompetent doctors performing IVF procedures without proper qualifications. Numerical data in paragraph four indicates that there are currently fewer than thirty licensed IVF clinics in the country, which is grossly insufficient for a population of over two hundred million. The situation is further complicated by the high cost of treatment, which places IVF beyond the reach of most ordinary Nigerians. The last paragraph emphasises the importance of all parties — the government, medical associations and the public — being responsible in managing Nigeria's IVF industry to ensure that it develops safely, ethically and accessibly.`
+  };
+
   function renderPassage() {
-    document.getElementById('passageTitle').textContent = passage.title;
-    document.getElementById('passageText').textContent  = passage.text;
-    const ql = document.getElementById('questionList');
-    ql.innerHTML = passage.questions.map((q, qi) => `
-      <div class="card" id="qcard-${qi}">
-        <div class="qtag">${q.type}</div>
-        <p style="font-weight:900;margin-bottom:12px">${q.id}. ${q.stem}</p>
-        <div class="options" id="opts-${qi}">
-          ${q.options.map((opt, oi) => `
-            <label class="option" id="opt-${qi}-${oi}">
-              <input type="radio" name="q${qi}" value="${oi}"/>
-              <span>${opt}</span>
-            </label>`).join('')}
-        </div>
-        <div class="explain" id="exp-${qi}">${q.explanation}</div>
-      </div>`).join('');
+    const container = document.getElementById('articleAndQuestions');
+    if (!container) return;
+
+    // Group questions by part
+    const partGroups = {};
+    passage.questions.forEach((q, qi) => {
+      const part = q.type.startsWith('Part') ? q.type.split(' — ')[0] : q.type.split(' ')[0] + ' ' + q.type.split(' ')[1];
+      if (!partGroups[part]) partGroups[part] = [];
+      partGroups[part].push({ q, qi });
+    });
+
+    const partOrder = ['Part 1','Part 2','Part 3','Part 4','Part 5','Part 6','Part 7'];
+    let html = '';
+
+    partOrder.forEach(part => {
+      if (!partGroups[part]) return;
+      const articleText = PART_TEXTS[part] || '';
+      const partLabel = {
+        'Part 1':'Part 1 — Places for Meetings',
+        'Part 2':'Part 2 — The Little Mouse and the Lion',
+        'Part 3':'Part 3 — Visit to the Lotus Temple',
+        'Part 4':'Part 4 — Environmental Problems',
+        'Part 5':'Part 5 — Importance of Challenges',
+        'Part 6':'Part 6 — Running in the Family',
+        'Part 7':'Part 7 — IVF Treatment in Nigeria'
+      }[part] || part;
+
+      // Article card
+      html += `<div style="background:#f0fdf4;border:3px solid var(--ink);border-radius:20px;padding:14px;box-shadow:4px 4px 0 var(--ink)">
+        <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px">${partLabel}</div>
+        <div style="font-size:13px;font-weight:700;line-height:1.65">${articleText}</div>
+      </div>`;
+
+      // Questions for this part
+      partGroups[part].forEach(({ q, qi }) => {
+        html += `<div class="card" id="qcard-${qi}">
+          <div class="qtag">${q.type}</div>
+          <p style="font-weight:900;margin-bottom:12px;font-size:13px">${q.id}. ${q.stem}</p>
+          <div class="options" id="opts-${qi}">
+            ${q.options.map((opt, oi) => `
+              <label class="option" id="opt-${qi}-${oi}">
+                <input type="radio" name="q${qi}" value="${oi}"/>
+                <span>${opt}</span>
+              </label>`).join('')}
+          </div>
+          <div class="explain" id="exp-${qi}">${q.explanation}</div>
+        </div>`;
+      });
+    });
+
+    container.innerHTML = html;
   }
 
   function submit() {

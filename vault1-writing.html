@@ -88,27 +88,13 @@
         <textarea id="answerBox" rows="10" placeholder="Begin writing your response here..." oninput="Wrt.countWords()"></textarea>
       </div>
 
-      <!-- Checklist before submit -->
-      <div class="instr-card yellow">
-        <h2>Checklist Before Submit</h2>
-        <ul id="submitChecklist">
-          <li>I covered all the bullet points in my response.</li>
-          <li>I used an appropriate tone for this task type.</li>
-          <li>I checked my opening and closing.</li>
-          <li>My word count is within the required range.</li>
-        </ul>
-      </div>
+
 
       <!-- Rubric -->
-      <div class="card">
-        <h2>Writing Rubric <span class="req">Required</span></h2>
-        <p style="font-size:13px;font-weight:800;color:var(--muted);margin-top:4px">Tick what your response achieved. Be honest — this gives a useful score estimate.</p>
-        <div id="wrtRubricList" class="rubric-list" style="margin-top:12px"></div>
-        <div class="btn-row" style="margin-top:16px">
-          <button class="btn yellow wide" onclick="Wrt.submit()">Submit Writing Practice</button>
-          <button class="btn white" onclick="Wrt.resetPractice()">Reset</button>
-          <button class="btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
-        </div>
+      <div class="btn-row" style="margin-top:4px">
+        <button class="btn yellow wide" onclick="Wrt.submit()">Submit Writing Practice</button>
+        <button class="btn white" onclick="Wrt.resetPractice()">Reset</button>
+        <button class="btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
       </div>
 
 
@@ -220,16 +206,17 @@ const Wrt = (() => {
     const td = tasks[t];
     secs = td.timerSecs;
     stopTimer(); renderTimer();
-    document.getElementById('step1sub').textContent  = t === 'T1' ? 'What Task 1 tests' : 'What Task 2 tests';
-    document.getElementById('promptLabel').textContent = td.label;
-    document.getElementById('promptText').textContent  = td.prompt;
-    document.getElementById('bulletPoints').innerHTML  = td.bullets.map(b => `<div style="margin-bottom:4px">${b}</div>`).join('');
-    document.getElementById('wrtCoach').textContent    = td.coach;
-    document.getElementById('wcGuide').textContent     = td.wcGuide;
-    document.getElementById('submitChecklist').innerHTML = td.checklist.map(c => `<li>${c}</li>`).join('');
-    document.getElementById('tipsContent').innerHTML   = t === 'T1' ? t1Tips() : t2Tips();
-    document.getElementById('sampleContent').innerHTML = td.sampleHtml;
-    renderRubric(td.rubric);
+    // Prompt and coach — always present in vault direct practice
+    const pLabel = document.getElementById('promptLabel');
+    const pText  = document.getElementById('promptText');
+    const pBulls = document.getElementById('bulletPoints');
+    const coach  = document.getElementById('wrtCoach');
+    const wcG    = document.getElementById('wcGuide');
+    if (pLabel) pLabel.textContent = td.label;
+    if (pText)  pText.textContent  = td.prompt;
+    if (pBulls) pBulls.innerHTML   = td.bullets.map(b => `<div style="margin-bottom:4px">${b}</div>`).join('');
+    if (coach)  coach.textContent  = td.coach;
+    if (wcG)    wcG.textContent    = td.wcGuide;
     countWords();
   }
 
@@ -284,18 +271,18 @@ const Wrt = (() => {
     const answer = document.getElementById('answerBox').value.trim();
     if (!answer || answer.split(/\s+/).length < 50) { MUET.toast('Please write at least 50 words before submitting.'); return; }
 
-    const checks   = [...document.querySelectorAll('#wrtRubricList input:checked')];
-    const raw      = checks.reduce((s,c) => s + Number(c.dataset.score), 0);
-    const maxPts   = tasks[currentTask].rubric.reduce((s,r) => s + r[3], 0);
-    const score90  = Math.round(raw / maxPts * 90);
+    // Score based on word count vs minimum requirement
+    const wc = answer.split(/\s+/).length;
+    const min = tasks[currentTask].wcMin;
+    const score90 = Math.min(90, Math.round((Math.min(wc, min * 1.5) / (min * 1.5)) * 90));
     const band     = MUET.scoreToBand(score90);
     const wc       = answer.split(/\s+/).length;
 
     const session = {
       vaultId: VAULT_ID, taskType: currentTask,
       score90, score: score90, band, bandLabel: band,
-      wordCount: wc, checks: checks.map(c => c.dataset.id),
-      answer, date: new Date().toISOString(), xpEarned: 90 + checks.length * 5
+      wordCount: wc,
+      answer, date: new Date().toISOString(), xpEarned: 90
     };
     const list = MUET.loadSessions('writing');
     list.push(session);
@@ -324,7 +311,6 @@ const Wrt = (() => {
 
   function resetPractice() {
     document.getElementById('answerBox').value = '';
-    document.querySelectorAll('#wrtRubricList input').forEach(x => x.checked = false);
     document.getElementById('resultCard').classList.remove('show');
     secs = tasks[currentTask].timerSecs;
     stopTimer(); renderTimer(); countWords();
