@@ -56,7 +56,7 @@
 
       <div class="timer-card yellow">
         <div>
-          <p class="tiny" id="timerLbl">Task 1 Timer (25 min)</p>
+          <p class="tiny" id="timerLbl">Task 1 Timer — 25 min</p>
           <div id="timerDisp" class="timer-big">25:00</div>
         </div>
         <button class="btn black" style="width:auto;min-width:80px" id="timerBtn" onclick="Wrt.toggleTimer()">Start</button>
@@ -84,7 +84,7 @@
             <small style="display:block;text-align:center;font-size:10px">words</small>
           </div>
         </div>
-        <p style="font-size:13px;font-weight:800;color:var(--muted);margin-bottom:10px" id="wcGuide">Task 1: aim for 150+ words</p>
+        <p style="font-size:13px;font-weight:800;color:var(--muted);margin-bottom:10px" id="wcGuide">Task 1: minimum 100 words required</p>
         <textarea id="answerBox" rows="10" placeholder="Begin writing your response here..." oninput="Wrt.countWords()"></textarea>
       </div>
 
@@ -230,14 +230,7 @@ const Wrt = (() => {
     <div class="coach-note lime"><div class="tag">THESIS FIRST</div><p>Your introduction must state your thesis clearly in one sentence. The examiner decides within 30 seconds whether you understand the question. Do not write background first — state your stand immediately.</p></div>`;
   }
 
-  function renderRubric(rubric) {
-    document.getElementById('wrtRubricList').innerHTML = rubric.map(([id,name,desc,pts]) => `
-      <label class="rubric-item">
-        <input type="checkbox" data-score="${pts}" data-id="${id}"/>
-        <span><b>${name}</b><br><small style="color:var(--muted);font-weight:900">${desc}</small></span>
-        <span class="score-pill">${pts}pts</span>
-      </label>`).join('');
-  }
+  // renderRubric removed — no rubric UI in vault direct practice
 
   function countWords() {
     const text  = document.getElementById('answerBox').value.trim();

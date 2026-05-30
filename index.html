@@ -245,10 +245,13 @@
         <div class="band-disc" id="pd-disc"><span id="pd-pct">0%</span></div>
       </div>
 
-      <!-- 4 score bars -->
+      <!-- 4 score bars + total -->
       <div class="card">
         <h2>Component Scores</h2>
         <div id="progRows" style="display:grid;gap:14px;margin-top:14px"></div>
+        <div id="totalRow" style="display:flex;justify-content:space-between;align-items:center;background:var(--ink);color:white;border-radius:14px;padding:12px 14px;margin-top:12px;font-weight:1000;font-size:15px">
+          <span>Total</span><span id="totalScore">0 / 360 · Band 0.0</span>
+        </div>
       </div>
 
       <!-- Target gap -->
@@ -456,7 +459,12 @@ const Hub = (() => {
     const vault = MUET.VAULT_MAP[vaultId];
     if (!vault) return;
     MUET.saveActiveVault({ vaultId: vault.id, vaultTitle: vault.title, vaultType: vault.type });
-    MUET.goPage('vault1-welcome.html');
+    // Route to correct welcome page based on vault type
+    if (vaultId === 'VAULT-00') {
+      MUET.goPage('starter-welcome.html');
+    } else {
+      MUET.goPage('vault1-welcome.html');
+    }
   }
 
   // ── Progress tab switcher ─────────────────────────────────────────
@@ -514,6 +522,8 @@ const Hub = (() => {
     document.getElementById('pd-bandmsg').textContent = MUET.bandMessage(b);
     document.getElementById('pd-pct').textContent     = pct + '%';
     document.getElementById('pd-disc').style.setProperty('--p', pct + '%');
+    const tsEl = document.getElementById('totalScore');
+    if (tsEl) tsEl.textContent = `${total} / 360  ·  Band ${b}`;
 
     const pr = document.getElementById('progRows');
     if (pr) {

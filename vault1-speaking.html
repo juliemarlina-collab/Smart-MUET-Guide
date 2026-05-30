@@ -105,27 +105,13 @@
         <textarea id="transcript" rows="5" style="margin-top:10px" placeholder="I believe students should work part-time because..."></textarea>
       </div>
 
-      <!-- Checklist before submit -->
-      <div class="instr-card lime">
-        <h2>Checklist Before Submit</h2>
-        <ul>
-          <li>I filled in all four PREP boxes.</li>
-          <li>I practised speaking aloud at least once.</li>
-          <li>I typed my transcript or speaking notes.</li>
-          <li>My answer directly answers the question.</li>
-        </ul>
-      </div>
 
-      <!-- Rubric -->
-      <div class="card">
-        <h2>MUET Speaking Rubric</h2>
-        <p style="font-size:13px;font-weight:800;color:var(--muted);margin-top:4px">Tick each item your response achieved. Be honest — this gives you a useful score estimate.</p>
-        <div id="rubricList" class="rubric-list" style="margin-top:12px"></div>
-        <div class="btn-row" style="margin-top:16px">
-          <button class="btn yellow wide" onclick="Spk.submit()">Submit Speaking Practice</button>
-          <button class="btn white" onclick="Spk.resetPractice()">Reset</button>
-          <button class="btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
-        </div>
+
+      <!-- Submit buttons -->
+      <div class="btn-row" style="margin-top:4px">
+        <button class="btn yellow wide" onclick="Spk.submit()">Submit Speaking Practice</button>
+        <button class="btn white" onclick="Spk.resetPractice()">Reset</button>
+        <button class="btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
       </div>
 
     </div>
@@ -229,7 +215,7 @@ const Spk = (() => {
     document.getElementById('tabB').classList.toggle('active', t === 'B');
     document.getElementById('taskTitle').textContent = t === 'A' ? 'Task A — Individual Response' : 'Task B — Group Discussion';
     secs = t === 'A' ? 120 : 180;
-    stopTimer(); renderTimer(); renderTopics(); renderRubric(); changeTopic();
+    stopTimer(); renderTimer(); renderTopics(); changeTopic();
   }
 
   function renderTopics() {
@@ -250,15 +236,7 @@ const Spk = (() => {
     document.getElementById('coachTip').textContent    = t.tip;
   }
 
-  function renderRubric() {
-    const data = task === 'A' ? rubricA : rubricB;
-    document.getElementById('rubricList').innerHTML = data.map(([id, name, desc, pts]) => `
-      <label class="rubric-item">
-        <input type="checkbox" data-score="${pts}" data-id="${id}"/>
-        <span><b>${name}</b><br><small style="color:var(--muted);font-weight:900">${desc}</small></span>
-        <span class="score-pill">${pts}pts</span>
-      </label>`).join('');
-  }
+
 
   function toggleTimer() {
     if (timerId) { stopTimer(); return; }
@@ -284,15 +262,20 @@ const Spk = (() => {
   }
 
   function submit() {
-    const checks   = [...document.querySelectorAll('#rubricList input:checked')];
-    const raw      = checks.reduce((sum, c) => sum + Number(c.dataset.score), 0);
-    const maxPts   = (task === 'A' ? rubricA : rubricB).reduce((s,r) => s + r[3], 0);
-    const score90  = Math.round((raw / maxPts) * 90);
+    const transcript = document.getElementById('transcript').value.trim();
+    if (!transcript) { MUET.toast('Please type your transcript or speaking notes before submitting.'); return; }
+
+    // Score based on PREP completion (all 4 boxes filled = better score)
+    const prep = {
+      point:  document.getElementById('prepP').value.trim(),
+      reason: document.getElementById('prepR').value.trim(),
+      example:document.getElementById('prepE').value.trim(),
+      close:  document.getElementById('prepClose').value.trim()
+    };
+    const filledPrep = Object.values(prep).filter(v => v.length > 0).length;
+    const score90  = Math.min(90, Math.round(40 + (filledPrep / 4) * 30 + Math.min(20, transcript.split(/\s+/).length / 5)));
     const band     = MUET.scoreToBand(score90);
     const topic    = getTopic();
-    const transcript = document.getElementById('transcript').value.trim();
-
-    if (!transcript) { MUET.toast('Please type your transcript or speaking notes before submitting.'); return; }
 
     const session = {
       vaultId:  VAULT_ID,
@@ -302,7 +285,6 @@ const Spk = (() => {
       prompt:   topic.prompt,
       score90, score: score90,
       band, bandLabel: band,
-      checks: checks.map(c => c.dataset.id),
       prep: {
         point:   document.getElementById('prepP').value,
         reason:  document.getElementById('prepR').value,
@@ -311,7 +293,7 @@ const Spk = (() => {
       },
       transcript,
       date: new Date().toISOString(),
-      xpEarned: 80 + checks.length * 5
+      xpEarned: 80 + filledPrep * 5
     };
 
     const sessions = MUET.loadSessions('speaking');
@@ -343,7 +325,6 @@ const Spk = (() => {
     ['prepP','prepR','prepE','prepClose','transcript'].forEach(id => {
       const el = document.getElementById(id); if (el) el.value = '';
     });
-    document.querySelectorAll('#rubricList input').forEach(x => x.checked = false);
     document.getElementById('resultCard').classList.remove('show');
     secs = task === 'A' ? 120 : 180;
     stopTimer(); renderTimer();
