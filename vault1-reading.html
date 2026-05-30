@@ -41,91 +41,7 @@
     <p style="margin-top:8px;font-weight:800">Practise targeted reading, answer checking and explanation review.</p>
   </div>
 
-  <!-- STEP 1: Before You Start -->
-  <div class="flow-step">
-    <div class="flow-step-head" onclick="Rd.toggle('step1')">
-      <div class="step-num">1</div>
-      <div style="flex:1"><b>Before You Start</b><br><small style="color:var(--muted)">What Reading 800/3 tests</small></div>
-      <span id="chev-step1">▴</span>
-    </div>
-    <div class="flow-step-body" id="body-step1" style="padding-top:14px">
-      <div class="instr-card blue">
-        <h2>What MUET Reading Tests</h2>
-        <ul>
-          <li><b>7 parts</b>, 40 questions, 90 minutes total.</li>
-          <li>Question types: main idea, detail, inference, vocabulary, writer's purpose and cohesion.</li>
-          <li>All questions are <b>multiple choice</b> — one best answer from 3–4 options.</li>
-          <li>This component tests your ability to read accurately, not just generally.</li>
-        </ul>
-      </div>
-      <button class="btn lime" onclick="Rd.openStep('step2')">I understand — show me tips →</button>
-    </div>
-  </div>
-
-  <!-- STEP 2: Tips -->
-  <div class="flow-step">
-    <div class="flow-step-head" onclick="Rd.toggle('step2')">
-      <div class="step-num">2</div>
-      <div style="flex:1"><b>Tips &amp; Tricks</b><br><small style="color:var(--muted)">Question-First Strategy</small></div>
-      <span id="chev-step2">▾</span>
-    </div>
-    <div class="flow-step-body" id="body-step2" style="display:none;padding-top:14px">
-      <div class="coach-note lime">
-        <div class="tag">QUESTION-FIRST STRATEGY</div>
-        <p>Always <b>read the questions first</b> before reading the passage. Underline keywords in each question. Then scan the passage for those keywords — do not read every word.</p>
-      </div>
-      <div class="card" style="background:#f8fafc">
-        <h3>Identify the Question Type First</h3>
-        <div class="sample-box"><b>Direct retrieval:</b> Answer is copied almost word-for-word from the text.</div>
-        <div class="sample-box" style="margin-top:8px"><b>Paraphrase:</b> Answer is the same meaning as the text, but different words.</div>
-        <div class="sample-box" style="margin-top:8px"><b>Inference:</b> Answer is implied by the text — you need to read between the lines.</div>
-      </div>
-      <div class="coach-note pink">
-        <div class="tag">AVOID THIS MISTAKE</div>
-        <p>Do not choose an option just because the words appear in the passage. Distractors often use the same words with different meanings. Always check if the <b>idea</b> matches, not just the words.</p>
-      </div>
-      <button class="btn lime" onclick="Rd.openStep('step3')">I've read the tips — show me a sample →</button>
-    </div>
-  </div>
-
-  <!-- STEP 3: Sample -->
-  <div class="flow-step">
-    <div class="flow-step-head" onclick="Rd.toggle('step3')">
-      <div class="step-num">3</div>
-      <div style="flex:1"><b>Sample Explanation</b><br><small style="color:var(--muted)">See how answers are explained</small></div>
-      <span id="chev-step3">▾</span>
-    </div>
-    <div class="flow-step-body" id="body-step3" style="display:none;padding-top:14px">
-      <div class="card lime">
-        <h3>Sample — Part 1 (Matching)</h3>
-        <p style="margin-top:8px;font-weight:800;font-size:13px">Read the three place descriptions, then answer: <em>Which place has the cheapest wi-fi?</em></p>
-        <p style="font-size:13px;font-weight:800;margin-top:6px">Place A: Wi-fi RM10/day &nbsp;|&nbsp; Place B: Wi-fi RM20/day &nbsp;|&nbsp; Place C: Wi-fi RM20/day</p>
-      </div>
-
-      <div class="card">
-        <div class="qtag">Part 1 — Matching (Direct Retrieval)</div>
-        <p style="font-weight:900;margin-bottom:12px">Which place has the cheapest wi-fi?</p>
-        <div class="options">
-          <label class="option correct"><input type="radio" name="sq1" disabled checked/><span>A. Place A (RM10 per day)</span></label>
-          <label class="option wrong"><input type="radio" name="sq1" disabled/><span>B. Place B (RM20 per day)</span></label>
-          <label class="option wrong"><input type="radio" name="sq1" disabled/><span>C. Place C (RM20 per day)</span></label>
-        </div>
-        <div class="explain show" style="margin-top:12px">
-          <b>Answer: A — Place A.</b><br>Place A charges RM10/day — the lowest. Both B and C charge RM20/day. This is <b>direct retrieval</b> — the exact figure appears in the text. Scan for the keyword "wi-fi" and compare the numbers across all three places before answering.
-        </div>
-      </div>
-      <button class="btn lime" onclick="Rd.openStep('step4')">I'm ready — start my practice →</button>
-    </div>
-  </div>
-
-  <!-- STEP 4: Practice -->
-  <div class="flow-step">
-    <div class="flow-step-head" onclick="Rd.toggle('step4')">
-      <div class="step-num">4</div>
-      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Required: MCQ answers for all questions</small></div>
-      <span id="chev-step4">▾</span>
-    </div>
-    <div class="flow-step-body" id="body-step4" style="display:none;padding-top:14px">
+  <!-- Practice — direct entry -->
 
       <div class="timer-card blue">
         <div>
@@ -162,8 +78,7 @@
         <button class="btn lime wide" onclick="Rd.submit()">Submit Reading Practice</button>
         <button class="btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
       </div>
-    </div>
-  </div>
+
 
   <!-- Result -->
   <div id="resultCard" class="result-card" style="background:#dcfce7">
@@ -354,8 +269,6 @@ function updateVaultProgress() {
 document.addEventListener('DOMContentLoaded', () => {
   Rd.renderPassage();
   updateVaultProgress();
-  document.getElementById('body-step1').style.display = 'block';
-  document.getElementById('chev-step1').textContent   = '▴';
 });
 </script>
 </body>

@@ -2,470 +2,207 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SmartListening · MUET SmartHub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>Listening Guide · MUET SmartHub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/muet-neopop.css"/>
+  <link rel="stylesheet" href="css/muet-guide.css"/>
   <style>
-    .listening-hero{background:var(--yellow);color:var(--ink)}
-    .listening-hero p{font-weight:900}
-    .session-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-    .session-tab{border:var(--line);box-shadow:3px 3px 0 var(--ink);border-radius:16px;background:white;padding:12px;font-weight:1000}
-    .session-tab.active{background:var(--blue);color:white}
-    .audio-panel{background:var(--ink);color:white;border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
-    .audio-panel .tiny{color:rgba(255,255,255,.7)}
-    .wave{height:54px;border:2px solid white;border-radius:16px;background:repeating-linear-gradient(90deg, var(--yellow) 0 7px, transparent 7px 14px);margin:12px 0;animation:waveMove 2.2s linear infinite}
-    @keyframes waveMove{from{background-position:0 0}to{background-position:84px 0}}
-    .audio-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .part-nav{display:flex;gap:8px;overflow-x:auto;padding:4px 4px 12px;margin-bottom:10px}
-    .part-btn{flex:0 0 auto;border:var(--line);box-shadow:3px 3px 0 var(--ink);border-radius:14px;background:white;padding:10px 12px;font-weight:1000}
-    .part-btn.active{background:var(--pink)}
-    .coach-card{background:#b8ff36;border:var(--line);box-shadow:var(--shadow);border-radius:22px;padding:14px;margin-bottom:16px;font-weight:900}
-    .question-card{background:var(--paper);border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
-    .question-card h3{font-size:17px;margin-bottom:10px}
-    .options{display:grid;gap:10px}
-    .option{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;border:2px solid var(--ink);border-radius:14px;background:white;padding:11px;font-weight:800}
-    .option input{width:20px;height:20px;box-shadow:none;margin-top:1px}
-    .option.correct{background:#bbf7d0}
-    .option.wrong{background:#fecaca}
-    .note-box{width:100%;min-height:64px;margin-top:10px;border:2px dashed var(--ink);border-radius:14px;background:#fff;padding:10px;font:inherit;font-weight:700}
-    .explain{display:none;margin-top:10px;border:2px solid var(--ink);border-radius:14px;background:#fff7cc;padding:10px;font-weight:800}
-    .explain.show{display:block}
-    .transcript-box{display:none;background:white;border:var(--line);border-radius:18px;padding:12px;margin-top:12px;font-weight:800;white-space:pre-line}
-    .transcript-box.show{display:block}
-    .qtag{display:inline-block;background:var(--blue);color:white;border:2px solid var(--ink);border-radius:999px;padding:4px 8px;font-size:11px;font-weight:1000;margin-bottom:8px}
-    .button-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-    .button-row .wide{grid-column:1/-1}
-    .result-card{display:none;background:#b8ff36;border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
-    .result-card.show{display:block}
-    .part-summary{display:grid;gap:10px;margin-top:12px}
-    .part-row{background:white;border:2px solid var(--ink);border-radius:14px;padding:10px;font-weight:900}
-    .mode-note{font-size:12px;color:rgba(255,255,255,.72);font-weight:800}
+    .flow-step{background:white;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+    .flow-step-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;font-weight:1000}
+    .flow-step-head:active{background:rgba(0,0,0,.04)}
+    .step-num{width:38px;height:38px;border:var(--line);border-radius:50%;background:var(--yellow);display:grid;place-items:center;font-weight:1000;font-size:16px;flex-shrink:0;box-shadow:2px 2px 0 var(--ink)}
+    .info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:4px 0 10px}
+    .info-tile{border:var(--line);border-radius:14px;padding:10px 4px;text-align:center;box-shadow:2px 2px 0 var(--ink);background:var(--yellow)}
+    .info-tile .big{font-family:"Sora";font-size:18px;font-weight:800;display:block}
+    .info-tile .lbl{font-size:10px;font-weight:1000;text-transform:uppercase;color:var(--muted);display:block;margin-top:2px}
   </style>
 </head>
 <body>
-  <main class="phone-shell">
-    <section class="screen active">
-      <div class="brand-bar dark">
-        <button onclick="location.href='index.html'" class="hamb">←</button>
-        <div>
-          <div class="brand-small">MUET SmartHub Module</div>
-          <div class="brand-title">SmartListening</div>
+<main class="app-shell">
+<section class="screen active">
+
+  <div class="brand-bar">
+    <button class="icon-btn" onclick="location.href='index.html'" style="margin-left:0;margin-right:8px">←</button>
+    <div><div class="bar-label">Skill Module</div><div class="bar-title">Listening 800/1</div></div>
+    <button class="icon-btn">🎧</button>
+  </div>
+
+  <div class="card" style="background:var(--yellow);margin-bottom:16px">
+    <p class="tiny" style="color:rgba(0,0,0,.5)">Listening 800/1 · 90 marks · 25% of MUET</p>
+    <h1 style="margin-top:6px">Write keywords.<br>Not sentences.</h1>
+    <p style="margin-top:8px;font-weight:800">Keyword notes · distractor awareness · answer checking.</p>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="L.toggle('s1')">
+      <div class="step-num">1</div>
+      <div style="flex:1"><b>Before You Start</b><br><small style="color:var(--muted)">What Listening 800/1 tests</small></div>
+      <span id="c-s1">▴</span>
+    </div>
+    <div id="b-s1" style="padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+      <div class="info-grid">
+        <div class="info-tile"><span class="big">5</span><span class="lbl">Parts</span></div>
+        <div class="info-tile"><span class="big">30</span><span class="lbl">Questions</span></div>
+        <div class="info-tile"><span class="big">~50</span><span class="lbl">Minutes</span></div>
+        <div class="info-tile"><span class="big">25%</span><span class="lbl">of MUET</span></div>
+      </div>
+      <div style="background:#fef9c3;border:var(--line);border-radius:14px;padding:12px;margin-bottom:10px;font-size:13px;font-weight:900">
+        ⚠️ Audio plays <b>once only</b> in the real exam. You cannot replay.
+      </div>
+      <div style="background:#fefce8;border:2px solid var(--ink);border-radius:14px;padding:12px;font-size:12px;font-weight:900">
+        <p style="margin-bottom:6px;font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)">Question Types</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <span style="background:white;border:2px solid var(--ink);border-radius:999px;padding:3px 10px">Note Completion</span>
+          <span style="background:white;border:2px solid var(--ink);border-radius:999px;padding:3px 10px">MCQ</span>
+          <span style="background:white;border:2px solid var(--ink);border-radius:999px;padding:3px 10px">Matching</span>
+          <span style="background:white;border:2px solid var(--ink);border-radius:999px;padding:3px 10px">Short Answer</span>
         </div>
-        <button class="hamb">🎧</button>
+        <p style="margin-top:8px">Audio includes: <b>conversations · announcements · talks · discussions</b></p>
       </div>
+      <button class="btn yellow" style="margin-top:14px" onclick="L.open('s2')">I understand — show me tips →</button>
+    </div>
+  </div>
 
-      <div class="hero-neo listening-hero">
-        <div>
-          <p class="tiny">Listening 800/1</p>
-          <h1>Listen for keywords.</h1>
-          <p>Practise notes, distractors, answer checking and transcript review.</p>
-        </div>
-      </div>
-
-
-      <div class="instruction-card yellow">
-        <h2>How to Complete SmartListening</h2>
-        <ol>
-          <li>Select a listening session and part.</li>
-          <li>Read the questions before playing the audio/script.</li>
-          <li>Use the note box to write keywords only, not full sentences.</li>
-          <li>Select the best answer for each question.</li>
-          <li>Submit to reveal answer explanations and transcript.</li>
-          <li>Review distractors and signal words after submission.</li>
-        </ol>
-        <div class="input-guide">
-          <strong>Student input required:</strong>
-          Keyword notes + MCQ answers.
-          <div class="sample-line">Listening note example: “Wed / 4.30 / LH2 / bring earphones”.</div>
-        </div>
-        <div class="step-chip-row">
-          <span class="step-chip">Read Ahead</span>
-          <span class="step-chip">Listen</span>
-          <span class="step-chip">Take Notes</span>
-          <span class="step-chip">Answer</span>
-          <span class="step-chip">Review Transcript</span>
-        </div>
-      </div>
-
-      <div class="session-tabs">
-        <button id="tabS1" class="session-tab active" onclick="ListeningApp.setSession('S1')">Session 1</button>
-        <button id="tabS2" class="session-tab" onclick="ListeningApp.setSession('S2')">Session 2</button>
-      </div>
-
-      <div class="audio-panel">
-        <p class="tiny" id="sessionLabel">Listening Practice Session 1</p>
-        <h2 id="audioTitle">Audio Simulation</h2>
-        <p class="mode-note">Prototype mode: use the “Play Script” button for browser speech audio. Later we will replace this with real MUET audio files.</p>
-        <div class="wave"></div>
-        <div class="audio-actions">
-          <button class="neo-btn yellow" onclick="ListeningApp.playScript()">▶ Play Script</button>
-          <button class="neo-btn pink" onclick="ListeningApp.stopScript()">■ Stop</button>
-        </div>
-      </div>
-
-      <div class="part-nav" id="partNav"></div>
-
-      <div class="coach-card">
-        <div class="tag">LISTENING STRATEGY</div>
-        <p id="coachTip">Read questions during silence. Write keywords, not full sentences.</p>
-      </div>
-
-      <div id="questionList"></div>
-
-      <div class="neo-panel">
-        <div class="button-row">
-          <button class="neo-btn yellow wide" onclick="ListeningApp.submit()">Submit Listening Answers</button>
-          <button class="neo-btn black" onclick="ListeningApp.resetPractice()">Reset</button>
-          <button class="neo-btn pink" onclick="location.href='index.html'">Hub</button>
+  <!-- STEP 2 -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="L.toggle('s2')">
+      <div class="step-num">2</div>
+      <div style="flex:1"><b>Tips &amp; Tricks</b><br><small style="color:var(--muted)">Keyword and distractor strategy</small></div>
+      <span id="c-s2">▾</span>
+    </div>
+    <div id="b-s2" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+      <div class="coach-note lime"><div class="tag">KEYWORD STRATEGY</div>
+        <p>Write <b>2–3 keywords per blank</b> — not full sentences. If you miss a word, leave it and move on. Complete notes after audio ends.</p></div>
+      <div class="coach-note pink" style="margin-top:10px"><div class="tag">DISTRACTOR WATCH</div>
+        <p>First option mentioned is often <b>corrected</b> by the speaker. Listen for: <i>but · however · actually · in fact · no, I mean</i>. The correction = the answer.</p></div>
+      <div style="background:#f8fafc;border:var(--line);border-radius:14px;padding:12px;margin-top:10px">
+        <h3 style="font-size:14px;margin-bottom:8px">Good vs Poor Notes</h3>
+        <div style="font-size:13px;font-weight:850;display:grid;gap:6px">
+          <div style="background:#fecaca;border:2px solid var(--ink);border-radius:10px;padding:8px">❌ "The meeting was moved from Thursday to Friday at 2:30 in the science block"</div>
+          <div style="background:#bbf7d0;border:2px solid var(--ink);border-radius:10px;padding:8px">✅ "Fri / 2.30pm / sci block"</div>
         </div>
       </div>
+      <button class="btn yellow" style="margin-top:14px" onclick="L.open('s3')">I've read the tips — show me a sample →</button>
+    </div>
+  </div>
 
-      <div id="resultCard" class="result-card">
-        <p class="tiny">Listening Practice Saved</p>
-        <h2 id="resultScore">Score</h2>
-        <p id="resultFeedback"></p>
-        <div id="partSummary" class="part-summary"></div>
-        <button class="neo-btn black" onclick="location.href='index.html'">Return to Hub Dashboard</button>
+  <!-- STEP 3 -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="L.toggle('s3')">
+      <div class="step-num">3</div>
+      <div style="flex:1"><b>Sample &amp; Transcript</b><br><small style="color:var(--muted)">See a distractor in action</small></div>
+      <span id="c-s3">▾</span>
+    </div>
+    <div id="b-s3" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+      <div style="background:#dcfce7;border:var(--line);border-radius:14px;padding:12px;font-size:13px;font-weight:800;line-height:1.5;margin-bottom:12px;font-style:italic">
+        "Good morning students. The library will be closed this <u>Thursday</u> for maintenance. Actually — sorry, I made an error. The library will be closed on <u>Friday</u>, not Thursday."
       </div>
-    </section>
+      <div style="border:var(--line);border-radius:14px;background:white;padding:12px;margin-bottom:10px">
+        <p style="font-weight:900;margin-bottom:10px;font-size:13px">When will the library be closed?</p>
+        <div class="options">
+          <label class="option wrong"><input type="radio" disabled/><span>A. Thursday</span></label>
+          <label class="option correct"><input type="radio" disabled checked/><span>B. Friday</span></label>
+          <label class="option wrong"><input type="radio" disabled/><span>C. Monday</span></label>
+        </div>
+        <div class="explain show" style="margin-top:10px"><b>B — Friday.</b> Speaker first says Thursday (distractor), then corrects to Friday. Signal: <i>"Actually — sorry, I made an error."</i></div>
+      </div>
+      <button class="btn yellow" style="margin-top:4px" onclick="L.open('s4')">I'm ready — start practice →</button>
+    </div>
+  </div>
 
-    <div id="toast" class="toast">Saved</div>
-  </main>
+  <!-- STEP 4 -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="L.toggle('s4')">
+      <div class="step-num">4</div>
+      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Keyword notes + MCQ answers</small></div>
+      <span id="c-s4">▾</span>
+    </div>
+    <div id="b-s4" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+      <div style="background:var(--ink);color:white;border:var(--line);border-radius:var(--r2);padding:14px;margin-bottom:14px">
+        <p class="tiny" style="color:rgba(255,255,255,.7)">Script Mode — Audio pending</p>
+        <div style="height:36px;background:repeating-linear-gradient(90deg,var(--yellow) 0 6px,transparent 6px 12px);border:2px solid rgba(255,255,255,.3);border-radius:10px;margin:8px 0;opacity:.5"></div>
+        <p style="font-weight:800;font-size:13px;margin-bottom:8px">Read the script below to practise. In the real exam, audio plays once only.</p>
+        <button class="btn yellow" id="scriptBtn" onclick="toggleScript()" style="width:auto;min-width:130px">Show Script</button>
+      </div>
+      <div id="practiceScript" style="display:none;background:#f0fdf4;border:var(--line);border-radius:16px;padding:14px;margin-bottom:14px;font-size:13px;font-weight:800;line-height:1.6;font-style:italic">
+        "Hi Sarah, have you registered for the workshop next week?"<br>
+        "Yes. It's the Digital Skills Workshop on Wednesday the 14th?"<br>
+        "Actually, the date was changed. It's now Thursday the 15th. Same venue — Main Hall, Level 3."<br>
+        "What time does it start?"<br>
+        "Nine in the morning. Registration opens at eight thirty. Bring your student card — they'll check attendance."<br>
+        "Is it free for students?"<br>
+        "Yes, completely free. But confirm your spot by Tuesday."
+      </div>
+      <div class="coach-note lime"><div class="tag">BEFORE YOU LISTEN</div><p>Read the questions below first. Write keywords in the note box. Then answer.</p></div>
+      <div class="card">
+        <h3>Keyword Notes <span class="req">Required</span></h3>
+        <textarea id="lstNotes" rows="3" style="margin-top:10px" placeholder="e.g. Thu→Fri / Hall L3 / 9am / student card / confirm Tue"></textarea>
+      </div>
+      <div id="lstQList" style="display:grid;gap:12px"></div>
+      <div class="btn-row" style="margin-top:14px">
+        <button class="btn yellow wide" onclick="submitListening()">Submit Practice</button>
+        <button class="btn pink" onclick="location.href='index.html'">← Home</button>
+      </div>
+      <div id="resultCard" class="result-card" style="background:#fef9c3">
+        <div class="tag">RESULT SAVED</div>
+        <span id="resultScore" class="result-score"></span>
+        <span id="resultBand" class="result-band"></span>
+        <div id="resultFb" style="border:var(--line);border-radius:14px;background:white;padding:12px;margin:10px 0;font-size:13px;font-weight:800"></div>
+        <button class="btn black" onclick="location.href='index.html'">← Back to Home</button>
+      </div>
+    </div>
+  </div>
 
-  <script>
-    const ListeningApp = (() => {
-      const LS_PROFILE = "muet_profile";
-      const LS_SESSIONS = "muet_listening_sessions";
+</section>
+</main>
+<div id="toast" class="toast"></div>
+<script src="js/muet-shared.js"></script>
+<script>
+const sampleQs=[
+  {id:'L1',stem:'When was the workshop rescheduled to?',options:['A. Wednesday the 14th','B. Thursday the 15th','C. Tuesday the 13th'],answer:1,explanation:'Speaker first says Wednesday (distractor), then corrects: "It\'s now Thursday the 15th."'},
+  {id:'L2',stem:'Where will the workshop be held?',options:['A. Level 2, Main Hall','B. Science Block','C. Level 3, Main Hall'],answer:2,explanation:'"Main Hall, Level 3." Direct retrieval.'},
+  {id:'L3',stem:'What time does the workshop start?',options:['A. 8:00 AM','B. 8:30 AM','C. 9:00 AM'],answer:2,explanation:'"Nine in the morning." 8:30 is registration time — detail distractor.'},
+  {id:'L4',stem:'What must participants bring?',options:['A. A laptop','B. A student card','C. A notebook'],answer:1,explanation:'"Bring your student card." Direct retrieval.'},
+  {id:'L5',stem:'By when must participants confirm attendance?',options:['A. Monday','B. Wednesday','C. Tuesday'],answer:2,explanation:'"Confirm your spot by Tuesday." Direct retrieval.'}
+];
 
-      const sessions = {
-        S1: {
-          title: "Session 1 — Campus Announcement",
-          label: "Listening Practice Session 1",
-          tip: "Read the questions first. Predict what you need to listen for: date, place, reason, action or speaker attitude.",
-          transcript: `Good morning students. This is a reminder about the English Language Unit workshop next Wednesday. The session will begin at 4.30 p.m. in Lecture Hall 2, not the language lab as stated earlier. Students are advised to bring their own notebooks and earphones. The workshop will focus on MUET Speaking and Writing strategies. Although attendance is encouraged, it is not compulsory. However, students who attend will receive extra practice materials after the session.`,
-          parts: [
-            {
-              name: "Part 1",
-              focus: "Direct Details",
-              questions: [
-                {
-                  type: "Detail",
-                  q: "When will the workshop be held?",
-                  options: ["Monday", "Tuesday", "Wednesday", "Friday"],
-                  answer: 2,
-                  why: "The announcement says the workshop is next Wednesday."
-                },
-                {
-                  type: "Location",
-                  q: "Where will the workshop be held?",
-                  options: ["Language lab", "Lecture Hall 2", "Main hall", "Library"],
-                  answer: 1,
-                  why: "The speaker corrects the earlier venue and says it will be in Lecture Hall 2."
-                },
-                {
-                  type: "Purpose",
-                  q: "What will the workshop focus on?",
-                  options: ["Reading and Listening", "Grammar and vocabulary", "Speaking and Writing strategies", "Essay marking only"],
-                  answer: 2,
-                  why: "The transcript states the workshop will focus on MUET Speaking and Writing strategies."
-                }
-              ]
-            },
-            {
-              name: "Part 2",
-              focus: "Inference and Attitude",
-              questions: [
-                {
-                  type: "Inference",
-                  q: "Is attendance compulsory?",
-                  options: ["Yes, for all students", "No, but students are encouraged to attend", "Only for weak students", "Only for lecturers"],
-                  answer: 1,
-                  why: "The speaker says attendance is encouraged but not compulsory."
-                },
-                {
-                  type: "Benefit",
-                  q: "What will students receive if they attend?",
-                  options: ["Free meals", "Extra practice materials", "A certificate", "Transport allowance"],
-                  answer: 1,
-                  why: "The final sentence says students who attend will receive extra practice materials."
-                }
-              ]
-            }
-          ]
-        },
-        S2: {
-          title: "Session 2 — Student Interview",
-          label: "Listening Practice Session 2",
-          tip: "Watch for distractors. A speaker may mention one option first, then correct it later.",
-          transcript: `Interviewer: How do you usually prepare for MUET?
-Student: At first, I only focused on reading because I thought it was the hardest paper. But after doing a few practices, I realised writing was actually my weakest skill. Now I spend more time planning essays and checking grammar. I also record myself speaking twice a week. My friend suggested joining a weekend class, but I prefer online materials because I can study at night after my part-time job.`,
-          parts: [
-            {
-              name: "Part 1",
-              focus: "Distractor Awareness",
-              questions: [
-                {
-                  type: "Distractor",
-                  q: "Which skill did the student initially focus on?",
-                  options: ["Writing", "Reading", "Speaking", "Listening"],
-                  answer: 1,
-                  why: "The student says at first they only focused on reading."
-                },
-                {
-                  type: "Weakness",
-                  q: "Which skill became the student's weakest skill?",
-                  options: ["Reading", "Writing", "Listening", "Speaking"],
-                  answer: 1,
-                  why: "The student says writing was actually the weakest skill."
-                },
-                {
-                  type: "Routine",
-                  q: "How often does the student record speaking practice?",
-                  options: ["Every day", "Once a month", "Twice a week", "Only before exam"],
-                  answer: 2,
-                  why: "The student says they record themselves speaking twice a week."
-                }
-              ]
-            },
-            {
-              name: "Part 2",
-              focus: "Reason and Preference",
-              questions: [
-                {
-                  type: "Preference",
-                  q: "What does the student prefer?",
-                  options: ["Weekend class", "Online materials", "Group tuition", "Face-to-face workshop"],
-                  answer: 1,
-                  why: "The student says they prefer online materials."
-                },
-                {
-                  type: "Reason",
-                  q: "Why does the student prefer that option?",
-                  options: ["It is free", "They can study at night after a part-time job", "Their friend dislikes classes", "It has no homework"],
-                  answer: 1,
-                  why: "The reason given is that the student can study at night after their part-time job."
-                }
-              ]
-            }
-          ]
-        }
-      };
+const L={};
+L.toggle=function(id){const b=document.getElementById('b-'+id),c=document.getElementById('c-'+id);if(!b)return;const open=b.style.display==='none';b.style.display=open?'block':'none';if(c)c.textContent=open?'▴':'▾';};
+L.open=function(id){const b=document.getElementById('b-'+id),c=document.getElementById('c-'+id);if(!b)return;b.style.display='block';if(c)c.textContent='▴';setTimeout(()=>b.scrollIntoView({behavior:'smooth',block:'start'}),100);};
 
-      let currentSession = "S1";
-      let currentPart = 0;
-      let submitted = false;
-      let utterance = null;
+function toggleScript(){const s=document.getElementById('practiceScript'),b=document.getElementById('scriptBtn');const show=s.style.display==='none';s.style.display=show?'block':'none';b.textContent=show?'Hide Script':'Show Script';}
 
-      function init(){
-        setSession("S1");
-      }
+function renderQuestions(){
+  document.getElementById('lstQList').innerHTML=sampleQs.map((q,qi)=>`
+    <div class="card"><p style="font-weight:900;margin-bottom:10px;font-size:13px">Q${qi+1}. ${q.stem}</p>
+    <div class="options" id="lopts-${qi}">${q.options.map((o,oi)=>`<label class="option" id="lopt-${qi}-${oi}"><input type="radio" name="lq${qi}" value="${oi}"/><span>${o}</span></label>`).join('')}</div>
+    <div class="explain" id="lexp-${qi}">${q.explanation}</div></div>`).join('');
+}
 
-      function setSession(id){
-        currentSession = id;
-        currentPart = 0;
-        submitted = false;
-        stopScript();
-        document.getElementById("tabS1").classList.toggle("active", id==="S1");
-        document.getElementById("tabS2").classList.toggle("active", id==="S2");
-        renderSession();
-        document.getElementById("resultCard").classList.remove("show");
-      }
+function submitListening(){
+  const notes=document.getElementById('lstNotes').value.trim();
+  if(!notes){MUET.toast('Please write keyword notes before submitting.');return;}
+  let correct=0;
+  sampleQs.forEach((q,qi)=>{const sel=document.querySelector(`input[name="lq${qi}"]:checked`);const ans=sel?parseInt(sel.value):-1;if(ans===q.answer)correct++;q.options.forEach((_,oi)=>{const el=document.getElementById(`lopt-${qi}-${oi}`);if(!el)return;if(oi===q.answer)el.classList.add('correct');else if(oi===ans)el.classList.add('wrong');});document.getElementById(`lexp-${qi}`)?.classList.add('show');});
+  const total=sampleQs.length,score90=Math.round(correct/total*90),band=MUET.scoreToBand(score90);
+  const session={vaultId:'SKILL-MODULE',rawScore:correct,totalQ:total,score90,band,notes,date:new Date().toISOString()};
+  const list=MUET.loadSessions('listening');list.push(session);MUET.saveSessions('listening',list);
+  MUET.awardBadge('audio_focus');MUET.addXP(70);
+  document.getElementById('resultScore').textContent=`${correct}/${total} · ${score90}/90`;
+  document.getElementById('resultBand').textContent=`Estimated Band ${band}`;
+  document.getElementById('resultFb').textContent=MUET.feedbackText('listening',score90);
+  document.getElementById('resultCard').classList.add('show');
+  MUET.toast('Listening saved!');
+  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+}
 
-      function renderSession(){
-        const s = sessions[currentSession];
-        document.getElementById("sessionLabel").textContent = s.label;
-        document.getElementById("audioTitle").textContent = s.title;
-        document.getElementById("coachTip").textContent = s.tip;
-
-        const nav = document.getElementById("partNav");
-        nav.innerHTML = s.parts.map((p, i) => `
-          <button class="part-btn ${i===currentPart ? "active" : ""}" onclick="ListeningApp.setPart(${i})">${p.name}</button>
-        `).join("");
-
-        renderQuestions();
-      }
-
-      function setPart(index){
-        currentPart = index;
-        renderSession();
-      }
-
-      function renderQuestions(){
-        const s = sessions[currentSession];
-        const part = s.parts[currentPart];
-        const list = document.getElementById("questionList");
-
-        list.innerHTML = `
-          <div class="question-card">
-            <p class="tiny">${part.name}</p>
-            <h2>${part.focus}</h2>
-            <p class="sub">Use the notes boxes while listening. Transcript will appear only after submission.</p>
-            <div id="transcriptBox" class="transcript-box">${s.transcript}</div>
-          </div>
-          ${part.questions.map((q, qi) => {
-            const globalId = `${currentSession}-${currentPart}-${qi}`;
-            return `
-              <div class="question-card" data-q="${qi}">
-                <span class="qtag">${q.type}</span>
-                <h3>Q${qi+1}. ${q.q}</h3>
-                <div class="options">
-                  ${q.options.map((op, oi) => `
-                    <label class="option" data-option="${oi}">
-                      <input type="radio" name="q${qi}" value="${oi}">
-                      <span>${String.fromCharCode(65+oi)}. ${op}</span>
-                    </label>
-                  `).join("")}
-                </div>
-                <textarea class="note-box" id="note-${globalId}" placeholder="Write listening keywords here..."></textarea>
-                <div class="explain" id="explain-${qi}"></div>
-              </div>
-            `;
-          }).join("")}
-        `;
-      }
-
-      function playScript(){
-        stopScript();
-        const text = sessions[currentSession].transcript;
-        if(!("speechSynthesis" in window)){
-          toast("Speech playback is not supported in this browser.");
-          return;
-        }
-        utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 0.88;
-        utterance.pitch = 1;
-        utterance.lang = "en-GB";
-        speechSynthesis.speak(utterance);
-        toast("Playing script audio simulation.");
-      }
-
-      function stopScript(){
-        if("speechSynthesis" in window) speechSynthesis.cancel();
-        utterance = null;
-      }
-
-      function submit(){
-        if(submitted){
-          toast("This part has already been submitted.");
-          return;
-        }
-        submitted = true;
-        stopScript();
-
-        const s = sessions[currentSession];
-        const part = s.parts[currentPart];
-        let correct = 0;
-        const notes = [];
-        const typeErrors = {};
-
-        part.questions.forEach((q, qi) => {
-          const selected = document.querySelector(`input[name="q${qi}"]:checked`);
-          const ans = selected ? Number(selected.value) : -1;
-          const isCorrect = ans === q.answer;
-          if(isCorrect) correct++;
-          if(!isCorrect) typeErrors[q.type] = (typeErrors[q.type] || 0) + 1;
-
-          const noteEl = document.getElementById(`note-${currentSession}-${currentPart}-${qi}`);
-          notes.push(noteEl ? noteEl.value : "");
-
-          const card = document.querySelector(`.question-card[data-q="${qi}"]`);
-          card.querySelectorAll(".option").forEach(opt => {
-            const oi = Number(opt.dataset.option);
-            if(oi === q.answer) opt.classList.add("correct");
-            if(oi === ans && oi !== q.answer) opt.classList.add("wrong");
-          });
-
-          const explain = document.getElementById(`explain-${qi}`);
-          explain.innerHTML = `<b>Answer: ${String.fromCharCode(65+q.answer)}</b><br>${q.why}`;
-          explain.classList.add("show");
-        });
-
-        document.getElementById("transcriptBox").classList.add("show");
-
-        const totalQ = part.questions.length;
-        const score90 = Math.round((correct / totalQ) * 90);
-        const percent = Math.round((correct / totalQ) * 100);
-        const weakestType = Object.entries(typeErrors).sort((a,b)=>b[1]-a[1])[0]?.[0] || "None";
-
-        const activeVault = JSON.parse(localStorage.getItem("muet_active_vault") || "{}");
-
-        const session = {
-          vaultId: activeVault.vaultId || "FREE-PRACTICE",
-          vaultTitle: activeVault.vaultTitle || "Free Practice",
-          paperId: activeVault.paperId || "UNASSIGNED",
-          session: s.label,
-          part: part.name,
-          date: new Date().toISOString(),
-          rawScore: correct,
-          totalQ,
-          score90,
-          percent,
-          parts: { [part.name]: { correct, total: totalQ } },
-          strongestPart: percent >= 70 ? part.name : "",
-          weakestType,
-          notes,
-          transcriptRevealed: true,
-          xpEarned: 70 + correct * 10
-        };
-
-        const history = JSON.parse(localStorage.getItem(LS_SESSIONS) || "[]");
-        history.push(session);
-        localStorage.setItem(LS_SESSIONS, JSON.stringify(history));
-        updateProfile(session);
-
-        document.getElementById("resultScore").textContent = `${correct}/${totalQ} · ${score90}/90`;
-        document.getElementById("resultFeedback").textContent = feedback(percent, weakestType);
-        document.getElementById("partSummary").innerHTML = `
-          <div class="part-row">${part.name}: ${correct}/${totalQ}</div>
-          <div class="part-row">Question Focus: ${part.focus}</div>
-          <div class="part-row">Weakest Listening Type: ${weakestType}</div>
-        `;
-
-        document.getElementById("resultCard").classList.add("show");
-        toast("Listening score saved to Hub.");
-        window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
-      }
-
-      function feedback(percent, weakestType){
-        if(percent >= 80) return "Excellent listening focus. Continue practising longer parts and multiple-answer questions.";
-        if(percent >= 65) return `Good progress. Review transcript and check ${weakestType} items carefully.`;
-        if(percent >= 50) return `Developing. Read questions first and listen for signal words. Focus area: ${weakestType}.`;
-        return `Foundation practice needed. Write keywords during audio and avoid choosing the first option you hear. Focus area: ${weakestType}.`;
-      }
-
-      function updateProfile(session){
-        const profile = JSON.parse(localStorage.getItem(LS_PROFILE) || "{}");
-        profile.xp = (profile.xp || profile.xpTotal || 0) + (session.xpEarned || 70);
-        profile.streak = profile.streak || 1;
-        profile.badges = profile.badges || ["first_step"];
-        profile.badges.push("audio_focus");
-        if(session.percent >= 80) profile.badges.push("sharp_ears");
-        profile.badges = [...new Set(profile.badges)];
-        profile.lastVisit = new Date().toISOString();
-        localStorage.setItem(LS_PROFILE, JSON.stringify(profile));
-      }
-
-      function resetPractice(){
-        submitted = false;
-        stopScript();
-        renderQuestions();
-        document.getElementById("resultCard").classList.remove("show");
-        toast("Listening practice reset.");
-      }
-
-      function toast(msg){
-        const t = document.getElementById("toast");
-        t.textContent = msg;
-        t.classList.add("show");
-        setTimeout(() => t.classList.remove("show"), 2500);
-      }
-
-      return {init,setSession,setPart,playScript,stopScript,submit,resetPractice};
-    })();
-
-    document.addEventListener("DOMContentLoaded", ListeningApp.init);
-  </script>
+document.addEventListener('DOMContentLoaded',()=>{
+  renderQuestions();
+  document.getElementById('b-s1').style.display='block';
+  document.getElementById('c-s1').textContent='▴';
+});
+</script>
 </body>
 </html>

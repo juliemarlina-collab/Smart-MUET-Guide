@@ -105,25 +105,25 @@
       <h2>Skill Modules</h2>
     </div>
     <div class="module-grid">
-      <button class="module-card m-speaking" onclick="MUET.goPage('vault1-speaking.html')">
+      <button class="module-card m-speaking" onclick="MUET.goPage('speaking.html')">
         <div class="module-icon">🎤</div>
         <h3>Speaking</h3><p>PREP · Task A/B</p>
         <div class="scorebar"><span id="spkBar"></span></div>
         <small id="spkScore">No attempt</small>
       </button>
-      <button class="module-card m-reading" onclick="MUET.goPage('vault1-reading.html')">
+      <button class="module-card m-reading" onclick="MUET.goPage('reading.html')">
         <div class="module-icon">📖</div>
         <h3>Reading</h3><p>Q-first · Timed</p>
         <div class="scorebar"><span id="readBar"></span></div>
         <small id="readScore">No attempt</small>
       </button>
-      <button class="module-card m-listening" onclick="MUET.goPage('vault1-listening.html')">
+      <button class="module-card m-listening" onclick="MUET.goPage('listening.html')">
         <div class="module-icon">🎧</div>
         <h3>Listening</h3><p>Audio · Keywords</p>
         <div class="scorebar"><span id="lstBar"></span></div>
         <small id="lstScore">No attempt</small>
       </button>
-      <button class="module-card m-writing" onclick="MUET.goPage('vault1-writing.html')">
+      <button class="module-card m-writing" onclick="MUET.goPage('writing.html')">
         <div class="module-icon">✍️</div>
         <h3>Writing</h3><p>Email · Essay</p>
         <div class="scorebar"><span id="wrtBar"></span></div>
@@ -137,6 +137,145 @@
       <h2 id="focusTitle">Start with Speaking</h2>
       <p id="focusText" style="margin-top:6px;font-weight:800">Complete one Task A using PREP structure.</p>
       <button class="btn black" style="margin-top:12px" id="focusBtn">Open Focus Skill</button>
+    </div>
+
+    <!-- Study Guide -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <h2>MUET Study Guide</h2>
+      <span style="font-size:11px;font-weight:1000;color:var(--muted)">Tap to expand</span>
+    </div>
+
+    <!-- Speaking infographic -->
+    <div class="guide-card" id="guide-spk">
+      <button class="guide-head" onclick="Hub.toggleGuide('spk')">
+        <div style="width:38px;height:38px;background:var(--blue);border:var(--line);border-radius:12px;display:grid;place-items:center;font-size:20px;flex-shrink:0;box-shadow:2px 2px 0 var(--ink)">🎤</div>
+        <div style="flex:1"><b style="font-family:'Sora';font-size:15px">Speaking 800/2</b><br><small style="color:var(--muted);font-weight:900">Task A + Task B · 90 marks</small></div>
+        <span class="guide-chev" id="gchev-spk">▾</span>
+      </button>
+      <div class="guide-body" id="gbody-spk" style="display:none">
+        <!-- Infographic row -->
+        <div class="info-row">
+          <div class="info-pill blue">Task A<br><small>Individual<br>2 min</small></div>
+          <div class="info-pill blue">Task B<br><small>Group<br>10 min</small></div>
+          <div class="info-pill blue">45 marks<br><small>per task</small></div>
+          <div class="info-pill blue">25%<br><small>of MUET</small></div>
+        </div>
+        <!-- PREP visual -->
+        <div class="prep-strip">
+          <div class="prep-block p-col">P<small>Point</small></div>
+          <div class="prep-block r-col">R<small>Reason</small></div>
+          <div class="prep-block e-col">E<small>Example</small></div>
+          <div class="prep-block p-col">P<small>Point again</small></div>
+        </div>
+        <!-- Tips collapsible -->
+        <button class="tip-toggle" onclick="Hub.toggleTip('spk-tip')">💡 Tips &amp; Sample <span id="spk-tip-chev">▾</span></button>
+        <div id="spk-tip" style="display:none">
+          <div class="tip-item">State your <b>main point in the first sentence</b>. Examiners decide quickly.</div>
+          <div class="tip-item">Give <b>one strong reason</b>, not three weak ones.</div>
+          <div class="tip-item">Use a <b>specific Malaysian example</b> — PTPTN, campus life, local context.</div>
+          <div class="tip-item">Close by <b>restating your point</b> — second P in PREP.</div>
+          <div class="tip-item">Task B: <b>refer to others by name</b>. "What do you think, [name]?"</div>
+          <div class="sample-mini"><b>Sample (Band 4.0):</b> "I believe salary is the most important reason when choosing a job because it determines financial security. For example, many Malaysian graduates with PTPTN loans must prioritise salary to manage loan repayments. Therefore, salary forms the foundation of financial independence."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reading infographic -->
+    <div class="guide-card" id="guide-read">
+      <button class="guide-head" onclick="Hub.toggleGuide('read')">
+        <div style="width:38px;height:38px;background:var(--green);border:var(--line);border-radius:12px;display:grid;place-items:center;font-size:20px;flex-shrink:0;box-shadow:2px 2px 0 var(--ink)">📖</div>
+        <div style="flex:1"><b style="font-family:'Sora';font-size:15px">Reading 800/3</b><br><small style="color:var(--muted);font-weight:900">7 parts · 40 questions · 90 min</small></div>
+        <span class="guide-chev" id="gchev-read">▾</span>
+      </button>
+      <div class="guide-body" id="gbody-read" style="display:none">
+        <div class="info-row">
+          <div class="info-pill green">7 parts</div>
+          <div class="info-pill green">40 Qs</div>
+          <div class="info-pill green">90 min</div>
+          <div class="info-pill green">25%</div>
+        </div>
+        <div class="qtype-grid">
+          <div class="qtype-badge">Main Idea</div>
+          <div class="qtype-badge">Detail</div>
+          <div class="qtype-badge">Inference</div>
+          <div class="qtype-badge">Vocabulary</div>
+          <div class="qtype-badge">Writer's Purpose</div>
+          <div class="qtype-badge">Cohesion</div>
+        </div>
+        <button class="tip-toggle" onclick="Hub.toggleTip('read-tip')">💡 Tips &amp; Sample <span id="read-tip-chev">▾</span></button>
+        <div id="read-tip" style="display:none">
+          <div class="tip-item"><b>Read questions first</b>, then scan the passage for keywords.</div>
+          <div class="tip-item">Match the <b>idea</b>, not just the words — distractors use same words with different meaning.</div>
+          <div class="tip-item">Direct retrieval: answer is almost word-for-word from the text.</div>
+          <div class="tip-item">Inference: answer is <b>implied</b> — read between the lines.</div>
+          <div class="sample-mini"><b>Question type tip:</b> If the question says "What can be inferred..." — the answer is NOT directly stated. Eliminate options that contradict the passage, then choose the most logical remaining option.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Listening infographic -->
+    <div class="guide-card" id="guide-lst">
+      <button class="guide-head" onclick="Hub.toggleGuide('lst')">
+        <div style="width:38px;height:38px;background:var(--yellow);border:var(--line);border-radius:12px;display:grid;place-items:center;font-size:20px;flex-shrink:0;box-shadow:2px 2px 0 var(--ink)">🎧</div>
+        <div style="flex:1"><b style="font-family:'Sora';font-size:15px">Listening 800/1</b><br><small style="color:var(--muted);font-weight:900">5 parts · 30 questions · ~50 min</small></div>
+        <span class="guide-chev" id="gchev-lst">▾</span>
+      </button>
+      <div class="guide-body" id="gbody-lst" style="display:none">
+        <div class="info-row">
+          <div class="info-pill yellow">5 parts</div>
+          <div class="info-pill yellow">30 Qs</div>
+          <div class="info-pill yellow">~50 min</div>
+          <div class="info-pill yellow">25%</div>
+        </div>
+        <div style="background:#fef9c3;border:2px solid var(--ink);border-radius:14px;padding:10px 12px;font-size:13px;font-weight:900;margin:10px 0">
+          ⚠️ Audio plays <b>once only</b> in the real exam. Write keywords — 2 to 3 words per blank. Do NOT write full sentences.
+        </div>
+        <div class="qtype-grid">
+          <div class="qtype-badge">Note Completion</div>
+          <div class="qtype-badge">MCQ</div>
+          <div class="qtype-badge">Matching</div>
+          <div class="qtype-badge">Short Answer</div>
+        </div>
+        <button class="tip-toggle" onclick="Hub.toggleTip('lst-tip')">💡 Tips &amp; Sample <span id="lst-tip-chev">▾</span></button>
+        <div id="lst-tip" style="display:none">
+          <div class="tip-item"><b>Read all options before audio plays.</b></div>
+          <div class="tip-item">Signal words: <i>but, however, actually, in fact</i> = <b>correction incoming</b>. The corrected answer is usually correct.</div>
+          <div class="tip-item">Write short keywords only: "Fri / 2.30pm / Hall 3" not full sentences.</div>
+          <div class="sample-mini"><b>Distractor example:</b> Speaker says "The meeting is on Thursday... actually, I meant Friday." → Answer is Friday, not Thursday. First option mentioned = distractor.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Writing infographic -->
+    <div class="guide-card" id="guide-wrt">
+      <button class="guide-head" onclick="Hub.toggleGuide('wrt')">
+        <div style="width:38px;height:38px;background:var(--pink);border:var(--line);border-radius:12px;display:grid;place-items:center;font-size:20px;flex-shrink:0;box-shadow:2px 2px 0 var(--ink)">✍️</div>
+        <div style="flex:1"><b style="font-family:'Sora';font-size:15px">Writing 800/4</b><br><small style="color:var(--muted);font-weight:900">Task 1 + Task 2 · 90 marks</small></div>
+        <span class="guide-chev" id="gchev-wrt">▾</span>
+      </button>
+      <div class="guide-body" id="gbody-wrt" style="display:none">
+        <div class="info-row">
+          <div class="info-pill pink">Task 1<br><small>Email<br>25 min</small></div>
+          <div class="info-pill pink">Task 2<br><small>Essay<br>50 min</small></div>
+          <div class="info-pill pink">~150w<br><small>Task 1</small></div>
+          <div class="info-pill pink">~350w<br><small>Task 2</small></div>
+        </div>
+        <!-- PEEL visual -->
+        <div class="prep-strip">
+          <div class="prep-block" style="background:#7a43ff;color:white">P<small>Point</small></div>
+          <div class="prep-block" style="background:#0757ff;color:white">E<small>Explain</small></div>
+          <div class="prep-block" style="background:#19d58a">E<small>Evidence</small></div>
+          <div class="prep-block" style="background:var(--yellow)">L<small>Link</small></div>
+        </div>
+        <button class="tip-toggle" onclick="Hub.toggleTip('wrt-tip')">💡 Tips &amp; Sample <span id="wrt-tip-chev">▾</span></button>
+        <div id="wrt-tip" style="display:none">
+          <div class="tip-item">Task 1: <b>cover ALL bullet points</b>. Missing one loses Task Fulfilment marks.</div>
+          <div class="tip-item">Task 2: state your <b>thesis in sentence one</b> of the introduction.</div>
+          <div class="tip-item">Every body paragraph = <b>one PEEL</b>. Do not mix two arguments in one paragraph.</div>
+          <div class="tip-item">Use <b>Malaysian examples</b>: PTPTN, public transport, social media usage, education system.</div>
+          <div class="sample-mini"><b>Sample thesis (Band 4.0):</b> "While modern conveniences have made life more comfortable, I believe this has not entirely stripped young people of their survival skills — though certain practical competencies are being neglected."</div>
+        </div>
+      </div>
     </div>
 
     <!-- Go to vault -->
@@ -342,10 +481,10 @@ const Hub = (() => {
   ];
 
   const SKILLS = [
-    ['speaking','Speaking','🎤','vault1-speaking.html'],
-    ['reading','Reading','📖','vault1-reading.html'],
-    ['listening','Listening','🎧','vault1-listening.html'],
-    ['writing','Writing','✍️','vault1-writing.html']
+    ['speaking','Speaking','🎤','speaking.html'],
+    ['reading','Reading','📖','reading.html'],
+    ['listening','Listening','🎧','listening.html'],
+    ['writing','Writing','✍️','writing.html']
   ];
 
   function init() {
@@ -718,8 +857,26 @@ const Hub = (() => {
     MUET.toast('App reset.'); setTimeout(() => location.reload(), 500);
   }
 
+  function toggleGuide(id) {
+    const body = document.getElementById('gbody-' + id);
+    const chev = document.getElementById('gchev-' + id);
+    if (!body || !chev) return;
+    const open = body.style.display === 'none';
+    body.style.display = open ? 'block' : 'none';
+    chev.textContent   = open ? '▴' : '▾';
+  }
+
+  function toggleTip(id) {
+    const el   = document.getElementById(id);
+    const chev = document.getElementById(id + '-chev');
+    if (!el) return;
+    const open = el.style.display === 'none';
+    el.style.display   = open ? 'block' : 'none';
+    if (chev) chev.textContent = open ? '▴' : '▾';
+  }
+
   document.addEventListener('DOMContentLoaded', init);
-  return { goTo, openVault, resetAll, progTab };
+  return { goTo, openVault, resetAll, progTab, toggleGuide, toggleTip };
 })();
 </script>
 </body>

@@ -42,90 +42,7 @@
     <p style="margin-top:8px;font-weight:800">Practise notes, distractors, answer checking and transcript review.</p>
   </div>
 
-  <!-- STEP 1 -->
-  <div class="flow-step">
-    <div class="flow-step-head" onclick="Lst.toggle('s1')">
-      <div class="step-num">1</div>
-      <div style="flex:1"><b>Before You Start</b><br><small style="color:var(--muted)">What Listening 800/1 tests</small></div>
-      <span id="chev-s1">▴</span>
-    </div>
-    <div class="flow-step-body" id="body-s1" style="padding-top:14px">
-      <div class="instr-card blue">
-        <h2>What MUET Listening Tests</h2>
-        <ul>
-          <li><b>5 parts</b>, 30 questions, approximately 50 minutes.</li>
-          <li>Each part plays once. You cannot replay the audio in the real exam.</li>
-          <li>Question types: note completion, multiple choice, matching, short answer.</li>
-          <li>The audio includes conversations, announcements, talks and discussions.</li>
-        </ul>
-      </div>
-      <button class="btn yellow" onclick="Lst.openStep('s2')">I understand — show me tips →</button>
-    </div>
-  </div>
-
-  <!-- STEP 2 -->
-  <div class="flow-step">
-    <div class="flow-step-head" onclick="Lst.toggle('s2')">
-      <div class="step-num">2</div>
-      <div style="flex:1"><b>Tips &amp; Tricks</b><br><small style="color:var(--muted)">Keyword and distractor strategy</small></div>
-      <span id="chev-s2">▾</span>
-    </div>
-    <div class="flow-step-body" id="body-s2" style="display:none;padding-top:14px">
-      <div class="coach-note lime">
-        <div class="tag">KEYWORD STRATEGY</div>
-        <p>Write <b>2–3 keywords</b> per blank — not full sentences. If you miss a word, leave it and move on. Complete your notes after the audio ends.</p>
-      </div>
-      <div class="coach-note pink">
-        <div class="tag">DISTRACTOR WATCH</div>
-        <p>In real MUET audio, the first option mentioned is often <b>corrected or changed</b> by the speaker. Listen for signal words: <i>but, however, actually, no — I mean, in fact</i>. The corrected answer is almost always the right one.</p>
-      </div>
-      <div class="card" style="background:#f8fafc">
-        <h3>Listening Note Example</h3>
-        <div class="sample-box"><b>Question:</b> The meeting is on ___.</div>
-        <div class="sample-box" style="margin-top:6px"><b>Poor note:</b> "The lecturer said the meeting was moved from Thursday to Friday afternoon at two thirty pm in the science block."</div>
-        <div class="sample-box" style="margin-top:6px"><b>Good note:</b> "Fri / 2.30pm / sci block"</div>
-        <p style="margin-top:10px;font-size:12px;font-weight:900;color:var(--muted)">Short keywords save time and keep your attention on listening.</p>
-      </div>
-      <button class="btn yellow" onclick="Lst.openStep('s3')">I've read the tips — show me a sample →</button>
-    </div>
-  </div>
-
-  <!-- STEP 3 -->
-  <div class="flow-step">
-    <div class="flow-step-head" onclick="Lst.toggle('s3')">
-      <div class="step-num">3</div>
-      <div style="flex:1"><b>Sample &amp; Transcript</b><br><small style="color:var(--muted)">See a model script and answer</small></div>
-      <span id="chev-s3">▾</span>
-    </div>
-    <div class="flow-step-body" id="body-s3" style="display:none;padding-top:14px">
-      <div class="card lime">
-        <h3>Sample Script (Short Announcement)</h3>
-        <p style="margin-top:8px;font-weight:800;font-size:13px;line-height:1.5;font-style:italic">"Good morning students. I would like to remind you that the library will be closed this <u>Thursday</u> for maintenance. Actually — sorry, I made an error. The library will be closed on <u>Friday</u>, not Thursday. Opening will resume on <u>Monday</u> morning as usual."</p>
-      </div>
-      <div class="card">
-        <div class="qtag">Sample MCQ</div>
-        <p style="font-weight:900;margin-bottom:12px">When will the library be closed?</p>
-        <div class="options">
-          <label class="option wrong"><input type="radio" disabled/><span>A. Thursday</span></label>
-          <label class="option correct"><input type="radio" disabled checked/><span>B. Friday</span></label>
-          <label class="option wrong"><input type="radio" disabled/><span>C. Monday</span></label>
-        </div>
-        <div class="explain show" style="margin-top:10px">
-          <b>Answer: B — Friday.</b><br>The speaker first says Thursday, then corrects it to Friday. This is a classic distractor — the first option mentioned is wrong. Signal word: <i>"Actually — sorry, I made an error."</i>
-        </div>
-      </div>
-      <button class="btn yellow" onclick="Lst.openStep('s4')">I'm ready — start my practice →</button>
-    </div>
-  </div>
-
-  <!-- STEP 4: Practice (Script mode — audio placeholder) -->
-  <div class="flow-step">
-    <div class="flow-step-head" onclick="Lst.toggle('s4')">
-      <div class="step-num">4</div>
-      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Required: keyword notes + MCQ answers</small></div>
-      <span id="chev-s4">▾</span>
-    </div>
-    <div class="flow-step-body" id="body-s4" style="display:none;padding-top:14px">
+  <!-- Practice — direct entry -->
 
       <!-- Audio placeholder -->
       <div class="audio-mock">
@@ -176,8 +93,7 @@
         <button class="btn yellow wide" onclick="Lst.submit()">Submit Listening Practice</button>
         <button class="btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
       </div>
-    </div>
-  </div>
+
 
   <!-- Result -->
   <div id="resultCard" class="result-card" style="background:#fef9c3">
@@ -371,8 +287,6 @@ function updateVaultProgress() {
 document.addEventListener('DOMContentLoaded', () => {
   Lst.renderQuestions();
   updateVaultProgress();
-  document.getElementById('body-s1').style.display = 'block';
-  document.getElementById('chev-s1').textContent   = '▴';
 });
 </script>
 </body>

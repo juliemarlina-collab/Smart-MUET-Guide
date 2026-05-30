@@ -52,63 +52,7 @@
     <button id="tabT2" class="task-tab" onclick="Wrt.setTask('T2')">Task 2 — Essay</button>
   </div>
 
-  <!-- STEP 1 -->
-  <div class="flow-step">
-    <div class="flow-step-head" onclick="Wrt.toggle('w1')">
-      <div class="step-num">1</div>
-      <div style="flex:1"><b>Before You Start</b><br><small id="step1sub" style="color:var(--muted)">What Task 1 tests</small></div>
-      <span id="chev-w1">▴</span>
-    </div>
-    <div class="flow-step-body" id="body-w1" style="padding-top:14px">
-      <div id="beforeContent">
-        <div class="instr-card pink">
-          <h2>What MUET Writing Tests</h2>
-          <ul>
-            <li><b>Task 1:</b> Email or letter. Respond to all bullet points. Use appropriate formal or semi-formal tone. Minimum ~150 words. Time: 25 minutes.</li>
-            <li><b>Task 2:</b> Essay. Discursive or argumentative. State a clear thesis. Use PEEL paragraphs. Minimum ~350 words. Time: 50 minutes.</li>
-            <li>Both tasks are marked on: task fulfilment, organisation, language accuracy, vocabulary range and style.</li>
-            <li>Total: 90 marks (25% of MUET).</li>
-          </ul>
-        </div>
-      </div>
-      <button class="btn pink" onclick="Wrt.openStep('w2')">I understand — show me tips →</button>
-    </div>
-  </div>
-
-  <!-- STEP 2 -->
-  <div class="flow-step">
-    <div class="flow-step-head" onclick="Wrt.toggle('w2')">
-      <div class="step-num">2</div>
-      <div style="flex:1"><b>Tips &amp; Tricks</b><br><small style="color:var(--muted)">Strategy before writing</small></div>
-      <span id="chev-w2">▾</span>
-    </div>
-    <div class="flow-step-body" id="body-w2" style="display:none;padding-top:14px">
-      <div id="tipsContent"></div>
-      <button class="btn pink" onclick="Wrt.openStep('w3')">I've read the tips — show me a sample →</button>
-    </div>
-  </div>
-
-  <!-- STEP 3 -->
-  <div class="flow-step">
-    <div class="flow-step-head" onclick="Wrt.toggle('w3')">
-      <div class="step-num">3</div>
-      <div style="flex:1"><b>Sample Answer</b><br><small style="color:var(--muted)">Study a model response</small></div>
-      <span id="chev-w3">▾</span>
-    </div>
-    <div class="flow-step-body" id="body-w3" style="display:none;padding-top:14px">
-      <div id="sampleContent"></div>
-      <button class="btn pink" onclick="Wrt.openStep('w4')">I'm ready — start writing →</button>
-    </div>
-  </div>
-
-  <!-- STEP 4 -->
-  <div class="flow-step">
-    <div class="flow-step-head" onclick="Wrt.toggle('w4')">
-      <div class="step-num">4</div>
-      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Required: written answer + rubric</small></div>
-      <span id="chev-w4">▾</span>
-    </div>
-    <div class="flow-step-body" id="body-w4" style="display:none;padding-top:14px">
+  <!-- Practice — direct entry -->
 
       <div class="timer-card yellow">
         <div>
@@ -166,8 +110,7 @@
           <button class="btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
         </div>
       </div>
-    </div>
-  </div>
+
 
   <!-- Result -->
   <div id="resultCard" class="result-card pink">
@@ -417,8 +360,6 @@ function updateVaultProgress() {
 document.addEventListener('DOMContentLoaded', () => {
   Wrt.setTask('T1');
   updateVaultProgress();
-  document.getElementById('body-w1').style.display = 'block';
-  document.getElementById('chev-w1').textContent   = '▴';
 });
 </script>
 </body>

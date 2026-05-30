@@ -2,408 +2,279 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SmartSpeaking · MUET SmartHub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>Speaking Guide · MUET SmartHub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/muet-neopop.css"/>
+  <link rel="stylesheet" href="css/muet-guide.css"/>
   <style>
-    .speak-hero{background:var(--blue);color:white}
-    .speak-hero p{font-weight:800;color:rgba(255,255,255,.86)}
-    .task-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-    .task-tab{border:var(--line);box-shadow:3px 3px 0 var(--ink);border-radius:16px;background:white;padding:12px;font-weight:1000}
-    .task-tab.active{background:var(--yellow)}
-    .prompt-card{background:white;border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
-    .prep-grid{display:grid;gap:10px}
-    .prep-box{border:var(--line);border-radius:18px;background:#fff;padding:12px;box-shadow:3px 3px 0 var(--ink)}
-    .prep-box h3{font-size:15px;margin-bottom:6px}
-    .prep-box textarea{width:100%;min-height:72px;border:2px solid var(--ink);border-radius:12px;padding:10px;font:inherit;font-weight:700}
-    .timer-card{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;background:var(--yellow);border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
-    .timer-big{font-family:Sora;font-size:34px;font-weight:800}
-    .rubric-list{display:grid;gap:10px}
-    .rubric-item{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border:2px solid var(--ink);border-radius:14px;background:white;padding:10px;font-weight:900}
-    .rubric-item input{width:20px;height:20px;box-shadow:none}
-    .score-pill{border:2px solid var(--ink);border-radius:999px;background:var(--yellow);padding:5px 9px;font-size:12px}
-    .result-card{display:none;background:#b8ff36;border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
-    .result-card.show{display:block}
-    .transcript{width:100%;min-height:120px;border:var(--line);border-radius:18px;background:white;padding:12px;font:inherit;font-weight:700}
-    .topic-select{margin-top:10px}
-    .coach-note{background:var(--pink);border:var(--line);box-shadow:var(--shadow);border-radius:20px;padding:14px;margin-bottom:16px;font-weight:800}
-    .button-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-    .button-row .wide{grid-column:1/-1}
+    .flow-step{background:white;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+    .flow-step-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;font-weight:1000}
+    .flow-step-head:active{background:rgba(0,0,0,.04)}
+    .flow-step-body{padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)}
+    .step-num{width:38px;height:38px;border:var(--line);border-radius:50%;background:var(--yellow);display:grid;place-items:center;font-weight:1000;font-size:16px;flex-shrink:0;box-shadow:2px 2px 0 var(--ink)}
+    /* Infographic grid */
+    .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0 10px}
+    .info-tile{border:var(--line);border-radius:16px;padding:12px 10px;text-align:center;box-shadow:3px 3px 0 var(--ink)}
+    .info-tile .big{font-family:"Sora";font-size:22px;font-weight:800;display:block}
+    .info-tile .lbl{font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);display:block;margin-top:3px}
+    .info-tile.blue{background:var(--blue);color:white}.info-tile.blue .lbl{color:rgba(255,255,255,.7)}
+    .info-tile.yellow{background:var(--yellow)}.info-tile.lime{background:var(--lime)}
+    /* PREP strip */
+    .prep-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
+    .prep-b{border:var(--line);border-radius:14px;padding:10px 4px;text-align:center;font-family:"Sora";font-size:22px;font-weight:800;box-shadow:3px 3px 0 var(--ink);line-height:1.1}
+    .prep-b small{display:block;font-family:"DM Sans";font-size:10px;font-weight:900;margin-top:3px}
+    .pb-p{background:var(--blue);color:white}.pb-r{background:var(--yellow)}.pb-e{background:var(--green)}.pb-p2{background:var(--blue);color:white}
+    /* Task badge row */
+    .task-badges{display:flex;gap:10px;margin:10px 0}
+    .task-badge{flex:1;border:var(--line);border-radius:16px;padding:12px 8px;text-align:center;box-shadow:3px 3px 0 var(--ink)}
+    .task-badge .icon{font-size:26px;display:block}.task-badge b{font-family:"Sora";font-size:14px;display:block;margin-top:4px}.task-badge small{font-size:11px;font-weight:900;color:var(--muted);display:block;margin-top:2px}
+    .tb-a{background:var(--blue);color:white}.tb-a small{color:rgba(255,255,255,.7)}.tb-b{background:var(--lime)}
   </style>
 </head>
 <body>
-  <main class="phone-shell">
-    <section class="screen active">
-      <div class="brand-bar dark">
-        <button onclick="location.href='index.html'" class="hamb">←</button>
-        <div>
-          <div class="brand-small">MUET SmartHub Module</div>
-          <div class="brand-title">SmartSpeaking</div>
+<main class="app-shell">
+<section class="screen active">
+
+  <div class="brand-bar">
+    <button class="icon-btn" onclick="location.href='index.html'" style="margin-left:0;margin-right:8px">←</button>
+    <div><div class="bar-label">Skill Module</div><div class="bar-title">Speaking 800/2</div></div>
+    <button class="icon-btn">🎤</button>
+  </div>
+
+  <div class="card" style="background:var(--blue);color:white;margin-bottom:16px">
+    <p class="tiny" style="color:rgba(255,255,255,.7)">Speaking 800/2 · 90 marks · 25% of MUET</p>
+    <h1 style="margin-top:6px">Speak with<br>structure.</h1>
+    <p style="margin-top:8px;font-weight:800;color:rgba(255,255,255,.85)">Use PREP for Task A. Use interaction phrases for Task B.</p>
+  </div>
+
+  <!-- STEP 1: Before You Start -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="S.toggle('s1')">
+      <div class="step-num">1</div>
+      <div style="flex:1"><b>Before You Start</b><br><small style="color:var(--muted)">What Speaking 800/2 tests</small></div>
+      <span id="c-s1">▴</span>
+    </div>
+    <div id="b-s1" style="padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+      <!-- Infographic tiles -->
+      <div class="info-grid">
+        <div class="info-tile blue"><span class="big">2</span><span class="lbl">Tasks</span></div>
+        <div class="info-tile blue"><span class="big">90</span><span class="lbl">Marks</span></div>
+        <div class="info-tile blue"><span class="big">45</span><span class="lbl">Marks / task</span></div>
+        <div class="info-tile blue"><span class="big">25%</span><span class="lbl">of MUET</span></div>
+      </div>
+      <!-- Task A / B badges -->
+      <div class="task-badges">
+        <div class="task-badge tb-a">
+          <span class="icon">🎤</span>
+          <b>Task A</b>
+          <small>Individual · 2 min<br>1 min prep + 1–2 min speak</small>
         </div>
-        <button class="hamb">🎤</button>
-      </div>
-
-      <div class="hero-neo speak-hero">
-        <div>
-          <p class="tiny">Speaking 800/2</p>
-          <h1>Speak with structure.</h1>
-          <p>Use PREP for Task A and interaction phrases for Task B.</p>
-        </div>
-      </div>
-
-
-      <div class="instruction-card blue">
-        <h2>How to Complete SmartSpeaking</h2>
-        <ol>
-          <li>Select <b>Task A</b> or <b>Task B</b>.</li>
-          <li>Read the question carefully and identify what you must answer.</li>
-          <li>Use the <b>PREP notes</b>: Point, Reason, Example, Point again.</li>
-          <li>Practise speaking aloud using the timer.</li>
-          <li>Type your transcript or speaking notes in the box provided.</li>
-          <li>Tick the rubric checklist honestly, then submit your practice.</li>
-        </ol>
-        <div class="input-guide">
-          <strong>Student input required:</strong>
-          PREP notes + transcript / speaking notes + rubric checklist.
-          <div class="sample-line">Example Point: I believe online learning is useful because it gives students more flexibility.</div>
-        </div>
-        <div class="step-chip-row">
-          <span class="step-chip">Read</span>
-          <span class="step-chip">Plan</span>
-          <span class="step-chip">Speak</span>
-          <span class="step-chip">Reflect</span>
-          <span class="step-chip">Submit</span>
-        </div>
-      </div>
-
-      <div class="task-tabs">
-        <button id="tabA" class="task-tab active" onclick="SpeakingApp.setTask('A')">Task A</button>
-        <button id="tabB" class="task-tab" onclick="SpeakingApp.setTask('B')">Task B</button>
-      </div>
-
-      <div class="prompt-card">
-        <p class="tiny">Practice Topic</p>
-        <h2 id="taskTitle">Task A — Individual Response</h2>
-        <select id="topicSelect" class="topic-select" onchange="SpeakingApp.changeTopic()"></select>
-        <p id="topicPrompt" class="sub"></p>
-      </div>
-
-      <div class="coach-note">
-        <div class="tag">COACH TIP</div>
-        <p id="coachTip">Use PREP: Point, Reason, Example, Point again. Write keywords only, not full sentences.</p>
-      </div>
-
-      <div class="timer-card">
-        <div>
-          <p class="tiny" id="timerLabel">Prep Timer</p>
-          <div id="timer" class="timer-big">02:00</div>
-        </div>
-        <button id="timerBtn" class="neo-btn black" onclick="SpeakingApp.toggleTimer()">Start</button>
-      </div>
-
-      <div class="neo-panel">
-        <h2>PREP Notes <span class="required-note">Required</span></h2>
-        <p class="sub">Plan your answer using short keywords.</p>
-        <div class="prep-grid">
-          <div class="prep-box">
-            <h3>P — Point</h3>
-            <textarea id="prepPoint" placeholder="My main answer is..."></textarea>
-          </div>
-          <div class="prep-box">
-            <h3>R — Reason</h3>
-            <textarea id="prepReason" placeholder="This is because..."></textarea>
-          </div>
-          <div class="prep-box">
-            <h3>E — Example</h3>
-            <textarea id="prepExample" placeholder="For example..."></textarea>
-          </div>
-          <div class="prep-box">
-            <h3>P — Point Again</h3>
-            <textarea id="prepClose" placeholder="Therefore, I believe..."></textarea>
-          </div>
+        <div class="task-badge tb-b">
+          <span class="icon">👥</span>
+          <b>Task B</b>
+          <small>Group · 10 min<br>3–4 candidates · reach consensus</small>
         </div>
       </div>
-
-      <div class="neo-panel">
-        <h2>Transcript / Speaking Notes <span class="required-note">Required</span></h2>
-        <p class="sub">Type your spoken answer here after practising. Voice recording integration will come later.</p>
-        <textarea id="transcript" class="transcript" placeholder="Type your answer or transcript here..."></textarea>
+      <!-- What is tested -->
+      <div style="background:#f0f9ff;border:2px solid var(--ink);border-radius:14px;padding:12px;font-size:13px;font-weight:900;display:flex;flex-wrap:wrap;gap:6px">
+        <span style="background:white;border:2px solid var(--ink);border-radius:999px;padding:3px 10px">Task fulfilment</span>
+        <span style="background:white;border:2px solid var(--ink);border-radius:999px;padding:3px 10px">Idea development</span>
+        <span style="background:white;border:2px solid var(--ink);border-radius:999px;padding:3px 10px">Language control</span>
+        <span style="background:white;border:2px solid var(--ink);border-radius:999px;padding:3px 10px">Fluency</span>
+        <span style="background:white;border:2px solid var(--ink);border-radius:999px;padding:3px 10px">Delivery</span>
       </div>
+      <button class="btn yellow" style="margin-top:14px" onclick="S.open('s2')">I understand — go to Tips →</button>
+    </div>
+  </div>
 
-      <div class="neo-panel">
-        <h2>MUET Speaking Rubric Check</h2>
-        <p class="sub">Tick what your response achieved. The app will estimate a practice score.</p>
-        <div id="rubricList" class="rubric-list"></div>
-        <div class="button-row">
-          <button class="neo-btn yellow wide" onclick="SpeakingApp.submit()">Submit Speaking Practice</button>
-          <button class="neo-btn black" onclick="SpeakingApp.resetPractice()">Reset</button>
-          <button class="neo-btn pink" onclick="location.href='index.html'">Hub</button>
+  <!-- STEP 2: Tips & Tricks -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="S.toggle('s2')">
+      <div class="step-num">2</div>
+      <div style="flex:1"><b>Tips &amp; Tricks</b><br><small style="color:var(--muted)">Strategies before you practise</small></div>
+      <span id="c-s2">▾</span>
+    </div>
+    <div id="b-s2" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+      <div class="coach-note lime"><div class="tag">TASK A — PREP</div>
+        <p>Write 3–4 <b>keywords</b> during prep time — not full sentences. Start speaking <b>immediately</b> when prep ends. State your point in the <b>first sentence</b>.</p></div>
+      <div class="coach-note pink" style="margin-top:10px"><div class="tag">TASK B — GROUP</div>
+        <p>Refer to others <b>by name</b>. Ask questions: <i>"What do you think, [name]?"</i> Help reach <b>consensus in the last 2 minutes</b>.</p></div>
+      <div style="background:#f8fafc;border:var(--line);border-radius:16px;padding:14px;margin-top:10px">
+        <h3 style="margin-bottom:10px">Quick Reminders</h3>
+        <div style="display:grid;gap:8px;font-size:13px;font-weight:850">
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:18px">🎯</span><span>One strong reason beats three weak ones</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:18px">🇲🇾</span><span>Use Malaysian examples — PTPTN, campus life, EPU</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:18px">🚫</span><span>Avoid fillers: um, uh, like, you know — pause instead</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:18px">🔁</span><span>Close by restating your point — second P in PREP</span></div>
         </div>
       </div>
+      <button class="btn yellow" style="margin-top:14px" onclick="S.open('s3')">I've read the tips — show me a sample →</button>
+    </div>
+  </div>
 
-      <div id="resultCard" class="result-card">
-        <p class="tiny">Practice Result Saved</p>
-        <h2 id="resultBand">Band Estimate</h2>
-        <p id="resultFeedback"></p>
-        <button class="neo-btn black" onclick="location.href='index.html'">Return to Hub Dashboard</button>
+  <!-- STEP 3: Sample Answer -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="S.toggle('s3')">
+      <div class="step-num">3</div>
+      <div style="flex:1"><b>Sample Answer</b><br><small style="color:var(--muted)">See what a good response looks like</small></div>
+      <span id="c-s3">▾</span>
+    </div>
+    <div id="b-s3" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+      <!-- PREP visual -->
+      <div class="prep-strip">
+        <div class="prep-b pb-p">P<small>Point</small></div>
+        <div class="prep-b pb-r">R<small>Reason</small></div>
+        <div class="prep-b pb-e">E<small>Example</small></div>
+        <div class="prep-b pb-p2">P<small>Point<br>again</small></div>
       </div>
-    </section>
+      <div style="background:#f0f9ff;border:var(--line);border-radius:16px;padding:14px;margin-top:4px">
+        <p style="font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px">Sample Topic: Salary as reason for choosing a job</p>
+        <div class="sample-box"><span class="sample-label">P — Point</span>I believe salary is the most important reason when choosing a job because it directly determines financial security.</div>
+        <div class="sample-box" style="margin-top:8px"><span class="sample-label">R — Reason</span>A good salary allows a graduate to repay education loans, cover living expenses and begin saving — all at once.</div>
+        <div class="sample-box" style="margin-top:8px"><span class="sample-label">E — Example</span>Many Malaysian graduates with PTPTN loans must prioritise salary because repayment starts six months after graduation. A salary below RM2,000 in KL makes this extremely difficult.</div>
+        <div class="sample-box" style="margin-top:8px"><span class="sample-label">P — Point Again</span>Therefore, salary is the most critical factor as it forms the foundation of financial independence.</div>
+      </div>
+      <div class="coach-note lime" style="margin-top:10px"><div class="tag">EXAMINER NOTE</div>
+        <p>Direct answer · one clear reason · specific local example · strong closing. About 90 seconds. No fillers.</p></div>
+      <button class="btn yellow" style="margin-top:14px" onclick="S.open('s4')">I'm ready — start practice →</button>
+    </div>
+  </div>
 
-    <div id="toast" class="toast">Saved</div>
-  </main>
+  <!-- STEP 4: Practice -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="S.toggle('s4')">
+      <div class="step-num">4</div>
+      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">PREP notes + transcript + rubric</small></div>
+      <span id="c-s4">▾</span>
+    </div>
+    <div id="b-s4" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+      <div class="task-badges" style="margin-bottom:14px">
+        <button id="tabA" class="task-badge tb-a" style="border:var(--line);cursor:pointer" onclick="setTask('A')"><span class="icon">🎤</span><b>Task A</b><small>Individual</small></button>
+        <button id="tabB" class="task-badge" style="border:var(--line);cursor:pointer;background:white" onclick="setTask('B')"><span class="icon">👥</span><b>Task B</b><small>Group</small></button>
+      </div>
+      <div style="background:#fce7f3;border:var(--line);border-radius:16px;padding:14px;margin-bottom:14px">
+        <p class="tiny" style="color:var(--muted)">Practice Topic</p>
+        <h3 id="taskTitle" style="margin-top:6px">Task A — Individual Response</h3>
+        <select id="topicSel" style="margin-top:10px;width:100%;border:var(--line);border-radius:13px;background:white;padding:11px 14px;font-weight:800" onchange="changeTopic()"></select>
+        <p id="topicPrompt" style="margin-top:10px;font-weight:800;font-size:14px;line-height:1.45"></p>
+      </div>
+      <div class="coach-note pink"><div class="tag">COACH TIP</div><p id="coachTip"></p></div>
+      <div class="timer-card yellow" style="margin-top:12px">
+        <div><p class="tiny" id="timerLbl">2-Minute Prep Timer</p><div id="timerDisp" style="font-family:'Sora';font-size:36px;font-weight:800">02:00</div></div>
+        <button class="btn black" style="width:auto;min-width:80px" id="timerBtn" onclick="toggleTimer()">Start</button>
+      </div>
+      <div class="card" style="margin-top:4px">
+        <h2>PREP Notes <span class="req">Required</span></h2>
+        <p style="font-size:13px;font-weight:800;color:var(--muted);margin-top:4px">Keywords only — not full sentences</p>
+        <div class="prep-grid" style="margin-top:12px">
+          <div class="prep-box"><h3>P — Point</h3><textarea id="prepP" placeholder="My stand is..."></textarea></div>
+          <div class="prep-box"><h3>R — Reason</h3><textarea id="prepR" placeholder="This is because..."></textarea></div>
+          <div class="prep-box"><h3>E — Example</h3><textarea id="prepE" placeholder="For example..."></textarea></div>
+          <div class="prep-box"><h3>P — Point Again</h3><textarea id="prepClose" placeholder="Therefore..."></textarea></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Transcript <span class="req">Required</span></h2>
+        <p style="font-size:13px;font-weight:800;color:var(--muted);margin-top:4px">Type what you said after speaking aloud</p>
+        <textarea id="transcript" rows="5" style="margin-top:10px" placeholder="I believe..."></textarea>
+      </div>
+      <div class="card">
+        <h2>Rubric <span class="req">Required</span></h2>
+        <p style="font-size:13px;font-weight:800;color:var(--muted);margin-top:4px">Tick what your response achieved</p>
+        <div id="rubricList" class="rubric-list" style="margin-top:12px"></div>
+        <div class="btn-row" style="margin-top:16px">
+          <button class="btn yellow wide" onclick="submitPractice()">Submit Practice</button>
+          <button class="btn white" onclick="resetPractice()">Reset</button>
+          <button class="btn pink" onclick="location.href='index.html'">← Home</button>
+        </div>
+      </div>
+      <div id="resultCard" class="result-card lime">
+        <div class="tag">RESULT SAVED</div>
+        <span id="resultScore" class="result-score"></span>
+        <span id="resultBand" class="result-band"></span>
+        <div id="resultFb" style="border:var(--line);border-radius:14px;background:white;padding:12px;margin:10px 0;font-size:13px;font-weight:800"></div>
+        <button class="btn black" onclick="location.href='index.html'">← Back to Home</button>
+      </div>
+    </div>
+  </div>
 
-  <script>
-    const SpeakingApp = (() => {
-      const LS_PROFILE = "muet_profile";
-      const LS_SESSIONS = "muet_speaking_sessions";
+</section>
+</main>
+<div id="toast" class="toast"></div>
+<script src="js/muet-shared.js"></script>
+<script>
+const topicsA=[
+  {id:'A1',title:'Candidate A — Location',prompt:'Everyone has different reasons when choosing a job. Talk about: LOCATION. Explain why location is an important reason when choosing a job.',tip:'Use PREP. State one clear stand about location. Give a specific local example — commute, family proximity, cost of living.'},
+  {id:'A2',title:'Candidate B — Salary',prompt:'Everyone has different reasons when choosing a job. Talk about: SALARY. Explain why salary is an important reason when choosing a job.',tip:'Use PREP. Link salary to PTPTN, cost of living in cities, financial independence.'},
+  {id:'A3',title:'Candidate C — Working Hours',prompt:'Everyone has different reasons when choosing a job. Talk about: WORKING HOURS. Explain why working hours are an important reason when choosing a job.',tip:'Use PREP. Think about work-life balance, shift work, flexible arrangements.'},
+  {id:'A4',title:'Candidate D — Facilities',prompt:'Everyone has different reasons when choosing a job. Talk about: FACILITIES. Explain why workplace facilities are an important reason when choosing a job.',tip:'Use PREP. Give specific examples: gym, childcare, medical benefits, remote work tools.'}
+];
+const topicsB=[
+  {id:'B1',title:'Career Guidance Discussion',prompt:'It is very important for students to choose the right career. Discuss: How can universities provide better career guidance for students? Consider: relevant clubs · internship programmes · professional courses · career advisers · talks by professionals. Decide the BEST way.',tip:'Compare all five options. Invite others: "[Name], what do you think?" Help the group agree on one best method in the last 2 minutes.'}
+];
+const rubricA=[['task','Task Fulfilment','Answered the question directly',15],['prep','PREP Structure','Clear P-R-E-P flow',15],['idea','Idea Development','Specific and relevant reason + example',15],['lang','Language Control','Grammar mostly clear',15],['fluency','Fluency','Minimal fillers or long pauses',15],['delivery','Delivery','Confident and easy to follow',15]];
+const rubricB=[['task','Task Fulfilment','Discussed and compared options clearly',12],['interaction','Interaction','Responded to others, asked questions',18],['idea','Idea Development','Reasons and examples given',15],['lang','Language Control','Clear sentences and vocabulary',15],['fluency','Fluency','Maintained flow',15],['consensus','Consensus','Helped group reach a conclusion',15]];
 
-      const topicsA = [
-        {
-          id:"A1",
-          title:"Online Learning",
-          prompt:"Some students prefer online learning because it is flexible. Do you agree? Give reasons for your answer.",
-          tip:"Use PREP. Choose one clear stand. Give one Malaysian student-life example."
-        },
-        {
-          id:"A2",
-          title:"Part-time Jobs",
-          prompt:"Should college students work part-time while studying? Give your opinion.",
-          tip:"Mention balance, time management and financial independence."
-        },
-        {
-          id:"A3",
-          title:"Social Media",
-          prompt:"Social media brings more benefits than harm to young people. Do you agree?",
-          tip:"Avoid general points. Give one specific example such as TikTok learning, business or cyberbullying."
-        },
-        {
-          id:"A4",
-          title:"Public Transport",
-          prompt:"Using public transport is better than driving to campus. Give your view.",
-          tip:"Use reasons like cost, environment, safety and convenience."
-        }
-      ];
+let currentTask='A', secs=120, timerId=null;
 
-      const topicsB = [
-        {
-          id:"B1",
-          title:"Improving English",
-          prompt:"Your group is discussing the best way for students to improve English. Which is the most effective: reading, watching videos, speaking practice or writing practice?",
-          tip:"Use interaction phrases: I agree with..., Could you explain..., Shall we agree that..."
-        },
-        {
-          id:"B2",
-          title:"Healthy Lifestyle",
-          prompt:"Your group is discussing how students can practise a healthy lifestyle. Which is most important: exercise, food, sleep or stress management?",
-          tip:"Respond to friends by name and help reach consensus in the final minute."
-        },
-        {
-          id:"B3",
-          title:"Campus Activities",
-          prompt:"Your group is planning a student activity. Which activity should be chosen: sports day, career talk, charity event or cultural night?",
-          tip:"Compare options and invite others to give opinions."
-        }
-      ];
+function S(){} // namespace placeholder
+S.toggle = function(id){
+  const b=document.getElementById('b-'+id), c=document.getElementById('c-'+id);
+  if(!b)return; const open=b.style.display==='none';
+  b.style.display=open?'block':'none'; if(c)c.textContent=open?'▴':'▾';
+};
+S.open = function(id){
+  S.toggle(id); // force open if closed
+  const b=document.getElementById('b-'+id);
+  if(b&&b.style.display==='none'){b.style.display='block'; document.getElementById('c-'+id).textContent='▴';}
+  setTimeout(()=>b?.scrollIntoView({behavior:'smooth',block:'start'}),100);
+};
 
-      const rubricA = [
-        ["task", "Task fulfilment", "Answered the question directly and stayed on topic", 15],
-        ["prep", "PREP structure", "Clear Point, Reason, Example and closing Point", 15],
-        ["idea", "Idea development", "Reason and example were specific and relevant", 15],
-        ["language", "Language control", "Grammar and vocabulary were mostly clear", 15],
-        ["fluency", "Fluency", "Speech flowed with minimal fillers or long pauses", 15],
-        ["confidence", "Delivery", "Voice sounded confident and easy to follow", 15]
-      ];
+function setTask(t){
+  currentTask=t;
+  document.getElementById('tabA').style.background=t==='A'?'var(--blue)':'white';
+  document.getElementById('tabA').style.color=t==='A'?'white':'var(--ink)';
+  document.getElementById('tabB').style.background=t==='B'?'var(--lime)':'white';
+  document.getElementById('taskTitle').textContent=t==='A'?'Task A — Individual Response':'Task B — Group Discussion';
+  secs=t==='A'?120:180; stopTimer(); renderTimer();
+  renderTopics(); renderRubric(); changeTopic();
+}
+function renderTopics(){
+  const data=currentTask==='A'?topicsA:topicsB;
+  document.getElementById('topicSel').innerHTML=data.map(x=>`<option value="${x.id}">${x.title}</option>`).join('');
+}
+function getTopic(){const id=document.getElementById('topicSel').value;const data=currentTask==='A'?topicsA:topicsB;return data.find(x=>x.id===id)||data[0];}
+function changeTopic(){const t=getTopic();document.getElementById('topicPrompt').textContent=t.prompt;document.getElementById('coachTip').textContent=t.tip;}
+function renderRubric(){const data=currentTask==='A'?rubricA:rubricB;document.getElementById('rubricList').innerHTML=data.map(([id,name,desc,pts])=>`<label class="rubric-item"><input type="checkbox" data-score="${pts}" data-id="${id}"/><span><b>${name}</b><br><small style="color:var(--muted);font-weight:900">${desc}</small></span><span class="score-pill">${pts}pts</span></label>`).join('');}
+function toggleTimer(){if(timerId){stopTimer();return;}timerId=setInterval(()=>{secs--;renderTimer();if(secs<=0){stopTimer();MUET.toast('Time is up!');}},1000);document.getElementById('timerBtn').textContent='Pause';}
+function stopTimer(){clearInterval(timerId);timerId=null;const b=document.getElementById('timerBtn');if(b)b.textContent='Start';}
+function renderTimer(){const m=String(Math.floor(secs/60)).padStart(2,'0'),s=String(secs%60).padStart(2,'0');document.getElementById('timerDisp').textContent=`${m}:${s}`;document.getElementById('timerLbl').textContent=currentTask==='A'?'2-Minute Prep Timer':'3-Minute Prep Timer';}
+function submitPractice(){
+  const tr=document.getElementById('transcript').value.trim();
+  if(!tr){MUET.toast('Please type your transcript before submitting.');return;}
+  const checks=[...document.querySelectorAll('#rubricList input:checked')];
+  const raw=checks.reduce((s,c)=>s+Number(c.dataset.score),0);
+  const maxPts=(currentTask==='A'?rubricA:rubricB).reduce((s,r)=>s+r[3],0);
+  const score90=Math.round(raw/maxPts*90), band=MUET.scoreToBand(score90);
+  const session={vaultId:'SKILL-MODULE',type:currentTask==='A'?'Task A':'Task B',score90,score:score90,band,bandLabel:band,prep:{point:document.getElementById('prepP').value,reason:document.getElementById('prepR').value,example:document.getElementById('prepE').value,close:document.getElementById('prepClose').value},transcript:tr,date:new Date().toISOString()};
+  const list=MUET.loadSessions('speaking');list.push(session);MUET.saveSessions('speaking',list);
+  MUET.awardBadge('first_step');MUET.awardBadge(currentTask==='A'?'prep_starter':'discussion_builder');MUET.addXP(80);
+  document.getElementById('resultScore').textContent=`${score90}/90`;
+  document.getElementById('resultBand').textContent=`Estimated Band ${band}`;
+  document.getElementById('resultFb').textContent=MUET.feedbackText('speaking',score90);
+  document.getElementById('resultCard').classList.add('show');
+  MUET.toast('Speaking practice saved!');
+  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+}
+function resetPractice(){['prepP','prepR','prepE','prepClose','transcript'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.querySelectorAll('#rubricList input').forEach(x=>x.checked=false);document.getElementById('resultCard').classList.remove('show');secs=currentTask==='A'?120:180;stopTimer();renderTimer();MUET.toast('Reset.');}
 
-      const rubricB = [
-        ["task", "Task fulfilment", "Discussed the task and compared options", 12],
-        ["interaction", "Interaction", "Responded to others, asked questions and referred to names", 18],
-        ["idea", "Idea development", "Supported ideas with reasons and examples", 15],
-        ["language", "Language control", "Used clear sentences and suitable vocabulary", 15],
-        ["fluency", "Fluency", "Maintained flow with minimal fillers", 15],
-        ["consensus", "Consensus building", "Helped the group reach a conclusion", 15]
-      ];
-
-      let task = "A";
-      let seconds = 120;
-      let timerId = null;
-
-      function init(){
-        setTask("A");
-      }
-
-      function setTask(t){
-        task = t;
-        document.getElementById("tabA").classList.toggle("active", task==="A");
-        document.getElementById("tabB").classList.toggle("active", task==="B");
-        document.getElementById("taskTitle").textContent = task==="A" ? "Task A — Individual Response" : "Task B — Group Discussion";
-        seconds = task==="A" ? 120 : 180;
-        stopTimer();
-        renderTimer();
-        renderTopics();
-        renderRubric();
-        changeTopic();
-      }
-
-      function renderTopics(){
-        const select = document.getElementById("topicSelect");
-        const data = task==="A" ? topicsA : topicsB;
-        select.innerHTML = data.map(x => `<option value="${x.id}">${x.title}</option>`).join("");
-      }
-
-      function getTopic(){
-        const id = document.getElementById("topicSelect").value;
-        const data = task==="A" ? topicsA : topicsB;
-        return data.find(x => x.id === id) || data[0];
-      }
-
-      function changeTopic(){
-        const topic = getTopic();
-        document.getElementById("topicPrompt").textContent = topic.prompt;
-        document.getElementById("coachTip").textContent = topic.tip;
-      }
-
-      function renderRubric(){
-        const list = document.getElementById("rubricList");
-        const data = task==="A" ? rubricA : rubricB;
-        list.innerHTML = data.map(item => `
-          <label class="rubric-item">
-            <input type="checkbox" data-score="${item[3]}" data-id="${item[0]}"/>
-            <span><b>${item[1]}</b><br><small>${item[2]}</small></span>
-            <span class="score-pill">${item[3]}</span>
-          </label>
-        `).join("");
-      }
-
-      function toggleTimer(){
-        if(timerId){ stopTimer(); return; }
-        timerId = setInterval(() => {
-          seconds--;
-          renderTimer();
-          if(seconds <= 0){
-            stopTimer();
-            toast(task==="A" ? "Prep time finished. Start speaking." : "Group prep time finished. Begin discussion.");
-          }
-        }, 1000);
-        document.getElementById("timerBtn").textContent = "Pause";
-      }
-
-      function stopTimer(){
-        if(timerId) clearInterval(timerId);
-        timerId = null;
-        const btn = document.getElementById("timerBtn");
-        if(btn) btn.textContent = "Start";
-      }
-
-      function renderTimer(){
-        const m = String(Math.floor(seconds/60)).padStart(2,"0");
-        const s = String(seconds%60).padStart(2,"0");
-        document.getElementById("timer").textContent = `${m}:${s}`;
-        document.getElementById("timerLabel").textContent = task==="A" ? "2-Minute Prep Timer" : "3-Minute Group Prep Timer";
-      }
-
-      function scoreToBand(score){
-        if(score >= 83) return "5.0";
-        if(score >= 74) return "4.5";
-        if(score >= 64) return "4.0";
-        if(score >= 53) return "3.5";
-        if(score >= 41) return "3.0";
-        if(score >= 31) return "2.5";
-        if(score >= 20) return "2.0";
-        return "1.0";
-      }
-
-      function feedback(score, checkedCount){
-        if(score >= 74) return "Strong response. You are showing good MUET readiness. Now refine accuracy and natural delivery.";
-        if(score >= 64) return "Target zone. Your answer is structured, but improve examples and language accuracy.";
-        if(score >= 53) return "Developing. You have basic structure, but need stronger elaboration and clearer delivery.";
-        if(checkedCount <= 2) return "Your response needs more structure. Start with PREP and answer the question directly.";
-        return "Keep practising. Focus on task fulfilment, clear points and one specific example.";
-      }
-
-      function submit(){
-        const checks = [...document.querySelectorAll("#rubricList input:checked")];
-        const raw = checks.reduce((sum, c) => sum + Number(c.dataset.score), 0);
-        const max = (task==="A" ? rubricA : rubricB).reduce((sum, item) => sum + item[3], 0);
-        const score90 = Math.round((raw/max)*90);
-        const band = scoreToBand(score90);
-        const topic = getTopic();
-        const transcript = document.getElementById("transcript").value.trim();
-
-        const activeVault = JSON.parse(localStorage.getItem("muet_active_vault") || "{}");
-
-        const session = {
-          vaultId: activeVault.vaultId || "FREE-PRACTICE",
-          vaultTitle: activeVault.vaultTitle || "Free Practice",
-          paperId: activeVault.paperId || "UNASSIGNED",
-          type: task==="A" ? "Task A" : "Task B",
-          topicId: topic.id,
-          topicTitle: topic.title,
-          prompt: topic.prompt,
-          score: score90,
-          score90,
-          band: Number(band.replace("+","")),
-          bandLabel: band,
-          checks: checks.map(c => c.dataset.id),
-          prep: {
-            point: document.getElementById("prepPoint").value,
-            reason: document.getElementById("prepReason").value,
-            example: document.getElementById("prepExample").value,
-            close: document.getElementById("prepClose").value
-          },
-          transcript,
-          duration: task==="A" ? 4 : 13,
-          date: new Date().toISOString(),
-          xpEarned: 80 + checks.length * 5
-        };
-
-        const sessions = JSON.parse(localStorage.getItem(LS_SESSIONS) || "[]");
-        sessions.push(session);
-        localStorage.setItem(LS_SESSIONS, JSON.stringify(sessions));
-
-        updateProfileBadges(session);
-
-        document.getElementById("resultBand").textContent = `Estimated Band ${band} · ${score90}/90`;
-        document.getElementById("resultFeedback").textContent = feedback(score90, checks.length);
-        document.getElementById("resultCard").classList.add("show");
-        toast("Speaking practice saved to Hub.");
-        window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
-      }
-
-      function updateProfileBadges(session){
-        const profile = JSON.parse(localStorage.getItem(LS_PROFILE) || "{}");
-        profile.xp = (profile.xp || profile.xpTotal || 0) + (session.xpEarned || 80);
-        profile.streak = profile.streak || 1;
-        profile.badges = profile.badges || ["first_step"];
-        if(session.type === "Task A") profile.badges.push("prep_starter");
-        if(session.type === "Task B") profile.badges.push("discussion_builder");
-        profile.badges = [...new Set(profile.badges)];
-        profile.lastVisit = new Date().toISOString();
-        localStorage.setItem(LS_PROFILE, JSON.stringify(profile));
-      }
-
-      function resetPractice(){
-        ["prepPoint","prepReason","prepExample","prepClose","transcript"].forEach(id => document.getElementById(id).value = "");
-        document.querySelectorAll("#rubricList input").forEach(x => x.checked = false);
-        document.getElementById("resultCard").classList.remove("show");
-        seconds = task==="A" ? 120 : 180;
-        stopTimer();
-        renderTimer();
-        toast("Practice reset.");
-      }
-
-      function toast(msg){
-        const t = document.getElementById("toast");
-        t.textContent = msg;
-        t.classList.add("show");
-        setTimeout(() => t.classList.remove("show"), 2500);
-      }
-
-      return {init,setTask,changeTopic,toggleTimer,submit,resetPractice};
-    })();
-
-    document.addEventListener("DOMContentLoaded", SpeakingApp.init);
-  </script>
+document.addEventListener('DOMContentLoaded',()=>{
+  setTask('A');
+  // Open step 1 by default
+  document.getElementById('b-s1').style.display='block';
+  document.getElementById('c-s1').textContent='▴';
+});
+</script>
 </body>
 </html>

@@ -2,436 +2,208 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SmartReading · MUET SmartHub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>Reading Guide · MUET SmartHub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/muet-neopop.css"/>
+  <link rel="stylesheet" href="css/muet-guide.css"/>
   <style>
-    .reading-hero{background:#19d58a;color:var(--ink)}
-    .reading-hero p{font-weight:900}
-    .paper-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-    .paper-tab{border:var(--line);box-shadow:3px 3px 0 var(--ink);border-radius:16px;background:white;padding:12px;font-weight:1000}
-    .paper-tab.active{background:var(--yellow)}
-    .strategy-card{background:var(--yellow);border:var(--line);box-shadow:var(--shadow);border-radius:22px;padding:14px;margin-bottom:16px;font-weight:900}
-    .timer-card{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;background:var(--blue);color:white;border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
-    .timer-card .tiny{color:rgba(255,255,255,.82)}
-    .timer-big{font-family:Sora;font-size:34px;font-weight:800}
-    .passage-card,.question-card{background:var(--paper);border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
-    .passage-text{background:white;border:2px solid var(--ink);border-radius:18px;padding:14px;font-weight:700;line-height:1.55;white-space:pre-line}
-    .question-card h3{font-size:17px;margin-bottom:10px}
-    .options{display:grid;gap:10px}
-    .option{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;border:2px solid var(--ink);border-radius:14px;background:white;padding:11px;font-weight:800}
-    .option input{width:20px;height:20px;box-shadow:none;margin-top:1px}
-    .option.correct{background:#bbf7d0}
-    .option.wrong{background:#fecaca}
-    .explain{display:none;margin-top:10px;border:2px solid var(--ink);border-radius:14px;background:#fff7cc;padding:10px;font-weight:800}
-    .explain.show{display:block}
-    .button-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-    .button-row .wide{grid-column:1/-1}
-    .result-card{display:none;background:#b8ff36;border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
-    .result-card.show{display:block}
-    .part-summary{display:grid;gap:10px;margin-top:12px}
-    .part-row{background:white;border:2px solid var(--ink);border-radius:14px;padding:10px;font-weight:900}
-    .qtag{display:inline-block;background:var(--pink);border:2px solid var(--ink);border-radius:999px;padding:4px 8px;font-size:11px;font-weight:1000;margin-bottom:8px}
+    .flow-step{background:white;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+    .flow-step-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;font-weight:1000}
+    .flow-step-head:active{background:rgba(0,0,0,.04)}
+    .step-num{width:38px;height:38px;border:var(--line);border-radius:50%;background:var(--green);display:grid;place-items:center;font-weight:1000;font-size:16px;flex-shrink:0;box-shadow:2px 2px 0 var(--ink)}
+    .info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:4px 0 10px}
+    .info-tile{border:var(--line);border-radius:14px;padding:10px 4px;text-align:center;box-shadow:2px 2px 0 var(--ink);background:var(--green)}
+    .info-tile .big{font-family:"Sora";font-size:18px;font-weight:800;display:block}
+    .info-tile .lbl{font-size:10px;font-weight:1000;text-transform:uppercase;color:var(--muted);display:block;margin-top:2px}
+    .qtag{display:inline-block;background:var(--pink);border:2px solid var(--ink);border-radius:999px;padding:3px 9px;font-size:11px;font-weight:1000;margin:3px}
+    .passage-box{background:white;border:var(--line);border-radius:var(--r);padding:14px;font-weight:700;line-height:1.6;font-size:14px;max-height:260px;overflow-y:auto;margin-bottom:14px}
   </style>
 </head>
 <body>
-  <main class="phone-shell">
-    <section class="screen active">
-      <div class="brand-bar dark">
-        <button onclick="location.href='index.html'" class="hamb">←</button>
+<main class="app-shell">
+<section class="screen active">
+
+  <div class="brand-bar">
+    <button class="icon-btn" onclick="location.href='index.html'" style="margin-left:0;margin-right:8px">←</button>
+    <div><div class="bar-label">Skill Module</div><div class="bar-title">Reading 800/3</div></div>
+    <button class="icon-btn">📖</button>
+  </div>
+
+  <div class="card" style="background:var(--green);margin-bottom:16px">
+    <p class="tiny" style="color:rgba(0,0,0,.5)">Reading 800/3 · 90 marks · 25% of MUET</p>
+    <h1 style="margin-top:6px">Read questions<br>first.</h1>
+    <p style="margin-top:8px;font-weight:800">Targeted reading, answer checking and explanation review.</p>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="R.toggle('s1')">
+      <div class="step-num">1</div>
+      <div style="flex:1"><b>Before You Start</b><br><small style="color:var(--muted)">What Reading 800/3 tests</small></div>
+      <span id="c-s1">▴</span>
+    </div>
+    <div id="b-s1" style="padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+      <div class="info-grid">
+        <div class="info-tile"><span class="big">7</span><span class="lbl">Parts</span></div>
+        <div class="info-tile"><span class="big">40</span><span class="lbl">Questions</span></div>
+        <div class="info-tile"><span class="big">90</span><span class="lbl">Minutes</span></div>
+        <div class="info-tile"><span class="big">25%</span><span class="lbl">of MUET</span></div>
+      </div>
+      <div style="background:#dcfce7;border:var(--line);border-radius:14px;padding:12px;margin-bottom:10px">
+        <p style="font-size:12px;font-weight:1000;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px">Question Types</p>
         <div>
-          <div class="brand-small">MUET SmartHub Module</div>
-          <div class="brand-title">SmartReading</div>
-        </div>
-        <button class="hamb">📖</button>
-      </div>
-
-      <div class="hero-neo reading-hero">
-        <div>
-          <p class="tiny">Reading 800/3</p>
-          <h1>Read questions first.</h1>
-          <p>Practise targeted reading, answer checking and explanation review.</p>
+          <span class="qtag">Main Idea</span><span class="qtag">Detail</span><span class="qtag">Inference</span>
+          <span class="qtag">Vocabulary</span><span class="qtag">Writer's Purpose</span><span class="qtag">Cohesion</span>
         </div>
       </div>
-
-
-      <div class="instruction-card green">
-        <h2>How to Complete SmartReading</h2>
-        <ol>
-          <li>Select a reading set.</li>
-          <li>Read the questions first before reading the passage.</li>
-          <li>Underline or remember keywords from each question.</li>
-          <li>Read the passage and choose the best answer for every question.</li>
-          <li>Submit your answers to view correct answers and explanations.</li>
-          <li>Review your weakest question type before the next vault.</li>
-        </ol>
-        <div class="input-guide">
-          <strong>Student input required:</strong>
-          MCQ answer selection for every question.
-          <div class="sample-line">Reading strategy: identify whether the question is direct retrieval, paraphrase or inference.</div>
-        </div>
-        <div class="step-chip-row">
-          <span class="step-chip">Questions First</span>
-          <span class="step-chip">Scan</span>
-          <span class="step-chip">Answer</span>
-          <span class="step-chip">Check</span>
-          <span class="step-chip">Review Explanation</span>
-        </div>
+      <div style="background:#f0fdf4;border:2px solid var(--ink);border-radius:14px;padding:12px;font-size:13px;font-weight:900">
+        All questions are <b>multiple choice</b> — one best answer from 3–4 options. Tests <b>accurate reading</b>, not general understanding.
       </div>
+      <button class="btn green" style="margin-top:14px" onclick="R.open('s2')">I understand — show me tips →</button>
+    </div>
+  </div>
 
-      <div class="paper-tabs">
-        <button id="tabP1" class="paper-tab active" onclick="ReadingApp.setPaper('P1')">Set 1</button>
-        <button id="tabP2" class="paper-tab" onclick="ReadingApp.setPaper('P2')">Set 2</button>
-      </div>
-
-      <div class="strategy-card">
-        <div class="tag">READING STRATEGY</div>
-        <p id="strategyText">Read the questions first. Underline keywords. Then scan the passage for direct answers, paraphrases and inference clues.</p>
-      </div>
-
-      <div class="timer-card">
-        <div>
-          <p class="tiny">Reading Practice Timer</p>
-          <div id="timer" class="timer-big">15:00</div>
-        </div>
-        <button id="timerBtn" class="neo-btn yellow" onclick="ReadingApp.toggleTimer()">Start</button>
-      </div>
-
-      <div class="passage-card">
-        <p class="tiny" id="paperLabel">Practice Set 1</p>
-        <h2 id="passageTitle">Passage Title</h2>
-        <div id="passageText" class="passage-text"></div>
-      </div>
-
-      <div id="questionList"></div>
-
-      <div class="neo-panel">
-        <div class="button-row">
-          <button class="neo-btn yellow wide" onclick="ReadingApp.submit()">Submit Reading Answers</button>
-          <button class="neo-btn black" onclick="ReadingApp.resetPractice()">Reset</button>
-          <button class="neo-btn pink" onclick="location.href='index.html'">Hub</button>
+  <!-- STEP 2 -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="R.toggle('s2')">
+      <div class="step-num">2</div>
+      <div style="flex:1"><b>Tips &amp; Tricks</b><br><small style="color:var(--muted)">Question-First Strategy</small></div>
+      <span id="c-s2">▾</span>
+    </div>
+    <div id="b-s2" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+      <div class="coach-note lime"><div class="tag">QUESTION-FIRST</div>
+        <p>Always <b>read the questions first</b>. Underline keywords. Then <b>scan</b> the passage for those keywords — do not read every word.</p></div>
+      <div style="background:#f8fafc;border:var(--line);border-radius:14px;padding:12px;margin-top:10px">
+        <h3 style="margin-bottom:10px;font-size:15px">Know Your Question Type</h3>
+        <div style="display:grid;gap:8px;font-size:13px;font-weight:850">
+          <div style="border-left:4px solid var(--blue);padding-left:10px"><b>Direct retrieval</b> — answer is almost word-for-word in the text</div>
+          <div style="border-left:4px solid var(--green);padding-left:10px"><b>Paraphrase</b> — same meaning, different words</div>
+          <div style="border-left:4px solid var(--orange);padding-left:10px"><b>Inference</b> — implied by the text, read between the lines</div>
         </div>
       </div>
+      <div class="coach-note pink" style="margin-top:10px"><div class="tag">AVOID DISTRACTORS</div>
+        <p>Options that use the same words as the passage but different meaning. Always check if the <b>idea</b> matches, not just the words.</p></div>
+      <button class="btn green" style="margin-top:14px" onclick="R.open('s3')">I've read the tips — show me a sample →</button>
+    </div>
+  </div>
 
-      <div id="resultCard" class="result-card">
-        <p class="tiny">Reading Practice Saved</p>
-        <h2 id="resultScore">Score</h2>
-        <p id="resultFeedback"></p>
-        <div id="partSummary" class="part-summary"></div>
-        <button class="neo-btn black" onclick="location.href='index.html'">Return to Hub Dashboard</button>
+  <!-- STEP 3 -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="R.toggle('s3')">
+      <div class="step-num">3</div>
+      <div style="flex:1"><b>Sample Explanation</b><br><small style="color:var(--muted)">How answers are explained</small></div>
+      <span id="c-s3">▾</span>
+    </div>
+    <div id="b-s3" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+      <div style="background:#dcfce7;border:var(--line);border-radius:14px;padding:12px;font-size:13px;font-weight:800;line-height:1.5;margin-bottom:12px">
+        <b>Sample passage:</b> Despite the increasing availability of electric vehicles, many Malaysians still prefer conventional cars due to concerns about charging infrastructure. A 2023 survey revealed that 68% cited limited charging stations as the primary barrier.
       </div>
-    </section>
+      <div style="border:var(--line);border-radius:14px;background:white;padding:12px;margin-bottom:10px">
+        <p style="font-weight:900;margin-bottom:10px;font-size:13px">What is the main reason Malaysians hesitate to buy electric vehicles?</p>
+        <div class="options">
+          <label class="option correct"><input type="radio" disabled checked/><span>A. Insufficient charging stations</span></label>
+          <label class="option wrong"><input type="radio" disabled/><span>B. Electric vehicles are too expensive</span></label>
+          <label class="option wrong"><input type="radio" disabled/><span>C. Lack of awareness</span></label>
+        </div>
+        <div class="explain show" style="margin-top:10px"><b>A is correct:</b> "limited charging stations as the primary barrier" → paraphrased as "insufficient charging stations." B and C are not mentioned — classic distractors.</div>
+      </div>
+      <button class="btn green" style="margin-top:4px" onclick="R.open('s4')">I'm ready — start practice →</button>
+    </div>
+  </div>
 
-    <div id="toast" class="toast">Saved</div>
-  </main>
+  <!-- STEP 4 -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="R.toggle('s4')">
+      <div class="step-num">4</div>
+      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Answer all questions</small></div>
+      <span id="c-s4">▾</span>
+    </div>
+    <div id="b-s4" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+      <div class="timer-card blue">
+        <div><p class="tiny">Reading Timer — 75 min</p><div id="timerDisp" style="font-family:'Sora';font-size:36px;font-weight:800">75:00</div></div>
+        <button class="btn yellow" style="width:auto;min-width:80px" id="timerBtn" onclick="toggleTimer()">Start</button>
+      </div>
+      <div class="coach-note lime"><div class="tag">BEFORE READING</div><p>Read all questions first. Underline keywords. Then scan the passage.</p></div>
+      <div class="card"><h3 id="passTitle">Practice Passage</h3><div class="passage-box" id="passText"></div></div>
+      <div id="qList" style="display:grid;gap:14px"></div>
+      <div class="btn-row" style="margin-top:14px">
+        <button class="btn green wide" onclick="submitReading()">Submit Practice</button>
+        <button class="btn pink" onclick="location.href='index.html'">← Home</button>
+      </div>
+      <div id="resultCard" class="result-card" style="background:#dcfce7">
+        <div class="tag">RESULT SAVED</div>
+        <span id="resultScore" class="result-score"></span>
+        <span id="resultBand" class="result-band"></span>
+        <div id="resultFb" style="border:var(--line);border-radius:14px;background:white;padding:12px;margin:10px 0;font-size:13px;font-weight:800"></div>
+        <button class="btn black" onclick="location.href='index.html'">← Back to Home</button>
+      </div>
+    </div>
+  </div>
 
-  <script>
-    const ReadingApp = (() => {
-      const LS_PROFILE = "muet_profile";
-      const LS_HISTORY = "muet_reading_history";
+</section>
+</main>
+<div id="toast" class="toast"></div>
+<script src="js/muet-shared.js"></script>
+<script>
+// Sample passage for skill module (independent of vault)
+const samplePassage = {
+  title:'Digital Literacy Among Malaysian Youth',
+  text:`The rapid expansion of digital technology has transformed the way young Malaysians engage with information. A study found that 82% of students aged 15–25 spend more than four hours daily on digital devices, primarily for entertainment rather than academic purposes. This trend has raised concerns about students' ability to critically evaluate online information.\n\nDigital literacy — the ability to find, evaluate and communicate information effectively through digital platforms — has become an essential 21st century skill. However, many schools in Malaysia still lack structured programmes to develop this competency.\n\nExperts argue that addressing this gap requires a systemic approach: integrating digital literacy into the national curriculum, training teachers and partnering with technology companies.`,
+  questions:[
+    {id:'Q1',type:'Main Idea',stem:'What is the main concern in the passage?',options:['A. Students spend too much time on entertainment.','B. Students lack critical digital literacy skills.','C. Digital devices are too expensive.'],answer:1,explanation:'The passage focuses on inability to "critically evaluate online information" and lack of programmes. Option B is the main concern; A is a supporting detail.'},
+    {id:'Q2',type:'Detail',stem:'What percentage of young Malaysians use digital devices mainly for entertainment?',options:['A. 25%','B. 82%','C. 72%'],answer:1,explanation:'Direct retrieval: "82% of students...primarily for entertainment." Option B.'},
+    {id:'Q3',type:'Vocabulary',stem:'The word "systemic" is closest in meaning to:',options:['A. medical','B. organised and comprehensive','C. slow and cautious'],answer:1,explanation:'"Systemic" means relating to a whole system — broad, structured. Context clue: the list of solutions that follows.'},
+    {id:'Q4',type:'Inference',stem:'What can be inferred about digital literacy in Malaysian schools?',options:['A. It is well-developed but underfunded.','B. It is not yet systematically taught in most schools.','C. It is only in private schools.'],answer:1,explanation:'Schools "still lack structured programmes" — implies it has not happened systematically. Inference, not directly stated.'},
+    {id:'Q5',type:"Writer's Purpose",stem:"Why does the writer mention teachers' reports?",options:['A. To criticise teachers.','B. To provide evidence the problem exists in classrooms.','C. To suggest using more technology.'],answer:1,explanation:'Teachers\' reports are used as evidence to strengthen the argument. Purpose is to support, not criticise.'}
+  ]
+};
 
-      const papers = {
-        P1: {
-          title: "Students and Online Learning",
-          label: "Set 1 — Foundation Reading",
-          time: 15 * 60,
-          strategy: "Read the questions first. This set focuses on direct retrieval and paraphrase recognition.",
-          passage: `Online learning has become a common part of student life. Many diploma students use online platforms to attend classes, submit assignments and communicate with lecturers. One major advantage of online learning is flexibility. Students can access recorded lessons and revise at their own pace.
+const R={};
+R.toggle=function(id){const b=document.getElementById('b-'+id),c=document.getElementById('c-'+id);if(!b)return;const open=b.style.display==='none';b.style.display=open?'block':'none';if(c)c.textContent=open?'▴':'▾';};
+R.open=function(id){const b=document.getElementById('b-'+id),c=document.getElementById('c-'+id);if(!b)return;b.style.display='block';if(c)c.textContent='▴';setTimeout(()=>b.scrollIntoView({behavior:'smooth',block:'start'}),100);};
 
-However, online learning also requires discipline. Some students find it difficult to focus when studying from home because of distractions such as social media, household responsibilities and unstable internet connections. Lecturers also need to design lessons that are interactive so students do not become passive learners.
+let secs=4500,timerId=null,submitted=false;
+function toggleTimer(){if(timerId){clearInterval(timerId);timerId=null;document.getElementById('timerBtn').textContent='Resume';return;}timerId=setInterval(()=>{secs--;const m=String(Math.floor(secs/60)).padStart(2,'0'),s=String(secs%60).padStart(2,'0');document.getElementById('timerDisp').textContent=`${m}:${s}`;if(secs<=0){clearInterval(timerId);MUET.toast('Time is up!');}},1000);document.getElementById('timerBtn').textContent='Pause';}
 
-A blended learning approach may be more practical for many institutions. In this approach, students attend some classes face-to-face while completing selected activities online. This allows students to benefit from classroom interaction and digital flexibility at the same time.`,
-          questions: [
-            {
-              part: "Part 1",
-              type: "Direct retrieval",
-              q: "What is one major advantage of online learning mentioned in the passage?",
-              options: ["It is always cheaper", "It provides flexibility", "It removes all distractions", "It replaces lecturers"],
-              answer: 1,
-              why: "The passage directly states that one major advantage of online learning is flexibility."
-            },
-            {
-              part: "Part 1",
-              type: "Paraphrase",
-              q: "The phrase 'revise at their own pace' means students can...",
-              options: ["study according to their own speed", "avoid all assignments", "finish classes earlier than others", "replace classroom learning"],
-              answer: 0,
-              why: "At their own pace means according to their own speed or timing."
-            },
-            {
-              part: "Part 2",
-              type: "Direct retrieval",
-              q: "Which problem is NOT mentioned as a distraction when studying from home?",
-              options: ["Social media", "Household responsibilities", "Unstable internet", "Lack of textbooks"],
-              answer: 3,
-              why: "The passage mentions social media, household responsibilities and unstable internet, but not lack of textbooks."
-            },
-            {
-              part: "Part 2",
-              type: "Inference",
-              q: "Why does the writer suggest interactive online lessons?",
-              options: ["To make students passive", "To reduce student engagement", "To prevent students from becoming passive learners", "To remove face-to-face classes completely"],
-              answer: 2,
-              why: "The writer says lecturers need interactive lessons so students do not become passive learners."
-            },
-            {
-              part: "Part 3",
-              type: "Main idea",
-              q: "What is the main idea of the final paragraph?",
-              options: ["Online learning should be stopped", "Blended learning can combine classroom interaction and digital flexibility", "Students should only learn at home", "Lecturers should not use online platforms"],
-              answer: 1,
-              why: "The final paragraph explains that blended learning gives both classroom interaction and digital flexibility."
-            }
-          ]
-        },
-        P2: {
-          title: "Managing Screen Time",
-          label: "Set 2 — Developing Reading",
-          time: 18 * 60,
-          strategy: "This set focuses on inference and writer’s purpose. Watch for implied meaning, not only repeated words.",
-          passage: `Many young people spend several hours a day using digital devices. Phones, tablets and laptops help students search for information, complete assignments and stay connected with friends. Digital tools are useful, but excessive screen time may affect sleep quality, concentration and emotional well-being.
+function renderPassage(){
+  document.getElementById('passTitle').textContent=samplePassage.title;
+  document.getElementById('passText').textContent=samplePassage.text;
+  document.getElementById('qList').innerHTML=samplePassage.questions.map((q,qi)=>`
+    <div class="card"><div style="display:inline-block;background:var(--pink);border:2px solid var(--ink);border-radius:999px;padding:3px 9px;font-size:11px;font-weight:1000;margin-bottom:8px">${q.type}</div>
+    <p style="font-weight:900;margin-bottom:10px;font-size:13px">${q.id}. ${q.stem}</p>
+    <div class="options" id="opts-${qi}">${q.options.map((o,oi)=>`<label class="option" id="opt-${qi}-${oi}"><input type="radio" name="q${qi}" value="${oi}"/><span>${o}</span></label>`).join('')}</div>
+    <div class="explain" id="exp-${qi}">${q.explanation}</div></div>`).join('');
+}
 
-Experts recommend that students set clear boundaries. For example, they can avoid using their phones thirty minutes before sleeping, turn off unnecessary notifications and schedule short breaks during study sessions. These habits may seem small, but they can improve focus and reduce stress.
+function submitReading(){
+  if(submitted)return;
+  let correct=0;
+  samplePassage.questions.forEach((q,qi)=>{
+    const sel=document.querySelector(`input[name="q${qi}"]:checked`);
+    const ans=sel?parseInt(sel.value):-1;
+    if(ans===q.answer)correct++;
+    q.options.forEach((_,oi)=>{const el=document.getElementById(`opt-${qi}-${oi}`);if(!el)return;if(oi===q.answer)el.classList.add('correct');else if(oi===ans)el.classList.add('wrong');});
+    document.getElementById(`exp-${qi}`)?.classList.add('show');
+  });
+  submitted=true;
+  const total=samplePassage.questions.length,score90=Math.round(correct/total*90),band=MUET.scoreToBand(score90);
+  const session={vaultId:'SKILL-MODULE',rawScore:correct,totalQ:total,score90,band,date:new Date().toISOString()};
+  const list=MUET.loadSessions('reading');list.push(session);MUET.saveSessions('reading',list);
+  MUET.awardBadge('passage_hunter');MUET.addXP(70);
+  document.getElementById('resultScore').textContent=`${correct}/${total} · ${score90}/90`;
+  document.getElementById('resultBand').textContent=`Estimated Band ${band}`;
+  document.getElementById('resultFb').textContent=MUET.feedbackText('reading',score90);
+  document.getElementById('resultCard').classList.add('show');
+  MUET.toast('Reading saved!');
+  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+}
 
-The goal is not to reject technology. Instead, students should learn to control how they use it. When digital tools are used intentionally, they can support learning without harming health.`,
-          questions: [
-            {
-              part: "Part 1",
-              type: "Direct retrieval",
-              q: "According to the passage, digital devices help students...",
-              options: ["avoid assignments", "search for information", "sleep longer", "reject technology"],
-              answer: 1,
-              why: "The first paragraph states that devices help students search for information and complete assignments."
-            },
-            {
-              part: "Part 1",
-              type: "Paraphrase",
-              q: "The word 'excessive' in the passage is closest in meaning to...",
-              options: ["limited", "balanced", "too much", "useful"],
-              answer: 2,
-              why: "Excessive means more than necessary or too much."
-            },
-            {
-              part: "Part 2",
-              type: "Direct retrieval",
-              q: "Which habit is recommended before sleeping?",
-              options: ["Use phone for one hour", "Avoid phone thirty minutes before sleeping", "Turn on notifications", "Study without breaks"],
-              answer: 1,
-              why: "The passage recommends avoiding phone use thirty minutes before sleeping."
-            },
-            {
-              part: "Part 3",
-              type: "Inference",
-              q: "What does the writer imply about technology?",
-              options: ["It is always harmful", "It should be used intentionally", "It should be banned in colleges", "It cannot support learning"],
-              answer: 1,
-              why: "The writer says the goal is not to reject technology but to control how it is used."
-            },
-            {
-              part: "Part 3",
-              type: "Writer's purpose",
-              q: "The writer's main purpose is to...",
-              options: ["persuade students to stop studying", "explain how to manage screen time wisely", "promote more gaming", "criticise all digital tools"],
-              answer: 1,
-              why: "The passage explains benefits and risks, then gives practical screen-time management advice."
-            }
-          ]
-        }
-      };
-
-      let currentPaper = "P1";
-      let seconds = papers.P1.time;
-      let timerId = null;
-      let submitted = false;
-
-      function init(){
-        setPaper("P1");
-      }
-
-      function setPaper(id){
-        currentPaper = id;
-        submitted = false;
-        document.getElementById("tabP1").classList.toggle("active", id==="P1");
-        document.getElementById("tabP2").classList.toggle("active", id==="P2");
-        seconds = papers[id].time;
-        stopTimer();
-        renderTimer();
-        renderPaper();
-        document.getElementById("resultCard").classList.remove("show");
-      }
-
-      function renderPaper(){
-        const p = papers[currentPaper];
-        document.getElementById("paperLabel").textContent = p.label;
-        document.getElementById("passageTitle").textContent = p.title;
-        document.getElementById("passageText").textContent = p.passage;
-        document.getElementById("strategyText").textContent = p.strategy;
-
-        const list = document.getElementById("questionList");
-        list.innerHTML = p.questions.map((q, qi) => `
-          <div class="question-card" data-q="${qi}">
-            <span class="qtag">${q.part} · ${q.type}</span>
-            <h3>Q${qi+1}. ${q.q}</h3>
-            <div class="options">
-              ${q.options.map((op, oi) => `
-                <label class="option" data-option="${oi}">
-                  <input type="radio" name="q${qi}" value="${oi}">
-                  <span>${String.fromCharCode(65+oi)}. ${op}</span>
-                </label>
-              `).join("")}
-            </div>
-            <div class="explain" id="explain-${qi}"></div>
-          </div>
-        `).join("");
-      }
-
-      function toggleTimer(){
-        if(timerId){ stopTimer(); return; }
-        timerId = setInterval(() => {
-          seconds--;
-          renderTimer();
-          if(seconds === 5*60) toast("5 minutes left. Answer remaining questions first.");
-          if(seconds <= 0){
-            stopTimer();
-            toast("Time is up. Submit your answers.");
-          }
-        }, 1000);
-        document.getElementById("timerBtn").textContent = "Pause";
-      }
-
-      function stopTimer(){
-        if(timerId) clearInterval(timerId);
-        timerId = null;
-        const btn = document.getElementById("timerBtn");
-        if(btn) btn.textContent = "Start";
-      }
-
-      function renderTimer(){
-        const m = String(Math.floor(seconds/60)).padStart(2,"0");
-        const s = String(seconds%60).padStart(2,"0");
-        document.getElementById("timer").textContent = `${m}:${s}`;
-      }
-
-      function submit(){
-        if(submitted){
-          toast("This attempt has already been submitted.");
-          return;
-        }
-        submitted = true;
-        stopTimer();
-
-        const p = papers[currentPaper];
-        let correct = 0;
-        const parts = {};
-        const typeErrors = {};
-
-        p.questions.forEach((q, qi) => {
-          const selected = document.querySelector(`input[name="q${qi}"]:checked`);
-          const ans = selected ? Number(selected.value) : -1;
-          const isCorrect = ans === q.answer;
-          if(isCorrect) correct++;
-
-          parts[q.part] = parts[q.part] || { correct:0, total:0 };
-          parts[q.part].total++;
-          if(isCorrect) parts[q.part].correct++;
-
-          if(!isCorrect){
-            typeErrors[q.type] = (typeErrors[q.type] || 0) + 1;
-          }
-
-          const card = document.querySelector(`.question-card[data-q="${qi}"]`);
-          card.querySelectorAll(".option").forEach(opt => {
-            const oi = Number(opt.dataset.option);
-            if(oi === q.answer) opt.classList.add("correct");
-            if(oi === ans && oi !== q.answer) opt.classList.add("wrong");
-          });
-
-          const explain = document.getElementById(`explain-${qi}`);
-          explain.innerHTML = `<b>Answer: ${String.fromCharCode(65+q.answer)}</b><br>${q.why}`;
-          explain.classList.add("show");
-        });
-
-        const totalQ = p.questions.length;
-        const score90 = Math.round((correct / totalQ) * 90);
-        const percent = Math.round((correct / totalQ) * 100);
-        const weakestType = Object.entries(typeErrors).sort((a,b)=>b[1]-a[1])[0]?.[0] || "None";
-
-        const activeVault = JSON.parse(localStorage.getItem("muet_active_vault") || "{}");
-
-        const session = {
-          vaultId: activeVault.vaultId || "FREE-PRACTICE",
-          vaultTitle: activeVault.vaultTitle || "Free Practice",
-          paperId: activeVault.paperId || "UNASSIGNED",
-          paper: p.label,
-          date: new Date().toISOString(),
-          rawScore: correct,
-          totalQ,
-          score90,
-          percent,
-          parts,
-          weakestType,
-          timeTaken: Math.round((p.time - seconds) / 60),
-          xpEarned: 70 + correct * 8
-        };
-
-        const history = JSON.parse(localStorage.getItem(LS_HISTORY) || "[]");
-        history.push(session);
-        localStorage.setItem(LS_HISTORY, JSON.stringify(history));
-        updateProfile(session);
-
-        document.getElementById("resultScore").textContent = `${correct}/${totalQ} · ${score90}/90`;
-        document.getElementById("resultFeedback").textContent = feedback(percent, weakestType);
-        document.getElementById("partSummary").innerHTML = Object.entries(parts).map(([part, data]) => `
-          <div class="part-row">${part}: ${data.correct}/${data.total}</div>
-        `).join("") + `<div class="part-row">Weakest Question Type: ${weakestType}</div>`;
-
-        document.getElementById("resultCard").classList.add("show");
-        toast("Reading score saved to Hub.");
-        window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
-      }
-
-      function feedback(percent, weakestType){
-        if(percent >= 80) return `Excellent. Your reading accuracy is strong. Continue with timed full-paper practice.`;
-        if(percent >= 65) return `Good progress. Review your mistakes, especially ${weakestType} questions.`;
-        if(percent >= 50) return `Developing. Use question-first strategy and underline keywords before reading. Weak area: ${weakestType}.`;
-        return `Foundation practice needed. Focus on direct retrieval and paraphrase questions before inference. Weak area: ${weakestType}.`;
-      }
-
-      function updateProfile(session){
-        const profile = JSON.parse(localStorage.getItem(LS_PROFILE) || "{}");
-        profile.xp = (profile.xp || profile.xpTotal || 0) + (session.xpEarned || 70);
-        profile.streak = profile.streak || 1;
-        profile.badges = profile.badges || ["first_step"];
-        profile.badges.push("passage_hunter");
-        if(session.percent >= 80) profile.badges.push("speed_reader");
-        profile.badges = [...new Set(profile.badges)];
-        profile.lastVisit = new Date().toISOString();
-        localStorage.setItem(LS_PROFILE, JSON.stringify(profile));
-      }
-
-      function resetPractice(){
-        submitted = false;
-        seconds = papers[currentPaper].time;
-        stopTimer();
-        renderTimer();
-        renderPaper();
-        document.getElementById("resultCard").classList.remove("show");
-        toast("Reading practice reset.");
-      }
-
-      function toast(msg){
-        const t = document.getElementById("toast");
-        t.textContent = msg;
-        t.classList.add("show");
-        setTimeout(() => t.classList.remove("show"), 2500);
-      }
-
-      return {init,setPaper,toggleTimer,submit,resetPractice};
-    })();
-
-    document.addEventListener("DOMContentLoaded", ReadingApp.init);
-  </script>
+document.addEventListener('DOMContentLoaded',()=>{
+  renderPassage();
+  document.getElementById('b-s1').style.display='block';
+  document.getElementById('c-s1').textContent='▴';
+});
+</script>
 </body>
 </html>
