@@ -617,3 +617,72 @@ input:focus,select:focus{outline:4px solid rgba(7,87,255,.25)}
 .cycle-node small  { display: block; font-size: 11px; margin-top: 4px; color: var(--muted); }
 .cycle-node.unlocked   { background: var(--yellow); }
 .cycle-node.completed  { background: #b8ff36; }
+
+
+/* === Vault Placeholder States v1.8 === */
+
+/* Locked vault card — greyed overlay feel */
+.vault-card.locked-card {
+  opacity: 0.88;
+}
+.vault-card.locked-card::after {
+  background: #e2e8f0;
+}
+
+/* Component tile locked state */
+.component-tile.tile-locked {
+  background: #f1f5f9;
+  color: var(--muted);
+}
+.component-tile.tile-locked small {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* Vault status badge variants */
+.vault-status.status-soon {
+  background: #e2e8f0;
+  color: var(--muted);
+  border-color: #cbd5e1;
+  box-shadow: 2px 2px 0 #cbd5e1;
+}
+
+/* Locked action buttons */
+.vault-actions.actions-locked button.btn-locked {
+  background: #f1f5f9;
+  color: #94a3b8;
+  border-color: #cbd5e1;
+  box-shadow: 2px 2px 0 #cbd5e1;
+  cursor: not-allowed;
+}
+
+/* Progress label below bar */
+.progress-label {
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--muted);
+  margin-top: 6px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+/* Vault tip note variants */
+.vault-tip {
+  border-radius: 14px;
+  padding: 9px 12px;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.4;
+  margin-top: 4px;
+  border: 2px solid var(--ink);
+}
+.vault-tip.tip-starter  { background: #b8ff36; }
+.vault-tip.tip-mock     { background: var(--pink); }
+.vault-tip.tip-practice { background: #dbeafe; }
+.vault-tip.tip-locked   {
+  background: #f8fafc;
+  color: var(--muted);
+  border-style: dashed;
+  border-color: #94a3b8;
+}
