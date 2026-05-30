@@ -8,107 +8,91 @@
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/muet-neopop.css"/>
   <style>
-    .audio-player{background:var(--ink);color:white;border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:18px;margin-bottom:16px}
-    .audio-player .tiny{color:rgba(255,255,255,.65)}
-    .audio-player h2{margin:6px 0 12px}
-    .audio-player audio{width:100%;border-radius:12px;margin-bottom:10px;accent-color:var(--yellow)}
-    .audio-note{font-size:11px;font-weight:900;color:rgba(255,255,255,.55);margin-top:8px}
-    .play-warning{background:var(--yellow);color:var(--ink);border:var(--line);border-radius:14px;padding:10px 14px;font-size:12px;font-weight:900;margin-top:10px}
-    .part-nav{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;margin-bottom:14px}
-    .part-btn{flex:0 0 auto;border:var(--line);border-radius:14px;background:white;box-shadow:3px 3px 0 var(--ink);padding:8px 14px;font-weight:1000;font-size:13px;cursor:pointer}
-    .part-btn.active{background:var(--yellow)}
-    .coach-card{background:var(--L);border:var(--line);box-shadow:var(--shadow);border-radius:22px;padding:14px;margin-bottom:16px;font-weight:900}
-    .question-card{background:var(--paper);border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:14px}
-    .question-card h3{font-size:16px;margin-bottom:10px}
-    .qtag{display:inline-block;background:var(--orange);color:white;border:2px solid var(--ink);border-radius:999px;padding:4px 10px;font-size:11px;font-weight:1000;margin-bottom:8px}
+    .listening-hero{background:var(--yellow);color:var(--ink)}
+    .listening-hero p{font-weight:900}
+    .session-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+    .session-tab{border:var(--line);box-shadow:3px 3px 0 var(--ink);border-radius:16px;background:white;padding:12px;font-weight:1000}
+    .session-tab.active{background:var(--blue);color:white}
+    .audio-panel{background:var(--ink);color:white;border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
+    .audio-panel .tiny{color:rgba(255,255,255,.7)}
+    .wave{height:54px;border:2px solid white;border-radius:16px;background:repeating-linear-gradient(90deg, var(--yellow) 0 7px, transparent 7px 14px);margin:12px 0;animation:waveMove 2.2s linear infinite}
+    @keyframes waveMove{from{background-position:0 0}to{background-position:84px 0}}
+    .audio-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .part-nav{display:flex;gap:8px;overflow-x:auto;padding:4px 4px 12px;margin-bottom:10px}
+    .part-btn{flex:0 0 auto;border:var(--line);box-shadow:3px 3px 0 var(--ink);border-radius:14px;background:white;padding:10px 12px;font-weight:1000}
+    .part-btn.active{background:var(--pink)}
+    .coach-card{background:#b8ff36;border:var(--line);box-shadow:var(--shadow);border-radius:22px;padding:14px;margin-bottom:16px;font-weight:900}
+    .question-card{background:var(--paper);border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
+    .question-card h3{font-size:17px;margin-bottom:10px}
     .options{display:grid;gap:10px}
-    .option{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;border:2px solid var(--ink);border-radius:14px;background:white;padding:11px;font-weight:800;cursor:pointer}
+    .option{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;border:2px solid var(--ink);border-radius:14px;background:white;padding:11px;font-weight:800}
     .option input{width:20px;height:20px;box-shadow:none;margin-top:1px}
-    .option.correct{background:#bbf7d0;border-color:#15803d}
-    .option.wrong{background:#fecaca;border-color:#dc2626}
-    .explain{display:none;margin-top:10px;border:2px solid var(--ink);border-radius:14px;background:#fff7cc;padding:12px;font-weight:800;font-size:13px;line-height:1.5}
+    .option.correct{background:#bbf7d0}
+    .option.wrong{background:#fecaca}
+    .note-box{width:100%;min-height:64px;margin-top:10px;border:2px dashed var(--ink);border-radius:14px;background:#fff;padding:10px;font:inherit;font-weight:700}
+    .explain{display:none;margin-top:10px;border:2px solid var(--ink);border-radius:14px;background:#fff7cc;padding:10px;font-weight:800}
     .explain.show{display:block}
-    .explain .why-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:1000;margin-bottom:4px}
-    .trap-note{background:var(--orange);color:white;border-radius:8px;padding:6px 10px;font-size:11px;margin-top:8px;display:block}
-    .note-box{background:white;border:var(--line);border-radius:18px;padding:14px;margin-bottom:16px}
-    .note-box h3{font-size:15px;margin-bottom:8px}
-    .note-box textarea{width:100%;min-height:80px;border:2px solid var(--ink);border-radius:12px;padding:10px;font:inherit;font-weight:700;font-size:13px;resize:vertical}
-    .transcript-panel{display:none;background:#f0f9ff;border:2px solid var(--blue);border-radius:18px;padding:14px;margin-top:12px;font-size:13px;font-weight:700;line-height:1.6;white-space:pre-line}
-    .transcript-panel.show{display:block}
-    .result-card{display:none;background:#b8ff36;border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
-    .result-card.show{display:block}
-    .part-summary{display:grid;gap:8px;margin-top:12px}
-    .part-row{background:white;border:2px solid var(--ink);border-radius:14px;padding:10px 12px;font-weight:900;display:flex;justify-content:space-between;align-items:center}
-    .part-row small{color:var(--muted)}
+    .transcript-box{display:none;background:white;border:var(--line);border-radius:18px;padding:12px;margin-top:12px;font-weight:800;white-space:pre-line}
+    .transcript-box.show{display:block}
+    .qtag{display:inline-block;background:var(--blue);color:white;border:2px solid var(--ink);border-radius:999px;padding:4px 8px;font-size:11px;font-weight:1000;margin-bottom:8px}
     .button-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
     .button-row .wide{grid-column:1/-1}
-    .session-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-    .session-tab{border:var(--line);box-shadow:3px 3px 0 var(--ink);border-radius:16px;background:white;padding:12px;font-weight:1000;cursor:pointer}
-    .session-tab.active{background:var(--yellow)}
+    .result-card{display:none;background:#b8ff36;border:var(--line);box-shadow:var(--shadow);border-radius:24px;padding:16px;margin-bottom:16px}
+    .result-card.show{display:block}
+    .part-summary{display:grid;gap:10px;margin-top:12px}
+    .part-row{background:white;border:2px solid var(--ink);border-radius:14px;padding:10px;font-weight:900}
+    .mode-note{font-size:12px;color:rgba(255,255,255,.72);font-weight:800}
   </style>
 </head>
 <body>
   <main class="phone-shell">
     <section class="screen active">
       <div class="brand-bar dark">
-        <button onclick="location.href='index.html'" class="hamb">&#8592;</button>
+        <button onclick="location.href='index.html'" class="hamb">←</button>
         <div>
           <div class="brand-small">MUET SmartHub Module</div>
           <div class="brand-title">SmartListening</div>
         </div>
-        <button class="hamb">&#127911;</button>
+        <button class="hamb">🎧</button>
       </div>
 
-      <div class="hero-neo" style="background:var(--L);color:var(--ink)">
+      <div class="hero-neo listening-hero">
         <div>
           <p class="tiny">Listening 800/1</p>
-          <h1>Listen smart.</h1>
-          <p style="font-weight:900">Write keywords, not sentences. Wait for the full answer before you write.</p>
+          <h1>Listen for keywords.</h1>
+          <p>Practise notes, distractors, answer checking and transcript review.</p>
         </div>
       </div>
 
       <div class="session-tabs">
-        <button id="tabS1" class="session-tab active" onclick="ListeningApp.setSession('S1')">
-          MPM Sample<br><small style="font-weight:900;font-size:11px">Cycle 1</small>
-        </button>
-        <button id="tabS2" class="session-tab" onclick="ListeningApp.setSession('S2')">
-          Practice Set 2<br><small style="font-weight:900;font-size:11px">Cycle 2</small>
-        </button>
+        <button id="tabS1" class="session-tab active" onclick="ListeningApp.setSession('S1')">Session 1</button>
+        <button id="tabS2" class="session-tab" onclick="ListeningApp.setSession('S2')">Session 2</button>
       </div>
 
-      <div class="coach-card">
-        <div class="tag">&#127911; DANI &mdash; Listening Coach</div>
-        <p id="coachTip">Read the questions before the audio starts. Write 2&ndash;3 keywords per answer only. The answer you hear FIRST is often a distractor!</p>
-      </div>
-
-      <div class="audio-player">
-        <p class="tiny">NOW PLAYING</p>
-        <h2 id="audioPartTitle">Part 1 &mdash; Conversation</h2>
-        <audio id="audioPlayer" controls preload="none">
-          <source id="audioSource" src="" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-        <div class="play-warning">
-          &#9888;&#65039; Listen carefully &mdash; each recording plays twice in the real exam. Practise the same way here.
+      <div class="audio-panel">
+        <p class="tiny" id="sessionLabel">Listening Practice Session 1</p>
+        <h2 id="audioTitle">Audio Simulation</h2>
+        <p class="mode-note">Prototype mode: use the “Play Script” button for browser speech audio. Later we will replace this with real MUET audio files.</p>
+        <div class="wave"></div>
+        <div class="audio-actions">
+          <button class="neo-btn yellow" onclick="ListeningApp.playScript()">▶ Play Script</button>
+          <button class="neo-btn pink" onclick="ListeningApp.stopScript()">■ Stop</button>
         </div>
-        <p class="audio-note">Audio hosted on Google Drive &middot; Ensure you are connected to the internet</p>
-        <div id="nextDialogueHint" style="display:none;background:var(--teal);color:var(--ink);border:var(--line);border-radius:12px;padding:8px 12px;font-size:11px;font-weight:900;margin-top:8px"></div>
       </div>
 
       <div class="part-nav" id="partNav"></div>
 
-      <div class="note-box">
-        <h3>&#128221; Quick Notes</h3>
-        <textarea id="noteBox" placeholder="Write keywords here while listening. e.g. 'holiday / geography / flew / beach view'"></textarea>
+      <div class="coach-card">
+        <div class="tag">LISTENING STRATEGY</div>
+        <p id="coachTip">Read questions during silence. Write keywords, not full sentences.</p>
       </div>
 
       <div id="questionList"></div>
-      <div id="transcriptPanel" class="transcript-panel"></div>
 
       <div class="neo-panel">
         <div class="button-row">
-          <button class="neo-btn yellow wide" onclick="ListeningApp.submit()">Submit Answers</button>
-          <button class="neo-btn black" onclick="ListeningApp.showTranscript()">Show Transcript</button>
+          <button class="neo-btn yellow wide" onclick="ListeningApp.submit()">Submit Listening Answers</button>
+          <button class="neo-btn black" onclick="ListeningApp.resetPractice()">Reset</button>
           <button class="neo-btn pink" onclick="location.href='index.html'">Hub</button>
         </div>
       </div>
@@ -121,278 +105,342 @@
         <button class="neo-btn black" onclick="location.href='index.html'">Return to Hub Dashboard</button>
       </div>
     </section>
+
     <div id="toast" class="toast">Saved</div>
   </main>
 
   <script>
-  const ListeningApp = (() => {
-    const LS_PROFILE = 'muet_profile';
-    const LS_SESSIONS = 'muet_listening_sessions';
+    const ListeningApp = (() => {
+      const LS_PROFILE = "muet_profile";
+      const LS_SESSIONS = "muet_listening_sessions";
 
-    // Convert GD share link file ID to direct streamable URL
-    function gd(id){ return 'https://drive.google.com/uc?export=download&id=' + id; }
-
-    const TRACKS = {
-      T1: gd('1PmD1Ye8WwF59u9XTHc8IOAM9G7jX1ob4'),
-      T2: gd('1PnBg2n_bTocbE9qtOlr_oo6lrpcUD4W1'),
-      T3: gd('1PqYF3zWe85Ov1Q-XgYGGWrEA988idgxm'),
-      T4: gd('1PrwBE9BX9jvXttq9x9SdvNDADYB1Zg5u'),
-      T5: gd('1PsA_IkWT4rNfV67kAe6GaOS3d55M2WUr'),
-      T6: gd('1PsnCjeyp5GDuhB4wBfPlLSAL1k6LTJJu'),
-      T7: gd('1PtecHXQ-a9sfxJDQTvDkPWA0hGTvYEa4'),
-      T8: gd('1Q-Aep4zOh6Btaufz10ffj5ZrRhziUWuw')
-    };
-
-    const SESSIONS = {
-      S1: {
-        label: 'MPM Sample Questions',
-        coachTip: 'Official MPM sample paper. Focus on Part 3 (matching speakers to problems) and Part 5 (multi-dialogue). Wait for each speaker to FINISH before writing.',
-        parts: [
-          {
-            id:'P1', label:'Part 1', title:'Part 1 — Lily & Rayyan (Q1-7)', track:'T2',
-            transcript:'Rayyan: Hi Lily. I heard you went on a holiday?\nLily: It was not a holiday — I went to Kuala Pelangi for a geography course trip. We had to write about it.\nRayyan: How did you get there?\nLily: My friend and I decided to go by air. At first we thought of going by bus, but it would take too long.\nRayyan: Where did you stay?\nLily: The Pelangi Beach Hotel. They included lunch on the first day free of charge — most hotels offer a free drink but never a meal. The restaurant is right by the beach. The staff were great, but the best thing was the view.\nRayyan: What did you do after lunch?\nLily: We got brochures at reception and picked up maps at the tourist info centre — though we had already downloaded and printed maps before we left home.\nRayyan: What did you like best?\nLily: The Central Market. The things were a lot cheaper than we expected.\nLily: In the evening — three food stalls beside the hotel. Raja Chips was in the middle with a long queue. Ben\'s Fried Rice was the stall furthest from our hotel. Sam\'s Noodles was nearest to our hotel.',
-            questions:[
-              {q:'Why did Lily go to Kuala Pelangi?',options:['For a holiday','To do some shopping','As part of her geography course'],answer:2,why:'Lily says the trip was part of her course — she had to write about it afterwards. It was a geography course requirement, not a holiday.',trap:'She mentions having fun so it sounds like a holiday — but she says directly "It was not actually a holiday."'},
-              {q:'How did Lily and her friends travel to Kuala Pelangi?',options:['They flew.','They drove.','They took a bus.'],answer:0,why:'Lily says "we decided to go by air." Going by air = they flew = A.',trap:'She mentions bus FIRST but then says they chose air instead. Always wait for the FINAL decision before writing your answer.'},
-              {q:'The hotel was different from other hotels because it offered',options:['free drinks','a free lunch','a discount for the rooms'],answer:1,why:'Lily says "they even included lunch on the first day free of charge." A free meal = B.',trap:'She says OTHER hotels offer free drinks — but the Pelangi Beach offered a free LUNCH, which made it different.'},
-              {q:'What did Lily and her friends like BEST about the hotel restaurant?',options:['Really good food','A beautiful view','Friendly staff'],answer:1,why:'Lily says "the best thing was the view." Best thing = view = B.',trap:'She mentions good food AND friendly staff — but the KEY word is "best thing" which she clearly says is the view.'},
-              {q:'What did they do after lunch?',options:['Collected information','Downloaded maps','Took photographs'],answer:0,why:'They got brochures and info from the tourist centre — collecting information = A.',trap:'She says they downloaded maps BEFORE leaving home, not after lunch.'},
-              {q:'What surprised them about the market?',options:['The huge size','The variety of things','The cheap prices'],answer:2,why:'Lily says "they were a lot cheaper than we expected." Cheaper than expected = surprised by prices = C.',trap:'She says "the market itself is not very big" so A (huge size) is wrong.'},
-              {q:'Which map shows the correct position of the three food stalls?',options:['Map A — Raja Chips nearest hotel','Map B — Sam\'s Noodles in middle','Map C — Sam\'s nearest, Raja Chips middle, Ben\'s furthest'],answer:2,why:'Raja Chips = middle. Ben\'s Fried Rice = furthest from hotel. Sam\'s Noodles = nearest to hotel. Only Map C matches all three positions.',trap:'Raja Chips being in the MIDDLE is the key anchor. Work from that outward.'}
-            ]
-          },
-          {
-            id:'P2', label:'Part 2', title:'Part 2 — Mandy Lee (Q8-14)', track:'T3',
-            transcript:'Teacher: Mandy visited our school four years ago when we were collecting money for a new gym. She donated RM10,000. She came back the next year when the new gym was opened.\nMandy chose not to continue studying after school. She began baking butter cookies and cakes — everyone loved them. Later she tried egg tarts. Making egg tarts was not easy but after six months she learned how.\nShe attended a course and learned to build a website. She sold baked goods online, then saved enough to open her first cafe, The Tiny Attractions. She sold homemade food and displayed the full ingredient list on the walls — this made her cafe unique.\nFor the second cafe, she found a place near the first one. Looking for staff was difficult. The new cafe got great online reviews so she did not need to advertise.\nThe name Tiny Attractions — Mandy is small in size and her egg tarts are bite-sized. She worked day and night to achieve her goals.',
-            questions:[
-              {q:'How many times has Mandy visited the school since she left?',options:['Once','Twice','Thrice'],answer:1,why:'Visit 1: four years ago to donate for the gym. Visit 2: the following year for the gym opening. Total = 2 = Twice = B.',trap:'Count carefully — she donated during one visit and returned for the opening on a SEPARATE visit. That is two visits total.'},
-              {q:'It took Mandy a long time to perfect the',options:['cakes','egg tarts','butter cookies'],answer:1,why:'"Making egg tarts was not easy but after six months she learned how." Six months = long time = egg tarts = B.',trap:'She made butter cookies and cakes first and "everyone loved them" — those were easy. Only egg tarts took six months.'},
-              {q:'Why did Mandy decide to start selling her food online?',options:['She had experience designing websites','She did not have enough money to open a shop','She could take orders from expensive restaurants'],answer:1,why:'She needed a large sum of money to open a shop but did not have it yet — so she sold online first. B is correct.',trap:'She LEARNED to design websites from a course — she did not already have experience. C happened AFTER she started selling online.'},
-              {q:'What made Mandy\'s first cafe different?',options:['The food was delicious','She sold homemade food','She displayed the ingredient list'],answer:2,why:'Teacher says displaying the full ingredient list "made her cafe unique." Unique = different = C.',trap:'Homemade food (B) is mentioned but many cafes sell homemade food. The UNIQUE thing was the full ingredient list on the walls.'},
-              {q:'What did Mandy find difficult when she opened her second cafe?',options:['Looking for staff','Choosing the location','Advertising the business'],answer:0,why:'"Looking for staff was not easy." Difficult = not easy = A.',trap:'She found a suitable location near the first cafe (easy). She did not need to advertise because of good reviews. Only STAFF was the challenge.'},
-              {q:'Why did Mandy call her business The Tiny Attractions?',options:['The name describes her and her food','The cafes were small but attracted many people','The food sold was less fattening'],answer:0,why:'The name refers to TWO things: (1) Mandy herself is tiny, and (2) the egg tarts are bite-sized/tiny. The name describes both her AND her food = A.',trap:'C (less fattening) is mentioned as why young women liked the tarts — not why she chose the NAME.'},
-              {q:'Mandy\'s story makes us realise that it is important to',options:['Do well at school','Keep our dream career in mind','Work hard to achieve our dream'],answer:2,why:'Teacher says "She worked day and night to achieve her goals." Working hard to achieve your dream = C.',trap:'A (do well at school) is wrong — Mandy chose NOT to continue studying. Hard work and passion, not academic results, is the message.'}
-            ]
-          },
-          {
-            id:'P3', label:'Part 3', title:'Part 3 — Matching (Q15-17)', track:'T4',
-            transcript:'Edmund: I prefer to study at night when it is silent. But many of my classes start at 8am and if I have been working late, even the alarm will not wake me. I frequently do not make it to class.\n\nRani: My lecturers are motivating and I enjoy lectures. My grades have been exceptionally high. However when I voice my opinion in class, many students oppose me — particularly the boys. I have to be cautious about what I say and how I say it.\n\nAbdullah: I stay in the hostel and cannot cook. My food choice is limited to the cafeteria. I need nutritious food for sports but fruits and vegetables are expensive. I frequently need to stretch my allowance. I cannot go out with friends — I tell them I need to study rather than admit I am short of funds.',
-            questions:[
-              {q:'Speaker 1 — Edmund\'s main problem:',options:['A — Consuming unhealthy diet','B — Missing certain classes','C — Surviving on a small budget','D — Obtaining low grades','E — Interacting with others'],answer:1,why:'"I frequently do not make it to class." Missing classes = B.',trap:'He studies hard at night so D (low grades) might seem possible — but his stated problem is missing class, not low grades.'},
-              {q:'Speaker 2 — Rani\'s main problem:',options:['A — Consuming unhealthy diet','B — Missing certain classes','C — Surviving on a small budget','D — Obtaining low grades','E — Interacting with others'],answer:4,why:'Many students oppose her when she speaks. She struggles with social dynamics in class = interacting with others = E.',trap:'Her grades are "exceptionally high" so D is wrong. The problem is how OTHERS react to her when she speaks.'},
-              {q:'Speaker 3 — Abdullah\'s main problem:',options:['A — Consuming unhealthy diet','B — Missing certain classes','C — Surviving on a small budget','D — Obtaining low grades','E — Interacting with others'],answer:2,why:'"I frequently need to stretch my allowance." He cannot afford to go out or buy healthy food = tight budget = C.',trap:'A (unhealthy diet) is tempting because he mentions food — but the ROOT cause is money. He WANTS healthy food but CANNOT AFFORD it.'}
-            ]
-          },
-          {
-            id:'P4', label:'Part 4', title:'Part 4 — Pet Care (Q18-24)', track:'T5',
-            transcript:'Host: Welcome Dr Rahman to talk about caring for pets.\nDr Rahman: For diet information — the Internet has info but mostly by foreigners, may not apply here. A vet can be expensive. The best way is going to a pet shop for advice.\nHost: Chocolate, ice cream, grapes — safe for dogs?\nDr Rahman: Chocolate is dangerous even in small amounts. Ice cream is safe in small quantities. Grapes are a definite no-no — dogs have died from just one grape.\nHost: Advice on changing a pet\'s diet?\nDr Rahman: Start with a bit of new food mixed with original, then gradually increase the new food daily.\nHost: What about fish tanks?\nDr Rahman: Clean once every week. Leave 25% old water, fill with clean water.\nHost: Most important consideration before keeping a pet?\nDr Rahman: MOST IMPORTANTLY — choose a pet that fits your lifestyle. Also know when pets need medical attention and ensure regular vaccinations.\nHost: Anything else?\nDr Rahman: In Istanbul during cold weather, shopkeepers fed stray dogs and cats and allowed them to sleep in their shop premises.',
-            questions:[
-              {q:'The best place to get information about the proper diet for your pet is from',options:['a pet store','the Internet','a qualified vet'],answer:0,why:'Dr Rahman says "The best way is by going to a pet shop." Best = A.',trap:'Internet info may not apply locally. A vet "can be expensive." He recommends the pet shop as BEST.'},
-              {q:'What food can be given to dogs in small amounts?',options:['Ice cream','Chocolate','Grapes'],answer:0,why:'"Ice cream is safe as long as you do not give them too much." Small amounts = safe = A.',trap:'Chocolate is dangerous even in small amounts. Grapes can kill even in tiny amounts. ONLY ice cream is safe in small quantities.'},
-              {q:'When changing a pet\'s diet, it is recommended that pet owners',options:['give equal quantities of new and original food','mix the new food with the original food','make a gradual change to the new food'],answer:2,why:'Start with a bit mixed in, then increase gradually until they eat only the new food. Overall recommendation = gradual change = C.',trap:'B (mix) is PART of the method but the overall recommendation is GRADUAL change — you eventually stop mixing.'},
-              {q:'What advice does Dr Rahman give about cleaning a fish tank?',options:['Add a little clean water every day','Change all the water twice a week','Replace most of the water once a week'],answer:2,why:'Clean once every week. Leave 25% old water, fill rest with clean water. Replacing most (75%) of the water once a week = C.',trap:'A says every day — wrong, once a week. B says ALL the water — wrong, leave 25% old water.'},
-              {q:'Which of the following is true about pet owners?',options:['They allow children to care for the pets','They keep a wide variety of animals as pets','They are aware that keeping pets is beneficial'],answer:2,why:'"People have become more aware of the advantages of keeping a pet." Aware of advantages = C.',trap:'A is not stated as general truth. B — he says rats and mice are not popular here so wide variety is not supported.'},
-              {q:'What is the MOST IMPORTANT consideration before keeping a pet?',options:['To choose a pet that matches the owner\'s lifestyle','To ensure the pet has all vaccinations','To understand vital signs the pet needs medical attention'],answer:0,why:'Dr Rahman uses the exact phrase "MOST IMPORTANTLY — owners should choose a pet that fits their lifestyle." = A.',trap:'He mentions vaccinations and recognising illness too — but the phrase "most importantly" is specifically used for lifestyle matching.'},
-              {q:'During recent cold weather in Istanbul, homeless dogs and cats were',options:['cared for in the homes of families','taken in by local shop-owners','left to survive on their own'],answer:1,why:'"Shopkeepers fed them and allowed them to sleep indoors in their premises." Shop premises = local shop-owners = B.',trap:'A says homes of FAMILIES — it was SHOPKEEPERS who took them into their SHOPS, not families into homes.'}
-            ]
-          },
-          {
-            id:'P5a', label:'Part 5 · D1', title:'Part 5 — Dialogue 1: Flying Programme (Q25-26)', track:'T6',
-            transcript:'Promoter: Hi good morning! Have you ever dreamed of flying an aeroplane?\nCustomer: Are you joking?\nPromoter: Our company offers a One Day Pilot Programme at Subang Skypark.\nCustomer: Tell me more.\nPromoter: If you are under twelve, you cannot take part. You need your parents permission if you are under eighteen. You need to be reasonably fit. You do not need any experience or academic qualifications. But you must be able to follow instructions in English.\nCustomer: Will I be flying alone?\nPromoter: Before the flight, you will meet your pilot instructor and he will give you an hour of training. The instructor will steer the plane for take-off. Once you are in the air, he will gradually let you take over the controls. The instructor has his own set of controls to assist you if necessary.\nCustomer: Fantastic! I will think about it.',
-            questions:[
-              {q:'Participants in the flying programme should',options:['be in good health','get their parents\' permission','have an English qualification'],answer:0,why:'"You need to be reasonably fit" = be in good health = A. Being fit is a general requirement for ALL participants.',trap:'Parents\' permission (B) is only needed for those UNDER 18 — not a general requirement for everyone. No academic qualifications are needed at all (C is wrong).'},
-              {q:'During take-off',options:['the instructor will be fully in control','the instructor and the participant will have joint control','the participant will be in control under the instructor\'s guidance'],answer:0,why:'"The instructor will steer the plane for take-off." Steer = fully in control = A.',trap:'After take-off the student GRADUALLY takes over — but the question asks specifically about DURING TAKE-OFF only. At that moment, the instructor steers alone.'}
-            ]
-          },
-          {
-            id:'P5b', label:'Part 5 · D2', title:'Part 5 — Dialogue 2: Business Solutions (Q27-28)', track:'T7',
-            transcript:'Fendy: Hello, Business Solutions, Fendy speaking. How can I help you?\nTheresa: I noticed on your website that you run courses for people starting a business.\nFendy: We have a two-hour course called "Getting Started" — free of charge. We also have "Business Basics", a three-day course. It is RM380, but if you have been unemployed for the past six months, it is just RM90.\nFendy: Have you started your business?\nTheresa: Yes, three months ago. It looks like the reduced rate does not apply to me.\nFendy: Where are you based?\nTheresa: Subang.\nFendy: The closest to you is in Damansara. There is one on the 5th of March, and another on the 18th of April.\nTheresa: 5th of March is perfect! I will register for that.',
-            questions:[
-              {q:'The course which applies to Theresa is',options:['the free "Getting Started" course','the RM90 "Business Basics" course','the RM380 "Business Basics" course'],answer:2,why:'Theresa started her business 3 months ago — she is NOT unemployed for 6 months. She does not qualify for the discount. She pays the full RM380 = C.',trap:'She herself confirms "the reduced rate does not apply to me." The RM90 rate (B) only applies to people unemployed for 6 months, which she is not.'},
-              {q:'Theresa can attend the course on 5th of March in',options:['Bangi','Subang','Damansara'],answer:2,why:'Fendy says "the closest to you [Subang] is in Damansara. There is one on 5th of March." The venue = Damansara = C.',trap:'Theresa is BASED in Subang but the COURSE location is Damansara. Subang is where she lives, not where the course is held.'}
-            ]
-          },
-          {
-            id:'P5c', label:'Part 5 · D3', title:'Part 5 — Dialogue 3: College Project (Q29-30)', track:'T8',
-            transcript:'Mimi: The instruction says "Investigate your college facilities." To investigate we need to design a questionnaire. Then we have to write a report and do a presentation.\nKamil: An essay? I thought it was a report.\nMimi: Let me check. Oh yes — you are right! It is a report.\nKamil: What do you propose we investigate?\nMimi: The library is under renovation — there is hardly anything there. There are more challenging topics to work on. Transport for example — what students think about the bus service and bicycle rental service.\nKamil: OK that is brilliant. Let us do the questionnaire first. I will prepare questions related to the bus service, and you do the bicycle rental service.\nMimi: Should we not write the questionnaire together rather than individually?\nKamil: Yes, we work on the questions together and then compile them into one questionnaire.\nMimi: I think you should interview some students as well as the bus drivers. I will interview the students who rent the bicycles.',
-            questions:[
-              {q:'Kamil and Mimi chose to investigate college transportation because',options:['the library is being renovated','students prefer the grab car service','it is a more demanding topic to work on'],answer:2,why:'Mimi says "There are more challenging topics to work on, transport for example." More challenging = more demanding = C.',trap:'A (library renovation) is mentioned as a reason NOT to choose the library — but the reason they chose transport is that it is MORE CHALLENGING, not just because the library was unavailable.'},
-              {q:'In which part of the project should Kamil and Mimi work separately?',options:['Writing the report','Conducting the interviews','Preparing the questionnaires'],answer:1,why:'They write the questionnaire TOGETHER then compile it. But interviews are separate — Kamil interviews bus drivers, Mimi interviews bicycle users. Work separately = interviews = B.',trap:'Preparing questionnaires (C) — they explicitly agree to do this TOGETHER: "we work on the questions together." Only the INTERVIEWS are conducted separately.'}
-            ]
-          }
-        ]
-      },
-
-      S2: {
-        label: 'Practice Set 2 — Cycle 2',
-        coachTip: 'Cycle 2 practice set. Materials will be added once collected. Focus on reviewing Cycle 1 feedback first.',
-        parts: [
-          {
-            id:'P1', label:'Part 1', title:'Part 1 — Coming Soon', track:'T2',
-            transcript:'Practice Set 2 full transcript will be added once materials are collected.',
-            questions:[
-              {q:'Practice Set 2 content is being collected. Please revisit Cycle 1 first to review all distractor explanations.',options:['Understood'],answer:0,why:'Full Cycle 2 materials will be loaded once collected from source.',trap:''}
-            ]
-          }
-        ]
-      }
-    };
-
-    let currentSession = 'S1';
-    let currentPartIndex = 0;
-    let submitted = false;
-
-    function init(){ setSession('S1'); }
-
-    function setSession(id){
-      currentSession = id;
-      currentPartIndex = 0;
-      submitted = false;
-      document.getElementById('tabS1').classList.toggle('active', id === 'S1');
-      document.getElementById('tabS2').classList.toggle('active', id === 'S2');
-      const s = SESSIONS[id];
-      document.getElementById('coachTip').textContent = s.coachTip;
-      document.getElementById('resultCard').classList.remove('show');
-      document.getElementById('transcriptPanel').classList.remove('show');
-      document.getElementById('noteBox').value = '';
-      renderPartNav();
-      setPart(0);
-    }
-
-    function renderPartNav(){
-      const s = SESSIONS[currentSession];
-      document.getElementById('partNav').innerHTML = s.parts.map((p, i) =>
-        '<button class="part-btn ' + (i===0?'active':'') + '" id="partBtn'+i+'" onclick="ListeningApp.setPart('+i+')">' + p.label + '</button>'
-      ).join('');
-    }
-
-    function setPart(index){
-      currentPartIndex = index;
-      const part = SESSIONS[currentSession].parts[index];
-      document.querySelectorAll('.part-btn').forEach((btn, i) => btn.classList.toggle('active', i === index));
-      document.getElementById('audioPartTitle').textContent = part.title;
-      // Show next-dialogue hint for Part 5 sub-parts
-      const isDialogue = ['P5a','P5b'].includes(part.id);
-      const nextHint = document.getElementById('nextDialogueHint');
-      if(nextHint) nextHint.style.display = isDialogue ? 'block' : 'none';
-      if(nextHint && part.id === 'P5a') nextHint.textContent = '▶ After Dialogue 1 finishes, tap Part 5 · D2 above for Track 7.';
-      if(nextHint && part.id === 'P5b') nextHint.textContent = '▶ After Dialogue 2 finishes, tap Part 5 · D3 above for Track 8.';
-      document.getElementById('audioSource').src = TRACKS[part.track];
-      document.getElementById('audioPlayer').load();
-      renderQuestions(part);
-      document.getElementById('transcriptPanel').classList.remove('show');
-      window.scrollTo({top:0,behavior:'smooth'});
-    }
-
-    function renderQuestions(part){
-      const offset = SESSIONS[currentSession].parts.slice(0, currentPartIndex).reduce((s, p) => s + p.questions.length, 0);
-      document.getElementById('questionList').innerHTML = part.questions.map((q, qi) =>
-        '<div class="question-card" data-q="'+qi+'">' +
-        '<span class="qtag">' + part.label + ' Q' + (offset+qi+1) + '</span>' +
-        '<h3>' + q.q + '</h3>' +
-        '<div class="options">' +
-        q.options.map((op, oi) =>
-          '<label class="option" data-option="'+oi+'">' +
-          '<input type="radio" name="q'+qi+'" value="'+oi+'"><span>' + String.fromCharCode(65+oi) + '. ' + op + '</span>' +
-          '</label>'
-        ).join('') +
-        '</div>' +
-        '<div class="explain" id="explain-'+qi+'"></div>' +
-        '</div>'
-      ).join('');
-    }
-
-    function submit(){
-      if(submitted){ toast('Already submitted.'); return; }
-      submitted = true;
-      const s = SESSIONS[currentSession];
-      let totalCorrect = 0, totalQ = 0;
-      const partResults = [];
-
-      s.parts.forEach((part) => {
-        let partCorrect = 0;
-        part.questions.forEach((q, qi) => {
-          totalQ++;
-          const sel = document.querySelector('input[name="q'+qi+'"]:checked');
-          const ans = sel ? Number(sel.value) : -1;
-          const ok = ans === q.answer;
-          if(ok){ totalCorrect++; partCorrect++; }
-
-          const card = document.querySelectorAll('.question-card')[qi];
-          if(card){
-            card.querySelectorAll('.option').forEach(opt => {
-              const oi = Number(opt.dataset.option);
-              if(oi === q.answer) opt.classList.add('correct');
-              if(oi === ans && oi !== q.answer) opt.classList.add('wrong');
-            });
-            const explEl = document.getElementById('explain-'+qi);
-            if(explEl){
-              explEl.innerHTML =
-                '<div class="why-label">Why this is the answer:</div>' +
-                '<b>' + String.fromCharCode(65+q.answer) + ' is correct</b> \u2014 ' + q.why +
-                (q.trap ? '<span class="trap-note">\u26a0\ufe0f Distractor Alert: ' + q.trap + '</span>' : '');
-              explEl.classList.add('show');
+      const sessions = {
+        S1: {
+          title: "Session 1 — Campus Announcement",
+          label: "Listening Practice Session 1",
+          tip: "Read the questions first. Predict what you need to listen for: date, place, reason, action or speaker attitude.",
+          transcript: `Good morning students. This is a reminder about the English Language Unit workshop next Wednesday. The session will begin at 4.30 p.m. in Lecture Hall 2, not the language lab as stated earlier. Students are advised to bring their own notebooks and earphones. The workshop will focus on MUET Speaking and Writing strategies. Although attendance is encouraged, it is not compulsory. However, students who attend will receive extra practice materials after the session.`,
+          parts: [
+            {
+              name: "Part 1",
+              focus: "Direct Details",
+              questions: [
+                {
+                  type: "Detail",
+                  q: "When will the workshop be held?",
+                  options: ["Monday", "Tuesday", "Wednesday", "Friday"],
+                  answer: 2,
+                  why: "The announcement says the workshop is next Wednesday."
+                },
+                {
+                  type: "Location",
+                  q: "Where will the workshop be held?",
+                  options: ["Language lab", "Lecture Hall 2", "Main hall", "Library"],
+                  answer: 1,
+                  why: "The speaker corrects the earlier venue and says it will be in Lecture Hall 2."
+                },
+                {
+                  type: "Purpose",
+                  q: "What will the workshop focus on?",
+                  options: ["Reading and Listening", "Grammar and vocabulary", "Speaking and Writing strategies", "Essay marking only"],
+                  answer: 2,
+                  why: "The transcript states the workshop will focus on MUET Speaking and Writing strategies."
+                }
+              ]
+            },
+            {
+              name: "Part 2",
+              focus: "Inference and Attitude",
+              questions: [
+                {
+                  type: "Inference",
+                  q: "Is attendance compulsory?",
+                  options: ["Yes, for all students", "No, but students are encouraged to attend", "Only for weak students", "Only for lecturers"],
+                  answer: 1,
+                  why: "The speaker says attendance is encouraged but not compulsory."
+                },
+                {
+                  type: "Benefit",
+                  q: "What will students receive if they attend?",
+                  options: ["Free meals", "Extra practice materials", "A certificate", "Transport allowance"],
+                  answer: 1,
+                  why: "The final sentence says students who attend will receive extra practice materials."
+                }
+              ]
             }
-          }
-        });
-        partResults.push({label: part.label, correct: partCorrect, total: part.questions.length});
-      });
-
-      const score90 = Math.round((totalCorrect / totalQ) * 90);
-      const xpEarned = 30 + totalCorrect * 2;
-      const session = {
-        sessionId: currentSession,
-        date: new Date().toISOString(),
-        rawScore: totalCorrect, totalQ, score90,
-        percent: Math.round((totalCorrect/totalQ)*100),
-        partResults,
-        cycleNumber: (JSON.parse(localStorage.getItem('muet_profile')||'{}').currentCycle || 1),
-        xpEarned
+          ]
+        },
+        S2: {
+          title: "Session 2 — Student Interview",
+          label: "Listening Practice Session 2",
+          tip: "Watch for distractors. A speaker may mention one option first, then correct it later.",
+          transcript: `Interviewer: How do you usually prepare for MUET?
+Student: At first, I only focused on reading because I thought it was the hardest paper. But after doing a few practices, I realised writing was actually my weakest skill. Now I spend more time planning essays and checking grammar. I also record myself speaking twice a week. My friend suggested joining a weekend class, but I prefer online materials because I can study at night after my part-time job.`,
+          parts: [
+            {
+              name: "Part 1",
+              focus: "Distractor Awareness",
+              questions: [
+                {
+                  type: "Distractor",
+                  q: "Which skill did the student initially focus on?",
+                  options: ["Writing", "Reading", "Speaking", "Listening"],
+                  answer: 1,
+                  why: "The student says at first they only focused on reading."
+                },
+                {
+                  type: "Weakness",
+                  q: "Which skill became the student's weakest skill?",
+                  options: ["Reading", "Writing", "Listening", "Speaking"],
+                  answer: 1,
+                  why: "The student says writing was actually the weakest skill."
+                },
+                {
+                  type: "Routine",
+                  q: "How often does the student record speaking practice?",
+                  options: ["Every day", "Once a month", "Twice a week", "Only before exam"],
+                  answer: 2,
+                  why: "The student says they record themselves speaking twice a week."
+                }
+              ]
+            },
+            {
+              name: "Part 2",
+              focus: "Reason and Preference",
+              questions: [
+                {
+                  type: "Preference",
+                  q: "What does the student prefer?",
+                  options: ["Weekend class", "Online materials", "Group tuition", "Face-to-face workshop"],
+                  answer: 1,
+                  why: "The student says they prefer online materials."
+                },
+                {
+                  type: "Reason",
+                  q: "Why does the student prefer that option?",
+                  options: ["It is free", "They can study at night after a part-time job", "Their friend dislikes classes", "It has no homework"],
+                  answer: 1,
+                  why: "The reason given is that the student can study at night after their part-time job."
+                }
+              ]
+            }
+          ]
+        }
       };
-      const history = JSON.parse(localStorage.getItem(LS_SESSIONS)||'[]');
-      history.push(session);
-      localStorage.setItem(LS_SESSIONS, JSON.stringify(history));
 
-      const profile = JSON.parse(localStorage.getItem(LS_PROFILE)||'{}');
-      profile.xp = (profile.xp||0) + xpEarned;
-      profile.lastVisit = new Date().toISOString();
-      localStorage.setItem(LS_PROFILE, JSON.stringify(profile));
-      if(typeof MuetNeo !== 'undefined') MuetNeo.afterSessionSave();
+      let currentSession = "S1";
+      let currentPart = 0;
+      let submitted = false;
+      let utterance = null;
 
-      document.getElementById('resultScore').textContent = totalCorrect+'/'+totalQ+' \u00b7 '+score90+'/90 \u00b7 +'+xpEarned+' XP';
-      document.getElementById('resultFeedback').textContent = feedback(Math.round((totalCorrect/totalQ)*100));
-      document.getElementById('partSummary').innerHTML = partResults.map(pr =>
-        '<div class="part-row"><span>'+pr.label+'</span><span>'+pr.correct+'/'+pr.total+'</span></div>'
-      ).join('');
-      document.getElementById('resultCard').classList.add('show');
-      toast('Listening saved! '+totalCorrect+'/'+totalQ+' correct \u00b7 +'+xpEarned+' XP');
-      window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
-    }
+      function init(){
+        setSession("S1");
+      }
 
-    function feedback(pct){
-      if(pct>=80) return 'Excellent! You are identifying distractors well. Keep this level for the real exam.';
-      if(pct>=65) return 'Good progress. Review the Distractor Alert notes — that is where most marks are lost.';
-      if(pct>=50) return 'Developing. Read ALL questions before the audio starts. Write keywords only.';
-      return 'Foundation needed. Listen for the FINAL thing the speaker says, not the first.';
-    }
+      function setSession(id){
+        currentSession = id;
+        currentPart = 0;
+        submitted = false;
+        stopScript();
+        document.getElementById("tabS1").classList.toggle("active", id==="S1");
+        document.getElementById("tabS2").classList.toggle("active", id==="S2");
+        renderSession();
+        document.getElementById("resultCard").classList.remove("show");
+      }
 
-    function showTranscript(){
-      const panel = document.getElementById('transcriptPanel');
-      panel.textContent = SESSIONS[currentSession].parts[currentPartIndex].transcript;
-      panel.classList.toggle('show');
-      if(panel.classList.contains('show')) panel.scrollIntoView({behavior:'smooth'});
-    }
+      function renderSession(){
+        const s = sessions[currentSession];
+        document.getElementById("sessionLabel").textContent = s.label;
+        document.getElementById("audioTitle").textContent = s.title;
+        document.getElementById("coachTip").textContent = s.tip;
 
-    function toast(msg){
-      const t = document.getElementById('toast');
-      t.textContent = msg; t.classList.add('show');
-      setTimeout(()=>t.classList.remove('show'),3000);
-    }
+        const nav = document.getElementById("partNav");
+        nav.innerHTML = s.parts.map((p, i) => `
+          <button class="part-btn ${i===currentPart ? "active" : ""}" onclick="ListeningApp.setPart(${i})">${p.name}</button>
+        `).join("");
 
-    return {init, setSession, setPart, submit, showTranscript};
-  })();
+        renderQuestions();
+      }
 
-  document.addEventListener('DOMContentLoaded', ListeningApp.init);
+      function setPart(index){
+        currentPart = index;
+        renderSession();
+      }
+
+      function renderQuestions(){
+        const s = sessions[currentSession];
+        const part = s.parts[currentPart];
+        const list = document.getElementById("questionList");
+
+        list.innerHTML = `
+          <div class="question-card">
+            <p class="tiny">${part.name}</p>
+            <h2>${part.focus}</h2>
+            <p class="sub">Use the notes boxes while listening. Transcript will appear only after submission.</p>
+            <div id="transcriptBox" class="transcript-box">${s.transcript}</div>
+          </div>
+          ${part.questions.map((q, qi) => {
+            const globalId = `${currentSession}-${currentPart}-${qi}`;
+            return `
+              <div class="question-card" data-q="${qi}">
+                <span class="qtag">${q.type}</span>
+                <h3>Q${qi+1}. ${q.q}</h3>
+                <div class="options">
+                  ${q.options.map((op, oi) => `
+                    <label class="option" data-option="${oi}">
+                      <input type="radio" name="q${qi}" value="${oi}">
+                      <span>${String.fromCharCode(65+oi)}. ${op}</span>
+                    </label>
+                  `).join("")}
+                </div>
+                <textarea class="note-box" id="note-${globalId}" placeholder="Write listening keywords here..."></textarea>
+                <div class="explain" id="explain-${qi}"></div>
+              </div>
+            `;
+          }).join("")}
+        `;
+      }
+
+      function playScript(){
+        stopScript();
+        const text = sessions[currentSession].transcript;
+        if(!("speechSynthesis" in window)){
+          toast("Speech playback is not supported in this browser.");
+          return;
+        }
+        utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.88;
+        utterance.pitch = 1;
+        utterance.lang = "en-GB";
+        speechSynthesis.speak(utterance);
+        toast("Playing script audio simulation.");
+      }
+
+      function stopScript(){
+        if("speechSynthesis" in window) speechSynthesis.cancel();
+        utterance = null;
+      }
+
+      function submit(){
+        if(submitted){
+          toast("This part has already been submitted.");
+          return;
+        }
+        submitted = true;
+        stopScript();
+
+        const s = sessions[currentSession];
+        const part = s.parts[currentPart];
+        let correct = 0;
+        const notes = [];
+        const typeErrors = {};
+
+        part.questions.forEach((q, qi) => {
+          const selected = document.querySelector(`input[name="q${qi}"]:checked`);
+          const ans = selected ? Number(selected.value) : -1;
+          const isCorrect = ans === q.answer;
+          if(isCorrect) correct++;
+          if(!isCorrect) typeErrors[q.type] = (typeErrors[q.type] || 0) + 1;
+
+          const noteEl = document.getElementById(`note-${currentSession}-${currentPart}-${qi}`);
+          notes.push(noteEl ? noteEl.value : "");
+
+          const card = document.querySelector(`.question-card[data-q="${qi}"]`);
+          card.querySelectorAll(".option").forEach(opt => {
+            const oi = Number(opt.dataset.option);
+            if(oi === q.answer) opt.classList.add("correct");
+            if(oi === ans && oi !== q.answer) opt.classList.add("wrong");
+          });
+
+          const explain = document.getElementById(`explain-${qi}`);
+          explain.innerHTML = `<b>Answer: ${String.fromCharCode(65+q.answer)}</b><br>${q.why}`;
+          explain.classList.add("show");
+        });
+
+        document.getElementById("transcriptBox").classList.add("show");
+
+        const totalQ = part.questions.length;
+        const score90 = Math.round((correct / totalQ) * 90);
+        const percent = Math.round((correct / totalQ) * 100);
+        const weakestType = Object.entries(typeErrors).sort((a,b)=>b[1]-a[1])[0]?.[0] || "None";
+
+        const activeVault = JSON.parse(localStorage.getItem("muet_active_vault") || "{}");
+
+        const session = {
+          vaultId: activeVault.vaultId || "FREE-PRACTICE",
+          vaultTitle: activeVault.vaultTitle || "Free Practice",
+          paperId: activeVault.paperId || "UNASSIGNED",
+          session: s.label,
+          part: part.name,
+          date: new Date().toISOString(),
+          rawScore: correct,
+          totalQ,
+          score90,
+          percent,
+          parts: { [part.name]: { correct, total: totalQ } },
+          strongestPart: percent >= 70 ? part.name : "",
+          weakestType,
+          notes,
+          transcriptRevealed: true,
+          xpEarned: 70 + correct * 10
+        };
+
+        const history = JSON.parse(localStorage.getItem(LS_SESSIONS) || "[]");
+        history.push(session);
+        localStorage.setItem(LS_SESSIONS, JSON.stringify(history));
+        updateProfile(session);
+
+        document.getElementById("resultScore").textContent = `${correct}/${totalQ} · ${score90}/90`;
+        document.getElementById("resultFeedback").textContent = feedback(percent, weakestType);
+        document.getElementById("partSummary").innerHTML = `
+          <div class="part-row">${part.name}: ${correct}/${totalQ}</div>
+          <div class="part-row">Question Focus: ${part.focus}</div>
+          <div class="part-row">Weakest Listening Type: ${weakestType}</div>
+        `;
+
+        document.getElementById("resultCard").classList.add("show");
+        toast("Listening score saved to Hub.");
+        window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+      }
+
+      function feedback(percent, weakestType){
+        if(percent >= 80) return "Excellent listening focus. Continue practising longer parts and multiple-answer questions.";
+        if(percent >= 65) return `Good progress. Review transcript and check ${weakestType} items carefully.`;
+        if(percent >= 50) return `Developing. Read questions first and listen for signal words. Focus area: ${weakestType}.`;
+        return `Foundation practice needed. Write keywords during audio and avoid choosing the first option you hear. Focus area: ${weakestType}.`;
+      }
+
+      function updateProfile(session){
+        const profile = JSON.parse(localStorage.getItem(LS_PROFILE) || "{}");
+        profile.xp = (profile.xp || profile.xpTotal || 0) + (session.xpEarned || 70);
+        profile.streak = profile.streak || 1;
+        profile.badges = profile.badges || ["first_step"];
+        profile.badges.push("audio_focus");
+        if(session.percent >= 80) profile.badges.push("sharp_ears");
+        profile.badges = [...new Set(profile.badges)];
+        profile.lastVisit = new Date().toISOString();
+        localStorage.setItem(LS_PROFILE, JSON.stringify(profile));
+      }
+
+      function resetPractice(){
+        submitted = false;
+        stopScript();
+        renderQuestions();
+        document.getElementById("resultCard").classList.remove("show");
+        toast("Listening practice reset.");
+      }
+
+      function toast(msg){
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 2500);
+      }
+
+      return {init,setSession,setPart,playScript,stopScript,submit,resetPractice};
+    })();
+
+    document.addEventListener("DOMContentLoaded", ListeningApp.init);
   </script>
 </body>
 </html>

@@ -61,8 +61,8 @@
         <button id="tabP2" class="paper-tab" onclick="ReadingApp.setPaper('P2')">Set 2</button>
       </div>
 
-      <div class="strategy-card" style="background:#059669;color:white">
-        <div class="tag" style="background:white;color:#059669">📖 RIZ — Reading Coach</div>
+      <div class="strategy-card">
+        <div class="tag">READING STRATEGY</div>
         <p id="strategyText">Read the questions first. Underline keywords. Then scan the passage for direct answers, paraphrases and inference clues.</p>
       </div>
 
@@ -333,7 +333,12 @@ The goal is not to reject technology. Instead, students should learn to control 
         const percent = Math.round((correct / totalQ) * 100);
         const weakestType = Object.entries(typeErrors).sort((a,b)=>b[1]-a[1])[0]?.[0] || "None";
 
+        const activeVault = JSON.parse(localStorage.getItem("muet_active_vault") || "{}");
+
         const session = {
+          vaultId: activeVault.vaultId || "FREE-PRACTICE",
+          vaultTitle: activeVault.vaultTitle || "Free Practice",
+          paperId: activeVault.paperId || "UNASSIGNED",
           paper: p.label,
           date: new Date().toISOString(),
           rawScore: correct,
@@ -343,7 +348,6 @@ The goal is not to reject technology. Instead, students should learn to control 
           parts,
           weakestType,
           timeTaken: Math.round((p.time - seconds) / 60),
-          cycleNumber: (JSON.parse(localStorage.getItem('muet_profile') || '{}').currentCycle || 1),
           xpEarned: 70 + correct * 8
         };
 
@@ -372,10 +376,14 @@ The goal is not to reject technology. Instead, students should learn to control 
 
       function updateProfile(session){
         const profile = JSON.parse(localStorage.getItem(LS_PROFILE) || "{}");
-        profile.xp = (profile.xp || 0) + (session.xpEarned || 70);
+        profile.xp = (profile.xp || profile.xpTotal || 0) + (session.xpEarned || 70);
+        profile.streak = profile.streak || 1;
+        profile.badges = profile.badges || ["first_step"];
+        profile.badges.push("passage_hunter");
+        if(session.percent >= 80) profile.badges.push("speed_reader");
+        profile.badges = [...new Set(profile.badges)];
         profile.lastVisit = new Date().toISOString();
         localStorage.setItem(LS_PROFILE, JSON.stringify(profile));
-        if(typeof MuetNeo !== 'undefined') MuetNeo.afterSessionSave();
       }
 
       function resetPractice(){

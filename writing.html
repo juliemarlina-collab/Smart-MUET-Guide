@@ -70,8 +70,8 @@
         <p id="topicPrompt" class="sub"></p>
       </div>
 
-      <div class="coach-note" style="background:#7C3AED;color:white">
-        <div class="tag" style="background:white;color:#7C3AED">✍️ MIRA — Writing Coach</div>
+      <div class="coach-note">
+        <div class="tag">MIRA'S WRITING TIP</div>
         <p id="coachTip">Cover all bullet points. Missing one point will reduce your task fulfilment score.</p>
       </div>
 
@@ -346,7 +346,12 @@
         const band = scoreToBand(score90);
         const topic = getTopic();
 
+        const activeVault = JSON.parse(localStorage.getItem("muet_active_vault") || "{}");
+
         const session = {
+          vaultId: activeVault.vaultId || "FREE-PRACTICE",
+          vaultTitle: activeVault.vaultTitle || "Free Practice",
+          paperId: activeVault.paperId || "UNASSIGNED",
           task: task==="1" ? "Task 1" : "Task 2",
           topicId: topic.id,
           topicTitle: topic.title,
@@ -359,8 +364,6 @@
           bandLabel: band,
           checks: checkedIds,
           feedback: generateFeedback(score90, words, checks.length),
-          taskType: task,
-          cycleNumber: (JSON.parse(localStorage.getItem('muet_profile') || '{}').currentCycle || 1),
           duration: task==="1" ? 25 : 50,
           date: new Date().toISOString(),
           xpEarned: 90 + checks.length * 5
@@ -382,7 +385,7 @@
 
       function updateProfileBadges(session){
         const profile = JSON.parse(localStorage.getItem(LS_PROFILE) || "{}");
-        profile.xp = (profile.xp || 0) + (session.xpEarned || 90);
+        profile.xp = (profile.xp || profile.xpTotal || 0) + (session.xpEarned || 90);
         profile.streak = profile.streak || 1;
         profile.badges = profile.badges || ["first_step"];
         if(session.task === "Task 1") profile.badges.push("email_ready");

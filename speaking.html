@@ -65,8 +65,8 @@
         <p id="topicPrompt" class="sub"></p>
       </div>
 
-      <div class="coach-note" style="background:#FF6B35;color:white">
-        <div class="tag" style="background:white;color:#FF6B35">🎤 AIRA — Speaking Coach</div>
+      <div class="coach-note">
+        <div class="tag">COACH TIP</div>
         <p id="coachTip">Use PREP: Point, Reason, Example, Point again. Write keywords only, not full sentences.</p>
       </div>
 
@@ -290,13 +290,11 @@
       }
 
       function feedback(score, checkedCount){
-        const cycleNum = JSON.parse(localStorage.getItem('muet_profile') || '{}').currentCycle || 1;
-        const cycleNote = cycleNum > 1 ? ` Cycle ${cycleNum} speaking done!` : '';
-        if(score >= 74) return cycleNote + " Strong response. PREP structure is clear. Now refine your example — add a Malaysian context for more impact.";
-        if(score >= 64) return cycleNote + " Target zone. Your answer is structured. Improve your example and language accuracy to push toward Band 4.5.";
-        if(score >= 53) return cycleNote + " Developing. Basic structure is there. Work on stronger elaboration and clearer delivery next attempt.";
-        if(checkedCount <= 2) return "Your response needs more structure. Start with PREP: Point, Reason, Example, Point again.";
-        return "Keep practising. Focus on task fulfilment, one clear stand, and one specific example.";
+        if(score >= 74) return "Strong response. You are showing good MUET readiness. Now refine accuracy and natural delivery.";
+        if(score >= 64) return "Target zone. Your answer is structured, but improve examples and language accuracy.";
+        if(score >= 53) return "Developing. You have basic structure, but need stronger elaboration and clearer delivery.";
+        if(checkedCount <= 2) return "Your response needs more structure. Start with PREP and answer the question directly.";
+        return "Keep practising. Focus on task fulfilment, clear points and one specific example.";
       }
 
       function submit(){
@@ -308,7 +306,12 @@
         const topic = getTopic();
         const transcript = document.getElementById("transcript").value.trim();
 
+        const activeVault = JSON.parse(localStorage.getItem("muet_active_vault") || "{}");
+
         const session = {
+          vaultId: activeVault.vaultId || "FREE-PRACTICE",
+          vaultTitle: activeVault.vaultTitle || "Free Practice",
+          paperId: activeVault.paperId || "UNASSIGNED",
           type: task==="A" ? "Task A" : "Task B",
           topicId: topic.id,
           topicTitle: topic.title,
@@ -326,7 +329,6 @@
           },
           transcript,
           duration: task==="A" ? 4 : 13,
-          cycleNumber: (JSON.parse(localStorage.getItem('muet_profile') || '{}').currentCycle || 1),
           date: new Date().toISOString(),
           xpEarned: 80 + checks.length * 5
         };
@@ -338,7 +340,7 @@
         updateProfileBadges(session);
 
         document.getElementById("resultBand").textContent = `Estimated Band ${band} · ${score90}/90`;
-        document.getElementById("resultFeedback").textContent = feedback(score90, checks.length) + ` (+${session.xpEarned} XP earned)`;
+        document.getElementById("resultFeedback").textContent = feedback(score90, checks.length);
         document.getElementById("resultCard").classList.add("show");
         toast("Speaking practice saved to Hub.");
         window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
@@ -346,13 +348,14 @@
 
       function updateProfileBadges(session){
         const profile = JSON.parse(localStorage.getItem(LS_PROFILE) || "{}");
-        // XP — use single 'xp' key only
-        profile.xp = (profile.xp || 0) + (session.xpEarned || 80);
-        // Streak — do NOT reset here; streak is managed by daily login in muet-neopop.js
+        profile.xp = (profile.xp || profile.xpTotal || 0) + (session.xpEarned || 80);
+        profile.streak = profile.streak || 1;
+        profile.badges = profile.badges || ["first_step"];
+        if(session.type === "Task A") profile.badges.push("prep_starter");
+        if(session.type === "Task B") profile.badges.push("discussion_builder");
+        profile.badges = [...new Set(profile.badges)];
         profile.lastVisit = new Date().toISOString();
         localStorage.setItem(LS_PROFILE, JSON.stringify(profile));
-        // Run shared badge + cycle engine
-        if(typeof MuetNeo !== 'undefined') MuetNeo.afterSessionSave();
       }
 
       function resetPractice(){
