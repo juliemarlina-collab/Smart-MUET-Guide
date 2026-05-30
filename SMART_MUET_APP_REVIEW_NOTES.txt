@@ -1,0 +1,47 @@
+SMART MUET APP REVIEW NOTES — after inserting Welcome Hero
+
+Updated in this package
+1. Inserted the new Welcome Hero image into the first/register screen.
+2. Added assets/heroes/welcome-hero.png.
+3. Added responsive CSS for image heroes.
+4. Removed the unused {css,js} folder that appeared in the zip package.
+5. Added a short guidance note below the hero so students know the next action is to create their profile.
+
+Page-by-page improvement check
+1. Welcome / Register
+   - Stronger now with branded Neo-Brutalist Academic hero.
+   - Next improvement: create a lighter mobile-cropped version if the text becomes too small on very small phones.
+
+2. Home Dashboard
+   - Flow is clear: band, XP, target, component score bars.
+   - Improvement suggestion: add a small “Continue last vault” button once more vaults are active.
+
+3. Study Vault
+   - The concept is clear, but it currently focuses on Starter Vault and Vault 1 only.
+   - Improvement suggestion: after all folders are verified, expand Vault 2–10 and Mock 1–2 cards.
+
+4. Progress
+   - Good because it now has Dashboard, Vault History and Badges tabs.
+   - Improvement suggestion: add component feedback summary by vault, not only scores.
+
+5. Profile
+   - Functional and suitable for student input.
+   - Improvement suggestion: add “preferred study time” and “biggest challenge” from the self-check flow.
+
+6. Component guide pages
+   - Speaking/Reading/Listening/Writing guide pages are useful as learning pages.
+   - Improvement suggestion: make their hero assets match the new Welcome Hero style.
+
+7. Vault 1 component pages
+   - The guided journey flow is present.
+   - Improvement suggestion: once Vault 1 real papers are extracted, replace sample content with verified Vault 1 paper content and answer keys.
+
+Priority next assets
+1. Dashboard Hero
+2. Study Vault Hero
+3. Speaking Hero
+4. Reading Hero
+5. Listening Hero
+6. Writing Hero
+7. Progress Hero
+8. Mock Exam Hero
