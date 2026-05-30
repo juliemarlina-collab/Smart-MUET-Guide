@@ -58,6 +58,31 @@
         </div>
       </div>
 
+
+      <div class="instruction-card pink">
+        <h2>How to Complete SmartWriting</h2>
+        <ol>
+          <li>Select <b>Task 1</b> for email/letter or <b>Task 2</b> for essay.</li>
+          <li>Read the prompt and identify the task requirements.</li>
+          <li>Start the timer: Task 1 = 25 minutes, Task 2 = 50 minutes.</li>
+          <li>Type your full answer in the answer box.</li>
+          <li>Check word count and improve content before submitting.</li>
+          <li>Tick the writing rubric checklist and submit for score estimate.</li>
+        </ol>
+        <div class="input-guide">
+          <strong>Student input required:</strong>
+          Full written answer + rubric checklist.
+          <div class="sample-line">Task 1: respond to all bullet points. Task 2: state your thesis clearly and use PEEL paragraphs.</div>
+        </div>
+        <div class="step-chip-row">
+          <span class="step-chip">Plan</span>
+          <span class="step-chip">Write</span>
+          <span class="step-chip">Count Words</span>
+          <span class="step-chip">Check Rubric</span>
+          <span class="step-chip">Submit</span>
+        </div>
+      </div>
+
       <div class="task-tabs">
         <button id="tab1" class="task-tab active" onclick="WritingApp.setTask('1')">Task 1</button>
         <button id="tab2" class="task-tab" onclick="WritingApp.setTask('2')">Task 2</button>
@@ -84,7 +109,7 @@
       </div>
 
       <div class="neo-panel">
-        <h2>Your Answer</h2>
+        <h2>Your Answer <span class="required-note">Required</span></h2>
         <p class="sub" id="writingInstruction">Recommended: 150–180 words. Cover all bullet points.</p>
         <textarea id="answerBox" class="writing-box" placeholder="Type your answer here..." oninput="WritingApp.updateWordCount()"></textarea>
 

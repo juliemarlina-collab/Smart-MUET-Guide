@@ -53,6 +53,31 @@
         </div>
       </div>
 
+
+      <div class="instruction-card blue">
+        <h2>How to Complete SmartSpeaking</h2>
+        <ol>
+          <li>Select <b>Task A</b> or <b>Task B</b>.</li>
+          <li>Read the question carefully and identify what you must answer.</li>
+          <li>Use the <b>PREP notes</b>: Point, Reason, Example, Point again.</li>
+          <li>Practise speaking aloud using the timer.</li>
+          <li>Type your transcript or speaking notes in the box provided.</li>
+          <li>Tick the rubric checklist honestly, then submit your practice.</li>
+        </ol>
+        <div class="input-guide">
+          <strong>Student input required:</strong>
+          PREP notes + transcript / speaking notes + rubric checklist.
+          <div class="sample-line">Example Point: I believe online learning is useful because it gives students more flexibility.</div>
+        </div>
+        <div class="step-chip-row">
+          <span class="step-chip">Read</span>
+          <span class="step-chip">Plan</span>
+          <span class="step-chip">Speak</span>
+          <span class="step-chip">Reflect</span>
+          <span class="step-chip">Submit</span>
+        </div>
+      </div>
+
       <div class="task-tabs">
         <button id="tabA" class="task-tab active" onclick="SpeakingApp.setTask('A')">Task A</button>
         <button id="tabB" class="task-tab" onclick="SpeakingApp.setTask('B')">Task B</button>
@@ -79,7 +104,7 @@
       </div>
 
       <div class="neo-panel">
-        <h2>PREP Notes</h2>
+        <h2>PREP Notes <span class="required-note">Required</span></h2>
         <p class="sub">Plan your answer using short keywords.</p>
         <div class="prep-grid">
           <div class="prep-box">
@@ -102,7 +127,7 @@
       </div>
 
       <div class="neo-panel">
-        <h2>Transcript / Speaking Notes</h2>
+        <h2>Transcript / Speaking Notes <span class="required-note">Required</span></h2>
         <p class="sub">Type your spoken answer here after practising. Voice recording integration will come later.</p>
         <textarea id="transcript" class="transcript" placeholder="Type your answer or transcript here..."></textarea>
       </div>

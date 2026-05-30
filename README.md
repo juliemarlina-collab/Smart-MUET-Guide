@@ -69,3 +69,11 @@ This version fixes the previous design direction and follows a stronger Contra/U
 - Added unique paper ID placeholders to avoid duplicate test papers.
 - Active vault is saved before opening a component.
 - Component results now save vault metadata when launched from Study Vault.
+
+
+## v1.7 Update — Student Instructions & Input Flow
+- Added clear instruction cards to Home, Study Vault, Speaking, Reading, Listening and Writing.
+- Added required input labels for Speaking and Writing.
+- Added step-by-step student flow for each component.
+- Added examples of what students should type or select.
+- Clarified that the app requires student inputs, not just passive reading.

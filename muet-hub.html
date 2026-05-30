@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-  <title>MUET SmartHub 2026 · NeoPop MVP</title>
+  <title>MUET SmartHub 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -20,14 +20,13 @@
           <div class="brand-small">POLIPD · ELU · 2026</div>
           <div class="brand-title">MUET SmartHub</div>
         </div>
-        <button class="hamb">☰</button>
       </div>
 
       <div class="hero-neo hero-yellow">
         <div class="hero-copy">
           <p class="tiny">AI-Powered MUET Learning Companion</p>
           <h1>Practise.<br>Check.<br>Improve.</h1>
-          <p>One bold dashboard for Speaking, Reading, Listening and Writing.</p>
+          <p>One guided dashboard for Speaking, Reading, Listening and Writing.</p>
         </div>
         <div class="hero-illustration">
           <div class="face hair"></div>
@@ -92,9 +91,18 @@
         <div class="stat-card green"><span>🎯</span><b id="targetDisplay">4.0</b><small>Target</small></div>
       </div>
 
+      <div class="instruction-card yellow">
+        <h2>Your Smart MUET Flow</h2>
+        <ol>
+          <li>Go to <b>Study Vault</b> and choose one vault to start.</li>
+          <li>Complete all four components: Speaking, Reading, Listening and Writing.</li>
+          <li>Return to the Hub to check your score, progress and badges.</li>
+          <li>Use the dashboard to identify your weakest component before the next vault.</li>
+        </ol>
+      </div>
+
       <div class="section-head">
         <h2>Skill Modules</h2>
-        <button onclick="MuetNeo.seedDemo()" class="small-action">Demo</button>
       </div>
 
       <div class="module-grid">
@@ -140,33 +148,36 @@
 
       <div class="neo-panel">
         <div class="section-head no-margin">
-          <h2>10-Cycle Journey</h2>
+          <h2>Study Vault Journey</h2>
           <span class="mini-badge">NEW FORMAT</span>
         </div>
+        <p class="sub" style="margin-bottom:10px">Complete all 4 components in each vault to track your progress.</p>
         <div class="cycle-strip" id="cycleStrip"></div>
       </div>
     </section>
 
-    <!-- MATERIALS SCREEN -->
-    <section id="materialsScreen" class="screen">
+    <!-- STUDY VAULT SCREEN -->
+    <section id="vaultScreen" class="screen">
       <div class="brand-bar dark">
         <button onclick="MuetNeo.show('homeScreen')" class="hamb">←</button>
         <div>
-          <div class="brand-small">Resources</div>
-          <div class="brand-title">MUET Materials</div>
+          <div class="brand-small">Guided Practice</div>
+          <div class="brand-title">Study Vault</div>
         </div>
-        <button class="hamb">📚</button>
+        <button class="hamb">🔒</button>
       </div>
 
-      <div class="hero-neo hero-blue">
-        <div>
-          <p class="tiny">Materials Rule</p>
-          <h1>New Format Only</h1>
-          <p>Use 2021 onwards materials for cycles and mock exams.</p>
-        </div>
+      <div class="instruction-card green">
+        <h2>How to Use Study Vault</h2>
+        <ol>
+          <li>Choose a vault below — start with <b>Starter Vault</b> if it's your first time.</li>
+          <li>Complete all four components: Speaking, Reading, Listening and Writing.</li>
+          <li>Your progress is saved after each component submission.</li>
+          <li>Return here after completing all four to see your Vault Round-Up score.</li>
+        </ol>
       </div>
 
-      <div class="resource-list" id="resourceList"></div>
+      <div id="vaultList" class="vault-list"></div>
     </section>
 
     <!-- PROGRESS SCREEN -->
@@ -231,7 +242,7 @@
 
     <nav id="nav" class="bottom-nav">
       <button class="active" onclick="MuetNeo.show('homeScreen')">⌂<span>Home</span></button>
-      <button onclick="MuetNeo.show('materialsScreen')">▣<span>Materials</span></button>
+      <button onclick="MuetNeo.show('vaultScreen')">🔒<span>Vault</span></button>
       <button onclick="MuetNeo.show('progressScreen')">◉<span>Progress</span></button>
       <button onclick="MuetNeo.show('profileScreen')">☻<span>Profile</span></button>
     </nav>
