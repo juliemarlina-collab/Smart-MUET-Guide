@@ -105,6 +105,30 @@
     <!-- Module quick access -->
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
       <h2>Skill Modules</h2>
+      <span style="font-size:11px;font-weight:1000;color:var(--muted)">Standalone Practice</span>
+    </div>
+    <!-- Skill hero strip -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px">
+      <div style="background:var(--blue);border:var(--line);border-radius:16px;padding:12px 8px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
+        <div style="font-size:26px">🎤</div>
+        <div style="font-size:10px;font-weight:1000;color:white;margin-top:4px">SPEAKING</div>
+        <div style="font-size:9px;font-weight:900;color:rgba(255,255,255,.7);margin-top:2px">800/2</div>
+      </div>
+      <div style="background:var(--green);border:var(--line);border-radius:16px;padding:12px 8px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
+        <div style="font-size:26px">📖</div>
+        <div style="font-size:10px;font-weight:1000;color:var(--ink);margin-top:4px">READING</div>
+        <div style="font-size:9px;font-weight:900;color:var(--muted);margin-top:2px">800/3</div>
+      </div>
+      <div style="background:var(--yellow);border:var(--line);border-radius:16px;padding:12px 8px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
+        <div style="font-size:26px">🎧</div>
+        <div style="font-size:10px;font-weight:1000;color:var(--ink);margin-top:4px">LISTENING</div>
+        <div style="font-size:9px;font-weight:900;color:var(--muted);margin-top:2px">800/1</div>
+      </div>
+      <div style="background:var(--pink);border:var(--line);border-radius:16px;padding:12px 8px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
+        <div style="font-size:26px">✍️</div>
+        <div style="font-size:10px;font-weight:1000;color:var(--ink);margin-top:4px">WRITING</div>
+        <div style="font-size:9px;font-weight:900;color:var(--muted);margin-top:2px">800/4</div>
+      </div>
     </div>
     <div class="module-grid">
       <button class="module-card m-speaking" onclick="MUET.goPage('speaking.html')">
@@ -133,6 +157,18 @@
       </button>
     </div>
 
+    <!-- Continue last vault (smart) -->
+    <div id="continueVaultCard" style="display:none;margin-bottom:16px">
+      <div style="background:var(--ink);border:var(--line);box-shadow:var(--shadow);border-radius:var(--r2);padding:16px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px">
+        <div>
+          <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.6);margin-bottom:4px">CONTINUE WHERE YOU LEFT OFF</div>
+          <div id="continueVaultTitle" style="font-family:'Sora';font-weight:800;font-size:17px;color:white">Vault 1</div>
+          <div id="continueVaultStatus" style="font-size:12px;font-weight:900;color:rgba(255,255,255,.7);margin-top:2px">0/4 components done</div>
+        </div>
+        <button id="continueVaultBtn" class="btn yellow" style="min-height:44px;width:auto;padding:10px 16px;white-space:nowrap;font-size:13px">Continue →</button>
+      </div>
+    </div>
+
     <!-- Today's focus -->
     <div class="focus-box" id="focusBox">
       <div class="tag">TODAY'S FOCUS</div>
@@ -155,6 +191,20 @@
         <div class="bar-title">Study Vault</div>
       </div>
       <button class="icon-btn">🔒</button>
+    </div>
+
+    <!-- Vault hero banner -->
+    <div style="background:var(--ink);border:var(--line);box-shadow:var(--shadow);border-radius:var(--r2);padding:18px;margin-bottom:16px;overflow:hidden;position:relative">
+      <div style="position:absolute;right:-10px;top:-10px;font-size:80px;opacity:.08;line-height:1">🔒</div>
+      <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.6);margin-bottom:6px">GUIDED PRACTICE JOURNEY</div>
+      <h2 style="color:white;margin-bottom:6px">Study Vault</h2>
+      <p style="color:rgba(255,255,255,.8);font-weight:800;font-size:13px;line-height:1.5">Each vault has all four MUET components. Complete Speaking → Reading → Listening → Writing to unlock your Vault Round-Up and band estimate.</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px">
+        <div style="background:var(--blue);border:2px solid rgba(255,255,255,.3);border-radius:12px;padding:8px 4px;text-align:center"><div style="font-size:18px">🎤</div><div style="font-size:9px;font-weight:1000;color:white;margin-top:2px">SPEAK</div></div>
+        <div style="background:var(--green);border:2px solid rgba(255,255,255,.3);border-radius:12px;padding:8px 4px;text-align:center"><div style="font-size:18px">📖</div><div style="font-size:9px;font-weight:1000;color:var(--ink);margin-top:2px">READ</div></div>
+        <div style="background:var(--yellow);border:2px solid rgba(255,255,255,.3);border-radius:12px;padding:8px 4px;text-align:center"><div style="font-size:18px">🎧</div><div style="font-size:9px;font-weight:1000;color:var(--ink);margin-top:2px">LISTEN</div></div>
+        <div style="background:var(--pink);border:2px solid rgba(255,255,255,.3);border-radius:12px;padding:8px 4px;text-align:center"><div style="font-size:18px">✍️</div><div style="font-size:9px;font-weight:1000;color:var(--ink);margin-top:2px">WRITE</div></div>
+      </div>
     </div>
 
     <div class="instr-card green">
@@ -213,10 +263,20 @@
       <button class="btn yellow" onclick="Hub.openVault('VAULT-01')">Open Vault 1 →</button>
     </div>
 
-    <!-- Vaults 2–10 placeholder -->
-    <div class="card" style="opacity:.65;border:3px dashed #94a3b8">
-      <h3 style="color:var(--muted)">🔒 Vault 2 – 10 &amp; Final Mock Exams</h3>
-      <p style="color:var(--muted);font-weight:800;font-size:13px;margin-top:6px">Papers are being verified and will be assigned before each vault opens. Complete Vault 1 first.</p>
+    <!-- Vault 2–10 locked cards -->
+    <div style="margin-bottom:8px">
+      <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:var(--ink);margin-bottom:10px;padding-left:2px">PRACTICE VAULTS · 2 – 10</div>
+      <div style="display:grid;gap:10px" id="lockedVaultGrid">
+        <!-- rendered by renderVaultCards() -->
+      </div>
+    </div>
+
+    <!-- Final Mock Exams locked cards -->
+    <div style="margin-bottom:16px;margin-top:8px">
+      <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:var(--ink);margin-bottom:10px;padding-left:2px">FINAL MOCK EXAMS</div>
+      <div style="display:grid;gap:10px" id="lockedMockGrid">
+        <!-- rendered by renderVaultCards() -->
+      </div>
     </div>
   </section>
 
@@ -433,6 +493,39 @@ const Hub = (() => {
     document.getElementById('focusTitle').textContent = weakest[2] + ' Focus: ' + weakest[1];
     document.getElementById('focusText').textContent  = tips[weakest[0]];
     document.getElementById('focusBtn').onclick       = () => MUET.goPage(weakest[3]);
+
+    // ── Continue Last Vault smart card ──────────────────────────────
+    const VAULT_ORDER = ['VAULT-00','VAULT-01'];
+    const VAULT_LABELS = { 'VAULT-00':'Starter Vault', 'VAULT-01':'Vault 1' };
+    const VAULT_PAGES  = { 'VAULT-00':'starter-welcome.html', 'VAULT-01':'vault1-welcome.html' };
+    const continuCard  = document.getElementById('continueVaultCard');
+    // Find the most recently active vault that is incomplete
+    let continueVault  = null;
+    for (const vid of VAULT_ORDER) {
+      const prog = MUET.vaultProgress(vid);
+      if (prog.count > 0 && !prog.complete) { continueVault = vid; break; }
+    }
+    // If all started vaults are complete, suggest the next unopened one
+    if (!continueVault) {
+      for (const vid of VAULT_ORDER) {
+        if (MUET.vaultProgress(vid).count === 0) { continueVault = vid; break; }
+      }
+    }
+    if (continueVault && continuCard) {
+      const prog  = MUET.vaultProgress(continueVault);
+      const label = VAULT_LABELS[continueVault] || continueVault;
+      const page  = VAULT_PAGES[continueVault];
+      const isNew = prog.count === 0;
+      document.getElementById('continueVaultTitle').textContent  = label;
+      document.getElementById('continueVaultStatus').textContent = isNew
+        ? 'Not started yet — begin here'
+        : `${prog.count}/4 components done · ${4 - prog.count} remaining`;
+      document.getElementById('continueVaultBtn').textContent  = isNew ? 'Start →' : 'Continue →';
+      document.getElementById('continueVaultBtn').onclick      = () => MUET.goPage(page);
+      continuCard.style.display = 'block';
+    } else if (continuCard) {
+      continuCard.style.display = 'none';
+    }
   }
 
   function renderVault() {
@@ -455,6 +548,72 @@ const Hub = (() => {
         ).join('');
       }
     });
+    renderVaultCards();
+  }
+
+  // ── Render locked Vault 2-10 and Mock cards ───────────────────────
+  function renderVaultCards() {
+    const LOCKED_VAULTS = [
+      { id:'VAULT-02', label:'Vault 2',  tag:'Foundation+',    note:'Guided practice with score feedback.' },
+      { id:'VAULT-03', label:'Vault 3',  tag:'Developing',     note:'More independent component practice.' },
+      { id:'VAULT-04', label:'Vault 4',  tag:'Developing',     note:'Question type and rubric awareness.' },
+      { id:'VAULT-05', label:'Vault 5',  tag:'Developing+',    note:'Component-level timing introduced.' },
+      { id:'VAULT-06', label:'Vault 6',  tag:'Proficient',     note:'Writing thesis and Speaking interaction focus.' },
+      { id:'VAULT-07', label:'Vault 7',  tag:'Proficient',     note:'More timed conditions.' },
+      { id:'VAULT-08', label:'Vault 8',  tag:'Time Pressure',  note:'Mistake pattern practice.' },
+      { id:'VAULT-09', label:'Vault 9',  tag:'Advanced',       note:'Near-exam practice conditions.' },
+      { id:'VAULT-10', label:'Vault 10', tag:'Pre-Mock',       note:'Band prediction and focus-area alert.' }
+    ];
+    const MOCK_VAULTS = [
+      { id:'MOCK-01', label:'Final Mock Exam 1', tag:'Strict · Full Simulation', note:'Full exam sequence · Timed · Complete report.' },
+      { id:'MOCK-02', label:'Final Mock Exam 2', tag:'Strict · Final Check',     note:'Final readiness benchmark and intervention plan.' }
+    ];
+
+    const vaultGrid = document.getElementById('lockedVaultGrid');
+    const mockGrid  = document.getElementById('lockedMockGrid');
+    if (!vaultGrid || !mockGrid) return;
+
+    function lockedCard(v, accentColor, isMock) {
+      const prog = MUET.vaultProgress(v.id);
+      const hasAttempt = prog.count > 0;
+
+      if (hasAttempt) {
+        // Show partial progress state
+        const pct = Math.round(prog.count / 4 * 100);
+        const icons = ['🎤','📖','🎧','✍️'];
+        const skills = ['speaking','reading','listening','writing'];
+        return `<div style="background:var(--paper);border:var(--line);box-shadow:var(--shadow);border-radius:20px;padding:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px">
+            <div>
+              <div style="font-size:9px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)">${v.tag}</div>
+              <div style="font-family:'Sora';font-weight:800;font-size:16px">${v.label}</div>
+            </div>
+            <div style="background:${accentColor};border:var(--line);border-radius:999px;padding:5px 10px;font-size:11px;font-weight:1000;white-space:nowrap">${prog.count}/4 Done</div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:10px">
+            ${skills.map((s,si) => `<div style="background:${prog.done[s]?accentColor:'white'};border:var(--line);border-radius:10px;padding:6px 4px;text-align:center;font-size:14px">${icons[si]}</div>`).join('')}
+          </div>
+          <div style="background:#e2e8f0;border-radius:8px;height:8px;border:2px solid var(--ink);overflow:hidden"><div style="background:var(--ink);height:100%;width:${pct}%;transition:width .3s"></div></div>
+        </div>`;
+      }
+
+      return `<div style="border:3px dashed ${isMock ? '#f472b6' : '#94a3b8'};border-radius:20px;padding:14px;background:${isMock ? '#fdf2f8' : 'white'}">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:44px;height:44px;min-width:44px;border:2px solid ${isMock ? '#f472b6' : '#cbd5e1'};border-radius:50%;display:grid;place-items:center;font-size:20px;background:white">
+            ${isMock ? '📋' : '🔒'}
+          </div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:9px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:${isMock ? '#db2777' : '#94a3b8'};margin-bottom:2px">${v.tag}</div>
+            <div style="font-family:'Sora';font-weight:800;font-size:15px;color:${isMock ? 'var(--ink)' : '#64748b'}">${v.label}</div>
+            <div style="font-size:11px;font-weight:800;color:${isMock ? '#9d174d' : '#94a3b8'};margin-top:2px">${v.note}</div>
+          </div>
+          <div style="font-size:10px;font-weight:1000;color:${isMock ? '#db2777' : '#94a3b8'};white-space:nowrap">${isMock ? 'Coming soon' : 'Locked'}</div>
+        </div>
+      </div>`;
+    }
+
+    vaultGrid.innerHTML = LOCKED_VAULTS.map(v => lockedCard(v, 'var(--yellow)', false)).join('');
+    mockGrid.innerHTML  = MOCK_VAULTS.map(v => lockedCard(v, 'var(--pink)', true)).join('');
   }
 
   function openVault(vaultId) {
