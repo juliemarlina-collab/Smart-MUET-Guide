@@ -279,10 +279,49 @@ const Wrt = (() => {
     const answer = document.getElementById('answerBox').value.trim();
     if (!answer || answer.split(/\s+/).length < 50) { MUET.toast('Please write at least 50 words before submitting.'); return; }
 
-    // Score based on word count vs minimum requirement
-    const wc = answer.split(/\s+/).length;
-    const min = tasks[currentTask].wcMin;
-    const score90 = Math.min(90, Math.round((Math.min(wc, min * 1.5) / (min * 1.5)) * 90));
+    // ── Multi-dimension MUET rubric scoring ─────────────────────────
+    // Mirrors official MUET Writing rubric: Task Fulfilment (20) +
+    // Organisation (20) + Language Structure (20) + Lexis (15) = 75 max
+    // Scaled to /90 to match component total
+    const wc      = answer.split(/\s+/).length;
+    const min     = tasks[currentTask].wcMin;
+    const td      = tasks[currentTask];
+    const paraCount  = answer.split(/\n\s*\n|\n/).filter(p => p.trim().length > 20).length;
+    const connectors = (answer.match(/\b(firstly|secondly|thirdly|however|therefore|moreover|furthermore|in conclusion|in addition|on the other hand|because|although|for example|for instance|in contrast|as a result|consequently)\b/gi) || []).length;
+
+    // 1. Task Fulfilment /20
+    let taskFulfilmentScore;
+    if (currentTask === 'T1') {
+      const t1Needles = ['enjoyed','sorry','grandmother','party','food','activities','next week','afraid','cannot','meet'];
+      const t1Hits    = t1Needles.filter(k => answer.toLowerCase().includes(k)).length;
+      taskFulfilmentScore = Math.min(20, 6 + t1Hits * 2);  // 4 notes × ~2pts each + base
+    } else {
+      const hasStand   = /\b(i agree|i disagree|in my opinion|i believe|personally|i strongly|it is true|while some|although)\b/i.test(answer);
+      const hasPEEL    = /\b(for example|for instance|this shows|therefore|as a result|this proves)\b/i.test(answer);
+      const wordBonus  = wc >= 250 ? 3 : wc >= 180 ? 1 : 0;
+      taskFulfilmentScore = Math.min(20, (hasStand ? 8 : 4) + (hasPEEL ? 5 : 0) + wordBonus + 2);
+    }
+
+    // 2. Organisation /20 — paragraphing, greeting/closing (T1), intro-body-conclusion (T2)
+    const hasGreeting  = /\b(dear|hi |hello)\b/i.test(answer);
+    const hasClosing   = /\b(regards|sincerely|yours|thank you|take care)\b/i.test(answer);
+    const orgScore     = currentTask === 'T1'
+      ? Math.min(20, 8 + (hasGreeting ? 3 : 0) + (hasClosing ? 3 : 0) + Math.min(6, paraCount * 2))
+      : Math.min(20, 6 + Math.min(8, paraCount * 2) + (connectors >= 3 ? 4 : connectors >= 1 ? 2 : 0) + (wc >= 250 ? 2 : 0));
+
+    // 3. Language Structure /20 — sentence variety, connectors, no single-line answer
+    const avgSentLen   = wc / Math.max(1, (answer.match(/[.!?]+/g) || []).length);
+    const hasVariety   = avgSentLen > 8 && avgSentLen < 35;
+    const structScore  = Math.min(20, 8 + (hasVariety ? 4 : 0) + Math.min(6, connectors) + (wc >= min ? 2 : 0));
+
+    // 4. Lexis /15 — vocabulary range signal (unique word ratio)
+    const words      = answer.toLowerCase().match(/\b[a-z]{4,}\b/g) || [];
+    const uniqueRatio = words.length > 0 ? new Set(words).size / words.length : 0;
+    const lexisScore  = Math.min(15, Math.round(5 + uniqueRatio * 10));
+
+    // Total /75 → scale to /90
+    const rawTotal = taskFulfilmentScore + orgScore + structScore + lexisScore;
+    const score90  = Math.min(90, Math.round((rawTotal / 75) * 90));
     const band     = MUET.scoreToBand(score90);
 
     const session = {
@@ -304,25 +343,21 @@ const Wrt = (() => {
     document.getElementById('resultScore').textContent = `${score90}/90`;
     document.getElementById('resultBand').textContent  = `Estimated Band ${band}`;
     const fb = MUET.feedbackText('writing', score90);
-    const td = tasks[currentTask];
-    const paraCount = answer.split(/\n\s*\n|\n/).filter(p => p.trim().length > 20).length;
-    const connectors = (answer.match(/\b(firstly|secondly|however|therefore|moreover|furthermore|in conclusion|because|although|for example)\b/gi) || []).length;
-    const t1Needles = ['enjoyed','sorry','grandmother','party','food','activities','next week'];
-    const t1Hits = t1Needles.filter(k => answer.toLowerCase().includes(k)).length;
-    const taskFulfilmentScore = currentTask === 'T1' ? Math.min(20, 8 + t1Hits * 2) : Math.min(20, /\b(i agree|i disagree|in my opinion|i believe|personally)\b/i.test(answer) ? 17 : 12);
-    const orgScore = Math.min(20, 10 + paraCount * 2);
-    const structScore = Math.min(20, 10 + connectors);
-    const lexisScore = Math.min(15, wc >= td.wcMin ? 14 : 10);
     const strength = score90 >= 64 ? 'Good response structure and sufficient development.' : 'You attempted the writing task and submitted enough content for feedback.';
     const nextAction = currentTask === 'T1'
       ? 'Check that all four notes are answered clearly: enjoyed, sympathy, party details and meeting response.'
       : 'Strengthen your essay with a clear stand, PEEL paragraphs and specific examples.';
     document.getElementById('resultDetails').innerHTML = `
-      <div>✅ Strength: ${strength}</div>
-      <div>⚡ Feedback: ${fb}</div>
-      <div>📝 Word count: ${wc} words · Paragraphs: ${paraCount} · Connectors: ${connectors}</div>
-      <div>🎯 Next Action: ${nextAction}</div>
-      <div>✍️ Badge Unlocked: Essay Builder</div>`;
+      <div>✅ <b>Strength:</b> ${strength}</div>
+      <div>⚡ <b>Feedback:</b> ${fb}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px">
+        <div style="background:#f0fdf4;border:2px solid var(--ink);border-radius:10px;padding:8px;font-size:12px"><b>Task Fulfilment</b><br>${taskFulfilmentScore}/20</div>
+        <div style="background:#eff6ff;border:2px solid var(--ink);border-radius:10px;padding:8px;font-size:12px"><b>Organisation</b><br>${orgScore}/20</div>
+        <div style="background:#fefce8;border:2px solid var(--ink);border-radius:10px;padding:8px;font-size:12px"><b>Language Structure</b><br>${structScore}/20</div>
+        <div style="background:#fdf4ff;border:2px solid var(--ink);border-radius:10px;padding:8px;font-size:12px"><b>Lexis</b><br>${lexisScore}/15</div>
+      </div>
+      <div style="margin-top:8px;font-size:12px;font-weight:900;color:var(--muted)">📝 Words: ${wc} · Paragraphs: ${paraCount} · Connectors: ${connectors}</div>
+      <div>🎯 <b>Next Action:</b> ${nextAction}</div>`;
 
     saveAttemptToBackend({
       component:'Writing',
@@ -334,19 +369,20 @@ const Wrt = (() => {
       feedback:fb,
       nextAction,
       badgeEarned:'Essay Builder',
-      status:'Rule-based auto-feedback',
+      status:'Rule-based rubric auto-feedback v2',
       answerText:answer,
+      wordCount:wc,
       rubric:{
-        engine:'Rule-based writing rubric v1',
+        engine:'Rule-based MUET writing rubric v2',
         reviewStatus:'Auto-feedback',
         overallStrength:strength,
         improvementFocus:nextAction,
-        nextAction,
+        rawTotal, maxTotal:75, score90,
         criteria:[
-          {name:'Task Fulfilment', score:taskFulfilmentScore, feedback: currentTask === 'T1' ? `${t1Hits}/7 key content signals detected.` : 'Opinion/stand checked.'},
-          {name:'Organisation', score:orgScore, feedback:`Detected ${paraCount} paragraph section(s).`},
-          {name:'Structure', score:structScore, feedback:`Detected ${connectors} connector(s).`},
-          {name:'Lexis', score:lexisScore, feedback:wc >= td.wcMin ? 'Word count target met.' : 'Word count below recommended target.'}
+          {name:'Task Fulfilment', score:taskFulfilmentScore, max:20, feedback: currentTask === 'T1' ? `Key content signals detected in answer.` : 'Opinion/stand and evidence checked.'},
+          {name:'Organisation',    score:orgScore,            max:20, feedback:`Paragraph count: ${paraCount}. Connectors: ${connectors}.`},
+          {name:'Language Structure', score:structScore,      max:20, feedback:`Sentence variety and connector usage checked.`},
+          {name:'Lexis',           score:lexisScore,          max:15, feedback:`Vocabulary range (unique word ratio) assessed.`}
         ]
       }
     });
