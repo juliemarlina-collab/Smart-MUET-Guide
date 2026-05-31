@@ -55,10 +55,10 @@ document.addEventListener('DOMContentLoaded', function () {
           <h2 class="vault-hero-title">${title}</h2>
           <p class="vault-hero-subtitle">${subtitle}</p>
           <div class="vault-hero-meta">
-            <div class="vault-meta-pill speaking">🎤 Speaking</div>
-            <div class="vault-meta-pill reading">📖 Reading</div>
-            <div class="vault-meta-pill listening">🎧 Listening</div>
-            <div class="vault-meta-pill writing">✍️ Writing</div>
+            <div class="vault-meta-pill speaking">🎤<span>Speaking<br><small>800/2</small></span></div>
+            <div class="vault-meta-pill reading">📖<span>Reading<br><small>800/3</small></span></div>
+            <div class="vault-meta-pill listening">🎧<span>Listening<br><small>800/1</small></span></div>
+            <div class="vault-meta-pill writing">✍️<span>Writing<br><small>800/4</small></span></div>
             <div class="vault-meta-pill progress">${progressLabel}</div>
           </div>
         </div>
