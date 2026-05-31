@@ -24,6 +24,16 @@
     .step-num { width:36px;height:36px;border:var(--line);border-radius:50%;background:var(--yellow);display:grid;place-items:center;font-weight:1000;font-size:16px;flex-shrink:0; }
     .flow-step-body { padding:0 16px 16px; border-top:2px solid rgba(0,0,0,.07); }
     .prompt-box { background:white;border:var(--line);border-radius:var(--r2);padding:14px;margin-bottom:14px; }
+  
+    .practice-guide-panel{display:none;background:#FFF7CC;border:var(--line);border-radius:22px;box-shadow:5px 5px 0 var(--ink);padding:16px;margin:14px 0}
+    .practice-guide-panel.show{display:block}
+    .practice-guide-panel h3{margin:0 0 10px;font-size:20px}
+    .guide-grid{display:grid;gap:10px}
+    .guide-card{background:#fff;border:2px solid var(--ink);border-radius:15px;padding:12px;font-weight:850;line-height:1.45}
+    .btn.practice-guide-btn{background:#fff}
+    .btn.vault-menu-btn{background:#f65ab8;color:#111}
+    .btn.submit-standard{background:var(--yellow)!important;color:#111!important}
+
   </style>
 </head>
 <body>
@@ -109,9 +119,21 @@
 
       <!-- Submit buttons -->
       <div class="btn-row" style="margin-top:4px">
-        <button class="btn yellow wide" onclick="Spk.submit()">Submit Speaking Practice</button>
-        <button class="btn white" onclick="Spk.resetPractice()">Reset</button>
-        <button class="btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+      <div class="practice-guide-panel" id="practiceGuidePanel">
+        <h3>Speaking Practice Guide</h3>
+        
+          <div class="guide-grid">
+            <div class="guide-card"><b>PREP Structure</b><br>Point → Reason → Example → Point again.</div>
+            <div class="guide-card"><b>Useful Phrases</b><br>I believe..., This is because..., For example..., Therefore...</div>
+            <div class="guide-card"><b>Task B Interaction</b><br>Agree politely, build on others’ ideas and help the group reach a conclusion.</div>
+            <div class="guide-card"><b>Before Submit</b><br>Make sure your transcript has a clear opinion, reason and example.</div>
+          </div>
+        
+      </div>
+
+        <button class="btn submit-standard submit-standard yellow wide" onclick="Spk.submit()">Submit Speaking Practice</button>
+        <button class="btn submit-standard white" onclick="Spk.togglePracticeGuide()">Practice Guide</button>
+        <button class="btn vault-menu-btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
       </div>
 
     </div>
@@ -129,7 +151,7 @@
     <div style="background:var(--ink);color:white;border:var(--line);border-radius:14px;padding:10px 12px;margin-bottom:12px;font-weight:900;font-size:13px" id="achieveBadge"></div>
     <div class="btn-row">
       <button class="btn black wide" onclick="location.href='vault1-reading.html'">Next: Reading 📖 →</button>
-      <button class="btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+      <button class="btn vault-menu-btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
     </div>
   </div>
 
@@ -260,6 +282,16 @@ const Spk = (() => {
     document.getElementById('timerDisp').textContent  = `${m}:${s}`;
     document.getElementById('timerLabel').textContent = task === 'A' ? '2-Minute Prep Timer' : '3-Minute Prep Timer';
   }
+  function togglePracticeGuide() {
+    const panel = document.getElementById('practiceGuidePanel');
+    if (!panel) return;
+    panel.classList.toggle('show');
+    if (panel.classList.contains('show')) {
+      panel.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+  }
+
+
 
   function submit() {
     const transcript = document.getElementById('transcript').value.trim();
@@ -331,7 +363,7 @@ const Spk = (() => {
     MUET.toast('Practice reset.');
   }
 
-  return { openStep, toggle, setTask, changeTopic, toggleTimer, submit, resetPractice };
+  return { openStep, toggle, setTask, changeTopic, toggleTimer, submit, resetPractice, togglePracticeGuide };
 })();
 
 function updateVaultProgress() {

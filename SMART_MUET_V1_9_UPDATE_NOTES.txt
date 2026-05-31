@@ -1,0 +1,13 @@
+Smart MUET v1.9 update
+
+Updated according to Blueprint v3.3 decisions:
+- Standardised bottom button layout for Vault 01 components.
+- Replaced Reset with Practice Guide.
+- Standardised Submit Practice button colour to yellow/amber.
+- Added component-specific Practice Guide panels:
+  Speaking: PREP structure + useful phrases.
+  Reading: skim/scan + eliminate distractors.
+  Listening: keyword notes + distractor warning.
+  Writing: task fulfilment checklist + sample structure.
+- Added backend-appscript folder with Google Apps Script Code.gs, backend-config.js and setup notes.
+- Backend supports score recording, rubric feedback, badges, progress summary and activity logs.

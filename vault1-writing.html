@@ -20,6 +20,16 @@
     .wc-good   { color:#047857; }
     .wc-warn   { color:#b45309; }
     .wc-danger { color:#dc2626; }
+  
+    .practice-guide-panel{display:none;background:#FFF7CC;border:var(--line);border-radius:22px;box-shadow:5px 5px 0 var(--ink);padding:16px;margin:14px 0}
+    .practice-guide-panel.show{display:block}
+    .practice-guide-panel h3{margin:0 0 10px;font-size:20px}
+    .guide-grid{display:grid;gap:10px}
+    .guide-card{background:#fff;border:2px solid var(--ink);border-radius:15px;padding:12px;font-weight:850;line-height:1.45}
+    .btn.practice-guide-btn{background:#fff}
+    .btn.vault-menu-btn{background:#f65ab8;color:#111}
+    .btn.submit-standard{background:var(--yellow)!important;color:#111!important}
+
   </style>
 </head>
 <body>
@@ -92,9 +102,21 @@
 
       <!-- Rubric -->
       <div class="btn-row" style="margin-top:4px">
-        <button class="btn yellow wide" onclick="Wrt.submit()">Submit Writing Practice</button>
-        <button class="btn white" onclick="Wrt.resetPractice()">Reset</button>
-        <button class="btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+      <div class="practice-guide-panel" id="practiceGuidePanel">
+        <h3>Writing Practice Guide</h3>
+        
+          <div class="guide-grid">
+            <div class="guide-card"><b>Task Fulfilment</b><br>Cover all required points. Missing one point reduces your score.</div>
+            <div class="guide-card"><b>Organisation</b><br>Use clear paragraphs: opening, body and closing / conclusion.</div>
+            <div class="guide-card"><b>Structure + Lexis</b><br>Use varied sentence structures and precise vocabulary.</div>
+            <div class="guide-card"><b>Before Submit</b><br>Check word count, task response, paragraphing and language accuracy.</div>
+          </div>
+        
+      </div>
+
+        <button class="btn submit-standard submit-standard yellow wide" onclick="Wrt.submit()">Submit Writing Practice</button>
+        <button class="btn submit-standard white" onclick="Wrt.togglePracticeGuide()">Practice Guide</button>
+        <button class="btn vault-menu-btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
       </div>
 
 
@@ -107,7 +129,7 @@
     <div style="background:var(--ink);color:white;border:var(--line);border-radius:14px;padding:12px;margin-bottom:12px;font-weight:900;font-size:14px">🏆 All four components complete! Check your Vault Round-Up.</div>
     <div class="btn-row">
       <button class="btn lime wide" onclick="location.href='vault1-roundup.html'">→ Vault 1 Round-Up</button>
-      <button class="btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+      <button class="btn vault-menu-btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
     </div>
   </div>
 
@@ -183,6 +205,16 @@ const Wrt = (() => {
     document.getElementById('timerDisp').textContent = `${m}:${s}`;
     document.getElementById('timerLbl').textContent  = tasks[currentTask].timerLabel;
   }
+  function togglePracticeGuide() {
+    const panel = document.getElementById('practiceGuidePanel');
+    if (!panel) return;
+    panel.classList.toggle('show');
+    if (panel.classList.contains('show')) {
+      panel.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+  }
+
+
 
   function submit() {
     const answer = document.getElementById('answerBox').value.trim();
@@ -247,7 +279,7 @@ const Wrt = (() => {
     if (chev) chev.textContent = open ? '▴' : '▾';
   }
 
-  return { setTask, countWords, toggleTimer, submit, resetPractice, openStep, toggle };
+  return { setTask, countWords, toggleTimer, submit, resetPractice, openStep, toggle, togglePracticeGuide };
 })();
 
 function updateVaultProgress() {
