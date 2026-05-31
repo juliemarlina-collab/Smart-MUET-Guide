@@ -124,75 +124,90 @@ const tasks = {
     label: 'Task 1 — Email Reply (100+ words)',
     timerSecs: 1500, timerLabel: 'Task 1 Timer — 25 min',
     wcMin: 100, wcGuide: 'Task 1: minimum 100 words required',
-    prompt: 'Your classmate, Johan, was not able to attend the year-end farewell party for your class. Read the email from him asking about the party which he missed, then write a reply using all the notes given.',
+    prompt: 'Your classmate, Johan, missed your class year-end farewell party due to a family emergency and sent you an email asking about it. Write a reply to Johan using all the notes provided.',
     bullets: [
-      '📧 Johan\'s email subject: "How\'s the Party?"',
-      'Johan says: "Sorry for not attending... Did you enjoy the party?"',
-      'Johan explains: Family emergency — visited ill grandmother in Kedah (7-hour journey).',
-      'Johan asks: Did all classmates attend? How was the food? Any interesting activities?',
-      'Johan asks: Perhaps we can meet up next week?',
+      '📧 From: Johan (johan84@zmail.com)',
+      '📧 Subject: How’s the Party?',
       '',
-      '── Your reply must address ALL four notes ──',
-      '✅ Yes, ... — reply about enjoying the party',
-      '✅ I am sorry... — respond to his family emergency',
-      '✅ Explain — classmates, food and activities at the party',
-      '✅ No, I am afraid... — respond to the meet-up suggestion'
+      '── Johan’s Email Content ──',
+      'Johan apologizes for missing the party.',
+      'Johan asks if you enjoyed the party.',
+      'Johan explains that his grandmother is ill in Kedah.',
+      'Johan asks if everyone attended, how the food was, and what activities were held.',
+      'Johan suggests meeting up next week.',
+      '',
+      '── Your Reply Must Include These Notes ──',
+      '✅ Yes, ... — confirm you enjoyed the party.',
+      '✅ I am sorry... — express sympathy regarding his grandmother.',
+      '✅ Explain — describe the attendance, food and activities.',
+      '✅ No, I am afraid... — respond to his suggestion to meet next week.'
     ],
-    coach: 'Semi-formal email reply to a classmate. Address ALL four bullet notes — missing one loses Task Fulfilment marks. Use "Hi Johan," as greeting. End with "Take care" or similar. Aim for 100–150 words.',
+    coach: 'Task 1 is a semi-formal email reply to a classmate. Make sure you respond to ALL notes. Use a friendly tone, organise your reply clearly, and write at least 100 words within 25 minutes.',
     checklist: [
-      'I addressed "Yes, ..." — whether I enjoyed the party.',
-      'I addressed "I am sorry..." — about Johan\'s grandmother.',
-      'I explained about classmates, food and activities.',
-      'I addressed "No, I am afraid..." — about the meet-up.',
-      'My tone is friendly and appropriate for a classmate.',
+      'I confirmed that I enjoyed the party using "Yes, ...".',
+      'I expressed sympathy about Johan’s grandmother using "I am sorry...".',
+      'I explained the attendance, food and activities clearly.',
+      'I responded to the suggestion to meet next week using "No, I am afraid...".',
+      'My tone is friendly and suitable for a classmate.',
       'My reply is at least 100 words.'
     ],
-    sampleHtml: `<div class="card lime"><h3>Sample Reply — Band 4.0</h3>
-      <div class="sample-box" style="margin-top:8px;font-size:13px;line-height:1.7">Hi Johan,<br><br>
-Yes, I really enjoyed the farewell party! It was a truly memorable occasion for all of us.<br><br>
-I am sorry to hear about your grandmother. I hope she recovers well soon. It must have been an exhausting journey all the way to Kedah for your family.<br><br>
-To answer your questions — almost all our classmates attended except a few with prior commitments. The food was excellent with a full buffet of Malaysian dishes. We played games, took group photos and watched a short video presentation of our class memories.<br><br>
-No, I am afraid I cannot meet up next week as I have mid-term tests coming up. Perhaps during the semester break instead?<br><br>
-Take care and keep us updated about your grandmother.<br><br>
+    sampleHtml: `<div class="card lime"><h3>Sample Reply — Task 1</h3>
+      <div class="sample-box" style="margin-top:8px;font-size:13px;line-height:1.7"><b>Subject: Re: How’s the Party?</b><br><br>
+Hi Johan,<br><br>
+It was great to hear from you! <b>Yes, I really enjoyed the party</b>. It was a wonderful way to wrap up our school year together, though we all definitely noticed you weren't there.<br><br>
+<b>I am so sorry to hear about your grandmother’s illness</b>. It must have been a very stressful and exhausting seven-hour journey to Kedah for you and your family. I truly hope she recovers quickly and feels much better soon.<br><br>
+Regarding the party, almost everyone attended, so the atmosphere was very lively. The food was delicious; we had a huge spread of satay, fried noodles, and a variety of local desserts that everyone loved. We also had some really fun activities, including a lucky draw and a hilarious karaoke session where even the teachers joined in.<br><br>
+About meeting up, <b>no, I am afraid I cannot make it next week</b>. My family is planning a trip out of town during that time. Perhaps we can catch up once I am back?<br><br>
+Take care of yourself and your family.<br><br>
+Warm regards,<br>
 Karim</div></div>
-      <div class="coach-note lime" style="margin-top:10px"><div class="tag">EXAMINER NOTE</div><p>This reply covers all four bullet points in clear paragraphs, uses a natural friendly tone and is approximately 150 words. Each note is addressed directly — examiner can tick each point clearly.</p></div>`,
+      <div class="coach-note lime" style="margin-top:10px"><div class="tag">EXAMINER NOTE</div><p>This sample addresses all four required notes clearly: enjoyment, sympathy, explanation of the party and response to the meet-up suggestion. It is well-organised, friendly and suitable for MUET Task 1.</p></div>`,
     rubric: [
-      ['task',  'Task Fulfilment',   'All four notes addressed completely',         20],
-      ['org',   'Organisation',      'Clear greeting, paragraphs and closing',       20],
-      ['lang',  'Language Accuracy', 'Mostly correct grammar and sentence structure', 20],
-      ['vocab', 'Vocabulary',        'Appropriate range for semi-formal writing',    15],
-      ['tone',  'Tone & Style',      'Friendly and natural for a classmate email',   15]
+      ['task',  'Task Fulfilment',   'All notes and parts of the prompt are addressed completely', 20],
+      ['org',   'Organisation',      'Clear greeting, logical flow, paragraphing and closing',     20],
+      ['struct','Structure',         'Varied and correct sentence structures',                      20],
+      ['lexis', 'Lexis',             'Appropriate and precise vocabulary',                          15],
+      ['tone',  'Tone & Style',      'Friendly, natural and suitable for a classmate email',        15]
     ]
   },
   T2: {
-    label: 'Task 2 — Essay (250+ words)',
+    label: 'Task 2 — Academic Essay (250+ words)',
     timerSecs: 3000, timerLabel: 'Task 2 Timer — 50 min',
     wcMin: 250, wcGuide: 'Task 2: minimum 250 words required',
-    prompt: 'A guest speaker at a recent forum claimed that today\'s young adults lead a protected and pampered life, which led to the following comment:\n\n"Young adults today lack survival skills."\n\nWrite an essay expressing your opinion on the comment.',
-    bullets: [],
-    coach: 'Take a clear position — agree, disagree or partially agree. State your thesis in the first paragraph. Use PEEL for each body paragraph with specific Malaysian examples. Aim for 300–400 words.',
+    prompt: 'During a recent school forum, a guest speaker claimed that modern young adults lead "protected and pampered" lives. The following statement was made:
+
+"Young adults today lack survival skills."
+
+Write an essay expressing your opinion on this comment.',
+    bullets: [
+      '⏱ Time recommendation: 50 minutes',
+      '✍️ Word count: At least 250 words',
+      'State your opinion clearly.',
+      'Support your ideas with reasons and examples.',
+      'Organise your essay into introduction, body paragraphs and conclusion.'
+    ],
+    coach: 'This is an academic opinion essay. You may agree, disagree or partially agree, but your stand must be clear. Use PEEL paragraphs: Point, Explanation, Example and Link. Avoid listing ideas without elaboration.',
     checklist: [
-      'I stated my position clearly in the introduction.',
-      'Each body paragraph uses PEEL structure.',
-      'I used at least one specific local or Malaysian example.',
-      'My conclusion restates my thesis with a final thought.',
+      'I stated my opinion clearly in the introduction.',
+      'My essay responds directly to the statement "Young adults today lack survival skills."',
+      'Each body paragraph has a clear main point.',
+      'I supported my ideas with reasons and examples.',
+      'My essay has a clear introduction, body and conclusion.',
       'My essay is at least 250 words.'
     ],
-    sampleHtml: `<div class="card lime"><h3>Sample Introduction + PEEL Paragraph — Band 4.0</h3>
-      <div class="sample-box" style="margin-top:8px;font-size:13px;line-height:1.7"><b>Introduction + Thesis:</b><br>
-The claim that young adults today lack survival skills has sparked much debate across society. While modern conveniences have made life more comfortable, I believe this has not entirely stripped young people of their ability to survive and adapt. However, there is merit in acknowledging that certain practical life skills are being neglected in today\'s generation.<br><br>
-<b>Body Paragraph 1 — PEEL (Partial Agreement):</b><br>
-<b>P:</b> To a certain extent, young adults today do lack some practical survival skills compared to previous generations.<br>
-<b>E:</b> The rise of technology and on-demand services means many young Malaysians have never learned to cook a basic meal, manage finances, or handle minor home repairs independently.<br>
-<b>E:</b> For instance, a study found that a significant number of Malaysian undergraduates could not budget their monthly allowance effectively or prepare even a simple rice dish.<br>
-<b>L:</b> This suggests that while young adults are digitally capable, their practical life competencies are underdeveloped — partially supporting the speaker\'s concern.</div></div>
-      <div class="coach-note pink" style="margin-top:10px"><div class="tag">EXAMINER NOTE</div><p>This introduction takes a nuanced position and the PEEL paragraph is well-structured with a local example. The Link sentence ties back directly to the thesis. A balanced view (partial agreement) scores better than extreme positions in Task 2.</p></div>`,
+    sampleHtml: `<div class="card lime"><h3>Sample Planning Guide — Task 2</h3>
+      <div class="sample-box" style="margin-top:8px;font-size:13px;line-height:1.7"><b>Possible stand:</b> Partially agree.<br><br>
+<b>Thesis idea:</b> Young adults today may lack some traditional survival skills because of comfort and technology, but they also possess modern survival skills such as digital literacy, adaptability and problem-solving.<br><br>
+<b>Body Paragraph 1:</b> Some young adults lack practical life skills such as cooking, budgeting and basic repairs because parents or services often handle these tasks for them.<br><br>
+<b>Body Paragraph 2:</b> However, many young adults are capable of surviving in modern society because they can learn quickly, use technology and adapt to new situations.<br><br>
+<b>Conclusion:</b> Young adults may need stronger practical life skills, but it is unfair to say they lack survival skills completely.</div></div>
+      <div class="coach-note pink" style="margin-top:10px"><div class="tag">EXAMINER NOTE</div><p>A balanced answer is strong for this topic. Do not only say young adults are weak. Show awareness that survival skills today may include both practical life skills and modern digital/adaptive skills.</p></div>`,
     rubric: [
-      ['task',  'Task Fulfilment',   'Clear thesis; argument addresses the comment',      20],
-      ['org',   'Organisation',      'Introduction, PEEL body paragraphs, conclusion',     20],
-      ['lang',  'Language Accuracy', 'Mostly correct grammar; varied sentence structures', 20],
-      ['vocab', 'Vocabulary Range',  'Academic vocabulary used appropriately',             15],
-      ['depth', 'Depth of Argument', 'Ideas elaborated with specific evidence or examples', 15]
+      ['task',  'Task Fulfilment',   'The essay addresses the prompt and gives a clear opinion',   20],
+      ['org',   'Organisation',      'Ideas flow logically with clear paragraphing',                20],
+      ['struct','Structure',         'Varied and correct sentence structures are used',             20],
+      ['lexis', 'Lexis',             'Vocabulary is appropriate, precise and academic',             15],
+      ['depth', 'Depth of Argument', 'Ideas are well elaborated with reasons and examples',         15]
     ]
   }
 };

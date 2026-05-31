@@ -1,0 +1,10 @@
+Vault 01 Writing updated.
+
+Updated content:
+- Task 1: Email Reply — How's the Party?
+- From: Johan (johan84@zmail.com)
+- Includes all required notes: Yes..., I am sorry..., Explain..., No, I am afraid...
+- Added model email reply from Karim.
+- Task 2: Academic Essay — Young adults today lack survival skills.
+- Added assessment criteria aligned to Task Fulfilment, Organisation, Structure and Lexis.
+- Updated rubric labels in the app to match the provided MUET assessment criteria.
