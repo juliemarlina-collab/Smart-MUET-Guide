@@ -207,6 +207,8 @@ function showContinue(data) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Profile guard
+  if (!MUET.loadProfile()) { location.href = 'index.html'; return; }
   renderDots();
   MUET.saveActiveVault({ vaultId: VAULT_ID, vaultTitle: 'Starter Vault', vaultType: 'starter' });
   const existing = MUET.loadSelfCheck(VAULT_ID);

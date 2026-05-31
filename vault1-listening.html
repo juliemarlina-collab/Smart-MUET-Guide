@@ -191,7 +191,11 @@
 <script src="js/muet-shared.js"></script>
 <script src="js/backend-config.js"></script>
 <script>
-const VAULT_ID = 'VAULT-01';
+// Read vaultId from activeVault so Starter Vault and Vault 1 both work correctly
+const _activeVault = MUET.loadActiveVault();
+const VAULT_ID     = (_activeVault && _activeVault.vaultId) ? _activeVault.vaultId : 'VAULT-01';
+const VAULT_TITLE  = (_activeVault && _activeVault.vaultTitle) ? _activeVault.vaultTitle : 'Vault 1';
+const IS_STARTER   = VAULT_ID === 'VAULT-00';
 // ── VAULT 01 · MUET Session 3 2022 · Listening 800/1 ────────────────────
 // 30 questions · 5 parts · Audio tracks connected from Google Drive
 // Answer key is provisional and must be verified against the official key before final deployment
@@ -813,6 +817,11 @@ function updateVaultProgress() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Issue #3: profile guard — redirect unregistered users
+  if (!MUET.loadProfile()) { location.href = 'index.html'; return; }
+  // Update brand bar label to reflect active vault
+  const barLabel = document.querySelector('.bar-label');
+  if (barLabel) barLabel.textContent = VAULT_TITLE + ' · Listening';
   Lst.renderQuestions();
   updateVaultProgress();
 });

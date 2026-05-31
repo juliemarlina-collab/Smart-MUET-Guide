@@ -147,8 +147,8 @@
     <div id="resultDetails" style="margin:12px 0;border:var(--line);border-radius:14px;background:white;padding:12px;font-size:13px;font-weight:800;display:grid;gap:8px"></div>
     <div style="background:var(--ink);color:white;border:var(--line);border-radius:14px;padding:12px;margin-bottom:12px;font-weight:900;font-size:14px">🏆 All four components complete! Check your Vault Round-Up.</div>
     <div class="btn-row">
-      <button class="btn lime wide" onclick="location.href='vault1-roundup.html'">→ Vault 1 Round-Up</button>
-      <button class="btn vault-menu-btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+      <button class="btn lime wide" id="roundupBtn">→ Round-Up</button>
+      <button class="btn vault-menu-btn white" id="vaultMenuBtn">← Vault Menu</button>
     </div>
   </div>
 
@@ -158,7 +158,11 @@
 <script src="js/muet-shared.js"></script>
 <script src="js/backend-config.js"></script>
 <script>
-const VAULT_ID = 'VAULT-01';
+// Read vaultId from activeVault so Starter Vault and Vault 1 both work correctly
+const _activeVault = MUET.loadActiveVault();
+const VAULT_ID     = (_activeVault && _activeVault.vaultId) ? _activeVault.vaultId : 'VAULT-01';
+const VAULT_TITLE  = (_activeVault && _activeVault.vaultTitle) ? _activeVault.vaultTitle : 'Vault 1';
+const IS_STARTER   = VAULT_ID === 'VAULT-00';
 
 // ── VAULT 01 · MUET Session 3 2022 · Writing 800/4 ─────────────────
 const tasks = {"T1":{"label":"Task 1 — Email Reply (100+ words)","timerSecs":1500,"timerLabel":"Task 1 Timer — 25 min","wcMin":100,"wcGuide":"Task 1: minimum 100 words required","prompt":"Your classmate, Johan, missed your class year-end farewell party due to a family emergency and sent you an email asking about it. Write a reply to Johan using all the notes provided.","bullets":["📧 From: Johan (johan84@zmail.com)","📧 Subject: How’s the Party?","","── Johan’s Email Content ──","Johan apologizes for missing the party.","Johan asks if you enjoyed the party.","Johan explains that his grandmother is ill in Kedah.","Johan asks if everyone attended, how the food was, and what activities were held.","Johan suggests meeting up next week.","","── Your Reply Must Include These Notes ──","✅ Yes, ... — confirm you enjoyed the party.","✅ I am sorry... — express sympathy regarding his grandmother.","✅ Explain — describe the attendance, food and activities.","✅ No, I am afraid... — respond to his suggestion to meet next week."],"coach":"Task 1 is a semi-formal email reply to a classmate. Make sure you respond to ALL notes. Use a friendly tone, organise your reply clearly, and write at least 100 words within 25 minutes.","checklist":[],"sampleHtml":"<div class=\"card lime\"><h3>Sample Reply — Task 1</h3>       <div class=\"sample-box\" style=\"margin-top:8px;font-size:13px;line-height:1.7\"><b>Subject: Re: How’s the Party?</b><br><br> Hi Johan,<br><br> It was great to hear from you! <b>Yes, I really enjoyed the party</b>. It was a wonderful way to wrap up our school year together, though we all definitely noticed you weren't there.<br><br> <b>I am so sorry to hear about your grandmother’s illness</b>. It must have been a very stressful and exhausting seven-hour journey to Kedah for you and your family. I truly hope she recovers quickly and feels much better soon.<br><br> Regarding the party, almost everyone attended, so the atmosphere was very lively. The food was delicious; we had a huge spread of satay, fried noodles, and a variety of local desserts that everyone loved. We also had some really fun activities, including a lucky draw and a hilarious karaoke session where even the teachers joined in.<br><br> About meeting up, <b>no, I am afraid I cannot make it next week</b>. My family is planning a trip out of town during that time. Perhaps we can catch up once I am back?<br><br> Take care of yourself and your family.<br><br> Warm regards,<br>Karim</div></div>","rubric":[["task","Task Fulfilment","All notes and parts of the prompt are addressed completely",20],["org","Organisation","Clear greeting, logical flow, paragraphing and closing",20],["struct","Structure","Varied and correct sentence structures",20],["lexis","Lexis","Appropriate and precise vocabulary",15]]},"T2":{"label":"Task 2 — Academic Essay (250+ words)","timerSecs":3000,"timerLabel":"Task 2 Timer — 50 min","wcMin":250,"wcGuide":"Task 2: minimum 250 words required","prompt":"During a recent school forum, a guest speaker claimed that modern young adults lead \"protected and pampered\" lives. The following statement was made: \"Young adults today lack survival skills.\" Write an essay expressing your opinion on this comment.","bullets":["⏱ Time recommendation: 50 minutes","✍️ Word count: At least 250 words","State your opinion clearly.","Support your ideas with reasons and examples.","Organise your essay into introduction, body paragraphs and conclusion."],"coach":"This is an academic opinion essay. You may agree, disagree or partially agree, but your stand must be clear. Use PEEL paragraphs: Point, Explanation, Example and Link.","checklist":[],"sampleHtml":"<div class=\"card lime\"><h3>Sample Planning Guide — Task 2</h3>       <div class=\"sample-box\" style=\"margin-top:8px;font-size:13px;line-height:1.7\"><b>Possible stand:</b> Partially agree.<br><br> <b>Thesis idea:</b> Young adults today may lack some traditional survival skills because of comfort and technology, but they also possess modern survival skills such as digital literacy, adaptability and problem-solving.<br><br> <b>Body Paragraph 1:</b> Some young adults lack practical life skills such as cooking, budgeting and basic repairs because parents or services often handle these tasks for them.<br><br> <b>Body Paragraph 2:</b> However, many young adults are capable of surviving in modern society because they can learn quickly, use technology and adapt to new situations.<br><br> <b>Conclusion:</b> Young adults may need stronger practical life skills, but it is unfair to say they lack survival skills completely.</div></div>","rubric":[["task","Task Fulfilment","The essay addresses the prompt and gives a clear opinion",20],["org","Organisation","Ideas flow logically with clear paragraphing",20],["struct","Structure","Varied and correct sentence structures are used",20],["lexis","Lexis","Vocabulary is appropriate, precise and academic",15]]}};
@@ -388,6 +392,19 @@ function updateVaultProgress() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Issue #3: profile guard — redirect unregistered users
+  if (!MUET.loadProfile()) { location.href = 'index.html'; return; }
+  // Update brand bar label to reflect active vault
+  const barLabel = document.querySelector('.bar-label');
+  if (barLabel) barLabel.textContent = VAULT_TITLE + ' · Writing';
+  // Wire dynamic round-up and vault menu buttons
+  const roundupPage   = IS_STARTER ? 'starter-roundup.html' : 'vault1-roundup.html';
+  const vaultMenuPage = IS_STARTER ? 'starter-welcome.html' : 'vault1-welcome.html';
+  const roundupLabel  = IS_STARTER ? '→ Starter Round-Up' : '→ Vault 1 Round-Up';
+  const rbtn = document.getElementById('roundupBtn');
+  const mbtn = document.getElementById('vaultMenuBtn');
+  if (rbtn) { rbtn.textContent = roundupLabel; rbtn.onclick = () => location.href = roundupPage; }
+  if (mbtn) mbtn.onclick = () => location.href = vaultMenuPage;
   Wrt.setTask('T1');
   updateVaultProgress();
 });

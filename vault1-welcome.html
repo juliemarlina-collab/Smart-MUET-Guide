@@ -240,6 +240,8 @@ function showContinue(data) {
 
 // ── Init ────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  // Profile guard
+  if (!MUET.loadProfile()) { location.href = 'index.html'; return; }
   renderDots();
 
   // Set active vault

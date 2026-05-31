@@ -94,7 +94,7 @@
   <!-- Action buttons -->
   <div style="display:grid;gap:10px;margin-top:4px">
     <button class="btn yellow" onclick="location.href='index.html'">🏠 Return to Hub Dashboard</button>
-    <button class="btn white" onclick="location.href='vault1-welcome.html'">← Back to Vault 1 Menu</button>
+    <button class="btn white" id="backToVaultBtn">← Back to Vault Menu</button>
   </div>
 
 </section>
@@ -102,7 +102,10 @@
 <div id="toast" class="toast"></div>
 <script src="js/muet-shared.js"></script>
 <script>
-const VAULT_ID = 'VAULT-01';
+const _activeVault = MUET.loadActiveVault();
+const VAULT_ID     = (_activeVault && _activeVault.vaultId) ? _activeVault.vaultId : 'VAULT-01';
+const VAULT_TITLE  = (_activeVault && _activeVault.vaultTitle) ? _activeVault.vaultTitle : 'Vault 1';
+const IS_STARTER   = VAULT_ID === 'VAULT-00';
 
 const COMP_CONFIG = [
   { key:'speaking',  label:'Speaking',  icon:'🎤', color:'#0757ff', textColor:'white' },
@@ -243,7 +246,20 @@ const Roundup = (() => {
   return { render, saveReflection };
 })();
 
-document.addEventListener('DOMContentLoaded', Roundup.render);
+document.addEventListener('DOMContentLoaded', () => {
+  // Issue #3: profile guard
+  if (!MUET.loadProfile()) { location.href = 'index.html'; return; }
+  // Update title and back button based on active vault
+  const titleEl = document.querySelector('.bar-title');
+  if (titleEl) titleEl.textContent = VAULT_TITLE + ' Round-Up';
+  const backBtn = document.getElementById('backToVaultBtn');
+  if (backBtn) {
+    const menuPage = IS_STARTER ? 'starter-welcome.html' : 'vault1-welcome.html';
+    backBtn.textContent = IS_STARTER ? '← Back to Starter Vault' : '← Back to Vault 1 Menu';
+    backBtn.onclick = () => location.href = menuPage;
+  }
+  Roundup.render();
+});
 </script>
 </body>
 </html>
