@@ -1,0 +1,137 @@
+/* =========================
+   SMART MUET — VAULT HERO
+   Reusable hero section for vault welcome pages
+========================= */
+
+.vault-hero-wrap {
+  margin: 18px 0 22px;
+}
+
+.vault-hero-card {
+  background: #fffdf7;
+  border: 4px solid #111111;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 8px 8px 0 #111111;
+}
+
+.vault-hero-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.vault-hero-caption {
+  padding: 16px 18px 18px;
+  background: #fffdf7;
+  border-top: 4px solid #111111;
+}
+
+.vault-hero-label {
+  display: inline-block;
+  padding: 8px 14px;
+  border: 3px solid #111111;
+  border-radius: 999px;
+  background: #ffd33d;
+  color: #111111;
+  font-size: 0.82rem;
+  font-weight: 1000;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.vault-hero-title {
+  margin: 0 0 10px;
+  color: #111111;
+  font-size: 2rem;
+  line-height: 1.05;
+  font-weight: 1000;
+}
+
+.vault-hero-subtitle {
+  margin: 0 0 14px;
+  color: #374151;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 800;
+}
+
+.vault-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.vault-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 3px solid #111111;
+  border-radius: 999px;
+  background: #f6f1e6;
+  color: #111111;
+  font-size: 0.92rem;
+  font-weight: 1000;
+  box-shadow: 3px 3px 0 #111111;
+}
+
+.vault-meta-pill.speaking {
+  background: #ff9f1c;
+}
+
+.vault-meta-pill.reading {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.vault-meta-pill.listening {
+  background: #2dd4bf;
+}
+
+.vault-meta-pill.writing {
+  background: #ffd60a;
+}
+
+.vault-meta-pill.progress {
+  background: #f472b6;
+}
+
+.vault-hero-fallback {
+  background: #fffdf7;
+  border: 4px solid #111111;
+  border-radius: 28px;
+  padding: 22px;
+  box-shadow: 8px 8px 0 #111111;
+}
+
+@media (max-width: 768px) {
+  .vault-hero-wrap {
+    margin: 14px 0 20px;
+  }
+
+  .vault-hero-card,
+  .vault-hero-fallback {
+    border-radius: 24px;
+    box-shadow: 6px 6px 0 #111111;
+  }
+
+  .vault-hero-caption {
+    padding: 14px 14px 16px;
+  }
+
+  .vault-hero-title {
+    font-size: 1.65rem;
+  }
+
+  .vault-hero-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .vault-meta-pill {
+    font-size: 0.82rem;
+    padding: 8px 10px;
+  }
+}
