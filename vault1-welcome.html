@@ -24,16 +24,17 @@
 
   <!-- Hero — rendered by js/vault-hero.js -->
   <div id="vaultHeroMount"></div>
-<div class="card">
-    <h2>Your Vault 1 Progress</h2>
-    <div class="comp-dots" id="vaultDots" style="margin-top:14px">
+
+  <!-- Hidden progress state elements — used by updateVaultProgress() JS -->
+  <div style="display:none">
+    <div id="vaultDots">
       <div class="dot pending" id="dot-spk">🎤</div>
       <div class="dot pending" id="dot-read">📖</div>
       <div class="dot pending" id="dot-lst">🎧</div>
       <div class="dot pending" id="dot-wrt">✍️</div>
     </div>
     <div class="prog-bar"><span id="vaultProg" style="width:0%"></span></div>
-    <p style="text-align:center;font-size:12px;font-weight:1000;color:var(--muted);margin-top:8px" id="progLabel">0 of 4 components completed</p>
+    <p id="progLabel">0 of 4 components completed</p>
   </div>
 
   <!-- What to expect -->
