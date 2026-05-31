@@ -37,6 +37,23 @@
     .guide-secondary-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .practice-guide-panel{width:100%;margin-top:12px}
 
+  
+    .strategy-steps{display:grid;gap:10px}
+    .step-card{display:grid;grid-template-columns:48px 1fr;gap:10px;align-items:start;background:#fff;border:2px solid var(--ink);border-radius:16px;padding:10px;box-shadow:3px 3px 0 var(--ink)}
+    .step-letter{width:42px;height:42px;border:2px solid var(--ink);border-radius:12px;display:grid;place-items:center;font-size:24px;font-weight:1000;box-shadow:2px 2px 0 var(--ink)}
+    .step-letter.pink{background:#f65ab8}
+    .step-letter.orange{background:#ff8a00}
+    .step-letter.blue{background:#2563eb;color:#fff}
+    .step-letter.green{background:#00ff00}
+    .step-letter.yellow{background:#ffc400}
+    .step-letter.teal{background:#00d1b2}
+    .step-letter.purple{background:#a78bfa}
+    .step-title{font-size:16px;font-weight:1000;margin-bottom:2px}
+    .step-desc{font-size:13px;font-weight:850;color:#374151;line-height:1.45}
+    .mini-tip{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:10px;font-weight:900;line-height:1.45}
+    .guide-secondary-row .practice-guide-btn{background:#fff!important;color:#111!important}
+    .guide-secondary-row .vault-menu-btn{background:#f65ab8!important;color:#111!important}
+
   </style>
 </head>
 <body>
@@ -118,21 +135,25 @@
         <textarea id="transcript" rows="5" style="margin-top:10px" placeholder="I believe students should work part-time because..."></textarea>
       </div>      <!-- Submit buttons -->
       <div class="guide-action-stack">
-        <button class="btn submit-standard wide" onclick="Spk.submit()">Submit Speaking Practice</button>
+        <button class="btn submit-standard wide" style="background:var(--yellow)!important;color:#111!important" onclick="Spk.submit()">Submit Speaking Practice</button>
         <div class="guide-secondary-row">
           <button class="btn practice-guide-btn white" onclick="Spk.togglePracticeGuide()">Practice Guide</button>
           <button class="btn vault-menu-btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
         </div>
       </div>
 
+      
       <div class="practice-guide-panel" id="practiceGuidePanel">
-        <h3>Speaking Practice Guide</h3>
-        <div class="guide-grid">
-          <div class="guide-card"><b>PREP Structure</b><br>Point → Reason → Example → Point again.</div>
-          <div class="guide-card"><b>Useful Phrases</b><br>I believe..., This is because..., For example..., Therefore...</div>
-          <div class="guide-card"><b>Task B Interaction</b><br>Agree politely, build on others’ ideas and help the group reach a conclusion.</div>
-          <div class="guide-card"><b>Before Submit</b><br>Make sure your transcript has a clear opinion, reason and example.</div>
+        <h3>Speaking Practice Guide — P.R.E.P.</h3>
+        <div class="strategy-steps">
+          <div class="step-card"><div class="step-letter pink">P</div><div><div class="step-title">Point</div><div class="step-desc">Start with a clear opinion. Example: <b>I believe students should...</b></div></div></div>
+          <div class="step-card"><div class="step-letter orange">R</div><div><div class="step-title">Reason</div><div class="step-desc">Explain why. Use phrases like <b>because</b>, <b>this is because</b>, or <b>the reason is</b>.</div></div></div>
+          <div class="step-card"><div class="step-letter blue">E</div><div><div class="step-title">Example</div><div class="step-desc">Add one real or simple example. Example: <b>For example, students can...</b></div></div></div>
+          <div class="step-card"><div class="step-letter green">P</div><div><div class="step-title">Point Again</div><div class="step-desc">End by repeating your point confidently. Example: <b>Therefore, I strongly think...</b></div></div></div>
+          <div class="mini-tip">Task B reminder: agree politely, add one reason, invite others and help the group reach a final decision.</div>
         </div>
+      </div>
+
       </div>
 
   <!-- Result: Score + Feedback + Achievement ────────────────────── -->
@@ -157,6 +178,7 @@
 
 <div id="toast" class="toast"></div>
 <script src="js/muet-shared.js"></script>
+<script src="js/backend-config.js"></script>
 <script>
 const VAULT_ID = 'VAULT-01';
 
@@ -287,6 +309,41 @@ const Spk = (() => {
       panel.scrollIntoView({behavior:'smooth', block:'center'});
     }
   }
+  function getStudentProfile() {
+    try {
+      return JSON.parse(localStorage.getItem('smartMuetProfile') || '{}');
+    } catch (err) {
+      return {};
+    }
+  }
+
+  function saveAttemptToBackend(payload) {
+    const profile = getStudentProfile();
+    const enriched = {
+      studentEmail: profile.email || profile.studentEmail || 'demo@student.local',
+      studentName: profile.name || profile.studentName || 'Demo Student',
+      classGroup: profile.classGroup || profile.group || '',
+      vaultId: VAULT_ID,
+      ...payload
+    };
+
+    if (typeof saveSmartMuetAttempt === 'function') {
+      saveSmartMuetAttempt(enriched).then(res => {
+        console.log('Smart MUET backend save:', res);
+      }).catch(err => console.warn('Backend save failed:', err));
+    } else {
+      console.warn('Backend helper not loaded. Attempt saved locally only.', enriched);
+    }
+    return enriched;
+  }
+
+  function showFeedbackToast(score90, component) {
+    if (score90 >= 74) MUET.toast(`${component} submitted. Excellent work — Band 5 range!`);
+    else if (score90 >= 53) MUET.toast(`${component} submitted. Good progress — keep improving.`);
+    else MUET.toast(`${component} submitted. Review the Practice Guide and try again.`);
+  }
+
+
 
 
 
@@ -337,15 +394,53 @@ const Spk = (() => {
 
     // Render result
     const fb = MUET.feedbackText('speaking', score90);
+    const wc = transcript.split(/\s+/).length;
+    const hasOpinion = /\b(i think|i believe|in my opinion|personally)\b/i.test(transcript);
+    const hasReason = /\b(because|since|this is because|the reason)\b/i.test(transcript);
+    const hasExample = /\b(for example|for instance|such as)\b/i.test(transcript);
+    const strength = score90 >= 64 ? 'Clear PREP planning and enough speaking notes.' : 'You attempted the speaking task and recorded your thinking.';
+    const nextAction = task === 'A'
+      ? 'Practise Task B interaction by agreeing, disagreeing and inviting others.'
+      : 'Practise closing the discussion with a group decision.';
+    const badgeName = task === 'A' ? 'PREP Starter' : 'Discussion Builder';
+
     document.getElementById('resultScore').textContent    = `${score90}/90`;
     document.getElementById('resultBand').textContent     = `Estimated Band ${band}`;
-    document.getElementById('resultStrength').textContent = score90 >= 64 ? '✅ Strength: ' + fb : '📋 ' + fb;
-    document.getElementById('resultImprove').textContent  = checks.length < 3 ? '⚡ Improvement: Tick more rubric items by developing your PREP structure.' : '⚡ Improvement: Review your delivery — speak confidently and avoid fillers.';
-    document.getElementById('resultNext').textContent     = '→ Next action: Open Reading and apply Question-First strategy.';
-    document.getElementById('achieveBadge').textContent   = task === 'A' ? '🎤 Badge Unlocked: PREP Starter' : '💬 Badge Unlocked: Discussion Builder';
+    document.getElementById('resultStrength').textContent = `✅ Strength: ${strength}`;
+    document.getElementById('resultImprove').textContent  = `⚡ Feedback: ${fb}`;
+    document.getElementById('resultNext').textContent     = `🎯 Next action: ${nextAction}`;
+    document.getElementById('achieveBadge').textContent   = `🏅 Badge Unlocked: ${badgeName}`;
+
+    saveAttemptToBackend({
+      component:'Speaking',
+      taskType: task === 'A' ? 'Task A' : 'Task B',
+      rawScore: score90,
+      totalItems: 90,
+      score90,
+      estimatedBand: band,
+      feedback: fb,
+      nextAction,
+      badgeEarned: badgeName,
+      status:'Rule-based auto-feedback',
+      answerText: transcript,
+      rubric:{
+        engine:'Rule-based speaking rubric v1',
+        reviewStatus:'Auto-feedback',
+        overallStrength: strength,
+        improvementFocus: nextAction,
+        nextAction,
+        criteria:[
+          {name:'Task Fulfilment', score:filledPrep >= 3 ? 18 : 12, feedback: filledPrep >= 3 ? 'PREP planning is mostly complete.' : 'Complete more PREP boxes before speaking.'},
+          {name:'Fluency', score:wc >= 80 ? 18 : wc >= 50 ? 14 : 10, feedback:`Transcript length: ${wc} words.`},
+          {name:'Language Accuracy', score:hasReason ? 16 : 12, feedback:hasReason ? 'Reasoning language detected.' : 'Add reason markers such as because or this is because.'},
+          {name:'Vocabulary', score:hasExample ? 15 : 11, feedback:hasExample ? 'Example language detected.' : 'Add example phrases such as for example.'},
+          {name:'Communicative Ability', score:hasOpinion ? 15 : 10, feedback:hasOpinion ? 'Opinion phrase detected.' : 'Start with a clear opinion phrase.'}
+        ]
+      }
+    });
 
     document.getElementById('resultCard').classList.add('show');
-    MUET.toast('Speaking practice saved. Great work!');
+    showFeedbackToast(score90, 'Speaking');
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     updateVaultProgress();
   }

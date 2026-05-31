@@ -33,6 +33,23 @@
     .guide-secondary-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .practice-guide-panel{width:100%;margin-top:12px}
 
+  
+    .strategy-steps{display:grid;gap:10px}
+    .step-card{display:grid;grid-template-columns:48px 1fr;gap:10px;align-items:start;background:#fff;border:2px solid var(--ink);border-radius:16px;padding:10px;box-shadow:3px 3px 0 var(--ink)}
+    .step-letter{width:42px;height:42px;border:2px solid var(--ink);border-radius:12px;display:grid;place-items:center;font-size:24px;font-weight:1000;box-shadow:2px 2px 0 var(--ink)}
+    .step-letter.pink{background:#f65ab8}
+    .step-letter.orange{background:#ff8a00}
+    .step-letter.blue{background:#2563eb;color:#fff}
+    .step-letter.green{background:#00ff00}
+    .step-letter.yellow{background:#ffc400}
+    .step-letter.teal{background:#00d1b2}
+    .step-letter.purple{background:#a78bfa}
+    .step-title{font-size:16px;font-weight:1000;margin-bottom:2px}
+    .step-desc{font-size:13px;font-weight:850;color:#374151;line-height:1.45}
+    .mini-tip{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:10px;font-weight:900;line-height:1.45}
+    .guide-secondary-row .practice-guide-btn{background:#fff!important;color:#111!important}
+    .guide-secondary-row .vault-menu-btn{background:#f65ab8!important;color:#111!important}
+
   </style>
 </head>
 <body>
@@ -101,21 +118,25 @@
         <textarea id="answerBox" rows="10" placeholder="Begin writing your response here..." oninput="Wrt.countWords()"></textarea>
       </div>      <!-- Rubric -->
       <div class="guide-action-stack">
-        <button class="btn submit-standard wide" onclick="Wrt.submit()">Submit Writing Practice</button>
+        <button class="btn submit-standard wide" style="background:var(--yellow)!important;color:#111!important" onclick="Wrt.submit()">Submit Writing Practice</button>
         <div class="guide-secondary-row">
           <button class="btn practice-guide-btn white" onclick="Wrt.togglePracticeGuide()">Practice Guide</button>
           <button class="btn vault-menu-btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
         </div>
       </div>
 
+      
       <div class="practice-guide-panel" id="practiceGuidePanel">
-        <h3>Writing Practice Guide</h3>
-        <div class="guide-grid">
-          <div class="guide-card"><b>Task Fulfilment</b><br>Cover all required points. Missing one point reduces your score.</div>
-          <div class="guide-card"><b>Organisation</b><br>Use clear paragraphs: opening, body and closing / conclusion.</div>
-          <div class="guide-card"><b>Structure + Lexis</b><br>Use varied sentence structures and precise vocabulary.</div>
-          <div class="guide-card"><b>Before Submit</b><br>Check word count, task response, paragraphing and language accuracy.</div>
+        <h3>Writing Practice Guide — P.E.E.L.</h3>
+        <div class="strategy-steps">
+          <div class="step-card"><div class="step-letter pink">P</div><div><div class="step-title">Point</div><div class="step-desc">Write the main idea clearly at the start of the paragraph.</div></div></div>
+          <div class="step-card"><div class="step-letter orange">E</div><div><div class="step-title">Explain</div><div class="step-desc">Explain your point using clear reasoning. Use <b>because</b>, <b>therefore</b>, or <b>this means that</b>.</div></div></div>
+          <div class="step-card"><div class="step-letter blue">E</div><div><div class="step-title">Example</div><div class="step-desc">Support your idea with a relevant example, situation or evidence.</div></div></div>
+          <div class="step-card"><div class="step-letter green">L</div><div><div class="step-title">Link</div><div class="step-desc">Link the paragraph back to the question or your opinion.</div></div></div>
+          <div class="mini-tip">Before submitting: check task fulfilment, word count, paragraphing, connectors and vocabulary accuracy.</div>
         </div>
+      </div>
+
       </div>
 
 <!-- Result -->
@@ -135,6 +156,7 @@
 </main>
 <div id="toast" class="toast"></div>
 <script src="js/muet-shared.js"></script>
+<script src="js/backend-config.js"></script>
 <script>
 const VAULT_ID = 'VAULT-01';
 
@@ -211,6 +233,41 @@ const Wrt = (() => {
       panel.scrollIntoView({behavior:'smooth', block:'center'});
     }
   }
+  function getStudentProfile() {
+    try {
+      return JSON.parse(localStorage.getItem('smartMuetProfile') || '{}');
+    } catch (err) {
+      return {};
+    }
+  }
+
+  function saveAttemptToBackend(payload) {
+    const profile = getStudentProfile();
+    const enriched = {
+      studentEmail: profile.email || profile.studentEmail || 'demo@student.local',
+      studentName: profile.name || profile.studentName || 'Demo Student',
+      classGroup: profile.classGroup || profile.group || '',
+      vaultId: VAULT_ID,
+      ...payload
+    };
+
+    if (typeof saveSmartMuetAttempt === 'function') {
+      saveSmartMuetAttempt(enriched).then(res => {
+        console.log('Smart MUET backend save:', res);
+      }).catch(err => console.warn('Backend save failed:', err));
+    } else {
+      console.warn('Backend helper not loaded. Attempt saved locally only.', enriched);
+    }
+    return enriched;
+  }
+
+  function showFeedbackToast(score90, component) {
+    if (score90 >= 74) MUET.toast(`${component} submitted. Excellent work — Band 5 range!`);
+    else if (score90 >= 53) MUET.toast(`${component} submitted. Good progress — keep improving.`);
+    else MUET.toast(`${component} submitted. Review the Practice Guide and try again.`);
+  }
+
+
 
 
 
@@ -243,14 +300,55 @@ const Wrt = (() => {
     document.getElementById('resultScore').textContent = `${score90}/90`;
     document.getElementById('resultBand').textContent  = `Estimated Band ${band}`;
     const fb = MUET.feedbackText('writing', score90);
+    const td = tasks[currentTask];
+    const paraCount = answer.split(/\n\s*\n|\n/).filter(p => p.trim().length > 20).length;
+    const connectors = (answer.match(/\b(firstly|secondly|however|therefore|moreover|furthermore|in conclusion|because|although|for example)\b/gi) || []).length;
+    const t1Needles = ['enjoyed','sorry','grandmother','party','food','activities','next week'];
+    const t1Hits = t1Needles.filter(k => answer.toLowerCase().includes(k)).length;
+    const taskFulfilmentScore = currentTask === 'T1' ? Math.min(20, 8 + t1Hits * 2) : Math.min(20, /\b(i agree|i disagree|in my opinion|i believe|personally)\b/i.test(answer) ? 17 : 12);
+    const orgScore = Math.min(20, 10 + paraCount * 2);
+    const structScore = Math.min(20, 10 + connectors);
+    const lexisScore = Math.min(15, wc >= td.wcMin ? 14 : 10);
+    const strength = score90 >= 64 ? 'Good response structure and sufficient development.' : 'You attempted the writing task and submitted enough content for feedback.';
+    const nextAction = currentTask === 'T1'
+      ? 'Check that all four notes are answered clearly: enjoyed, sympathy, party details and meeting response.'
+      : 'Strengthen your essay with a clear stand, PEEL paragraphs and specific examples.';
     document.getElementById('resultDetails').innerHTML = `
-      <div>✅ Strength: ${score90 >= 64 ? 'Good response structure' : 'Attempted both task requirements'}</div>
-      <div>⚡ ${fb}</div>
-      <div>📝 Word count: ${wc} words</div>
+      <div>✅ Strength: ${strength}</div>
+      <div>⚡ Feedback: ${fb}</div>
+      <div>📝 Word count: ${wc} words · Paragraphs: ${paraCount} · Connectors: ${connectors}</div>
+      <div>🎯 Next Action: ${nextAction}</div>
       <div>✍️ Badge Unlocked: Essay Builder</div>`;
 
+    saveAttemptToBackend({
+      component:'Writing',
+      taskType:currentTask,
+      rawScore:score90,
+      totalItems:90,
+      score90,
+      estimatedBand:band,
+      feedback:fb,
+      nextAction,
+      badgeEarned:'Essay Builder',
+      status:'Rule-based auto-feedback',
+      answerText:answer,
+      rubric:{
+        engine:'Rule-based writing rubric v1',
+        reviewStatus:'Auto-feedback',
+        overallStrength:strength,
+        improvementFocus:nextAction,
+        nextAction,
+        criteria:[
+          {name:'Task Fulfilment', score:taskFulfilmentScore, feedback: currentTask === 'T1' ? `${t1Hits}/7 key content signals detected.` : 'Opinion/stand checked.'},
+          {name:'Organisation', score:orgScore, feedback:`Detected ${paraCount} paragraph section(s).`},
+          {name:'Structure', score:structScore, feedback:`Detected ${connectors} connector(s).`},
+          {name:'Lexis', score:lexisScore, feedback:wc >= td.wcMin ? 'Word count target met.' : 'Word count below recommended target.'}
+        ]
+      }
+    });
+
     document.getElementById('resultCard').classList.add('show');
-    MUET.toast('Writing saved! All 4 components done — check your Vault Round-Up!');
+    showFeedbackToast(score90, 'Writing');
     window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
     updateVaultProgress();
   }

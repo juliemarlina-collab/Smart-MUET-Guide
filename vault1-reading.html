@@ -25,6 +25,36 @@
     .article-btn:active { transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink); }
     .read-note { font-size:11px;font-weight:900;color:var(--muted);margin-top:8px; }
     .qtag { display:inline-block;background:var(--pink);border:2px solid var(--ink);border-radius:999px;padding:3px 8px;font-size:11px;font-weight:1000;margin-bottom:8px; }
+  
+    .practice-guide-panel{display:none;background:#FFF7CC;border:var(--line);border-radius:22px;box-shadow:5px 5px 0 var(--ink);padding:16px;margin:14px 0}
+    .practice-guide-panel.show{display:block}
+    .practice-guide-panel h3{margin:0 0 10px;font-size:20px}
+    .guide-grid{display:grid;gap:10px}
+    .guide-card{background:#fff;border:2px solid var(--ink);border-radius:15px;padding:12px;font-weight:850;line-height:1.45}
+    .btn.practice-guide-btn{background:#fff !important;color:#111 !important}
+    .btn.vault-menu-btn{background:#f65ab8 !important;color:#111 !important}
+    .btn.submit-standard{background:var(--yellow)!important;color:#111!important}
+    .guide-action-stack{display:grid;gap:12px;margin-top:14px}
+    .guide-secondary-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .practice-guide-panel{width:100%;margin-top:12px}
+
+  
+    .strategy-steps{display:grid;gap:10px}
+    .step-card{display:grid;grid-template-columns:48px 1fr;gap:10px;align-items:start;background:#fff;border:2px solid var(--ink);border-radius:16px;padding:10px;box-shadow:3px 3px 0 var(--ink)}
+    .step-letter{width:42px;height:42px;border:2px solid var(--ink);border-radius:12px;display:grid;place-items:center;font-size:24px;font-weight:1000;box-shadow:2px 2px 0 var(--ink)}
+    .step-letter.pink{background:#f65ab8}
+    .step-letter.orange{background:#ff8a00}
+    .step-letter.blue{background:#2563eb;color:#fff}
+    .step-letter.green{background:#00ff00}
+    .step-letter.yellow{background:#ffc400}
+    .step-letter.teal{background:#00d1b2}
+    .step-letter.purple{background:#a78bfa}
+    .step-title{font-size:16px;font-weight:1000;margin-bottom:2px}
+    .step-desc{font-size:13px;font-weight:850;color:#374151;line-height:1.45}
+    .mini-tip{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:10px;font-weight:900;line-height:1.45}
+    .guide-secondary-row .practice-guide-btn{background:#fff!important;color:#111!important}
+    .guide-secondary-row .vault-menu-btn{background:#f65ab8!important;color:#111!important}
+
   </style>
 </head>
 <body>
@@ -67,17 +97,29 @@
       </div>
 
       <!-- Per-part: article shown above its own questions -->
-      <div id="articleAndQuestions" style="display:grid;gap:16px"></div>
-
-
-
-      <div class="btn-row" style="margin-top:14px">
-        <button class="btn lime wide" onclick="Rd.submit()">Submit Reading Practice</button>
-        <button class="btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+      <div id="articleAndQuestions" style="display:grid;gap:16px"></div>      <div class="guide-action-stack">
+        <button class="btn submit-standard wide" style="background:var(--yellow)!important;color:#111!important" onclick="Rd.submit()">Submit Reading Practice</button>
+        <div class="guide-secondary-row">
+          <button class="btn practice-guide-btn white" onclick="Rd.togglePracticeGuide()">Practice Guide</button>
+          <button class="btn vault-menu-btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+        </div>
       </div>
 
+      
+      <div class="practice-guide-panel" id="practiceGuidePanel">
+        <h3>Reading Practice Guide — S.C.A.N.</h3>
+        <div class="strategy-steps">
+          <div class="step-card"><div class="step-letter yellow">S</div><div><div class="step-title">Skim</div><div class="step-desc">Read quickly to understand the main idea of the passage.</div></div></div>
+          <div class="step-card"><div class="step-letter teal">C</div><div><div class="step-title">Check Questions</div><div class="step-desc">Read the question stem first so you know what information to find.</div></div></div>
+          <div class="step-card"><div class="step-letter blue">A</div><div><div class="step-title">Analyse Options</div><div class="step-desc">Compare all options carefully. Do not choose an answer only because it has similar words.</div></div></div>
+          <div class="step-card"><div class="step-letter green">N</div><div><div class="step-title">Negate Distractors</div><div class="step-desc">Eliminate answers that are too broad, too narrow, opposite or not stated.</div></div></div>
+          <div class="mini-tip">Before submitting: review unanswered questions and inference items first.</div>
+        </div>
+      </div>
 
-  <!-- Result -->
+      </div>
+
+<!-- Result -->
   <div id="resultCard" class="result-card" style="background:#dcfce7">
     <div class="tag">READING RESULT SAVED</div>
     <span id="resultScore" class="result-score">0/90</span>
@@ -86,7 +128,7 @@
     <div id="questionReview" style="display:grid;gap:10px;margin-bottom:12px"></div>
     <div class="btn-row">
       <button class="btn black wide" onclick="location.href='vault1-listening.html'">Next: Listening 🎧 →</button>
-      <button class="btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+      <button class="btn vault-menu-btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
     </div>
   </div>
 
@@ -94,6 +136,7 @@
 </main>
 <div id="toast" class="toast"></div>
 <script src="js/muet-shared.js"></script>
+<script src="js/backend-config.js"></script>
 <script>
 const VAULT_ID = 'VAULT-01';
 
@@ -267,6 +310,51 @@ const Rd = (() => {
       box.scrollBy({top: Math.max(260, box.clientHeight - 40), behavior:'smooth'});
     }
   }
+  function togglePracticeGuide() {
+    const panel = document.getElementById('practiceGuidePanel');
+    if (!panel) return;
+    panel.classList.toggle('show');
+    if (panel.classList.contains('show')) {
+      panel.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+  }
+  function getStudentProfile() {
+    try {
+      return JSON.parse(localStorage.getItem('smartMuetProfile') || '{}');
+    } catch (err) {
+      return {};
+    }
+  }
+
+  function saveAttemptToBackend(payload) {
+    const profile = getStudentProfile();
+    const enriched = {
+      studentEmail: profile.email || profile.studentEmail || 'demo@student.local',
+      studentName: profile.name || profile.studentName || 'Demo Student',
+      classGroup: profile.classGroup || profile.group || '',
+      vaultId: VAULT_ID,
+      ...payload
+    };
+
+    if (typeof saveSmartMuetAttempt === 'function') {
+      saveSmartMuetAttempt(enriched).then(res => {
+        console.log('Smart MUET backend save:', res);
+      }).catch(err => console.warn('Backend save failed:', err));
+    } else {
+      console.warn('Backend helper not loaded. Attempt saved locally only.', enriched);
+    }
+    return enriched;
+  }
+
+  function showFeedbackToast(score90, component) {
+    if (score90 >= 74) MUET.toast(`${component} submitted. Excellent work — Band 5 range!`);
+    else if (score90 >= 53) MUET.toast(`${component} submitted. Good progress — keep improving.`);
+    else MUET.toast(`${component} submitted. Review the Practice Guide and try again.`);
+  }
+
+
+
+
 
   function submit() {
     if (submitted) return;
@@ -312,20 +400,48 @@ const Rd = (() => {
     document.getElementById('resultScore').textContent = `${correct}/${total} correct · ${score90}/90`;
     document.getElementById('resultBand').textContent  = `Estimated Band ${band}`;
     const fb = MUET.feedbackText('reading', score90);
-    const weakStr = Object.keys(weak).length ? `Weakest type: ${Object.keys(weak).join(', ')}` : 'No recurring weak type — great consistency!';
+    const weakStr = Object.keys(weak).length ? `Focus area: ${Object.keys(weak).join(', ')}` : 'No recurring weak type — great consistency!';
+    const strength = score90 >= 74 ? 'Excellent reading accuracy and exam focus.' : score90 >= 53 ? 'Good attempt with developing passage control.' : 'You completed the reading practice and can now review the weak parts.';
+    const nextAction = score90 >= 74 ? 'Move to the next vault or challenge yourself with timed reading.' : 'Use the Practice Guide to review skim/scan and distractor elimination.';
     document.getElementById('resultDetails').innerHTML = `
-      <div>✅ Strength: ${score90 >= 64 ? 'Good accuracy' : 'Attempting all questions'}</div>
-      <div>⚡ ${fb}</div>
+      <div>✅ Strength: ${strength}</div>
+      <div>⚡ Feedback: ${fb}</div>
       <div>📊 ${weakStr}</div>
+      <div>🎯 Next Action: ${nextAction}</div>
       <div>🏅 Badge Unlocked: Passage Hunter</div>`;
 
+    saveAttemptToBackend({
+      component:'Reading',
+      taskType:'MCQ Reading Test',
+      rawScore,
+      totalItems: total,
+      score90,
+      estimatedBand: band,
+      feedback: fb,
+      nextAction,
+      badgeEarned:'Passage Hunter',
+      status:'Auto-marked',
+      answerText:`Correct ${correct}/${total}. ${weakStr}`,
+      rubric:{
+        engine:'Objective auto-check v1',
+        reviewStatus:'Auto-marked',
+        overallStrength: strength,
+        improvementFocus: weakStr,
+        nextAction,
+        criteria:[
+          {name:'Accuracy', score:score90, feedback:fb},
+          {name:'Reading Strategy', score:score90 >= 74 ? 18 : score90 >= 53 ? 14 : 10, feedback:'Use skim, scan and elimination strategy.'}
+        ]
+      }
+    });
+
     document.getElementById('resultCard').classList.add('show');
-    MUET.toast('Reading saved!');
+    showFeedbackToast(score90, 'Reading');
     window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
     updateVaultProgress();
   }
 
-  return { openStep, toggle, toggleTimer, renderPassage, submit, toggleArticle, scrollArticle };
+  return { openStep, toggle, toggleTimer, renderPassage, submit, togglePracticeGuide };
 })();
 
 function updateVaultProgress() {

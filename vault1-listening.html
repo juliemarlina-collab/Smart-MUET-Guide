@@ -24,6 +24,36 @@
     .part-note{font-size:11px;font-weight:900;color:var(--muted);margin-top:7px}
 
     .qtag { display:inline-block;background:var(--blue);color:white;border:2px solid var(--ink);border-radius:999px;padding:3px 8px;font-size:11px;font-weight:1000;margin-bottom:8px; }
+  
+    .practice-guide-panel{display:none;background:#FFF7CC;border:var(--line);border-radius:22px;box-shadow:5px 5px 0 var(--ink);padding:16px;margin:14px 0}
+    .practice-guide-panel.show{display:block}
+    .practice-guide-panel h3{margin:0 0 10px;font-size:20px}
+    .guide-grid{display:grid;gap:10px}
+    .guide-card{background:#fff;border:2px solid var(--ink);border-radius:15px;padding:12px;font-weight:850;line-height:1.45}
+    .btn.practice-guide-btn{background:#fff !important;color:#111 !important}
+    .btn.vault-menu-btn{background:#f65ab8 !important;color:#111 !important}
+    .btn.submit-standard{background:var(--yellow)!important;color:#111!important}
+    .guide-action-stack{display:grid;gap:12px;margin-top:14px}
+    .guide-secondary-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .practice-guide-panel{width:100%;margin-top:12px}
+
+  
+    .strategy-steps{display:grid;gap:10px}
+    .step-card{display:grid;grid-template-columns:48px 1fr;gap:10px;align-items:start;background:#fff;border:2px solid var(--ink);border-radius:16px;padding:10px;box-shadow:3px 3px 0 var(--ink)}
+    .step-letter{width:42px;height:42px;border:2px solid var(--ink);border-radius:12px;display:grid;place-items:center;font-size:24px;font-weight:1000;box-shadow:2px 2px 0 var(--ink)}
+    .step-letter.pink{background:#f65ab8}
+    .step-letter.orange{background:#ff8a00}
+    .step-letter.blue{background:#2563eb;color:#fff}
+    .step-letter.green{background:#00ff00}
+    .step-letter.yellow{background:#ffc400}
+    .step-letter.teal{background:#00d1b2}
+    .step-letter.purple{background:#a78bfa}
+    .step-title{font-size:16px;font-weight:1000;margin-bottom:2px}
+    .step-desc{font-size:13px;font-weight:850;color:#374151;line-height:1.45}
+    .mini-tip{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:10px;font-weight:900;line-height:1.45}
+    .guide-secondary-row .practice-guide-btn{background:#fff!important;color:#111!important}
+    .guide-secondary-row .vault-menu-btn{background:#f65ab8!important;color:#111!important}
+
   </style>
 </head>
 <body>
@@ -85,17 +115,28 @@
       </div>
 
       <!-- MCQ questions -->
-      <div id="lstQList" style="display:grid;gap:14px"></div>
-
-
-
-      <div class="btn-row" style="margin-top:14px">
-        <button class="btn yellow wide" onclick="Lst.submit()">Submit Listening Practice</button>
-        <button class="btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+      <div id="lstQList" style="display:grid;gap:14px"></div>      <div class="guide-action-stack">
+        <button class="btn submit-standard wide" style="background:var(--yellow)!important;color:#111!important" onclick="Lst.submit()">Submit Listening Practice</button>
+        <div class="guide-secondary-row">
+          <button class="btn practice-guide-btn white" onclick="Lst.togglePracticeGuide()">Practice Guide</button>
+          <button class="btn vault-menu-btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+        </div>
       </div>
 
+      
+      <div class="practice-guide-panel" id="practiceGuidePanel">
+        <h3>Listening Practice Guide — K.E.Y.</h3>
+        <div class="strategy-steps">
+          <div class="step-card"><div class="step-letter yellow">K</div><div><div class="step-title">Keywords</div><div class="step-desc">Write short notes only: names, dates, places, numbers and repeated words.</div></div></div>
+          <div class="step-card"><div class="step-letter orange">E</div><div><div class="step-title">Expect Distractors</div><div class="step-desc">The first answer you hear may change. Wait for correction words like <b>but</b>, <b>actually</b>, or <b>instead</b>.</div></div></div>
+          <div class="step-card"><div class="step-letter blue">Y</div><div><div class="step-title">Yield Final Answer</div><div class="step-desc">Choose the answer after listening to the full idea, not just one matching word.</div></div></div>
+          <div class="mini-tip">Before submitting: check every question has an answer and compare it with your keyword notes.</div>
+        </div>
+      </div>
 
-  <!-- Result -->
+      </div>
+
+<!-- Result -->
   <div id="resultCard" class="result-card" style="background:#fef9c3">
     <div class="tag">LISTENING RESULT SAVED</div>
     <span id="resultScore" class="result-score">0/90</span>
@@ -140,7 +181,7 @@
     </div>
     <div class="btn-row">
       <button class="btn black wide" onclick="location.href='vault1-writing.html'">Next: Writing ✍️ →</button>
-      <button class="btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+      <button class="btn vault-menu-btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
     </div>
   </div>
 
@@ -148,6 +189,7 @@
 </main>
 <div id="toast" class="toast"></div>
 <script src="js/muet-shared.js"></script>
+<script src="js/backend-config.js"></script>
 <script>
 const VAULT_ID = 'VAULT-01';
 // ── VAULT 01 · MUET Session 3 2022 · Listening 800/1 ────────────────────
@@ -639,6 +681,51 @@ const Lst = (() => {
 
     document.getElementById('lstQList').innerHTML = html;
   }
+  function togglePracticeGuide() {
+    const panel = document.getElementById('practiceGuidePanel');
+    if (!panel) return;
+    panel.classList.toggle('show');
+    if (panel.classList.contains('show')) {
+      panel.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+  }
+  function getStudentProfile() {
+    try {
+      return JSON.parse(localStorage.getItem('smartMuetProfile') || '{}');
+    } catch (err) {
+      return {};
+    }
+  }
+
+  function saveAttemptToBackend(payload) {
+    const profile = getStudentProfile();
+    const enriched = {
+      studentEmail: profile.email || profile.studentEmail || 'demo@student.local',
+      studentName: profile.name || profile.studentName || 'Demo Student',
+      classGroup: profile.classGroup || profile.group || '',
+      vaultId: VAULT_ID,
+      ...payload
+    };
+
+    if (typeof saveSmartMuetAttempt === 'function') {
+      saveSmartMuetAttempt(enriched).then(res => {
+        console.log('Smart MUET backend save:', res);
+      }).catch(err => console.warn('Backend save failed:', err));
+    } else {
+      console.warn('Backend helper not loaded. Attempt saved locally only.', enriched);
+    }
+    return enriched;
+  }
+
+  function showFeedbackToast(score90, component) {
+    if (score90 >= 74) MUET.toast(`${component} submitted. Excellent work — Band 5 range!`);
+    else if (score90 >= 53) MUET.toast(`${component} submitted. Good progress — keep improving.`);
+    else MUET.toast(`${component} submitted. Review the Practice Guide and try again.`);
+  }
+
+
+
+
 
   function submit() {
     const notes = document.getElementById('lstNotes').value.trim();
@@ -672,18 +759,48 @@ const Lst = (() => {
     document.getElementById('resultScore').textContent = `${correct}/${total} correct · ${score90}/90`;
     document.getElementById('resultBand').textContent  = `Estimated Band ${band}`;
     const fb = MUET.feedbackText('listening', score90);
+    const strength = score90 >= 74 ? 'Excellent listening focus and answer accuracy.' : score90 >= 53 ? 'Good attempt with useful keyword notes.' : 'You completed the listening practice. Keep improving keyword focus.';
+    const nextAction = score90 >= 74 ? 'Proceed to Writing or try the next timed listening set.' : 'Review keyword notes and beware of distractors before trying again.';
     document.getElementById('resultDetails').innerHTML = `
-      <div>✅ Strength: ${score90 >= 64 ? 'Good accuracy on listening comprehension' : 'Attempting all questions'}</div>
-      <div>⚡ ${fb}</div>
+      <div>✅ Strength: ${strength}</div>
+      <div>⚡ Feedback: ${fb}</div>
+      <div>📝 Keyword Notes Saved: ${notes.split(/\s+/).slice(0,18).join(' ')}${notes.split(/\s+/).length>18?'...':''}</div>
+      <div>🎯 Next Action: ${nextAction}</div>
       <div>🎧 Badge Unlocked: Audio Focus</div>`;
 
+    saveAttemptToBackend({
+      component:'Listening',
+      taskType:'MCQ Listening Test',
+      rawScore:correct,
+      totalItems:total,
+      score90,
+      estimatedBand:band,
+      feedback:fb,
+      nextAction,
+      badgeEarned:'Audio Focus',
+      status:'Auto-marked',
+      notes,
+      answerText:`Keyword notes: ${notes}`,
+      rubric:{
+        engine:'Objective auto-check v1',
+        reviewStatus:'Auto-marked',
+        overallStrength: strength,
+        improvementFocus:'Keyword notes and distractor control',
+        nextAction,
+        criteria:[
+          {name:'Accuracy', score:score90, feedback:fb},
+          {name:'Keyword Notes', score:Math.min(20, Math.max(8, notes.split(/\s+/).length)), feedback:'Keyword notes submitted and saved.'}
+        ]
+      }
+    });
+
     document.getElementById('resultCard').classList.add('show');
-    MUET.toast('Listening saved!');
+    showFeedbackToast(score90, 'Listening');
     window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
     updateVaultProgress();
   }
 
-  return { openStep, toggle, toggleScript, renderQuestions, submit };
+  return { openStep, toggle, toggleScript, renderQuestions, submit, togglePracticeGuide };
 })();
 
 function updateVaultProgress() {
