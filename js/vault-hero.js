@@ -59,9 +59,22 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="vault-meta-pill reading">📖<span>Reading<br><small>800/3</small></span></div>
             <div class="vault-meta-pill listening">🎧<span>Listening<br><small>800/1</small></span></div>
             <div class="vault-meta-pill writing">✍️<span>Writing<br><small>800/4</small></span></div>
-            <div class="vault-meta-pill progress">${progressLabel}</div>
+            <div class="vault-meta-pill progress" id="heroProgressChip">${progressLabel}</div>
           </div>
         </div>
       </div>
     </div>`;
+
+  // Keep hero progress chip in sync whenever updateVaultProgress() runs
+  const _origUpdate = window.updateVaultProgress;
+  if (typeof _origUpdate === 'function') {
+    window.updateVaultProgress = function () {
+      _origUpdate();
+      try {
+        const prog = MUET.vaultProgress(vaultId);
+        const chip = document.getElementById('heroProgressChip');
+        if (chip) chip.textContent = prog.count === 4 ? '✅ All 4 Components Done' : `🏆 ${prog.count} / 4 Completed`;
+      } catch (_) {}
+    };
+  }
 });
