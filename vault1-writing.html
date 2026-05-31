@@ -63,14 +63,14 @@
       </div>
 
       <!-- Prompt -->
-      <div class="card" style="background:#fce7f3">
+      <div class="card" style="background:#FFF7CC">
         <h3 id="promptLabel">Writing Prompt — Task 1</h3>
         <p id="promptText" style="margin-top:10px;font-weight:800;font-size:14px;line-height:1.5"></p>
         <div id="bulletPoints" style="margin-top:10px;font-weight:850;font-size:13px;line-height:1.6"></div>
       </div>
 
       <!-- Coach note -->
-      <div class="coach-note pink">
+      <div class="coach-note pink" style="background:#FFF0A8">
         <div class="tag">COACH NOTE</div>
         <p id="wrtCoach"></p>
       </div>
@@ -119,98 +119,7 @@
 const VAULT_ID = 'VAULT-01';
 
 // ── VAULT 01 · MUET Session 3 2022 · Writing 800/4 ─────────────────
-const tasks = {
-  T1: {
-    label: 'Task 1 — Email Reply (100+ words)',
-    timerSecs: 1500, timerLabel: 'Task 1 Timer — 25 min',
-    wcMin: 100, wcGuide: 'Task 1: minimum 100 words required',
-    prompt: 'Your classmate, Johan, missed your class year-end farewell party due to a family emergency and sent you an email asking about it. Write a reply to Johan using all the notes provided.',
-    bullets: [
-      '📧 From: Johan (johan84@zmail.com)',
-      '📧 Subject: How’s the Party?',
-      '',
-      '── Johan’s Email Content ──',
-      'Johan apologizes for missing the party.',
-      'Johan asks if you enjoyed the party.',
-      'Johan explains that his grandmother is ill in Kedah.',
-      'Johan asks if everyone attended, how the food was, and what activities were held.',
-      'Johan suggests meeting up next week.',
-      '',
-      '── Your Reply Must Include These Notes ──',
-      '✅ Yes, ... — confirm you enjoyed the party.',
-      '✅ I am sorry... — express sympathy regarding his grandmother.',
-      '✅ Explain — describe the attendance, food and activities.',
-      '✅ No, I am afraid... — respond to his suggestion to meet next week.'
-    ],
-    coach: 'Task 1 is a semi-formal email reply to a classmate. Make sure you respond to ALL notes. Use a friendly tone, organise your reply clearly, and write at least 100 words within 25 minutes.',
-    checklist: [
-      'I confirmed that I enjoyed the party using "Yes, ...".',
-      'I expressed sympathy about Johan’s grandmother using "I am sorry...".',
-      'I explained the attendance, food and activities clearly.',
-      'I responded to the suggestion to meet next week using "No, I am afraid...".',
-      'My tone is friendly and suitable for a classmate.',
-      'My reply is at least 100 words.'
-    ],
-    sampleHtml: `<div class="card lime"><h3>Sample Reply — Task 1</h3>
-      <div class="sample-box" style="margin-top:8px;font-size:13px;line-height:1.7"><b>Subject: Re: How’s the Party?</b><br><br>
-Hi Johan,<br><br>
-It was great to hear from you! <b>Yes, I really enjoyed the party</b>. It was a wonderful way to wrap up our school year together, though we all definitely noticed you weren't there.<br><br>
-<b>I am so sorry to hear about your grandmother’s illness</b>. It must have been a very stressful and exhausting seven-hour journey to Kedah for you and your family. I truly hope she recovers quickly and feels much better soon.<br><br>
-Regarding the party, almost everyone attended, so the atmosphere was very lively. The food was delicious; we had a huge spread of satay, fried noodles, and a variety of local desserts that everyone loved. We also had some really fun activities, including a lucky draw and a hilarious karaoke session where even the teachers joined in.<br><br>
-About meeting up, <b>no, I am afraid I cannot make it next week</b>. My family is planning a trip out of town during that time. Perhaps we can catch up once I am back?<br><br>
-Take care of yourself and your family.<br><br>
-Warm regards,<br>
-Karim</div></div>
-      <div class="coach-note lime" style="margin-top:10px"><div class="tag">EXAMINER NOTE</div><p>This sample addresses all four required notes clearly: enjoyment, sympathy, explanation of the party and response to the meet-up suggestion. It is well-organised, friendly and suitable for MUET Task 1.</p></div>`,
-    rubric: [
-      ['task',  'Task Fulfilment',   'All notes and parts of the prompt are addressed completely', 20],
-      ['org',   'Organisation',      'Clear greeting, logical flow, paragraphing and closing',     20],
-      ['struct','Structure',         'Varied and correct sentence structures',                      20],
-      ['lexis', 'Lexis',             'Appropriate and precise vocabulary',                          15],
-      ['tone',  'Tone & Style',      'Friendly, natural and suitable for a classmate email',        15]
-    ]
-  },
-  T2: {
-    label: 'Task 2 — Academic Essay (250+ words)',
-    timerSecs: 3000, timerLabel: 'Task 2 Timer — 50 min',
-    wcMin: 250, wcGuide: 'Task 2: minimum 250 words required',
-    prompt: 'During a recent school forum, a guest speaker claimed that modern young adults lead "protected and pampered" lives. The following statement was made:
-
-"Young adults today lack survival skills."
-
-Write an essay expressing your opinion on this comment.',
-    bullets: [
-      '⏱ Time recommendation: 50 minutes',
-      '✍️ Word count: At least 250 words',
-      'State your opinion clearly.',
-      'Support your ideas with reasons and examples.',
-      'Organise your essay into introduction, body paragraphs and conclusion.'
-    ],
-    coach: 'This is an academic opinion essay. You may agree, disagree or partially agree, but your stand must be clear. Use PEEL paragraphs: Point, Explanation, Example and Link. Avoid listing ideas without elaboration.',
-    checklist: [
-      'I stated my opinion clearly in the introduction.',
-      'My essay responds directly to the statement "Young adults today lack survival skills."',
-      'Each body paragraph has a clear main point.',
-      'I supported my ideas with reasons and examples.',
-      'My essay has a clear introduction, body and conclusion.',
-      'My essay is at least 250 words.'
-    ],
-    sampleHtml: `<div class="card lime"><h3>Sample Planning Guide — Task 2</h3>
-      <div class="sample-box" style="margin-top:8px;font-size:13px;line-height:1.7"><b>Possible stand:</b> Partially agree.<br><br>
-<b>Thesis idea:</b> Young adults today may lack some traditional survival skills because of comfort and technology, but they also possess modern survival skills such as digital literacy, adaptability and problem-solving.<br><br>
-<b>Body Paragraph 1:</b> Some young adults lack practical life skills such as cooking, budgeting and basic repairs because parents or services often handle these tasks for them.<br><br>
-<b>Body Paragraph 2:</b> However, many young adults are capable of surviving in modern society because they can learn quickly, use technology and adapt to new situations.<br><br>
-<b>Conclusion:</b> Young adults may need stronger practical life skills, but it is unfair to say they lack survival skills completely.</div></div>
-      <div class="coach-note pink" style="margin-top:10px"><div class="tag">EXAMINER NOTE</div><p>A balanced answer is strong for this topic. Do not only say young adults are weak. Show awareness that survival skills today may include both practical life skills and modern digital/adaptive skills.</p></div>`,
-    rubric: [
-      ['task',  'Task Fulfilment',   'The essay addresses the prompt and gives a clear opinion',   20],
-      ['org',   'Organisation',      'Ideas flow logically with clear paragraphing',                20],
-      ['struct','Structure',         'Varied and correct sentence structures are used',             20],
-      ['lexis', 'Lexis',             'Vocabulary is appropriate, precise and academic',             15],
-      ['depth', 'Depth of Argument', 'Ideas are well elaborated with reasons and examples',         15]
-    ]
-  }
-};
+const tasks = {"T1":{"label":"Task 1 — Email Reply (100+ words)","timerSecs":1500,"timerLabel":"Task 1 Timer — 25 min","wcMin":100,"wcGuide":"Task 1: minimum 100 words required","prompt":"Your classmate, Johan, missed your class year-end farewell party due to a family emergency and sent you an email asking about it. Write a reply to Johan using all the notes provided.","bullets":["📧 From: Johan (johan84@zmail.com)","📧 Subject: How’s the Party?","","── Johan’s Email Content ──","Johan apologizes for missing the party.","Johan asks if you enjoyed the party.","Johan explains that his grandmother is ill in Kedah.","Johan asks if everyone attended, how the food was, and what activities were held.","Johan suggests meeting up next week.","","── Your Reply Must Include These Notes ──","✅ Yes, ... — confirm you enjoyed the party.","✅ I am sorry... — express sympathy regarding his grandmother.","✅ Explain — describe the attendance, food and activities.","✅ No, I am afraid... — respond to his suggestion to meet next week."],"coach":"Task 1 is a semi-formal email reply to a classmate. Make sure you respond to ALL notes. Use a friendly tone, organise your reply clearly, and write at least 100 words within 25 minutes.","checklist":[],"sampleHtml":"<div class=\"card lime\"><h3>Sample Reply — Task 1</h3>       <div class=\"sample-box\" style=\"margin-top:8px;font-size:13px;line-height:1.7\"><b>Subject: Re: How’s the Party?</b><br><br> Hi Johan,<br><br> It was great to hear from you! <b>Yes, I really enjoyed the party</b>. It was a wonderful way to wrap up our school year together, though we all definitely noticed you weren't there.<br><br> <b>I am so sorry to hear about your grandmother’s illness</b>. It must have been a very stressful and exhausting seven-hour journey to Kedah for you and your family. I truly hope she recovers quickly and feels much better soon.<br><br> Regarding the party, almost everyone attended, so the atmosphere was very lively. The food was delicious; we had a huge spread of satay, fried noodles, and a variety of local desserts that everyone loved. We also had some really fun activities, including a lucky draw and a hilarious karaoke session where even the teachers joined in.<br><br> About meeting up, <b>no, I am afraid I cannot make it next week</b>. My family is planning a trip out of town during that time. Perhaps we can catch up once I am back?<br><br> Take care of yourself and your family.<br><br> Warm regards,<br>Karim</div></div>","rubric":[["task","Task Fulfilment","All notes and parts of the prompt are addressed completely",20],["org","Organisation","Clear greeting, logical flow, paragraphing and closing",20],["struct","Structure","Varied and correct sentence structures",20],["lexis","Lexis","Appropriate and precise vocabulary",15]]},"T2":{"label":"Task 2 — Academic Essay (250+ words)","timerSecs":3000,"timerLabel":"Task 2 Timer — 50 min","wcMin":250,"wcGuide":"Task 2: minimum 250 words required","prompt":"During a recent school forum, a guest speaker claimed that modern young adults lead \"protected and pampered\" lives. The following statement was made: \"Young adults today lack survival skills.\" Write an essay expressing your opinion on this comment.","bullets":["⏱ Time recommendation: 50 minutes","✍️ Word count: At least 250 words","State your opinion clearly.","Support your ideas with reasons and examples.","Organise your essay into introduction, body paragraphs and conclusion."],"coach":"This is an academic opinion essay. You may agree, disagree or partially agree, but your stand must be clear. Use PEEL paragraphs: Point, Explanation, Example and Link.","checklist":[],"sampleHtml":"<div class=\"card lime\"><h3>Sample Planning Guide — Task 2</h3>       <div class=\"sample-box\" style=\"margin-top:8px;font-size:13px;line-height:1.7\"><b>Possible stand:</b> Partially agree.<br><br> <b>Thesis idea:</b> Young adults today may lack some traditional survival skills because of comfort and technology, but they also possess modern survival skills such as digital literacy, adaptability and problem-solving.<br><br> <b>Body Paragraph 1:</b> Some young adults lack practical life skills such as cooking, budgeting and basic repairs because parents or services often handle these tasks for them.<br><br> <b>Body Paragraph 2:</b> However, many young adults are capable of surviving in modern society because they can learn quickly, use technology and adapt to new situations.<br><br> <b>Conclusion:</b> Young adults may need stronger practical life skills, but it is unfair to say they lack survival skills completely.</div></div>","rubric":[["task","Task Fulfilment","The essay addresses the prompt and gives a clear opinion",20],["org","Organisation","Ideas flow logically with clear paragraphing",20],["struct","Structure","Varied and correct sentence structures are used",20],["lexis","Lexis","Vocabulary is appropriate, precise and academic",15]]}};
 const Wrt = (() => {
   let currentTask = 'T1', secs = 1500, timerId = null;
 
@@ -229,7 +138,7 @@ const Wrt = (() => {
     const wcG    = document.getElementById('wcGuide');
     if (pLabel) pLabel.textContent = td.label;
     if (pText)  pText.textContent  = td.prompt;
-    if (pBulls) pBulls.innerHTML   = td.bullets.map(b => `<div style="margin-bottom:4px">${b}</div>`).join('');
+    if (pBulls) pBulls.innerHTML   = (td.bullets || []).map(b => `<div style="margin-bottom:4px">${b || '&nbsp;'}</div>`).join('');
     if (coach)  coach.textContent  = td.coach;
     if (wcG)    wcG.textContent    = td.wcGuide;
     countWords();
@@ -241,7 +150,7 @@ const Wrt = (() => {
   }
 
   function t2Tips() {
-    return `<div class="coach-note pink"><div class="tag">PEEL STRUCTURE</div><p><b>P</b> — Point: state one clear argument.<br><b>E</b> — Explain: elaborate with reasoning.<br><b>E</b> — Evidence: give a specific example (Malaysian context preferred).<br><b>L</b> — Link: tie the paragraph back to your thesis.</p></div>
+    return `<div class="coach-note pink" style="background:#FFF0A8"><div class="tag">PEEL STRUCTURE</div><p><b>P</b> — Point: state one clear argument.<br><b>E</b> — Explain: elaborate with reasoning.<br><b>E</b> — Evidence: give a specific example (Malaysian context preferred).<br><b>L</b> — Link: tie the paragraph back to your thesis.</p></div>
     <div class="coach-note lime"><div class="tag">THESIS FIRST</div><p>Your introduction must state your thesis clearly in one sentence. The examiner decides within 30 seconds whether you understand the question. Do not write background first — state your stand immediately.</p></div>`;
   }
 
@@ -284,7 +193,6 @@ const Wrt = (() => {
     const min = tasks[currentTask].wcMin;
     const score90 = Math.min(90, Math.round((Math.min(wc, min * 1.5) / (min * 1.5)) * 90));
     const band     = MUET.scoreToBand(score90);
-    const wc       = answer.split(/\s+/).length;
 
     const session = {
       vaultId: VAULT_ID, taskType: currentTask,

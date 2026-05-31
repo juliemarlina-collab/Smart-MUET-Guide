@@ -1,0 +1,1 @@
+Vault 01 Writing fixed. Main error was invalid JavaScript task data caused by line breaks inside strings and duplicate const wc in submit(). Syntax check now passes.
