@@ -15,6 +15,14 @@
     .flow-step-body { padding:0 16px 16px;border-top:2px solid rgba(0,0,0,.07); }
     .audio-mock { background:var(--ink);color:white;border:var(--line);border-radius:var(--r2);padding:14px;margin-bottom:14px; }
     .wave { height:48px;border:2px solid rgba(255,255,255,.3);border-radius:14px;background:repeating-linear-gradient(90deg,var(--yellow) 0 6px,transparent 6px 12px);margin:10px 0;opacity:.6; }
+
+    .audio-part-card{background:#fff;border:var(--line);border-radius:18px;box-shadow:4px 4px 0 var(--ink);padding:12px;margin-bottom:12px}
+    .audio-part-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+    .audio-part-title{font-weight:1000;font-size:13px}
+    .audio-drive-link{display:inline-block;border:2px solid var(--ink);border-radius:999px;background:var(--yellow);padding:5px 9px;font-size:11px;font-weight:1000;text-decoration:none;color:var(--ink)}
+    .audio-frame{width:100%;height:88px;border:2px solid var(--ink);border-radius:14px;background:#f8fafc}
+    .part-note{font-size:11px;font-weight:900;color:var(--muted);margin-top:7px}
+
     .qtag { display:inline-block;background:var(--blue);color:white;border:2px solid var(--ink);border-radius:999px;padding:3px 8px;font-size:11px;font-weight:1000;margin-bottom:8px; }
   </style>
 </head>
@@ -44,11 +52,11 @@
 
   <!-- Practice — direct entry -->
 
-      <!-- Audio placeholder -->
+      <!-- Audio guide -->
       <div class="audio-mock">
-        <p class="tiny">Listening Practice — MUET Session 3 2022 · Drive Audio ID: 1ha9t4hGx-CdCa0Ukxp9P9vDxBVqwZUXr</p>
+        <p class="tiny">Listening Practice — MUET Session 3 2022 · Google Drive Audio Connected</p>
         <div class="wave"></div>
-        <p style="font-weight:800;font-size:13px;margin-bottom:10px">Audio file is stored in Google Drive (ID confirmed in Content Matrix). In the real exam, audio plays once only. Use Script Mode below to practise now.</p>
+        <p style="font-weight:800;font-size:13px;margin-bottom:10px">Each listening part below has its own Google Drive audio player. Play the audio for the part first, then answer the questions that follow.</p>
         <button class="btn yellow" id="scriptToggleBtn" onclick="Lst.toggleScript()" style="width:auto;min-width:140px">Show Script Summary</button>
       </div>
 
@@ -143,44 +151,420 @@
 <script>
 const VAULT_ID = 'VAULT-01';
 // ── VAULT 01 · MUET Session 3 2022 · Listening 800/1 ────────────────────
-// 30 questions · 5 parts · Audio: Drive ID 1ha9t4hGx-CdCa0Ukxp9P9vDxBVqwZUXr
-// Answer key from verified extraction (student-facing labels only, no paper ID shown)
+// 30 questions · 5 parts · Audio tracks connected from Google Drive
+// Answer key is provisional and must be verified against the official key before final deployment
+const VAULT_AUDIO = {
+  "Part I — Conversation": {
+    "title": "Part I Audio — Conversation: Leanne and Amir",
+    "track": "01 Track 1.mp3",
+    "id": "1QQj-1FvvZUddWZwo8LeipWk55mPePYum",
+    "url": "https://drive.google.com/file/d/1QQj-1FvvZUddWZwo8LeipWk55mPePYum/preview"
+  },
+  "Part II — Talk": {
+    "title": "Part II Audio — Talk by Dr Yusof Lokman",
+    "track": "02 Track 2.mp3",
+    "id": "112QBpHeyqud6f4UjBy_F_-HDJnWLmTYP",
+    "url": "https://drive.google.com/file/d/112QBpHeyqud6f4UjBy_F_-HDJnWLmTYP/preview"
+  },
+  "Part III — Matching": {
+    "title": "Part III Audio — Lina, Saiful and Sarah",
+    "track": "03 Track 3.mp3",
+    "id": "1JVpMKOYpyvKUVy7-2gwcpUIpXfEHQC2K",
+    "url": "https://drive.google.com/file/d/1JVpMKOYpyvKUVy7-2gwcpUIpXfEHQC2K/preview"
+  },
+  "Part IV — Radio Interview": {
+    "title": "Part IV Audio — Yasmin and Dr Ruben",
+    "track": "04 Track 4.mp3",
+    "id": "16hCkjfiQSaVwvTyC-1kx7GV1liFq013h",
+    "url": "https://drive.google.com/file/d/16hCkjfiQSaVwvTyC-1kx7GV1liFq013h/preview"
+  },
+  "Part V — Dialogue 1": {
+    "title": "Part V Dialogue 1 Audio — Aleena and Jacob",
+    "track": "05 Track 5.mp3",
+    "id": "1-LEHYtc22LskHNUe32tC7bqio6jLS6F6",
+    "url": "https://drive.google.com/file/d/1-LEHYtc22LskHNUe32tC7bqio6jLS6F6/preview"
+  },
+  "Part V — Dialogue 2": {
+    "title": "Part V Dialogue 2 Audio — Oliver and Fatima",
+    "track": "06 Track 6.mp3",
+    "id": "1tgXGA_NX-UuQe-MdCZFQb2zPN0QKs2LV",
+    "url": "https://drive.google.com/file/d/1tgXGA_NX-UuQe-MdCZFQb2zPN0QKs2LV/preview"
+  },
+  "Part V — Dialogue 3": {
+    "title": "Part V Dialogue 3 Audio — Tina and Dr Rajan",
+    "track": "07 Track 7.mp3",
+    "id": "1iFzDIUACYJMhhzZsX45RERBKvSNmFBk-",
+    "url": "https://drive.google.com/file/d/1iFzDIUACYJMhhzZsX45RERBKvSNmFBk-/preview"
+  }
+};
+
 const lstQuestions = [
-  // PART I — Conversation (Q1–7)
-  {id:'L1', part:'Part I — Conversation',stem:'Leanne is happy because she can',options:['A. bring her pet to school.','B. be in charge of her club.','C. talk to Amir about her pet.'],answer:1,explanation:'Leanne is happy because she is in charge of her club — option B. Option C (talking to Amir) is what she is doing, not why she is happy. Distractor: option A mentions her pet but the reason is the club responsibility.'},
-  {id:'L2', part:'Part I — Conversation',stem:'Leanne agrees with Amir that tortoises are',options:['A. rare as pets.','B. famous in movies.','C. popular nowadays.'],answer:2,explanation:'They agree tortoises are popular nowadays — option C. Listen for agreement signals: "Yes, I think so too" or similar before selecting.'},
-  {id:'L3', part:'Part I — Conversation',stem:'Tito lives in the garden because he',options:['A. smells.','B. is a pet.','C. has a house.'],answer:2,explanation:'Tito lives in the garden because he has his own house there — option C. Option A is a distractor; being smelly is not stated as the reason.'},
-  {id:'L4', part:'Part I — Conversation',stem:'Tito's house was easy to build because',options:['A. it was a simple design.','B. the family built it together.','C. Leanne's father is a good builder.'],answer:0,explanation:'The house was easy to build because of its simple design — option A. Listen for the word "simple" or equivalent description before selecting.'},
-  {id:'L5', part:'Part I — Conversation',stem:'Leanne covered the floor with stones to',options:['A. decorate the floor.','B. let Tito move easily.','C. protect Tito from the weather.'],answer:1,explanation:'The stones allow Tito to move easily — option B. Option A (decoration) is a distractor — the purpose is functional, not aesthetic.'},
-  {id:'L6', part:'Part I — Conversation',stem:'Amir is surprised that tortoises are',options:['A. easy to love.','B. sensitive to touch.','C. born with hard skin.'],answer:1,explanation:'Amir is surprised that tortoises are sensitive to touch — option B. Watch for his surprised reaction signal in the audio before this answer.'},
-  {id:'L7', part:'Part I — Conversation',stem:'Which shows the correct visual position of The Pet Club's table in the hall?',options:['A. Position A','B. Position B','C. Position C'],answer:0,explanation:'Based on the description of the hall layout, The Pet Club's table is at Position A. Listen for directional words: left/right/centre/near/far.'},
-  // PART II — Talk (Q8–14)
-  {id:'L8', part:'Part II — Talk',stem:'Dr Yusof went to a primary school in',options:['A. Perak.','B. Negeri Sembilan.','C. the United Kingdom.'],answer:1,explanation:'Dr Yusof went to primary school in Negeri Sembilan — option B. Option A (Perak) and C (UK) are distractors. Write the state name as a keyword during the talk.'},
-  {id:'L9', part:'Part II — Talk',stem:'Dr Yusof's first job was at',options:['A. KL University.','B. Charles University.','C. Elizabeth University.'],answer:2,explanation:'His first job was at Elizabeth University — option C. Listen specifically for "first job" signal words before the university name is mentioned.'},
-  {id:'L10',part:'Part II — Talk',stem:'Who encouraged Dr Yusof to succeed in education?',options:['A. His parents.','B. His teachers.','C. His grandmother.'],answer:2,explanation:'His grandmother was the person who encouraged him — option C. Option A (parents) is a common distractor. The grandmother is specifically named.'},
-  {id:'L11',part:'Part II — Talk',stem:'Dr Yusof's father took the extra effort to learn English by',options:['A. reading the newspaper daily.','B. carrying books to the school office.','C. volunteering to clean his teacher's house.'],answer:0,explanation:'His father read the newspaper daily to learn English — option A. This is a direct retrieval item; write "newspaper" as a keyword when you hear it.'},
-  {id:'L12',part:'Part II — Talk',stem:'During his A-Level, Dr Yusof used his weekends to',options:['A. assist his classmates.','B. do part-time teaching.','C. complete assignments.'],answer:1,explanation:'Dr Yusof did part-time teaching on weekends during A-Level — option B. Options A and C are distractors that sound plausible for a student.'},
-  {id:'L13',part:'Part II — Talk',stem:'While doing his postgraduate studies, Dr Yusof',options:['A. studied every day.','B. avoided working part-time.','C. balanced his study and work.'],answer:2,explanation:'He balanced study and work during postgraduate studies — option C. Option B is a distractor — he did NOT avoid working; he managed both.'},
-  {id:'L14',part:'Part II — Talk',stem:'The most important advice to the new students is to',options:['A. learn from your friends.','B. join many student activities.','C. aim high in whatever you do.'],answer:2,explanation:'The most important advice is to aim high — option C. This is usually stated at the end of the talk with emphasis. Listen for concluding signal words.'},
-  // PART III — Three Speakers (Q15–17) — Matching
-  {id:'L15',part:'Part III — Matching (Lina)',stem:'Lina's MAIN reason for travelling is',options:['A. To become more creative.','B. To make new friends.','C. To learn new languages.','D. To have new experiences.','E. To escape a routine life.'],answer:3,explanation:'Lina travels to have new experiences — option D. In matching questions, listen for each speaker in order and note their main reason before the next speaker begins.'},
-  {id:'L16',part:'Part III — Matching (Saiful)',stem:'Saiful's MAIN reason for travelling is',options:['A. To become more creative.','B. To make new friends.','C. To learn new languages.','D. To have new experiences.','E. To escape a routine life.'],answer:1,explanation:'Saiful travels to make new friends — option B. Each speaker's main reason is stated clearly once. Write a 2-word keyword for each speaker as they speak.'},
-  {id:'L17',part:'Part III — Matching (Sarah)',stem:'Sarah's MAIN reason for travelling is',options:['A. To become more creative.','B. To make new friends.','C. To learn new languages.','D. To have new experiences.','E. To escape a routine life.'],answer:4,explanation:'Sarah travels to escape a routine life — option E. In Part III, each correct answer uses a different letter — if two of your answers are the same, reconsider.'},
-  // PART IV — Radio Interview (Q18–24)
-  {id:'L18',part:'Part IV — Radio Interview',stem:'Memorisation process occurs when you',options:['A. make a grocery list.','B. stand at the supermarket.','C. study for an examination.'],answer:1,explanation:'The memorisation process occurs when you stand at the supermarket (trying to recall the list) — option B. Option A is what you do before; option C is when you use another type of memory.'},
-  {id:'L19',part:'Part IV — Radio Interview',stem:'Dr Ruben's tips on memorisation are based on what we',options:['A. did as young children.','B. learnt at nursery school.','C. went through as children.'],answer:2,explanation:'The tips are based on what we went through as children (experiences broadly) — option C. Option B is too specific (nursery school only).'},
-  {id:'L20',part:'Part IV — Radio Interview',stem:'We use both types of memory to',options:['A. construct answers.','B. recall information.','C. remember concepts.'],answer:1,explanation:'Both types of memory are used to recall information — option B. This is a direct retrieval item; write "recall" as your keyword.'},
-  {id:'L21',part:'Part IV — Radio Interview',stem:'To use the word association technique, Dr Ruben suggests',options:['A. naming your pet dog.','B. using familiar words.','C. reading a science concept.'],answer:1,explanation:'Dr Ruben suggests using familiar words for word association — option B. Option A is an example he may give, not the technique itself.'},
-  {id:'L22',part:'Part IV — Radio Interview',stem:'It is easy to remember dates when you imagine the',options:['A. lists on the wall.','B. graffiti on the wall.','C. images on the wall.'],answer:2,explanation:'Imagining images on the wall helps remember dates — option C. Graffiti (option B) is a distractor; the key word is "images."'},
-  {id:'L23',part:'Part IV — Radio Interview',stem:'Dr Ruben claims that singing is',options:['A. useful for tricking your mind.','B. better than reading a text aloud.','C. effective when learning new concepts.'],answer:2,explanation:'Singing is effective when learning new concepts — option C. Option A sounds plausible but is not the claim made. Write "singing + concepts" as keywords.'},
-  {id:'L24',part:'Part IV — Radio Interview',stem:'The best method for "Teach it" is to',options:['A. teach your group members.','B. pretend teaching your friends.','C. record a video of yourself teaching.'],answer:1,explanation:'The best method for "Teach it" is to pretend teaching your friends — option B. Option A (actual group teaching) and C (video) are distractors.'},
-  // PART V — Three Dialogues (Q25–30)
-  {id:'L25',part:'Part V — Dialogue 1',stem:'Rescuers reported the whale was',options:['A. sheltered by umbrellas.','B. stuck in the river mouth.','C. covered with plastic bags.'],answer:1,explanation:'The whale was stuck in the river mouth — option B. Option C (plastic bags) relates to the pollution discussion, not what happened to the whale directly.'},
-  {id:'L26',part:'Part V — Dialogue 1',stem:'To reduce plastic use, we should',options:['A. buy in large quantities.','B. avoid supermarkets.','C. use metal straws and containers.'],answer:2,explanation:'The suggestion is to use metal straws and containers — option C. This is directly stated as a practical solution in the dialogue.'},
-  {id:'L27',part:'Part V — Dialogue 2',stem:'The house was preserved to',options:['A. honour the village chief.','B. restore the oldest traditional house.','C. prevent damage to a national treasure.'],answer:2,explanation:'The house was preserved to prevent damage to a national treasure — option C. Option B sounds close but "oldest" is not stated; option A is a distractor.'},
-  {id:'L28',part:'Part V — Dialogue 2',stem:'The house was more than a family home because it',options:['A. served the community.','B. was an entertainment centre.','C. exhibited Malay culture and history.'],answer:0,explanation:'The house served the community beyond just being a family home — option A. Option C is related but not the stated main reason it was more than a home.'},
-  {id:'L29',part:'Part V — Dialogue 3',stem:'People gain weight from bubble tea because it contains',options:['A. sugar.','B. trans fat.','C. carbohydrate.'],answer:0,explanation:'Weight gain from bubble tea is attributed to sugar — option A. Trans fat (option B) is the hidden danger discussed separately in the next question.'},
-  {id:'L30',part:'Part V — Dialogue 3',stem:'A hidden danger of trans fat is it',options:['A. raises cholesterol.','B. increases diabetes risk.','C. affects the reproductive system.'],answer:2,explanation:'The hidden danger of trans fat mentioned in the dialogue is that it affects the reproductive system — option C. Options A and B are general health effects of trans fat but are not identified as the hidden danger in this specific dialogue.'}
+  {
+    "id": "L1",
+    "part": "Part I — Conversation",
+    "stem": "Leanne is happy because she can",
+    "options": [
+      "A. bring her pet to school",
+      "B. be in charge of her club",
+      "C. talk to Amir about her pet"
+    ],
+    "answer": 1,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L2",
+    "part": "Part I — Conversation",
+    "stem": "Leanne agrees with Amir that tortoises are",
+    "options": [
+      "A. rare as pets",
+      "B. famous in movies",
+      "C. popular nowadays"
+    ],
+    "answer": 2,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L3",
+    "part": "Part I — Conversation",
+    "stem": "Tito lives in the garden because he",
+    "options": [
+      "A. smells",
+      "B. is a pet",
+      "C. has a house"
+    ],
+    "answer": 2,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L4",
+    "part": "Part I — Conversation",
+    "stem": "Tito’s house was easy to build because",
+    "options": [
+      "A. it was a simple design",
+      "B. the family built it together",
+      "C. Leanne’s father is a good builder"
+    ],
+    "answer": 0,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L5",
+    "part": "Part I — Conversation",
+    "stem": "Leanne covered the floor with stones to",
+    "options": [
+      "A. decorate the floor",
+      "B. let Tito move easily",
+      "C. protect Tito from the weather"
+    ],
+    "answer": 1,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L6",
+    "part": "Part I — Conversation",
+    "stem": "Amir is surprised that tortoises are",
+    "options": [
+      "A. easy to love",
+      "B. sensitive to touch",
+      "C. born with hard skin"
+    ],
+    "answer": 1,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L7",
+    "part": "Part I — Conversation",
+    "stem": "Which picture shows the correct position of The Pet Club’s table in the hall?",
+    "options": [
+      "A. Picture A",
+      "B. Picture B",
+      "C. Picture C"
+    ],
+    "answer": 0,
+    "explanation": "The diagram options are represented as Picture A, B and C in the app. Add diagram images later if needed."
+  },
+  {
+    "id": "L8",
+    "part": "Part II — Talk",
+    "stem": "Dr Yusof went to a primary school in",
+    "options": [
+      "A. Perak",
+      "B. Negeri Sembilan",
+      "C. the United Kingdom"
+    ],
+    "answer": 1,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L9",
+    "part": "Part II — Talk",
+    "stem": "Dr Yusof’s first job was at",
+    "options": [
+      "A. KL University",
+      "B. Charles University",
+      "C. Elizabeth University"
+    ],
+    "answer": 2,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L10",
+    "part": "Part II — Talk",
+    "stem": "Who encouraged Dr Yusof to succeed in education?",
+    "options": [
+      "A. His parents",
+      "B. His teachers",
+      "C. His grandmother"
+    ],
+    "answer": 2,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L11",
+    "part": "Part II — Talk",
+    "stem": "Dr Yusof’s father took the extra effort to learn English by",
+    "options": [
+      "A. reading the newspaper daily",
+      "B. carrying books to the school office",
+      "C. volunteering to clean his teacher’s house"
+    ],
+    "answer": 0,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L12",
+    "part": "Part II — Talk",
+    "stem": "During his A-Level, Dr Yusof used his weekends to",
+    "options": [
+      "A. assist his classmates",
+      "B. do part-time teaching",
+      "C. complete assignments"
+    ],
+    "answer": 1,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L13",
+    "part": "Part II — Talk",
+    "stem": "While doing his postgraduate studies, Dr Yusof",
+    "options": [
+      "A. studied every day",
+      "B. avoided working part-time",
+      "C. balanced his study and work"
+    ],
+    "answer": 2,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L14",
+    "part": "Part II — Talk",
+    "stem": "The most important advice to the new students is to",
+    "options": [
+      "A. learn from your friends",
+      "B. join many student activities",
+      "C. aim high in whatever you do"
+    ],
+    "answer": 2,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L15",
+    "part": "Part III — Matching",
+    "stem": "Lina — main reason for travelling",
+    "options": [
+      "A. To become more creative",
+      "B. To make new friends",
+      "C. To learn new languages",
+      "D. To have new experiences",
+      "E. To escape a routine life"
+    ],
+    "answer": 3,
+    "explanation": "Matching item extracted from the uploaded paper. Verify final answer key before deployment."
+  },
+  {
+    "id": "L16",
+    "part": "Part III — Matching",
+    "stem": "Saiful — main reason for travelling",
+    "options": [
+      "A. To become more creative",
+      "B. To make new friends",
+      "C. To learn new languages",
+      "D. To have new experiences",
+      "E. To escape a routine life"
+    ],
+    "answer": 1,
+    "explanation": "Matching item extracted from the uploaded paper. Verify final answer key before deployment."
+  },
+  {
+    "id": "L17",
+    "part": "Part III — Matching",
+    "stem": "Sarah — main reason for travelling",
+    "options": [
+      "A. To become more creative",
+      "B. To make new friends",
+      "C. To learn new languages",
+      "D. To have new experiences",
+      "E. To escape a routine life"
+    ],
+    "answer": 4,
+    "explanation": "Matching item extracted from the uploaded paper. Verify final answer key before deployment."
+  },
+  {
+    "id": "L18",
+    "part": "Part IV — Radio Interview",
+    "stem": "Memorisation process occurs when you",
+    "options": [
+      "A. make a grocery list",
+      "B. stand at the supermarket",
+      "C. study for an examination"
+    ],
+    "answer": 1,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L19",
+    "part": "Part IV — Radio Interview",
+    "stem": "Dr Ruben’s tips on memorisation are based on what we",
+    "options": [
+      "A. did as young children",
+      "B. learnt at nursery school",
+      "C. went through as children"
+    ],
+    "answer": 2,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L20",
+    "part": "Part IV — Radio Interview",
+    "stem": "We use both types of memory to",
+    "options": [
+      "A. construct answers",
+      "B. recall information",
+      "C. remember concepts"
+    ],
+    "answer": 1,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L21",
+    "part": "Part IV — Radio Interview",
+    "stem": "To use the word association technique, Dr Ruben suggests",
+    "options": [
+      "A. naming your pet dog",
+      "B. using familiar words",
+      "C. reading a science concept"
+    ],
+    "answer": 1,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L22",
+    "part": "Part IV — Radio Interview",
+    "stem": "It is easy to remember dates when you imagine the",
+    "options": [
+      "A. lists on the wall",
+      "B. graffiti on the wall",
+      "C. images on the wall"
+    ],
+    "answer": 2,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L23",
+    "part": "Part IV — Radio Interview",
+    "stem": "Dr Ruben claims that singing is",
+    "options": [
+      "A. useful for tricking your mind",
+      "B. better than reading a text aloud",
+      "C. effective when learning new concepts"
+    ],
+    "answer": 2,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L24",
+    "part": "Part IV — Radio Interview",
+    "stem": "The best method for “Teach it” is to",
+    "options": [
+      "A. teach your group members",
+      "B. pretend teaching your friends",
+      "C. record a video of yourself teaching"
+    ],
+    "answer": 1,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L25",
+    "part": "Part V — Dialogue 1",
+    "stem": "The Thai rescuers reported that the whale was",
+    "options": [
+      "A. sheltered by umbrellas",
+      "B. stuck in the river mouth",
+      "C. covered with plastic bags"
+    ],
+    "answer": 1,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L26",
+    "part": "Part V — Dialogue 1",
+    "stem": "To reduce the use of plastic, we should",
+    "options": [
+      "A. buy things in large quantities",
+      "B. avoid shopping at supermarkets",
+      "C. use metal straws and containers"
+    ],
+    "answer": 2,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L27",
+    "part": "Part V — Dialogue 2",
+    "stem": "According to Fatima, the house was preserved to",
+    "options": [
+      "A. honour the village chief",
+      "B. restore the oldest traditional Malay house",
+      "C. prevent further damage to a national treasure"
+    ],
+    "answer": 2,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L28",
+    "part": "Part V — Dialogue 2",
+    "stem": "The traditional house was not just a family house because it",
+    "options": [
+      "A. served the family and community",
+      "B. functioned as an entertainment centre",
+      "C. exhibited traditional Malay culture and history"
+    ],
+    "answer": 0,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L29",
+    "part": "Part V — Dialogue 3",
+    "stem": "People gain weight from drinking bubble tea because it mainly contains",
+    "options": [
+      "A. sugar",
+      "B. trans fat",
+      "C. carbohydrate"
+    ],
+    "answer": 0,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  },
+  {
+    "id": "L30",
+    "part": "Part V — Dialogue 3",
+    "stem": "A hidden danger of trans fat is it",
+    "options": [
+      "A. raises the cholesterol level",
+      "B. increases the risk of diabetes",
+      "C. affects the reproductive system"
+    ],
+    "answer": 2,
+    "explanation": "Question extracted from the uploaded paper. Verify the final answer key against the official key before deployment."
+  }
 ];
 const Lst = (() => {
   let scriptShown = false;
@@ -206,19 +590,54 @@ const Lst = (() => {
   }
 
   function renderQuestions() {
-    document.getElementById('lstQList').innerHTML = lstQuestions.map((q, qi) => `
-      <div class="card">
-        <div class="qtag">Q${qi+1}</div>
-        <p style="font-weight:900;margin-bottom:12px">${q.stem}</p>
-        <div class="options" id="lopts-${qi}">
-          ${q.options.map((opt, oi) => `
-            <label class="option" id="lopt-${qi}-${oi}">
-              <input type="radio" name="lq${qi}" value="${oi}"/>
-              <span>${opt}</span>
-            </label>`).join('')}
+    const partGroups = {};
+    lstQuestions.forEach((q, qi) => {
+      if (!partGroups[q.part]) partGroups[q.part] = [];
+      partGroups[q.part].push({q, qi});
+    });
+
+    const partOrder = [
+      'Part I — Conversation',
+      'Part II — Talk',
+      'Part III — Matching',
+      'Part IV — Radio Interview',
+      'Part V — Dialogue 1',
+      'Part V — Dialogue 2',
+      'Part V — Dialogue 3'
+    ];
+
+    let html = '';
+
+    partOrder.forEach(part => {
+      if (!partGroups[part]) return;
+      const audio = VAULT_AUDIO[part] || VAULT_AUDIO[part.replace(/ \(.*?\)/,'')] || null;
+
+      html += `<div class="audio-part-card">
+        <div class="audio-part-head">
+          <div class="audio-part-title">${audio ? audio.title : part}</div>
+          ${audio ? `<a class="audio-drive-link" href="https://drive.google.com/file/d/${audio.id}/view" target="_blank">Open Audio</a>` : ''}
         </div>
-        <div class="explain" id="lexp-${qi}">${q.explanation}</div>
-      </div>`).join('');
+        ${audio ? `<iframe class="audio-frame" src="${audio.url}" allow="autoplay"></iframe>
+        <div class="part-note">Connected to Google Drive: ${audio.track}. Play this audio before answering the questions below.</div>` : `<div class="part-note">Audio link pending for this part.</div>`}
+      </div>`;
+
+      partGroups[part].forEach(({q, qi}) => {
+        html += `<div class="card">
+          <div class="qtag">${q.part} · ${q.id}</div>
+          <p style="font-weight:900;margin-bottom:12px">${q.id}. ${q.stem}</p>
+          <div class="options" id="lopts-${qi}">
+            ${q.options.map((opt, oi) => `
+              <label class="option" id="lopt-${qi}-${oi}">
+                <input type="radio" name="lq${qi}" value="${oi}"/>
+                <span>${opt}</span>
+              </label>`).join('')}
+          </div>
+          <div class="explain" id="lexp-${qi}">${q.explanation}</div>
+        </div>`;
+      });
+    });
+
+    document.getElementById('lstQList').innerHTML = html;
   }
 
   function submit() {
