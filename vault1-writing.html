@@ -26,9 +26,12 @@
     .practice-guide-panel h3{margin:0 0 10px;font-size:20px}
     .guide-grid{display:grid;gap:10px}
     .guide-card{background:#fff;border:2px solid var(--ink);border-radius:15px;padding:12px;font-weight:850;line-height:1.45}
-    .btn.practice-guide-btn{background:#fff}
-    .btn.vault-menu-btn{background:#f65ab8;color:#111}
+    .btn.practice-guide-btn{background:#fff !important;color:#111 !important}
+    .btn.vault-menu-btn{background:#f65ab8 !important;color:#111 !important}
     .btn.submit-standard{background:var(--yellow)!important;color:#111!important}
+    .guide-action-stack{display:grid;gap:12px;margin-top:14px}
+    .guide-secondary-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .practice-guide-panel{width:100%;margin-top:12px}
 
   </style>
 </head>
@@ -96,31 +99,26 @@
         </div>
         <p style="font-size:13px;font-weight:800;color:var(--muted);margin-bottom:10px" id="wcGuide">Task 1: minimum 100 words required</p>
         <textarea id="answerBox" rows="10" placeholder="Begin writing your response here..." oninput="Wrt.countWords()"></textarea>
+      </div>      <!-- Rubric -->
+      <div class="guide-action-stack">
+        <button class="btn submit-standard wide" onclick="Wrt.submit()">Submit Writing Practice</button>
+        <div class="guide-secondary-row">
+          <button class="btn practice-guide-btn white" onclick="Wrt.togglePracticeGuide()">Practice Guide</button>
+          <button class="btn vault-menu-btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+        </div>
       </div>
 
-
-
-      <!-- Rubric -->
-      <div class="btn-row" style="margin-top:4px">
       <div class="practice-guide-panel" id="practiceGuidePanel">
         <h3>Writing Practice Guide</h3>
-        
-          <div class="guide-grid">
-            <div class="guide-card"><b>Task Fulfilment</b><br>Cover all required points. Missing one point reduces your score.</div>
-            <div class="guide-card"><b>Organisation</b><br>Use clear paragraphs: opening, body and closing / conclusion.</div>
-            <div class="guide-card"><b>Structure + Lexis</b><br>Use varied sentence structures and precise vocabulary.</div>
-            <div class="guide-card"><b>Before Submit</b><br>Check word count, task response, paragraphing and language accuracy.</div>
-          </div>
-        
+        <div class="guide-grid">
+          <div class="guide-card"><b>Task Fulfilment</b><br>Cover all required points. Missing one point reduces your score.</div>
+          <div class="guide-card"><b>Organisation</b><br>Use clear paragraphs: opening, body and closing / conclusion.</div>
+          <div class="guide-card"><b>Structure + Lexis</b><br>Use varied sentence structures and precise vocabulary.</div>
+          <div class="guide-card"><b>Before Submit</b><br>Check word count, task response, paragraphing and language accuracy.</div>
+        </div>
       </div>
 
-        <button class="btn submit-standard submit-standard yellow wide" onclick="Wrt.submit()">Submit Writing Practice</button>
-        <button class="btn submit-standard white" onclick="Wrt.togglePracticeGuide()">Practice Guide</button>
-        <button class="btn vault-menu-btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
-      </div>
-
-
-  <!-- Result -->
+<!-- Result -->
   <div id="resultCard" class="result-card pink">
     <div class="tag">WRITING RESULT SAVED</div>
     <span id="resultScore" class="result-score">0/90</span>

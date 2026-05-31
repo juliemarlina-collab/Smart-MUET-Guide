@@ -24,16 +24,6 @@
     .part-note{font-size:11px;font-weight:900;color:var(--muted);margin-top:7px}
 
     .qtag { display:inline-block;background:var(--blue);color:white;border:2px solid var(--ink);border-radius:999px;padding:3px 8px;font-size:11px;font-weight:1000;margin-bottom:8px; }
-  
-    .practice-guide-panel{display:none;background:#FFF7CC;border:var(--line);border-radius:22px;box-shadow:5px 5px 0 var(--ink);padding:16px;margin:14px 0}
-    .practice-guide-panel.show{display:block}
-    .practice-guide-panel h3{margin:0 0 10px;font-size:20px}
-    .guide-grid{display:grid;gap:10px}
-    .guide-card{background:#fff;border:2px solid var(--ink);border-radius:15px;padding:12px;font-weight:850;line-height:1.45}
-    .btn.practice-guide-btn{background:#fff}
-    .btn.vault-menu-btn{background:#f65ab8;color:#111}
-    .btn.submit-standard{background:var(--yellow)!important;color:#111!important}
-
   </style>
 </head>
 <body>
@@ -100,20 +90,8 @@
 
 
       <div class="btn-row" style="margin-top:14px">
-      <div class="practice-guide-panel" id="practiceGuidePanel">
-        <h3>Listening Practice Guide</h3>
-        
-          <div class="guide-grid">
-            <div class="guide-card"><b>Keyword Notes</b><br>Write short keywords, not full sentences, while listening.</div>
-            <div class="guide-card"><b>Beware Distractors</b><br>Do not choose the first option mentioned. Wait for correction or final answer.</div>
-            <div class="guide-card"><b>Part-by-Part Focus</b><br>Play the audio for each part, answer, then move to the next section.</div>
-            <div class="guide-card"><b>Before Submit</b><br>Review your notes and make sure every question has an answer.</div>
-          </div>
-        
-      </div>
-
-        <button class="btn submit-standard submit-standard yellow wide" onclick="Lst.submit()">Submit Listening Practice</button>
-        <button class="btn vault-menu-btn submit-standard pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+        <button class="btn yellow wide" onclick="Lst.submit()">Submit Listening Practice</button>
+        <button class="btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
       </div>
 
 
@@ -162,7 +140,7 @@
     </div>
     <div class="btn-row">
       <button class="btn black wide" onclick="location.href='vault1-writing.html'">Next: Writing ✍️ →</button>
-      <button class="btn vault-menu-btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+      <button class="btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
     </div>
   </div>
 
@@ -661,16 +639,6 @@ const Lst = (() => {
 
     document.getElementById('lstQList').innerHTML = html;
   }
-  function togglePracticeGuide() {
-    const panel = document.getElementById('practiceGuidePanel');
-    if (!panel) return;
-    panel.classList.toggle('show');
-    if (panel.classList.contains('show')) {
-      panel.scrollIntoView({behavior:'smooth', block:'center'});
-    }
-  }
-
-
 
   function submit() {
     const notes = document.getElementById('lstNotes').value.trim();
@@ -715,7 +683,7 @@ const Lst = (() => {
     updateVaultProgress();
   }
 
-  return { openStep, toggle, toggleScript, renderQuestions, submit, togglePracticeGuide };
+  return { openStep, toggle, toggleScript, renderQuestions, submit };
 })();
 
 function updateVaultProgress() {

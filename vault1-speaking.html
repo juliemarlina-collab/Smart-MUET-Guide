@@ -30,9 +30,12 @@
     .practice-guide-panel h3{margin:0 0 10px;font-size:20px}
     .guide-grid{display:grid;gap:10px}
     .guide-card{background:#fff;border:2px solid var(--ink);border-radius:15px;padding:12px;font-weight:850;line-height:1.45}
-    .btn.practice-guide-btn{background:#fff}
-    .btn.vault-menu-btn{background:#f65ab8;color:#111}
+    .btn.practice-guide-btn{background:#fff !important;color:#111 !important}
+    .btn.vault-menu-btn{background:#f65ab8 !important;color:#111 !important}
     .btn.submit-standard{background:var(--yellow)!important;color:#111!important}
+    .guide-action-stack{display:grid;gap:12px;margin-top:14px}
+    .guide-secondary-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .practice-guide-panel{width:100%;margin-top:12px}
 
   </style>
 </head>
@@ -113,30 +116,24 @@
         <h2>Transcript / Speaking Notes <span class="req">Required</span></h2>
         <p style="font-size:13px;font-weight:800;color:var(--muted);margin-top:4px">After speaking aloud, type your answer here. This helps track your vocabulary and structure.</p>
         <textarea id="transcript" rows="5" style="margin-top:10px" placeholder="I believe students should work part-time because..."></textarea>
+      </div>      <!-- Submit buttons -->
+      <div class="guide-action-stack">
+        <button class="btn submit-standard wide" onclick="Spk.submit()">Submit Speaking Practice</button>
+        <div class="guide-secondary-row">
+          <button class="btn practice-guide-btn white" onclick="Spk.togglePracticeGuide()">Practice Guide</button>
+          <button class="btn vault-menu-btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+        </div>
       </div>
 
-
-
-      <!-- Submit buttons -->
-      <div class="btn-row" style="margin-top:4px">
       <div class="practice-guide-panel" id="practiceGuidePanel">
         <h3>Speaking Practice Guide</h3>
-        
-          <div class="guide-grid">
-            <div class="guide-card"><b>PREP Structure</b><br>Point → Reason → Example → Point again.</div>
-            <div class="guide-card"><b>Useful Phrases</b><br>I believe..., This is because..., For example..., Therefore...</div>
-            <div class="guide-card"><b>Task B Interaction</b><br>Agree politely, build on others’ ideas and help the group reach a conclusion.</div>
-            <div class="guide-card"><b>Before Submit</b><br>Make sure your transcript has a clear opinion, reason and example.</div>
-          </div>
-        
+        <div class="guide-grid">
+          <div class="guide-card"><b>PREP Structure</b><br>Point → Reason → Example → Point again.</div>
+          <div class="guide-card"><b>Useful Phrases</b><br>I believe..., This is because..., For example..., Therefore...</div>
+          <div class="guide-card"><b>Task B Interaction</b><br>Agree politely, build on others’ ideas and help the group reach a conclusion.</div>
+          <div class="guide-card"><b>Before Submit</b><br>Make sure your transcript has a clear opinion, reason and example.</div>
+        </div>
       </div>
-
-        <button class="btn submit-standard submit-standard yellow wide" onclick="Spk.submit()">Submit Speaking Practice</button>
-        <button class="btn submit-standard white" onclick="Spk.togglePracticeGuide()">Practice Guide</button>
-        <button class="btn vault-menu-btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
-      </div>
-
-    </div>
 
   <!-- Result: Score + Feedback + Achievement ────────────────────── -->
   <div id="resultCard" class="result-card lime">

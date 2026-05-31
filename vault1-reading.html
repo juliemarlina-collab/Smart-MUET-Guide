@@ -25,16 +25,6 @@
     .article-btn:active { transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink); }
     .read-note { font-size:11px;font-weight:900;color:var(--muted);margin-top:8px; }
     .qtag { display:inline-block;background:var(--pink);border:2px solid var(--ink);border-radius:999px;padding:3px 8px;font-size:11px;font-weight:1000;margin-bottom:8px; }
-  
-    .practice-guide-panel{display:none;background:#FFF7CC;border:var(--line);border-radius:22px;box-shadow:5px 5px 0 var(--ink);padding:16px;margin:14px 0}
-    .practice-guide-panel.show{display:block}
-    .practice-guide-panel h3{margin:0 0 10px;font-size:20px}
-    .guide-grid{display:grid;gap:10px}
-    .guide-card{background:#fff;border:2px solid var(--ink);border-radius:15px;padding:12px;font-weight:850;line-height:1.45}
-    .btn.practice-guide-btn{background:#fff}
-    .btn.vault-menu-btn{background:#f65ab8;color:#111}
-    .btn.submit-standard{background:var(--yellow)!important;color:#111!important}
-
   </style>
 </head>
 <body>
@@ -82,20 +72,8 @@
 
 
       <div class="btn-row" style="margin-top:14px">
-      <div class="practice-guide-panel" id="practiceGuidePanel">
-        <h3>Reading Practice Guide</h3>
-        
-          <div class="guide-grid">
-            <div class="guide-card"><b>Read Questions First</b><br>Know what information you are looking for before reading the text.</div>
-            <div class="guide-card"><b>Skim + Scan</b><br>Skim for general meaning. Scan for names, dates, numbers and keywords.</div>
-            <div class="guide-card"><b>Eliminate Distractors</b><br>Remove options that are true but not answering the question.</div>
-            <div class="guide-card"><b>Before Submit</b><br>Check unanswered items and review parts that contain inference questions.</div>
-          </div>
-        
-      </div>
-
-        <button class="btn submit-standard submit-standard lime wide" onclick="Rd.submit()">Submit Reading Practice</button>
-        <button class="btn vault-menu-btn submit-standard pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+        <button class="btn lime wide" onclick="Rd.submit()">Submit Reading Practice</button>
+        <button class="btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
       </div>
 
 
@@ -108,7 +86,7 @@
     <div id="questionReview" style="display:grid;gap:10px;margin-bottom:12px"></div>
     <div class="btn-row">
       <button class="btn black wide" onclick="location.href='vault1-listening.html'">Next: Listening 🎧 →</button>
-      <button class="btn vault-menu-btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+      <button class="btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
     </div>
   </div>
 
@@ -289,16 +267,6 @@ const Rd = (() => {
       box.scrollBy({top: Math.max(260, box.clientHeight - 40), behavior:'smooth'});
     }
   }
-  function togglePracticeGuide() {
-    const panel = document.getElementById('practiceGuidePanel');
-    if (!panel) return;
-    panel.classList.toggle('show');
-    if (panel.classList.contains('show')) {
-      panel.scrollIntoView({behavior:'smooth', block:'center'});
-    }
-  }
-
-
 
   function submit() {
     if (submitted) return;
@@ -357,7 +325,7 @@ const Rd = (() => {
     updateVaultProgress();
   }
 
-  return { openStep, toggle, toggleTimer, renderPassage, submit, togglePracticeGuide };
+  return { openStep, toggle, toggleTimer, renderPassage, submit, toggleArticle, scrollArticle };
 })();
 
 function updateVaultProgress() {
