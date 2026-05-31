@@ -11,8 +11,8 @@
  * No console warnings are shown to students.
  */
 
-const SMART_MUET_BACKEND_ENABLED = true; // set true after deploying Apps Script
-const SMART_MUET_BACKEND_URL     = 'https://script.google.com/macros/s/AKfycbwDzyCsrFvVxNjvcwZxgEKRRi_VOdWKUxs_1Q0Rgess5z3h8rQS-WwmlNN1Pmh9lrM6lA/exec;'
+const SMART_MUET_BACKEND_ENABLED = true;
+const SMART_MUET_BACKEND_URL     = 'https://script.google.com/macros/s/AKfycbxykw1lbRGwtBAg18s6MY04E3CQ3U9lIwRLJrCFQI1FoJosY4bpWTdaP7-Wca4cqtGmzA/exec';
 
 async function saveSmartMuetAttempt(payload) {
   // Always save to localStorage as the primary record
