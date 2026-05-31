@@ -1,0 +1,11 @@
+Vault 01 Reading scroll update.
+
+Changes:
+- Added scrollable article boxes for every reading part.
+- Added Expand Passage / Collapse Passage button.
+- Added Top and Read More buttons for each passage.
+- Increased passage display height.
+- Students can now read long passages inside the app before answering questions.
+
+Note:
+Some article text still depends on the provided screenshot visibility. If the original PDF provides missing paragraphs, update the PART_TEXTS content later.
