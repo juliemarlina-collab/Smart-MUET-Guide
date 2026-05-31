@@ -1,52 +1,67 @@
-/* =========================
-   SMART MUET — VAULT HERO JS
-   Reusable hero renderer for vault welcome pages
-========================= */
+/* =================================================
+   MUET SmartHub — vault-hero.js
+   Blueprint v3.3 — dynamic vault hero renderer
+   Reads activeVault from localStorage so it works
+   for both Starter Vault (VAULT-00) and Vault 1+
+================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
-  const heroMount = document.getElementById("vaultHeroMount");
-  if (!heroMount) return;
+document.addEventListener('DOMContentLoaded', function () {
+  const mount = document.getElementById('vaultHeroMount');
+  if (!mount) return;
 
-  const completedText = getVaultHeroProgressText();
+  // Read active vault context
+  let vaultId    = 'VAULT-01';
+  let vaultTitle = 'Vault 1';
+  let vaultType  = 'practice';
+  try {
+    const av = JSON.parse(localStorage.getItem('muet_active_vault') || '{}');
+    if (av.vaultId)    vaultId    = av.vaultId;
+    if (av.vaultTitle) vaultTitle = av.vaultTitle;
+    if (av.vaultType)  vaultType  = av.vaultType;
+  } catch (_) {}
 
-  const heroData = {
-    label: "Foundation Practice Set 1",
-    title: "Vault 1 Guided Journey",
-    subtitle: "Start strong with guided MUET practice across all four tested components.",
-    image: "assets/heroes/vault-1-guided-journey-card.png",
-    imageAlt: "Vault 1 Guided Journey hero for Smart MUET",
-    progressText: completedText
-  };
+  // Progress count
+  let count = 0;
+  try {
+    if (window.MUET && typeof MUET.vaultProgress === 'function') {
+      count = MUET.vaultProgress(vaultId).count || 0;
+    }
+  } catch (_) {}
 
-  heroMount.innerHTML = `
-    <section class="vault-hero-wrap">
+  // Vault-specific config
+  const isStarter = vaultId === 'VAULT-00';
+  const label     = isStarter ? 'Starter Vault · Sample Practice' : 'Foundation Practice Set 1';
+  const title     = isStarter ? 'Starter Vault' : 'Vault 1 Guided Journey';
+  const subtitle  = isStarter
+    ? 'Learn the app flow using sample questions. Does not count toward your main vault scores.'
+    : 'Start strong with guided MUET practice across all four tested components.';
+  const image     = isStarter
+    ? 'assets/heroes/welcome-hero.png'           // reuse welcome hero for starter
+    : 'assets/heroes/vault-1-guided-journey-card.png';
+
+  const progressLabel = count === 4 ? '✅ All 4 Components Done' : `🏆 ${count} / 4 Completed`;
+
+  mount.innerHTML = `
+    <div class="vault-hero-wrap">
       <div class="vault-hero-card">
-        <img src="${heroData.image}" alt="${heroData.imageAlt}" class="vault-hero-image" onerror="this.closest('.vault-hero-card').classList.add('vault-hero-fallback'); this.remove();">
+        <img
+          src="${image}"
+          alt="${title} hero image"
+          class="vault-hero-image"
+          onerror="this.style.display='none'"
+        >
         <div class="vault-hero-caption">
-          <div class="vault-hero-label">${heroData.label}</div>
-          <h2 class="vault-hero-title">${heroData.title}</h2>
-          <p class="vault-hero-subtitle">${heroData.subtitle}</p>
+          <div class="vault-hero-label">${label}</div>
+          <h2 class="vault-hero-title">${title}</h2>
+          <p class="vault-hero-subtitle">${subtitle}</p>
           <div class="vault-hero-meta">
-            <span class="vault-meta-pill speaking">🎤 Speaking</span>
-            <span class="vault-meta-pill reading">📖 Reading</span>
-            <span class="vault-meta-pill listening">🎧 Listening</span>
-            <span class="vault-meta-pill writing">✍️ Writing</span>
-            <span class="vault-meta-pill progress">🏆 ${heroData.progressText}</span>
+            <div class="vault-meta-pill speaking">🎤 Speaking</div>
+            <div class="vault-meta-pill reading">📖 Reading</div>
+            <div class="vault-meta-pill listening">🎧 Listening</div>
+            <div class="vault-meta-pill writing">✍️ Writing</div>
+            <div class="vault-meta-pill progress">${progressLabel}</div>
           </div>
         </div>
       </div>
-    </section>
-  `;
+    </div>`;
 });
-
-function getVaultHeroProgressText() {
-  try {
-    if (window.MUET && typeof MUET.vaultProgress === "function") {
-      const prog = MUET.vaultProgress("VAULT-01");
-      return `${prog.count || 0} / 4 Completed`;
-    }
-  } catch (err) {
-    console.warn("Vault hero progress fallback used:", err);
-  }
-  return "0 / 4 Completed";
-}
