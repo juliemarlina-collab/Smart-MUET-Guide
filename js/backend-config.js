@@ -1,58 +1,49 @@
 /**
- * Smart MUET backend config and helper.
- * Replace SMART_MUET_BACKEND_URL with your deployed Apps Script Web App URL.
+ * Smart MUET — backend-config.js
+ * Blueprint v3.3 — Google Apps Script + Google Sheets backend connector
+ *
+ * HOW TO ACTIVATE:
+ * 1. Deploy your Google Apps Script Web App (see muet-appscript.gs)
+ * 2. Replace the placeholder URL below with your deployed Web App URL
+ * 3. Set SMART_MUET_BACKEND_ENABLED = true
+ *
+ * While URL is not configured, all attempts save silently to localStorage only.
+ * No console warnings are shown to students.
  */
-const SMART_MUET_BACKEND_URL = 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
+
+const SMART_MUET_BACKEND_ENABLED = false; // set true after deploying Apps Script
+const SMART_MUET_BACKEND_URL     = 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
 
 async function saveSmartMuetAttempt(payload) {
-  if (!SMART_MUET_BACKEND_URL || SMART_MUET_BACKEND_URL.includes('PASTE_')) {
-    console.warn('Smart MUET backend URL not configured. Saving locally only.', payload);
-    return { ok:false, localOnly:true, message:'Backend URL not configured.' };
-  }
+  // Always save to localStorage as the primary record
+  _saveAttemptLocally(payload);
+
+  // Only attempt remote save if explicitly enabled and URL is configured
+  if (!SMART_MUET_BACKEND_ENABLED) return { ok: false, localOnly: true };
+  if (!SMART_MUET_BACKEND_URL || SMART_MUET_BACKEND_URL.includes('PASTE_')) return { ok: false, localOnly: true };
 
   try {
-    const res = await fetch(SMART_MUET_BACKEND_URL, {
-      method: 'POST',
-      mode: 'no-cors',
+    await fetch(SMART_MUET_BACKEND_URL, {
+      method:  'POST',
+      mode:    'no-cors',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ action:'saveAttempt', ...payload })
+      body:    JSON.stringify({ action: 'saveAttempt', ...payload })
     });
-
-    // no-cors does not allow reading response, but request will still be sent.
-    return { ok:true, sent:true };
+    return { ok: true, sent: true };
   } catch (err) {
-    console.error('Backend save failed:', err);
-    return { ok:false, error:String(err) };
+    // Silent fail — student experience is unaffected
+    return { ok: false, error: String(err) };
   }
 }
 
-// Example payload:
-/*
-saveSmartMuetAttempt({
-  studentEmail:'student@polipd.edu.my',
-  studentName:'Student Name',
-  classGroup:'DPR3A',
-  vaultId:'VAULT-01',
-  component:'Writing',
-  taskType:'Task 1',
-  score90:72,
-  estimatedBand:'4.0',
-  feedback:'You addressed all notes. Improve sentence variety.',
-  nextAction:'Review Task 1 paragraphing guide.',
-  badgeEarned:'Essay Builder',
-  answerText:'Student answer here...',
-  rubric:{
-    engine:'Rule-based rubric v1',
-    reviewStatus:'Auto-feedback',
-    overallStrength:'Task fulfilment',
-    improvementFocus:'Sentence variety',
-    nextAction:'Use more complex sentences.',
-    criteria:[
-      {name:'Task Fulfilment', score:18, feedback:'All required notes addressed.'},
-      {name:'Organisation', score:16, feedback:'Clear but paragraphing can improve.'},
-      {name:'Structure', score:15, feedback:'Mostly simple sentences.'},
-      {name:'Lexis', score:14, feedback:'Suitable vocabulary.'}
-    ]
-  }
-});
-*/
+// ── Local attempt log (always runs) ──────────────────────────────────────────
+function _saveAttemptLocally(payload) {
+  try {
+    const key  = 'muet_attempt_log';
+    const log  = JSON.parse(localStorage.getItem(key) || '[]');
+    log.push({ ...payload, _savedAt: new Date().toISOString() });
+    // Keep last 200 attempts only
+    if (log.length > 200) log.splice(0, log.length - 200);
+    localStorage.setItem(key, JSON.stringify(log));
+  } catch (_) { /* silent */ }
+}
