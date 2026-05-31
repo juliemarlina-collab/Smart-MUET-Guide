@@ -11,7 +11,7 @@
  * No console warnings are shown to students.
  */
 
-const SMART_MUET_BACKEND_ENABLED = false; // set true after deploying Apps Script
+const SMART_MUET_BACKEND_ENABLED = true; // set true after deploying Apps Script
 const SMART_MUET_BACKEND_URL     = 'https://script.google.com/macros/s/AKfycbwDzyCsrFvVxNjvcwZxgEKRRi_VOdWKUxs_1Q0Rgess5z3h8rQS-WwmlNN1Pmh9lrM6lA/exec;'
 
 async function saveSmartMuetAttempt(payload) {
