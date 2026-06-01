@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-  <title>MUET SmartHub 2026</title>
+  <title>Smart MUET Guide 2026 · ELU · JPA · PPD</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -15,20 +15,21 @@
   <!-- ══ REGISTER ════════════════════════════════════════════════════ -->
   <section id="registerScreen" class="screen active">
     <div class="brand-bar">
-      <div class="crown">M</div>
-      <div>
-        <div class="bar-label">Welcome · POLIPD ELU 2026</div>
-        <div class="bar-title">MUET SmartHub</div>
+      <img src="assets/heroes/smart-muet-logo.svg" alt="Smart MUET Guide Logo" style="width:42px;height:42px;border-radius:10px;border:2px solid var(--ink);object-fit:contain;background:white"/>
+      <div style="flex:1;min-width:0">
+        <div class="bar-label">ELU · JPA · PPD</div>
+        <div class="bar-title" style="font-size:15px;letter-spacing:-.02em">Smart MUET Guide</div>
       </div>
     </div>
 
-    <div class="hero-image-card welcome-hero-card">
-      <img src="assets/heroes/welcome-hero.svg" alt="Welcome to Smart MUET hero showing Speaking, Reading, Listening and Writing cards"/>
+    <!-- Register hero banner -->
+    <div style="border:var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:14px">
+      <img src="assets/heroes/register-hero-banner.svg" alt="Smart MUET Guide hero banner" style="display:block;width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center top" onerror="this.style.display='none'"/>
     </div>
 
     <div class="hero-note-card">
       <div>
-        <p class="tiny">MUET SmartHub 2026 · POLIPD ELU</p>
+        <p class="tiny">Smart MUET Guide 2026 · ELU · JPA · PPD</p>
         <h2>Practise. Check. Improve. Track Your Band.</h2>
       </div>
       <p>Guided practice for all four MUET components — Speaking, Reading, Listening and Writing. Complete Study Vaults, get rubric feedback and track your band progress toward your target.</p>
@@ -70,56 +71,19 @@
   <!-- ══ HOME ════════════════════════════════════════════════════════ -->
   <section id="homeScreen" class="screen">
     <div class="brand-bar">
-      <div class="crown y">M</div>
-      <div>
-        <div class="bar-label">Welcome back</div>
-        <div class="bar-title" id="homeName">MUET Learner</div>
+      <img src="assets/heroes/smart-muet-logo.svg" alt="Smart MUET Guide Logo" style="width:42px;height:42px;border-radius:10px;border:2px solid var(--ink);object-fit:contain;background:white"/>
+      <div style="flex:1;min-width:0">
+        <div class="bar-label">Welcome back · <span id="homeGroupLabel">ELU · JPA · PPD</span></div>
+        <div class="bar-title" id="homeName" style="font-size:15px;letter-spacing:-.02em">Smart MUET Guide</div>
       </div>
       <button class="icon-btn" onclick="Hub.goTo('profileScreen')">👤</button>
     </div>
 
-    <!-- ── MUET Hero & App Intro ──────────────────────────────────── -->
-    <div style="background:var(--ink);border:var(--line);border-radius:22px;box-shadow:5px 5px 0 var(--ink);overflow:hidden;margin-bottom:14px">
-      <!-- Top accent bar -->
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);height:6px">
-        <div style="background:var(--blue)"></div>
-        <div style="background:var(--green)"></div>
-        <div style="background:var(--yellow)"></div>
-        <div style="background:var(--pink)"></div>
-      </div>
-      <div style="padding:18px 16px 16px">
-        <!-- MUET badge -->
-        <div style="display:inline-flex;align-items:center;gap:6px;background:var(--yellow);border:2px solid rgba(255,255,255,.2);border-radius:999px;padding:5px 12px;margin-bottom:12px">
-          <span style="font-size:10px;font-weight:1000;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)">🎓 MUET 2026 Prep App</span>
-        </div>
-        <h1 style="font-family:'Sora';font-size:26px;font-weight:800;color:white;letter-spacing:-.04em;line-height:1.1;margin-bottom:8px">Your MUET Band<br>Starts Here.</h1>
-        <p style="font-size:13px;font-weight:800;color:rgba(255,255,255,.75);line-height:1.55;margin-bottom:14px">MUET SmartHub guides you through all four components — Speaking, Reading, Listening and Writing — with tips, sample answers, auto-feedback and band tracking. Built for Diploma students sitting MUET Session 1, 2026.</p>
-        <!-- 4-component row -->
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px">
-          <div style="background:var(--blue);border:2px solid rgba(255,255,255,.2);border-radius:12px;padding:10px 4px;text-align:center">
-            <div style="font-size:20px">🎤</div>
-            <div style="font-size:9px;font-weight:1000;color:white;margin-top:4px;line-height:1.3">SPEAKING<br><span style="opacity:.7">800/2</span></div>
-          </div>
-          <div style="background:var(--green);border:2px solid rgba(255,255,255,.2);border-radius:12px;padding:10px 4px;text-align:center">
-            <div style="font-size:20px">📖</div>
-            <div style="font-size:9px;font-weight:1000;color:var(--ink);margin-top:4px;line-height:1.3">READING<br><span style="opacity:.6">800/3</span></div>
-          </div>
-          <div style="background:var(--yellow);border:2px solid rgba(255,255,255,.2);border-radius:12px;padding:10px 4px;text-align:center">
-            <div style="font-size:20px">🎧</div>
-            <div style="font-size:9px;font-weight:1000;color:var(--ink);margin-top:4px;line-height:1.3">LISTENING<br><span style="opacity:.6">800/1</span></div>
-          </div>
-          <div style="background:var(--pink);border:2px solid rgba(255,255,255,.2);border-radius:12px;padding:10px 4px;text-align:center">
-            <div style="font-size:20px">✍️</div>
-            <div style="font-size:9px;font-weight:1000;color:var(--ink);margin-top:4px;line-height:1.3">WRITING<br><span style="opacity:.6">800/4</span></div>
-          </div>
-        </div>
-        <!-- MUET score breakdown pill -->
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <div style="background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:7px 10px;font-size:11px;font-weight:1000;color:rgba(255,255,255,.85)">📊 360 total marks</div>
-          <div style="background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:7px 10px;font-size:11px;font-weight:1000;color:rgba(255,255,255,.85)">🎯 Band 1 – 5+</div>
-          <div style="background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:7px 10px;font-size:11px;font-weight:1000;color:rgba(255,255,255,.85)">⚡ 90 marks per component</div>
-        </div>
-      </div>
+    <!-- ── MUET Hero Banner ───────────────────────────────────────── -->
+    <div style="border:var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:14px">
+      <img src="assets/heroes/home-hero-banner.svg" alt="Smart MUET Guide home hero banner"
+        style="display:block;width:100%;aspect-ratio:9/16;object-fit:cover;object-position:center top"
+        onerror="this.src='assets/heroes/home-hero-banner.png'"/>
     </div>
 
     <!-- ── Band overview ─────────────────────────────────────────── -->
@@ -483,7 +447,7 @@ const Hub = (() => {
         createdAt: new Date().toISOString()
       };
       MUET.saveProfile(p);
-      MUET.toast('Welcome to MUET SmartHub! Your journey starts now.');
+      MUET.toast('Welcome to Smart MUET Guide! Your journey starts now.');
       goTo('homeScreen'); renderHome(); fillEdit();
     });
 
@@ -513,7 +477,9 @@ const Hub = (() => {
 
   function renderHome() {
     const p = MUET.loadProfile(); if (!p) return;
-    document.getElementById('homeName').textContent   = p.name || 'MUET Learner';
+    document.getElementById('homeName').textContent   = p.name || 'Smart MUET Guide';
+    const gl = document.getElementById('homeGroupLabel');
+    if (gl) gl.textContent = p.group ? `${p.group} · ELU` : 'ELU · JPA · PPD';
     document.getElementById('homeStreak').textContent = p.streak || 0;
     document.getElementById('homeXP').textContent     = p.xp || 0;
     document.getElementById('homeTarget').textContent = p.targetBand || '4.0';
@@ -939,7 +905,7 @@ const Hub = (() => {
   }
 
   function resetAll() {
-    if (!confirm('Reset all MUET SmartHub data? This cannot be undone.')) return;
+    if (!confirm('Reset all Smart MUET Guide data? This cannot be undone.')) return;
     Object.values(MUET.LS).forEach(k => localStorage.removeItem(k));
     ['speaking','reading','listening','writing'].forEach(s => localStorage.removeItem(MUET.LS[s]));
     MUET.toast('App reset.'); setTimeout(() => location.reload(), 500);
