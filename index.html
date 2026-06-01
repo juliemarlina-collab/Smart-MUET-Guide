@@ -70,20 +70,34 @@
 
   <!-- ══ HOME ════════════════════════════════════════════════════════ -->
   <section id="homeScreen" class="screen">
-    <div class="brand-bar">
-      <img src="assets/heroes/smart-muet-logo.svg" alt="Smart MUET Guide Logo" style="width:42px;height:42px;border-radius:10px;border:2px solid var(--ink);object-fit:contain;background:white"/>
-      <div style="flex:1;min-width:0">
-        <div class="bar-label">Welcome back · <span id="homeGroupLabel">ELU · JPA · PPD</span></div>
-        <div class="bar-title" id="homeName" style="font-size:15px;letter-spacing:-.02em">Smart MUET Guide</div>
+
+    <!-- ── Header / Brand Bar ───────────────────────────────────────── -->
+    <div class="brand-bar" style="background:var(--ink);border-radius:0;padding:10px 14px;gap:10px">
+      <img src="assets/heroes/smart-muet-logo.svg"
+        alt="Smart MUET Guide Logo"
+        style="width:44px;height:44px;min-width:44px;border-radius:12px;border:2.5px solid rgba(255,255,255,.25);object-fit:contain;background:white;display:block"/>
+      <div style="flex:1;min-width:0;overflow:hidden">
+        <div style="font-size:9px;font-weight:1000;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+          WELCOME BACK
+        </div>
+        <div id="homeName" style="font-family:'Sora';font-size:16px;font-weight:800;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2">
+          Smart MUET Guide
+        </div>
       </div>
-      <button class="icon-btn" onclick="Hub.goTo('profileScreen')">👤</button>
+      <button class="icon-btn" onclick="Hub.goTo('profileScreen')"
+        style="background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.2);min-width:40px;height:40px;border-radius:10px">
+        👤
+      </button>
     </div>
 
-    <!-- ── MUET Hero Banner ───────────────────────────────────────── -->
-    <div style="border:var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:14px">
-      <img src="assets/heroes/home-hero-banner.svg" alt="Smart MUET Guide home hero banner"
-        style="display:block;width:100%;aspect-ratio:9/16;object-fit:cover;object-position:center top"
-        onerror="this.src='assets/heroes/home-hero-banner.png'"/>
+    <!-- ── Hero Banner ────────────────────────────────────────────────── -->
+    <div style="border:var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:14px;background:#f6f6f6">
+      <img
+        src="assets/heroes/home-hero-portrait.png"
+        alt="Smart MUET Guide hero"
+        style="display:block;width:100%;height:auto;object-fit:cover"
+        onerror="this.src='assets/heroes/home-hero-banner.svg'"
+      />
     </div>
 
     <!-- ── Band overview ─────────────────────────────────────────── -->
@@ -103,6 +117,142 @@
       <div class="stat-card red"><span>🔥</span><b id="homeStreak">0</b><small>Streak</small></div>
       <div class="stat-card blue"><span>⭐</span><b id="homeXP">0</b><small>XP</small></div>
       <div class="stat-card lime"><span>🎯</span><b id="homeTarget">4.0</b><small>Target</small></div>
+    </div>
+
+    <!-- ── Quick Info Accordion Sections ─────────────────────────── -->
+    <!-- Following the infographic reference: same bullet style, drop-down -->
+    <div style="display:grid;gap:10px;margin-bottom:14px">
+
+      <!-- MUET Quick Intro -->
+      <div class="qi-card qi-blue" onclick="toggleQI(this)">
+        <div class="qi-header">
+          <div class="qi-icon-wrap qi-icon-blue">
+            <!-- Placeholder: book/chat SVG icon — replace with final icon SVG -->
+            <img src="assets/heroes/smart-muet-logo.svg" alt="" class="qi-icon-img qi-icon-placeholder"/>
+          </div>
+          <div class="qi-title">MUET<br>Quick<br>Intro</div>
+          <div class="qi-body-col">
+            <ul class="qi-list qi-list-blue">
+              <li>MUET is the Malaysian University English Test administered by the Malaysian Examinations Council (MPM).</li>
+              <li>It assesses 4 components: Listening, Speaking, Reading, and Writing.</li>
+              <li>It is widely used for university entry and academic English readiness in Malaysia.</li>
+            </ul>
+          </div>
+          <div class="qi-chevron">›</div>
+        </div>
+        <div class="qi-expanded" style="display:none">
+          <p style="font-size:13px;font-weight:800;color:var(--ink);line-height:1.6;padding:4px 0 2px">MUET is administered by MPM (Lembaga Peperiksaan Malaysia). Your result is valid for <b>5 years</b>. Sessions are available throughout the year — Session 1, 2, 3 and MUET on Demand (MoD).</p>
+        </div>
+      </div>
+
+      <!-- Why Take MUET? -->
+      <div class="qi-card qi-green" onclick="toggleQI(this)">
+        <div class="qi-header">
+          <div class="qi-icon-wrap qi-icon-green">
+            <!-- Placeholder: trophy SVG icon -->
+            <img src="assets/heroes/smart-muet-logo.svg" alt="" class="qi-icon-img qi-icon-placeholder"/>
+          </div>
+          <div class="qi-title">Why<br>Take<br>MUET?</div>
+          <div class="qi-body-col">
+            <ul class="qi-list qi-list-green">
+              <li>Required or useful for admission to many Malaysian higher education programmes.</li>
+              <li>Helps show English proficiency for study and future career opportunities.</li>
+              <li>Builds confidence in academic communication.</li>
+            </ul>
+          </div>
+          <div class="qi-chevron">›</div>
+        </div>
+        <div class="qi-expanded" style="display:none">
+          <p style="font-size:13px;font-weight:800;color:var(--ink);line-height:1.6;padding:4px 0 2px">Many public and private universities in Malaysia require a minimum MUET band for degree entry. Band 3 or 4 is commonly required. A higher band strengthens scholarship and postgraduate applications.</p>
+        </div>
+      </div>
+
+      <!-- Important MUET Facts -->
+      <div class="qi-card qi-yellow" onclick="toggleQI(this)">
+        <div class="qi-header">
+          <div class="qi-icon-wrap qi-icon-yellow">
+            <!-- Placeholder: clipboard/checklist SVG icon -->
+            <img src="assets/heroes/smart-muet-logo.svg" alt="" class="qi-icon-img qi-icon-placeholder"/>
+          </div>
+          <div class="qi-title">Important<br>MUET<br>Facts</div>
+          <div class="qi-body-col">
+            <ul class="qi-list qi-list-yellow">
+              <li>Result validity: 5 years.</li>
+              <li>2026 availability: Session 1, Session 2, Session 3, and MUET on Demand (MoD).</li>
+              <li>Total score: 360 marks.</li>
+              <li>Band scale: Band 1 to Band 5+.</li>
+              <li>Best to check MPM for the latest official dates.</li>
+            </ul>
+          </div>
+          <div class="qi-chevron">›</div>
+        </div>
+        <div class="qi-expanded" style="display:none">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:4px 0 2px">
+            <div style="background:white;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center">
+              <div style="font-size:22px;font-weight:1000;font-family:'Sora'">360</div>
+              <div style="font-size:10px;font-weight:1000;color:var(--muted)">Total Marks</div>
+            </div>
+            <div style="background:white;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center">
+              <div style="font-size:22px;font-weight:1000;font-family:'Sora'">90</div>
+              <div style="font-size:10px;font-weight:1000;color:var(--muted)">Per Component</div>
+            </div>
+            <div style="background:white;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center">
+              <div style="font-size:22px;font-weight:1000;font-family:'Sora'">5 yrs</div>
+              <div style="font-size:10px;font-weight:1000;color:var(--muted)">Result Validity</div>
+            </div>
+            <div style="background:white;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center">
+              <div style="font-size:22px;font-weight:1000;font-family:'Sora'">Band 1–5+</div>
+              <div style="font-size:10px;font-weight:1000;color:var(--muted)">Score Scale</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Smart MUET Guide Quick Facts -->
+      <div class="qi-card qi-pink" onclick="toggleQI(this)">
+        <div class="qi-header">
+          <div class="qi-icon-wrap qi-icon-pink">
+            <!-- Placeholder: badge/star SVG icon -->
+            <img src="assets/heroes/smart-muet-logo.svg" alt="" class="qi-icon-img qi-icon-placeholder"/>
+          </div>
+          <div class="qi-title">Smart MUET<br>Guide<br>Quick Facts</div>
+          <div class="qi-body-col">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+              <div class="qi-fact-chip">
+                <span class="qi-fact-icon">🔴</span>
+                <span>All 4 MUET components in one app.</span>
+              </div>
+              <div class="qi-fact-chip">
+                <span class="qi-fact-icon">📊</span>
+                <span>Progress tracking and band estimate.</span>
+              </div>
+              <div class="qi-fact-chip">
+                <span class="qi-fact-icon">🔒</span>
+                <span>Guided practice vaults.</span>
+              </div>
+              <div class="qi-fact-chip">
+                <span class="qi-fact-icon">⚙️</span>
+                <span>Auto feedback and badge journey.</span>
+              </div>
+              <div class="qi-fact-chip" style="grid-column:1/-1">
+                <span class="qi-fact-icon">📖</span>
+                <span>Practice guides and sample answers.</span>
+              </div>
+            </div>
+          </div>
+          <div class="qi-chevron">›</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── CTA Footer Strip ─────────────────────────────────────── -->
+    <div style="background:var(--ink);border:var(--line);border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:16px;box-shadow:var(--shadow)">
+      <span style="font-size:22px">⭐</span>
+      <div style="flex:1;font-size:13px;font-weight:900;color:white;line-height:1.4">
+        Your MUET success journey starts now. <span style="color:var(--yellow)">Let's aim high!</span>
+      </div>
+      <button class="btn yellow" style="min-width:42px;height:42px;padding:0;border-radius:50%;font-size:18px;font-weight:1000;flex-shrink:0" onclick="Hub.goTo('vaultScreen')">›</button>
     </div>
 
     <!-- How to flow -->
@@ -192,9 +342,9 @@
       <button class="btn black" style="margin-top:12px" id="focusBtn">Open Focus Skill</button>
     </div>
 
-
     <!-- Go to vault -->
     <button class="btn lime" onclick="Hub.goTo('vaultScreen')" style="margin-bottom:16px">🔒 Open Study Vault →</button>
+
   </section>
 
   <!-- ══ VAULT ════════════════════════════════════════════════════════ -->
@@ -931,7 +1081,16 @@ const Hub = (() => {
 
   document.addEventListener('DOMContentLoaded', init);
   return { goTo, openVault, resetAll, progTab, toggleGuide, toggleTip };
-})();
+})();  // ── Quick Info Accordion toggle ─────────────────────────────────
+  function toggleQI(card) {
+    const expanded = card.querySelector('.qi-expanded');
+    const chevron  = card.querySelector('.qi-chevron');
+    if (!expanded) return;
+    const isOpen = expanded.style.display !== 'none';
+    expanded.style.display = isOpen ? 'none' : 'block';
+    if (chevron) chevron.textContent = isOpen ? '›' : '⌄';
+  }
+
 </script>
 </body>
 </html>
