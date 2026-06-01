@@ -61,7 +61,7 @@
 <section class="screen active">
 
   <div class="brand-bar">
-    <button class="icon-btn" onclick="location.href='vault1-welcome.html'" style="margin-left:0;margin-right:8px">←</button>
+    <button class="icon-btn" onclick="location.href=vaultWelcomePage" style="margin-left:0;margin-right:8px">←</button>
     <div>
       <div class="bar-label">Vault 1 · Component 1 of 4</div>
       <div class="bar-title">SmartSpeaking</div>
@@ -138,7 +138,7 @@
         <button class="btn submit-standard wide" style="background:var(--yellow)!important;color:#111!important" onclick="Spk.submit()">Submit Speaking Practice</button>
         <div class="guide-secondary-row">
           <button class="btn practice-guide-btn white" onclick="Spk.togglePracticeGuide()">Practice Guide</button>
-          <button class="btn vault-menu-btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+          <button class="btn vault-menu-btn pink" onclick="location.href=vaultWelcomePage">← Vault Menu</button>
         </div>
       </div>
 
@@ -169,7 +169,7 @@
     <div style="background:var(--ink);color:white;border:var(--line);border-radius:14px;padding:10px 12px;margin-bottom:12px;font-weight:900;font-size:13px" id="achieveBadge"></div>
     <div class="btn-row">
       <button class="btn black wide" onclick="location.href='vault1-reading.html'">Next: Reading 📖 →</button>
-      <button class="btn vault-menu-btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+      <button class="btn vault-menu-btn white" onclick="location.href=vaultWelcomePage">← Vault Menu</button>
     </div>
   </div>
 
@@ -184,7 +184,8 @@
 const _activeVault = MUET.loadActiveVault();
 const VAULT_ID     = (_activeVault && _activeVault.vaultId) ? _activeVault.vaultId : 'VAULT-01';
 const VAULT_TITLE  = (_activeVault && _activeVault.vaultTitle) ? _activeVault.vaultTitle : 'Vault 1';
-const IS_STARTER   = VAULT_ID === 'VAULT-00';
+const IS_STARTER      = VAULT_ID === 'VAULT-00';
+const vaultWelcomePage = IS_STARTER ? 'starter-welcome.html' : 'vault1-welcome.html';
 
 // ── Topic data (Vault 1 — Foundation level) ─────────────────────────
 // ── VAULT 01 · MUET Session 3 2022 · Speaking 800/2 · Booklet 1 ──────

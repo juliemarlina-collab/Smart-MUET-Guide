@@ -61,7 +61,7 @@
 <section class="screen active">
 
   <div class="brand-bar">
-    <button class="icon-btn" onclick="location.href='vault1-welcome.html'" style="margin-left:0;margin-right:8px">←</button>
+    <button class="icon-btn" onclick="location.href=vaultWelcomePage" style="margin-left:0;margin-right:8px">←</button>
     <div><div class="bar-label">Vault 1 · Component 3 of 4</div><div class="bar-title">SmartListening</div></div>
     <button class="icon-btn">🎧</button>
   </div>
@@ -119,7 +119,7 @@
         <button class="btn submit-standard wide" style="background:var(--yellow)!important;color:#111!important" onclick="Lst.submit()">Submit Listening Practice</button>
         <div class="guide-secondary-row">
           <button class="btn practice-guide-btn white" onclick="Lst.togglePracticeGuide()">Practice Guide</button>
-          <button class="btn vault-menu-btn pink" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+          <button class="btn vault-menu-btn pink" onclick="location.href=vaultWelcomePage">← Vault Menu</button>
         </div>
       </div>
 
@@ -181,7 +181,7 @@
     </div>
     <div class="btn-row">
       <button class="btn black wide" onclick="location.href='vault1-writing.html'">Next: Writing ✍️ →</button>
-      <button class="btn vault-menu-btn white" onclick="location.href='vault1-welcome.html'">← Vault Menu</button>
+      <button class="btn vault-menu-btn white" onclick="location.href=vaultWelcomePage">← Vault Menu</button>
     </div>
   </div>
 
@@ -195,7 +195,8 @@
 const _activeVault = MUET.loadActiveVault();
 const VAULT_ID     = (_activeVault && _activeVault.vaultId) ? _activeVault.vaultId : 'VAULT-01';
 const VAULT_TITLE  = (_activeVault && _activeVault.vaultTitle) ? _activeVault.vaultTitle : 'Vault 1';
-const IS_STARTER   = VAULT_ID === 'VAULT-00';
+const IS_STARTER      = VAULT_ID === 'VAULT-00';
+const vaultWelcomePage = IS_STARTER ? 'starter-welcome.html' : 'vault1-welcome.html';
 // ── VAULT 01 · MUET Session 3 2022 · Listening 800/1 ────────────────────
 // 30 questions · 5 parts · Audio tracks connected from Google Drive
 // Answer key is provisional and must be verified against the official key before final deployment

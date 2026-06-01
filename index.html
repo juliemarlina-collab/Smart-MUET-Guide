@@ -23,23 +23,29 @@
     </div>
 
     <div class="hero-image-card welcome-hero-card">
-      <img src="assets/heroes/welcome-hero.png" alt="Welcome to Smart MUET hero showing Speaking, Reading, Listening and Writing cards"/>
+      <img src="assets/heroes/welcome-hero.svg" alt="Welcome to Smart MUET hero showing Speaking, Reading, Listening and Writing cards"/>
     </div>
 
     <div class="hero-note-card">
       <div>
-        <p class="tiny">Guided MUET Learning Journey</p>
-        <h2>Start with your profile.</h2>
+        <p class="tiny">MUET SmartHub 2026 · POLIPD ELU</p>
+        <h2>Practise. Check. Improve. Track Your Band.</h2>
       </div>
-      <p>Then move into Study Vault, practise each component, check your score and track your band progress.</p>
+      <p>Guided practice for all four MUET components — Speaking, Reading, Listening and Writing. Complete Study Vaults, get rubric feedback and track your band progress toward your target.</p>
     </div>
 
     <div class="card">
       <h2>Create Your Profile</h2>
       <p class="tiny" style="margin-top:4px;color:var(--muted)">Register once. Your profile is used across all vaults and modules.</p>
+      <div class="instr-card" style="background:#eff6ff;border-color:#93c5fd;padding:10px 12px;margin-bottom:12px;border-radius:14px">
+        <p style="font-size:12px;font-weight:900;color:#1e40af;margin:0">💡 <b>Use your student email.</b> It is used to identify your records in the score system. Your data is saved in this browser — use the same device to continue where you left off.</p>
+      </div>
       <form id="regForm" class="form">
         <label>Full Name
           <input id="regName" required placeholder="e.g. Aisyah Ahmad"/>
+        </label>
+        <label>Student Email
+          <input id="regEmail" type="email" required placeholder="e.g. aisyah@student.polipd.edu.my"/>
         </label>
         <label>Student No.
           <input id="regNo" required placeholder="e.g. 06DPR23F1001"/>
@@ -72,7 +78,51 @@
       <button class="icon-btn" onclick="Hub.goTo('profileScreen')">👤</button>
     </div>
 
-    <!-- Band overview -->
+    <!-- ── MUET Hero & App Intro ──────────────────────────────────── -->
+    <div style="background:var(--ink);border:var(--line);border-radius:22px;box-shadow:5px 5px 0 var(--ink);overflow:hidden;margin-bottom:14px">
+      <!-- Top accent bar -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);height:6px">
+        <div style="background:var(--blue)"></div>
+        <div style="background:var(--green)"></div>
+        <div style="background:var(--yellow)"></div>
+        <div style="background:var(--pink)"></div>
+      </div>
+      <div style="padding:18px 16px 16px">
+        <!-- MUET badge -->
+        <div style="display:inline-flex;align-items:center;gap:6px;background:var(--yellow);border:2px solid rgba(255,255,255,.2);border-radius:999px;padding:5px 12px;margin-bottom:12px">
+          <span style="font-size:10px;font-weight:1000;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)">🎓 MUET 2026 Prep App</span>
+        </div>
+        <h1 style="font-family:'Sora';font-size:26px;font-weight:800;color:white;letter-spacing:-.04em;line-height:1.1;margin-bottom:8px">Your MUET Band<br>Starts Here.</h1>
+        <p style="font-size:13px;font-weight:800;color:rgba(255,255,255,.75);line-height:1.55;margin-bottom:14px">MUET SmartHub guides you through all four components — Speaking, Reading, Listening and Writing — with tips, sample answers, auto-feedback and band tracking. Built for Diploma students sitting MUET Session 1, 2026.</p>
+        <!-- 4-component row -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px">
+          <div style="background:var(--blue);border:2px solid rgba(255,255,255,.2);border-radius:12px;padding:10px 4px;text-align:center">
+            <div style="font-size:20px">🎤</div>
+            <div style="font-size:9px;font-weight:1000;color:white;margin-top:4px;line-height:1.3">SPEAKING<br><span style="opacity:.7">800/2</span></div>
+          </div>
+          <div style="background:var(--green);border:2px solid rgba(255,255,255,.2);border-radius:12px;padding:10px 4px;text-align:center">
+            <div style="font-size:20px">📖</div>
+            <div style="font-size:9px;font-weight:1000;color:var(--ink);margin-top:4px;line-height:1.3">READING<br><span style="opacity:.6">800/3</span></div>
+          </div>
+          <div style="background:var(--yellow);border:2px solid rgba(255,255,255,.2);border-radius:12px;padding:10px 4px;text-align:center">
+            <div style="font-size:20px">🎧</div>
+            <div style="font-size:9px;font-weight:1000;color:var(--ink);margin-top:4px;line-height:1.3">LISTENING<br><span style="opacity:.6">800/1</span></div>
+          </div>
+          <div style="background:var(--pink);border:2px solid rgba(255,255,255,.2);border-radius:12px;padding:10px 4px;text-align:center">
+            <div style="font-size:20px">✍️</div>
+            <div style="font-size:9px;font-weight:1000;color:var(--ink);margin-top:4px;line-height:1.3">WRITING<br><span style="opacity:.6">800/4</span></div>
+          </div>
+        </div>
+        <!-- MUET score breakdown pill -->
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <div style="background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:7px 10px;font-size:11px;font-weight:1000;color:rgba(255,255,255,.85)">📊 360 total marks</div>
+          <div style="background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:7px 10px;font-size:11px;font-weight:1000;color:rgba(255,255,255,.85)">🎯 Band 1 – 5+</div>
+          <div style="background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:7px 10px;font-size:11px;font-weight:1000;color:rgba(255,255,255,.85)">⚡ 90 marks per component</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Band overview ─────────────────────────────────────────── -->
     <div class="dash-card">
       <div>
         <p class="tiny">Overall Band Estimate</p>
@@ -365,6 +415,7 @@
       <h2>Student Profile</h2>
       <form id="editForm" class="form">
         <label>Full Name<input id="editName"/></label>
+        <label>Student Email<input id="editEmail" type="email"/></label>
         <label>Student No.<input id="editRegNo"/></label>
         <label>Class / Group<input id="editGroup"/></label>
         <label>Target Band
@@ -424,6 +475,7 @@ const Hub = (() => {
       e.preventDefault();
       const p = {
         name:       document.getElementById('regName').value.trim(),
+        email:      document.getElementById('regEmail').value.trim().toLowerCase(),
         regNo:      document.getElementById('regNo').value.trim(),
         group:      document.getElementById('regGroup').value.trim(),
         targetBand: document.getElementById('regBand').value,
@@ -439,6 +491,7 @@ const Hub = (() => {
       e.preventDefault();
       const p = MUET.loadProfile() || {};
       p.name       = document.getElementById('editName').value.trim();
+      p.email      = document.getElementById('editEmail').value.trim().toLowerCase();
       p.regNo      = document.getElementById('editRegNo').value.trim();
       p.group      = document.getElementById('editGroup').value.trim();
       p.targetBand = document.getElementById('editBand').value;
@@ -879,6 +932,7 @@ const Hub = (() => {
     const p = MUET.loadProfile(); if (!p) return;
     const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
     set('editName',  p.name       || '');
+    set('editEmail', p.email      || '');
     set('editRegNo', p.regNo      || '');
     set('editGroup', p.group      || '');
     set('editBand',  p.targetBand || '4.0');
