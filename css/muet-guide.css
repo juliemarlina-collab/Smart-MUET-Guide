@@ -327,3 +327,130 @@ textarea:focus{outline:4px solid rgba(7,87,255,.22)}
 @media (max-width:380px){
   .hero-note-card h2{font-size:18px}
 }
+
+/* =================================================
+   Quick Info Accordion Cards — home screen sections
+   Blueprint v3.3 · Neo-Brutalist Academic
+================================================= */
+.qi-card {
+  border: 3px solid var(--ink);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 4px 4px 0 var(--ink);
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.qi-card:active { transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--ink); }
+
+.qi-blue  { background: #ffffff; }
+.qi-green { background: #ffffff; }
+.qi-yellow{ background: #ffffff; }
+.qi-pink  { background: #ffffff; }
+
+.qi-header {
+  display: grid;
+  grid-template-columns: 56px auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 12px 12px 0;
+}
+
+.qi-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  min-width: 56px;
+  align-self: stretch;
+  border-radius: 16px 0 0 16px;
+}
+.qi-icon-blue   { background: var(--blue,  #0757ff); }
+.qi-icon-green  { background: var(--green, #19d58a); }
+.qi-icon-yellow { background: var(--yellow,#ffc400); }
+.qi-icon-pink   { background: var(--pink,  #ff70b8); }
+
+.qi-icon-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  display: block;
+}
+/* Placeholder filter — white silhouette on coloured bg */
+.qi-icon-placeholder { filter: brightness(0) invert(1); opacity: .85; }
+
+.qi-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.2;
+  padding-left: 4px;
+  white-space: nowrap;
+}
+
+.qi-body-col { flex: 1; }
+
+.qi-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 5px;
+}
+.qi-list li {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.qi-list li::before {
+  content: '';
+  display: block;
+  width: 10px;
+  min-width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+/* Coloured bullets matching reference */
+.qi-list-blue   li::before { background: var(--blue,  #0757ff); border-color: var(--blue,  #0757ff); }
+.qi-list-green  li::before { background: var(--green, #19d58a); border-color: var(--green, #19d58a); }
+.qi-list-yellow li::before { background: var(--yellow,#ffc400); border-color: var(--yellow,#ffc400); }
+.qi-list-pink   li::before { background: var(--pink,  #ff70b8); border-color: var(--pink,  #ff70b8); }
+
+.qi-chevron {
+  font-size: 22px;
+  font-weight: 1000;
+  color: var(--ink);
+  padding-right: 4px;
+  line-height: 1;
+  transition: transform .2s;
+}
+
+.qi-expanded {
+  padding: 0 12px 12px 14px;
+  border-top: 2px dashed rgba(0,0,0,.1);
+  margin-top: 2px;
+}
+
+/* Quick Facts chips — 2-col grid */
+.qi-fact-chip {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1.4;
+  background: rgba(0,0,0,.04);
+  border: 2px solid rgba(0,0,0,.08);
+  border-radius: 10px;
+  padding: 7px 8px;
+}
+.qi-fact-icon { font-size: 14px; flex-shrink: 0; }
