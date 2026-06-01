@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
     ? 'Learn the app flow using sample questions. Does not count toward your main vault scores.'
     : 'Start strong with guided MUET practice across all four tested components.';
   const image     = isStarter
-    ? 'assets/heroes/welcome-hero.png'           // reuse welcome hero for starter
+    ? 'assets/heroes/welcome-hero.svg'           // reuse welcome hero for starter
     : 'assets/heroes/vault-1-guided-journey-card.png';
 
   const progressLabel = count === 4 ? '✅ All 4 Components Done' : `🏆 ${count} / 4 Completed`;
