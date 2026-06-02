@@ -74,7 +74,7 @@
     <!-- HEADER -->
     <div class="brand-bar">
       <img src="assets/heroes/small-muet-logo.svg" alt="Smart MUET Guide"
-        style="width:56px;height:56px;min-width:56px;border-radius:14px;object-fit:contain;display:block"/>
+        style="width:56px;height:56px;min-width:56px;border-radius:14px;object-fit:contain;display:block;box-shadow:4px 4px 0 var(--yellow),0 0 0 2.5px var(--yellow)"/>
       <div style="flex:1;min-width:0;overflow:hidden;margin-left:10px">
         <div class="bar-label" style="margin-bottom:1px">WELCOME BACK</div>
         <div class="bar-title" id="homeName" style="font-size:20px;line-height:1.1">Smart MUET Guide</div>
@@ -485,11 +485,23 @@
     </div>
   </section>
 
-  <nav id="nav" class="bottom-nav" style="display:none">
-    <button class="active" onclick="Hub.goTo('homeScreen')">⌂<span>Home</span></button>
-    <button onclick="Hub.goTo('vaultScreen')">🔒<span>Vault</span></button>
-    <button onclick="Hub.goTo('progressScreen')">◉<span>Progress</span></button>
-    <button onclick="Hub.goTo('profileScreen')">☻<span>Profile</span></button>
+  <nav id="nav" class="bottom-nav">
+    <button class="nav-btn active" id="nav-home" onclick="Hub.goTo('homeScreen')">
+      <img src="assets/heroes/nav-home.svg" alt="Home" class="nav-icon"/>
+      <span>Home</span>
+    </button>
+    <button class="nav-btn" id="nav-vault" onclick="Hub.goTo('vaultScreen')">
+      <img src="assets/heroes/nav-vault.svg" alt="Vault" class="nav-icon"/>
+      <span>Vault</span>
+    </button>
+    <button class="nav-btn" id="nav-progress" onclick="Hub.goTo('progressScreen')">
+      <img src="assets/heroes/nav-progress.svg" alt="Progress" class="nav-icon"/>
+      <span>Progress</span>
+    </button>
+    <button class="nav-btn" id="nav-profile" onclick="Hub.goTo('profileScreen')">
+      <img src="assets/heroes/nav-profile.svg" alt="Profile" class="nav-icon"/>
+      <span>Profile</span>
+    </button>
   </nav>
 
   <div id="toast" class="toast"></div>
@@ -560,7 +572,22 @@ const Hub = (() => {
     if (id === 'progressScreen') { renderProgress(); progTab('dash'); }
     if (id === 'profileScreen')  fillEdit();
     const nav = document.getElementById('nav');
-    if (nav) nav.style.display = (id === 'registerScreen') ? 'none' : 'grid';
+    if (nav) {
+      nav.style.display = (id === 'registerScreen') ? 'none' : 'grid';
+      // Update active nav button
+      const navMap = {
+        homeScreen: 'nav-home',
+        vaultScreen: 'nav-vault',
+        progressScreen: 'nav-progress',
+        profileScreen: 'nav-profile'
+      };
+      nav.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      const activeId = navMap[id];
+      if (activeId) {
+        const activeBtn = document.getElementById(activeId);
+        if (activeBtn) activeBtn.classList.add('active');
+      }
+    }
   }
 
   function renderHome() {
