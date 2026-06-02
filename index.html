@@ -71,139 +71,141 @@
   <!-- ══ HOME ════════════════════════════════════════════════════════ -->
   <section id="homeScreen" class="screen">
 
-    <!-- ── Header / Brand Bar ───────────────────────────────────────── -->
+    <!-- Header -->
     <div class="brand-bar">
       <img src="assets/heroes/small-muet-logo.svg"
         alt="Smart MUET Guide Logo"
-        style="width:40px;height:40px;min-width:40px;border-radius:10px;object-fit:contain;display:block;margin-right:4px"/>
-      <div style="flex:1;min-width:0;overflow:hidden">
-        <div class="bar-label">WELCOME BACK</div>
-        <div class="bar-title" id="homeName" style="font-size:15px">Smart MUET Guide</div>
+        style="width:52px;height:52px;min-width:52px;border-radius:14px;object-fit:contain;display:block"/>
+      <div style="flex:1;min-width:0;overflow:hidden;margin-left:10px">
+        <div class="bar-label" style="margin-bottom:1px">WELCOME BACK</div>
+        <div class="bar-title" id="homeName" style="font-size:20px;line-height:1.1">Smart MUET Guide</div>
       </div>
       <button class="icon-btn" onclick="Hub.goTo('profileScreen')">👤</button>
     </div>
 
-    <!-- ── Hero Banner ────────────────────────────────────────────────── -->
-    <div style="border:var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:14px">
-      <img
-        src="assets/heroes/home-hero-banner-main.svg"
+    <!-- Hero Banner -->
+    <div style="border:var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px">
+      <img src="assets/heroes/home-hero-banner-main.svg"
         alt="Smart MUET Guide — Your MUET Band Starts Here"
         style="display:block;width:100%;height:auto"
-        onerror="this.onerror=null;this.src='assets/heroes/home-hero-portrait.png'"
-      />
+        onerror="this.onerror=null;this.src='assets/heroes/home-hero-portrait.png'"/>
     </div>
 
-    <!-- ── Band overview ─────────────────────────────────────────── -->
-    <div class="dash-card">
+    <!-- YOUR PROGRESS -->
+    <div class="home-section-label">📊 YOUR PROGRESS</div>
+    <div class="dash-card" style="margin-bottom:10px">
       <div>
         <p class="tiny">Overall Band Estimate</p>
-        <h1 id="homeBand" style="color:white;margin-top:4px">Band 0.0</h1>
-        <p id="homeBandMsg">Complete your first task to activate tracking.</p>
+        <h1 id="homeBand" style="color:white;margin-top:4px;font-size:32px">Band 0.0</h1>
+        <p id="homeBandMsg" style="font-size:13px;font-weight:900;margin-top:4px">Complete your first task to activate tracking.</p>
       </div>
-      <div class="band-disc" id="bandDisc">
-        <span id="homePercent">0%</span>
-      </div>
+      <div class="band-disc" id="bandDisc"><span id="homePercent">0%</span></div>
     </div>
-
-    <!-- Stats -->
-    <div class="stat-row">
+    <div class="stat-row" style="margin-bottom:20px">
       <div class="stat-card red"><span>🔥</span><b id="homeStreak">0</b><small>Streak</small></div>
       <div class="stat-card blue"><span>⭐</span><b id="homeXP">0</b><small>XP</small></div>
       <div class="stat-card lime"><span>🎯</span><b id="homeTarget">4.0</b><small>Target</small></div>
     </div>
 
-    <!-- ── Quick Info Accordion Sections ─────────────────────────── -->
-    <div style="display:grid;gap:10px;margin-bottom:14px">
+    <!-- CONTINUE VAULT -->
+    <div id="continueVaultCard" style="display:none;margin-bottom:20px">
+      <div class="home-section-label">🔒 CONTINUE YOUR VAULT</div>
+      <div style="background:var(--ink);border:var(--line);box-shadow:var(--shadow);border-radius:20px;padding:16px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px">
+        <div>
+          <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.55);margin-bottom:4px">CONTINUE WHERE YOU LEFT OFF</div>
+          <div id="continueVaultTitle" style="font-family:'Sora';font-weight:800;font-size:18px;color:white;line-height:1.1">Vault 1</div>
+          <div id="continueVaultStatus" style="font-size:12px;font-weight:900;color:rgba(255,255,255,.65);margin-top:3px">0/4 components done</div>
+        </div>
+        <button id="continueVaultBtn" class="btn yellow" style="min-height:44px;width:auto;padding:10px 18px;white-space:nowrap;font-size:14px;font-weight:1000">Continue →</button>
+      </div>
+    </div>
 
-      <!-- MUET Quick Intro -->
+    <!-- TODAY'S FOCUS -->
+    <div class="home-section-label">🎯 TODAY'S FOCUS</div>
+    <div class="focus-box" id="focusBox" style="margin-bottom:20px">
+      <div class="tag">TODAY'S FOCUS</div>
+      <h2 id="focusTitle" style="font-size:22px;margin-top:4px">Start with Speaking</h2>
+      <p id="focusText" style="margin-top:6px;font-weight:800;font-size:14px;line-height:1.5">Complete one Task A using PREP structure.</p>
+      <button class="btn black" style="margin-top:14px;font-size:15px;font-weight:1000" id="focusBtn">Open Focus Skill</button>
+    </div>
+
+    <!-- ABOUT MUET -->
+    <div class="home-section-label">📚 ABOUT MUET</div>
+    <p style="font-size:12px;font-weight:900;color:var(--muted);margin-bottom:10px;margin-top:-4px">Tap any card to expand and learn more.</p>
+    <div style="display:grid;gap:10px;margin-bottom:20px">
+
       <div class="qi-card" onclick="toggleQI(this)">
         <div class="qi-header">
           <div class="qi-icon-wrap qi-icon-blue">
-            <img src="assets/heroes/icon-muet-intro.svg" alt="MUET Quick Intro icon" style="width:36px;height:36px;object-fit:contain;display:block"/>
+            <img src="assets/heroes/icon-muet-intro.svg" alt="" style="width:36px;height:36px;object-fit:contain;display:block"/>
           </div>
           <div class="qi-content">
             <div class="qi-title">MUET Quick Intro</div>
             <ul class="qi-list qi-list-blue">
-              <li>MUET is the Malaysian University English Test administered by MPM.</li>
-              <li>It assesses 4 components: Listening, Speaking, Reading, and Writing.</li>
-              <li>Widely used for university entry and academic English readiness in Malaysia.</li>
+              <li>Malaysian University English Test administered by MPM.</li>
+              <li>Assesses 4 components: Listening, Speaking, Reading, Writing.</li>
+              <li>Used for university entry and academic English readiness.</li>
             </ul>
           </div>
           <div class="qi-chevron">›</div>
         </div>
         <div class="qi-expanded" style="display:none">
-          <p style="font-size:12px;font-weight:800;color:var(--ink);line-height:1.6">MUET is administered by MPM (Lembaga Peperiksaan Malaysia). Your result is valid for <b>5 years</b>. Sessions available: Session 1, 2, 3 and MUET on Demand (MoD).</p>
+          <p style="font-size:12px;font-weight:800;color:var(--ink);line-height:1.6">MUET is administered by MPM. Result valid for <b>5 years</b>. Sessions: 1, 2, 3 and MUET on Demand (MoD).</p>
         </div>
       </div>
 
-      <!-- Why Take MUET? -->
       <div class="qi-card" onclick="toggleQI(this)">
         <div class="qi-header">
           <div class="qi-icon-wrap qi-icon-green">
-            <img src="assets/heroes/icon-why-muet.svg" alt="Why Take MUET icon" style="width:36px;height:36px;object-fit:contain;display:block"/>
+            <img src="assets/heroes/icon-why-muet.svg" alt="" style="width:36px;height:36px;object-fit:contain;display:block"/>
           </div>
           <div class="qi-content">
             <div class="qi-title">Why Take MUET?</div>
             <ul class="qi-list qi-list-green">
-              <li>Required or useful for admission to many Malaysian higher education programmes.</li>
-              <li>Helps show English proficiency for study and future career opportunities.</li>
+              <li>Required for admission to many Malaysian higher education programmes.</li>
+              <li>Shows English proficiency for study and career opportunities.</li>
               <li>Builds confidence in academic communication.</li>
             </ul>
           </div>
           <div class="qi-chevron">›</div>
         </div>
         <div class="qi-expanded" style="display:none">
-          <p style="font-size:12px;font-weight:800;color:var(--ink);line-height:1.6">Many public and private universities require a minimum MUET band for degree entry. Band 3 or 4 is commonly required. A higher band strengthens scholarship and postgraduate applications.</p>
+          <p style="font-size:12px;font-weight:800;color:var(--ink);line-height:1.6">Many universities require Band 3 or 4 for degree entry. A higher band strengthens scholarship and postgraduate applications.</p>
         </div>
       </div>
 
-      <!-- Important MUET Facts -->
       <div class="qi-card" onclick="toggleQI(this)">
         <div class="qi-header">
           <div class="qi-icon-wrap qi-icon-yellow">
-            <img src="assets/heroes/icon-muet-facts.svg" alt="Important MUET Facts icon" style="width:36px;height:36px;object-fit:contain;display:block"/>
+            <img src="assets/heroes/icon-muet-facts.svg" alt="" style="width:36px;height:36px;object-fit:contain;display:block"/>
           </div>
           <div class="qi-content">
             <div class="qi-title">Important MUET Facts</div>
             <ul class="qi-list qi-list-yellow">
               <li>Result validity: 5 years.</li>
-              <li>2026: Session 1, Session 2, Session 3, and MUET on Demand (MoD).</li>
-              <li>Total score: 360 marks. Band scale: Band 1 to Band 5+.</li>
-              <li>Best to check MPM for the latest official dates.</li>
+              <li>2026: Session 1, 2, 3 and MUET on Demand (MoD).</li>
+              <li>Total: 360 marks · 90 per component · Band 1–5+.</li>
             </ul>
           </div>
           <div class="qi-chevron">›</div>
         </div>
         <div class="qi-expanded" style="display:none">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-            <div style="background:#fefce8;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center">
-              <div style="font-size:20px;font-weight:1000;font-family:'Sora'">360</div>
-              <div style="font-size:10px;font-weight:1000;color:var(--muted)">Total Marks</div>
-            </div>
-            <div style="background:#fefce8;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center">
-              <div style="font-size:20px;font-weight:1000;font-family:'Sora'">90</div>
-              <div style="font-size:10px;font-weight:1000;color:var(--muted)">Per Component</div>
-            </div>
-            <div style="background:#fefce8;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center">
-              <div style="font-size:20px;font-weight:1000;font-family:'Sora'">5 yrs</div>
-              <div style="font-size:10px;font-weight:1000;color:var(--muted)">Result Validity</div>
-            </div>
-            <div style="background:#fefce8;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center">
-              <div style="font-size:16px;font-weight:1000;font-family:'Sora'">Band 1–5+</div>
-              <div style="font-size:10px;font-weight:1000;color:var(--muted)">Score Scale</div>
-            </div>
+            <div style="background:#fefce8;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:1000;font-family:'Sora'">360</div><div style="font-size:10px;font-weight:1000;color:var(--muted)">Total Marks</div></div>
+            <div style="background:#fefce8;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:1000;font-family:'Sora'">90</div><div style="font-size:10px;font-weight:1000;color:var(--muted)">Per Component</div></div>
+            <div style="background:#fefce8;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:1000;font-family:'Sora'">5 yrs</div><div style="font-size:10px;font-weight:1000;color:var(--muted)">Result Validity</div></div>
+            <div style="background:#fefce8;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center"><div style="font-size:16px;font-weight:1000;font-family:'Sora'">Band 1–5+</div><div style="font-size:10px;font-weight:1000;color:var(--muted)">Score Scale</div></div>
           </div>
         </div>
       </div>
 
-      <!-- Smart MUET Guide Quick Facts -->
       <div class="qi-card" onclick="toggleQI(this)">
         <div class="qi-header">
           <div class="qi-icon-wrap qi-icon-pink">
-            <img src="assets/heroes/icon-app-facts.svg" alt="Smart MUET Guide Quick Facts icon" style="width:36px;height:36px;object-fit:contain;display:block"/>
+            <img src="assets/heroes/icon-app-facts.svg" alt="" style="width:36px;height:36px;object-fit:contain;display:block"/>
           </div>
           <div class="qi-content">
-            <div class="qi-title">Smart MUET Guide Quick Facts</div>
+            <div class="qi-title">Smart MUET Guide — App Facts</div>
             <div class="qi-facts-grid">
               <div class="qi-fact-chip"><span class="qi-fact-icon">🔴</span><span>All 4 MUET components in one app.</span></div>
               <div class="qi-fact-chip"><span class="qi-fact-icon">📊</span><span>Progress tracking and band estimate.</span></div>
@@ -218,55 +220,32 @@
 
     </div>
 
-    <!-- ── CTA Footer Strip ─────────────────────────────────────── -->
-    <div style="background:var(--ink);border:var(--line);border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:10px;margin-bottom:16px;box-shadow:var(--shadow)">
-      <span style="font-size:20px;flex-shrink:0">⭐</span>
-      <div style="flex:1;min-width:0;font-size:12px;font-weight:900;color:white;line-height:1.4">
-        Your MUET success journey starts now.<br><span style="color:var(--yellow)">Let's aim high!</span>
+    <!-- CTA STRIP -->
+    <div style="background:var(--ink);border:var(--line);border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:10px;margin-bottom:20px;box-shadow:var(--shadow)">
+      <span style="font-size:22px;flex-shrink:0">⭐</span>
+      <div style="flex:1;min-width:0;font-size:13px;font-weight:900;color:white;line-height:1.4">
+        Your MUET success journey starts now.<br><span style="color:var(--yellow);font-size:14px">Let's aim high!</span>
       </div>
-      <button class="btn yellow" style="min-width:40px;width:40px;height:40px;padding:0;border-radius:50%;font-size:20px;flex-shrink:0;line-height:1" onclick="Hub.goTo('vaultScreen')">›</button>
+      <button class="btn yellow" style="min-width:42px;width:42px;height:42px;padding:0;border-radius:50%;font-size:22px;flex-shrink:0;line-height:1" onclick="Hub.goTo('vaultScreen')">›</button>
     </div>
 
-    <!-- How to flow -->
-    <div class="instr-card yellow">
-      <h2>Your Smart MUET Flow</h2>
+    <!-- HOW TO USE -->
+    <div class="home-section-label">📋 HOW TO USE THIS APP</div>
+    <div class="instr-card yellow" style="margin-bottom:20px">
+      <h2 style="font-size:20px;margin-bottom:10px">Your Smart MUET Flow</h2>
       <ol>
-        <li>Go to <b>Study Vault</b> and choose Vault 1 to start.</li>
-        <li>Complete a self-check, then go through each component with tips and sample answers.</li>
-        <li>Submit each component to save your score and feedback.</li>
-        <li>Check the Vault Round-Up after all four components are done.</li>
+        <li><b>Go to Study Vault</b> — choose Starter Vault to learn the app, then Vault 1 for your first full guided set.</li>
+        <li><b>Complete the self-check</b> — rate your confidence before each session.</li>
+        <li><b>Work through all 4 components</b> — Speaking → Reading → Listening → Writing, with tips and sample answers.</li>
+        <li><b>Submit each component</b> — get score, rubric feedback and badge.</li>
+        <li><b>Check your Vault Round-Up</b> — see total /360, band estimate and focus area.</li>
       </ol>
     </div>
 
-    <!-- Module quick access -->
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <h2>Skill Modules</h2>
-      <span style="font-size:11px;font-weight:1000;color:var(--muted)">Standalone Practice</span>
-    </div>
-    <!-- Skill hero strip -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px">
-      <div style="background:var(--blue);border:var(--line);border-radius:16px;padding:12px 8px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
-        <div style="font-size:26px">🎤</div>
-        <div style="font-size:10px;font-weight:1000;color:white;margin-top:4px">SPEAKING</div>
-        <div style="font-size:9px;font-weight:900;color:rgba(255,255,255,.7);margin-top:2px">800/2</div>
-      </div>
-      <div style="background:var(--green);border:var(--line);border-radius:16px;padding:12px 8px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
-        <div style="font-size:26px">📖</div>
-        <div style="font-size:10px;font-weight:1000;color:var(--ink);margin-top:4px">READING</div>
-        <div style="font-size:9px;font-weight:900;color:var(--muted);margin-top:2px">800/3</div>
-      </div>
-      <div style="background:var(--yellow);border:var(--line);border-radius:16px;padding:12px 8px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
-        <div style="font-size:26px">🎧</div>
-        <div style="font-size:10px;font-weight:1000;color:var(--ink);margin-top:4px">LISTENING</div>
-        <div style="font-size:9px;font-weight:900;color:var(--muted);margin-top:2px">800/1</div>
-      </div>
-      <div style="background:var(--pink);border:var(--line);border-radius:16px;padding:12px 8px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
-        <div style="font-size:26px">✍️</div>
-        <div style="font-size:10px;font-weight:1000;color:var(--ink);margin-top:4px">WRITING</div>
-        <div style="font-size:9px;font-weight:900;color:var(--muted);margin-top:2px">800/4</div>
-      </div>
-    </div>
-    <div class="module-grid">
+    <!-- SKILL MODULES -->
+    <div class="home-section-label">🎓 SKILL MODULES</div>
+    <p style="font-size:12px;font-weight:900;color:var(--muted);margin-bottom:10px;margin-top:-4px">Standalone skill guides — practise anytime. Scores do not count toward vault progress.</p>
+    <div class="module-grid" style="margin-bottom:16px">
       <button class="module-card m-speaking" onclick="MUET.goPage('speaking.html')">
         <div class="module-icon">🎤</div>
         <h3>Speaking</h3><p>Guide · PREP</p>
@@ -292,30 +271,11 @@
         <small id="wrtScore">No attempt</small>
       </button>
     </div>
-    <p style="text-align:center;font-size:11px;font-weight:900;color:var(--muted);margin-top:6px;margin-bottom:4px">⚠️ Standalone guides only — scores here do not count in vault progress. Use Study Vault for full tracked practice.</p>
 
-    <!-- Continue last vault (smart) -->
-    <div id="continueVaultCard" style="display:none;margin-bottom:16px">
-      <div style="background:var(--ink);border:var(--line);box-shadow:var(--shadow);border-radius:var(--r2);padding:16px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px">
-        <div>
-          <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.6);margin-bottom:4px">CONTINUE WHERE YOU LEFT OFF</div>
-          <div id="continueVaultTitle" style="font-family:'Sora';font-weight:800;font-size:17px;color:white">Vault 1</div>
-          <div id="continueVaultStatus" style="font-size:12px;font-weight:900;color:rgba(255,255,255,.7);margin-top:2px">0/4 components done</div>
-        </div>
-        <button id="continueVaultBtn" class="btn yellow" style="min-height:44px;width:auto;padding:10px 16px;white-space:nowrap;font-size:13px">Continue →</button>
-      </div>
-    </div>
-
-    <!-- Today's focus -->
-    <div class="focus-box" id="focusBox">
-      <div class="tag">TODAY'S FOCUS</div>
-      <h2 id="focusTitle">Start with Speaking</h2>
-      <p id="focusText" style="margin-top:6px;font-weight:800">Complete one Task A using PREP structure.</p>
-      <button class="btn black" style="margin-top:12px" id="focusBtn">Open Focus Skill</button>
-    </div>
-
-    <!-- Go to vault -->
-    <button class="btn lime" onclick="Hub.goTo('vaultScreen')" style="margin-bottom:16px">🔒 Open Study Vault →</button>
+    <!-- OPEN VAULT CTA -->
+    <button class="btn lime" onclick="Hub.goTo('vaultScreen')" style="margin-bottom:24px;font-size:16px;font-weight:1000;padding:16px">
+      🔒 Open Study Vault →
+    </button>
 
   </section>
 
