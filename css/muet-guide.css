@@ -368,12 +368,21 @@ textarea:focus{outline:4px solid rgba(7,87,255,.22)}
 .qi-icon-yellow { background: var(--yellow,#ffc400); }
 .qi-icon-pink   { background: var(--pink,  #ff70b8); }
 
-/* Icon SVG — inline emoji/svg replaces placeholder */
+/* Icon — emoji fallback or real SVG image */
 .qi-icon-svg {
   font-size: 28px;
   line-height: 1;
   text-align: center;
   display: block;
+}
+
+/* Real SVG icon images — no filter, show as-is */
+.qi-icon-wrap img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  display: block;
+  filter: none;
 }
 
 /* Middle content: title stacked above bullets */
