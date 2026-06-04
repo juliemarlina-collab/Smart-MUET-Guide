@@ -8,43 +8,112 @@
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/muet-guide.css"/>
   <style>
+    /* ── Flow steps ── */
     .flow-step{background:white;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
     .flow-step-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;font-weight:1000}
     .flow-step-head:active{background:rgba(0,0,0,.04)}
     .step-num{width:38px;height:38px;border:var(--line);border-radius:50%;background:var(--pink);display:grid;place-items:center;font-weight:1000;font-size:16px;flex-shrink:0;box-shadow:2px 2px 0 var(--ink)}
+
+    /* ── Task selector badges ── */
     .task-badges{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
     .task-badge{border:var(--line);border-radius:16px;padding:12px 10px;text-align:center;box-shadow:3px 3px 0 var(--ink);cursor:pointer}
-    .task-badge .icon{font-size:24px;display:block}.task-badge b{font-family:"Sora";font-size:13px;display:block;margin-top:4px}.task-badge small{font-size:11px;font-weight:900;color:var(--muted);display:block;margin-top:2px}
+    .task-badge .icon{font-size:24px;display:block}
+    .task-badge b{font-family:"Sora";font-size:13px;display:block;margin-top:4px}
+    .task-badge small{font-size:11px;font-weight:900;color:var(--muted);display:block;margin-top:2px}
+
+    /* ── PEEL strip ── */
     .peel-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
     .peel-b{border:var(--line);border-radius:14px;padding:10px 4px;text-align:center;font-family:"Sora";font-size:20px;font-weight:800;box-shadow:3px 3px 0 var(--ink);line-height:1.1}
     .peel-b small{display:block;font-family:"DM Sans";font-size:10px;font-weight:900;margin-top:3px}
+
+    /* ── Topic list ── */
+    .topic-item{background:white;border:2px solid var(--ink);border-radius:16px;padding:13px;margin-bottom:8px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);display:flex;align-items:center;gap:10px;transition:all .15s}
+    .topic-item.sel{background:var(--yellow);box-shadow:3px 3px 0 var(--ink)}
+    .topic-item.sel::after{content:"✓";margin-left:auto;font-weight:1000;font-size:16px}
+    .ti-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;border:2px solid var(--ink);background:white}
+    .ti-theme{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+    .ti-title{font-size:13px;font-weight:800;color:var(--ink);line-height:1.3}
+
+    /* ── Category filter pills ── */
+    .cat-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+    .cat-pill{border:2px solid var(--ink);border-radius:999px;background:white;padding:5px 12px;font-size:11px;font-weight:900;cursor:pointer;box-shadow:2px 2px 0 var(--ink)}
+    .cat-pill.act{background:var(--yellow)}
+
+    /* ── Email display box ── */
+    .email-box{background:#f8fafc;border:var(--line);border-radius:16px;padding:14px;margin-bottom:12px;font-size:13px;font-weight:700;line-height:1.75;white-space:pre-wrap}
+
+    /* ── Notes guide grid ── */
+    .notes-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+    .note-card{background:white;border:2px solid var(--ink);border-radius:14px;padding:10px;box-shadow:2px 2px 0 var(--ink)}
+    .note-card .ref{font-size:10px;font-weight:900;color:var(--muted);margin-bottom:3px;font-style:italic;line-height:1.3}
+    .note-card .hint{font-size:12px;font-weight:900;color:var(--ink)}
+
+    /* ── Word count display ── */
     .wc-num{font-family:"Sora";font-size:22px;font-weight:800}
     .wc-good{color:#047857}.wc-warn{color:#b45309}.wc-low{color:#dc2626}
+
+    /* ── Essay planner ── */
+    .planner-grid{display:grid;gap:10px;margin-bottom:12px}
+    .planner-box{border:var(--line);border-radius:14px;background:white;padding:12px;box-shadow:3px 3px 0 var(--ink)}
+    .planner-box h3{font-size:13px;margin-bottom:6px}
+    .planner-box textarea{min-height:58px}
+
+    /* ── Checklist ── */
+    .checklist-item{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.07);font-size:13px;font-weight:800}
+    .checklist-item:last-child{border-bottom:none}
+    .checklist-item input{width:20px;height:20px;cursor:pointer}
+
+    /* ── Vocab bank ── */
+    .vocab-section{margin-bottom:12px}
+    .vocab-label{font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;display:block}
+    .vocab-chips{display:flex;flex-wrap:wrap;gap:6px}
+    .vocab-chip{background:white;border:2px solid var(--ink);border-radius:999px;padding:4px 10px;font-size:11px;font-weight:900;cursor:pointer;box-shadow:2px 2px 0 var(--ink)}
+    .vocab-chip:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
+
+    /* ── Submitted banner ── */
+    .submitted-banner{display:none;background:var(--lime);border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);padding:16px;margin-top:14px;text-align:center}
+    .submitted-banner.show{display:block}
+    .submitted-banner .sb-icon{font-size:36px;display:block;margin-bottom:8px}
+    .submitted-banner h2{margin:0 0 6px}
+    .submitted-banner p{font-size:13px;font-weight:800;color:rgba(0,0,0,.6);margin:0}
+    .submitted-meta{background:white;border:2px solid var(--ink);border-radius:14px;padding:12px;margin:12px 0;font-size:13px;font-weight:800;line-height:1.7;text-align:left}
+
+    /* ── Tips list ── */
+    .tip-item{display:flex;gap:10px;align-items:flex-start;background:white;border:2px solid var(--ink);border-radius:14px;padding:11px;margin-bottom:8px;box-shadow:2px 2px 0 var(--ink)}
+    .tip-icon{font-size:20px;flex-shrink:0}
+    .tip-body b{font-size:13px;font-weight:1000;display:block;margin-bottom:2px}
+    .tip-body span{font-size:12px;font-weight:800;color:#374151;line-height:1.45}
   </style>
 </head>
 <body>
 <main class="app-shell">
 <section class="screen active">
 
+  <!-- Brand bar -->
   <div class="brand-bar">
     <button class="icon-btn" onclick="location.href='index.html'" style="margin-left:0;margin-right:8px">←</button>
     <div><div class="bar-label">Skill Module</div><div class="bar-title">Writing 800/4</div></div>
     <button class="icon-btn">✍️</button>
   </div>
 
+  <!-- Hero -->
   <div class="card" style="background:var(--pink);margin-bottom:16px">
     <p class="tiny" style="color:rgba(0,0,0,.5)">Writing 800/4 · 90 marks · 25% of MUET</p>
     <h1 style="margin-top:6px">Write with<br>purpose.</h1>
-    <p style="margin-top:8px;font-weight:800">Task 1 email/letter + Task 2 essay · rubric-based.</p>
+    <p style="margin-top:8px;font-weight:800">Task 1 email/letter + Task 2 essay · guided practice.</p>
   </div>
 
   <!-- Task selector -->
   <div class="task-badges" style="margin-bottom:0">
-    <button id="tabT1" class="task-badge" style="background:var(--yellow)" onclick="setTask('T1')"><span class="icon">📧</span><b>Task 1</b><small>Email / Letter<br>25 min · ~150w</small></button>
-    <button id="tabT2" class="task-badge" style="background:white" onclick="setTask('T2')"><span class="icon">📝</span><b>Task 2</b><small>Essay<br>50 min · ~350w</small></button>
+    <button id="tabT1" class="task-badge" style="background:var(--yellow)" onclick="setTask('T1')">
+      <span class="icon">📧</span><b>Task 1</b><small>Email / Letter<br>25 min · ~150w</small>
+    </button>
+    <button id="tabT2" class="task-badge" style="background:white" onclick="setTask('T2')">
+      <span class="icon">📝</span><b>Task 2</b><small>Essay<br>50 min · ~350w</small>
+    </button>
   </div>
 
-  <!-- STEP 1 -->
+  <!-- ═══ STEP 1: Before You Start ═══ -->
   <div class="flow-step" style="margin-top:14px">
     <div class="flow-step-head" onclick="W.toggle('s1')">
       <div class="step-num">1</div>
@@ -57,7 +126,7 @@
     </div>
   </div>
 
-  <!-- STEP 2 -->
+  <!-- ═══ STEP 2: Tips & Tricks ═══ -->
   <div class="flow-step">
     <div class="flow-step-head" onclick="W.toggle('s2')">
       <div class="step-num">2</div>
@@ -70,7 +139,7 @@
     </div>
   </div>
 
-  <!-- STEP 3 -->
+  <!-- ═══ STEP 3: Sample Answer ═══ -->
   <div class="flow-step">
     <div class="flow-step-head" onclick="W.toggle('s3')">
       <div class="step-num">3</div>
@@ -83,48 +152,108 @@
     </div>
   </div>
 
-  <!-- STEP 4 -->
+  <!-- ═══ STEP 4: Your Practice ═══ -->
   <div class="flow-step">
     <div class="flow-step-head" onclick="W.toggle('s4')">
       <div class="step-num">4</div>
-      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Answer + word count + rubric</small></div>
+      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Choose topic · write · submit</small></div>
       <span id="c-s4">▾</span>
     </div>
     <div id="b-s4" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
-      <div class="timer-card yellow">
-        <div><p class="tiny" id="timerLbl">Task 1 Timer — 25 min</p><div id="timerDisp" style="font-family:'Sora';font-size:36px;font-weight:800">25:00</div></div>
-        <button class="btn black" style="width:auto;min-width:80px" id="timerBtn" onclick="toggleTimer()">Start</button>
-      </div>
-      <div style="background:#fce7f3;border:var(--line);border-radius:16px;padding:14px;margin-bottom:14px">
-        <p class="tiny" style="color:var(--muted)" id="promptLabel">Task 1 Prompt</p>
-        <p id="promptText" style="margin-top:8px;font-weight:800;font-size:14px;line-height:1.5"></p>
-        <div id="bulletPoints" style="margin-top:8px;font-weight:850;font-size:13px;line-height:1.6"></div>
-      </div>
-      <div class="coach-note pink"><div class="tag">COACH NOTE</div><p id="coachNote"></p></div>
-      <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-          <h2>Your Answer <span class="req">Required</span></h2>
-          <div style="text-align:center"><span class="wc-num" id="wcNum">0</span><small style="display:block;font-size:10px">words</small></div>
+
+      <!-- Topic selection -->
+      <div id="topicSelectionArea">
+        <div class="cat-pills" id="catPills"></div>
+        <div id="topicList"></div>
+        <div id="startWrap" style="display:none;margin-top:4px">
+          <div id="selectedLabel" style="background:var(--yellow);border:var(--line);border-radius:14px;padding:10px 12px;font-weight:900;font-size:13px;margin-bottom:10px"></div>
+          <button class="btn yellow" id="startBtn" onclick="startPractice()">Start Writing →</button>
         </div>
-        <p style="font-size:12px;font-weight:900;color:var(--muted);margin-bottom:8px" id="wcGuide">Task 1: minimum 100 words</p>
-        <textarea id="answerBox" rows="10" placeholder="Start writing here..." oninput="countWords()"></textarea>
       </div>
-      <div class="card">
-        <h2>Rubric <span class="req">Required</span></h2>
-        <div id="rubricList" class="rubric-list" style="margin-top:10px"></div>
-        <div class="btn-row" style="margin-top:16px">
+
+      <!-- Practice area (hidden until topic selected) -->
+      <div id="practiceArea" style="display:none">
+
+        <!-- Timer -->
+        <div class="timer-card yellow">
+          <div>
+            <p class="tiny" id="timerLbl">Task 1 Timer — 25 min</p>
+            <div id="timerDisp" style="font-family:'Sora';font-size:36px;font-weight:800">25:00</div>
+          </div>
+          <button class="btn black" style="width:auto;min-width:80px" id="timerBtn" onclick="toggleTimer()">Start</button>
+        </div>
+
+        <!-- Prompt display -->
+        <div style="background:#fce7f3;border:var(--line);border-radius:16px;padding:14px;margin-bottom:14px">
+          <p class="tiny" style="color:var(--muted)" id="promptLabel">Task 1 Prompt</p>
+          <p id="promptText" style="margin-top:8px;font-weight:800;font-size:13px;line-height:1.5"></p>
+          <div id="emailDisplay" style="display:none;margin-top:10px"></div>
+          <div id="notesGuide" style="margin-top:10px"></div>
+          <div id="bulletPoints" style="margin-top:8px;font-weight:850;font-size:13px;line-height:1.6"></div>
+        </div>
+
+        <!-- Coach note -->
+        <div class="coach-note pink"><div class="tag">COACH NOTE</div><p id="coachNote"></p></div>
+
+        <!-- Essay planner (Task 2 only) -->
+        <div id="plannerArea" style="display:none">
+          <div style="background:var(--yellow);border:var(--line);border-radius:16px;padding:12px;margin-bottom:12px">
+            <b style="font-size:13px;font-weight:1000">📋 Step 1: Essay Planner (5 min)</b>
+            <p style="font-size:12px;font-weight:800;margin-top:4px">Students who plan score better — decide your stand and 2–3 points before writing.</p>
+          </div>
+          <div class="planner-grid">
+            <div class="planner-box"><h3>📌 Introduction — My stand</h3><textarea id="planIntro" placeholder="I agree/disagree because..."></textarea></div>
+            <div class="planner-box"><h3>Point 1 + Example</h3><textarea id="planP1" placeholder="Firstly..."></textarea></div>
+            <div class="planner-box"><h3>Point 2 + Example</h3><textarea id="planP2" placeholder="Furthermore..."></textarea></div>
+            <div class="planner-box"><h3>Conclusion</h3><textarea id="planConc" placeholder="In conclusion..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- Vocab bank -->
+        <div id="vocabBank" style="display:none;margin-bottom:14px">
+          <div class="coach-note lime"><div class="tag">VOCAB BANK</div><p>Tap a phrase to copy it. Use these to strengthen your essay.</p></div>
+          <div id="vocabContent"></div>
+        </div>
+
+        <!-- Answer box -->
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <h2>Your Answer <span class="req">Required</span></h2>
+            <div style="text-align:center">
+              <span class="wc-num" id="wcNum">0</span>
+              <small style="display:block;font-size:10px">words</small>
+            </div>
+          </div>
+          <p style="font-size:12px;font-weight:900;color:var(--muted);margin-bottom:8px" id="wcGuide">Task 1: minimum 100 words</p>
+          <textarea id="answerBox" rows="10" placeholder="Start writing here..." oninput="countWords()"></textarea>
+        </div>
+
+        <!-- Checklist (Task 2 only) -->
+        <div id="checklistArea" style="display:none">
+          <div class="card">
+            <h2>Before You Submit</h2>
+            <p style="font-size:12px;font-weight:800;color:var(--muted);margin-top:4px">Check these before submitting your essay</p>
+            <div id="checklistItems" style="margin-top:10px"></div>
+          </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="btn-row" style="margin-top:4px">
           <button class="btn yellow wide" onclick="submitWriting()">Submit Practice</button>
-          <button class="btn white" onclick="resetWriting()">Reset</button>
+          <button class="btn white" onclick="resetPractice()">Reset</button>
           <button class="btn pink" onclick="location.href='index.html'">← Home</button>
         </div>
-      </div>
-      <div id="resultCard" class="result-card pink">
-        <div class="tag">RESULT SAVED</div>
-        <span id="resultScore" class="result-score"></span>
-        <span id="resultBand" class="result-band"></span>
-        <div id="resultFb" style="border:var(--line);border-radius:14px;background:white;padding:12px;margin:10px 0;font-size:13px;font-weight:800"></div>
-        <button class="btn black" onclick="location.href='index.html'">← Back to Home</button>
-      </div>
+
+        <!-- Submitted confirmation banner -->
+        <div id="submittedBanner" class="submitted-banner">
+          <span class="sb-icon">✅</span>
+          <h2>Practice Submitted!</h2>
+          <p id="submittedMsg">Your writing has been saved.</p>
+          <div id="submittedMeta" class="submitted-meta"></div>
+          <button class="btn black" style="margin-top:12px" onclick="location.href='index.html'">← Back to Home</button>
+        </div>
+
+      </div><!-- end practiceArea -->
     </div>
   </div>
 
@@ -132,104 +261,442 @@
 </main>
 <div id="toast" class="toast"></div>
 <script src="js/muet-shared.js"></script>
+<script src="js/backend-config.js"></script>
 <script>
-const tasks={
-  T1:{label:'Task 1',timerSecs:1500,timerLabel:'Task 1 Timer — 25 min',wcMin:100,wcGuide:'Task 1: minimum 100 words',
-    prompt:'Your classmate Johan missed your class farewell party. Write a reply to his email using all the notes given.',
-    bullets:['✅ Yes, ... — confirm you enjoyed the party','✅ I am sorry... — respond to his family emergency','✅ Explain — classmates, food, activities','✅ No, I am afraid... — about meeting up next week'],
-    coach:'Semi-formal reply to a classmate. Address ALL four notes. Missing one reduces Task Fulfilment marks significantly.',
-    s1Content:`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-      <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center"><span style="font-size:24px;display:block">📧</span><b style="font-family:'Sora';font-size:14px;display:block;margin-top:4px">Email / Letter</b><small style="color:var(--muted);font-weight:900">Respond to all bullet points</small></div>
-      <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center"><span style="font-size:24px;display:block">⏱️</span><b style="font-family:'Sora';font-size:14px;display:block;margin-top:4px">25 minutes</b><small style="color:var(--muted);font-weight:900">~100–150 words</small></div>
-      <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center"><span style="font-size:24px;display:block">📝</span><b style="font-family:'Sora';font-size:14px;display:block;margin-top:4px">Formal or Semi-formal</b><small style="color:var(--muted);font-weight:900">Match tone to recipient</small></div>
-      <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center"><span style="font-size:24px;display:block">✅</span><b style="font-family:'Sora';font-size:14px;display:block;margin-top:4px">All bullets</b><small style="color:var(--muted);font-weight:900">Miss one = lower marks</small></div>
-    </div>`,
-    tipsContent:`<div class="coach-note lime"><div class="tag">EMAIL FORMAT</div><p>Greeting → one paragraph per bullet → Closing. Use "Hi [Name]," for semi-formal. End with "Take care" or "Yours sincerely."</p></div>
-    <div style="background:#f8fafc;border:var(--line);border-radius:14px;padding:12px;margin-top:10px;font-size:13px;font-weight:850;display:grid;gap:6px">
-      <div style="display:flex;gap:8px"><span>🎯</span><span>Open with the purpose of your reply in the first sentence</span></div>
-      <div style="display:flex;gap:8px"><span>📌</span><span>Cover each bullet point clearly — one per paragraph if possible</span></div>
-      <div style="display:flex;gap:8px"><span>🚫</span><span>Do NOT add information not asked for — stay on task</span></div>
-      <div style="display:flex;gap:8px"><span>🔢</span><span>Count your words — aim for 100 to 150</span></div>
-    </div>`,
-    sampleHtml:`<div style="background:#dcfce7;border:var(--line);border-radius:14px;padding:14px;font-size:13px;font-weight:800;line-height:1.7"><b>Sample reply — Band 4.0:</b><br><br>Hi Johan,<br><br>Yes, I really enjoyed the farewell party! It was a memorable occasion for all of us.<br><br>I am sorry to hear about your grandmother. I hope she recovers well soon. It must have been exhausting travelling all the way to Kedah.<br><br>Almost all our classmates attended. The food was excellent — a buffet with various Malaysian dishes. We played games, took group photos and watched a short video of our class memories.<br><br>No, I am afraid I cannot meet up next week as I have mid-term tests. Perhaps during the semester break instead?<br><br>Take care and update me about your grandmother.<br><br>Karim</div>
-    <div class="coach-note lime" style="margin-top:10px"><div class="tag">EXAMINER NOTE</div><p>All four notes addressed · friendly but appropriate tone · approximately 150 words · each note in its own paragraph.</p></div>`,
-    rubric:[['task','Task Fulfilment','All four notes addressed',20],['org','Organisation','Greeting, paragraphs, closing',20],['lang','Language Accuracy','Grammar mostly correct',20],['vocab','Vocabulary','Appropriate range',15],['tone','Tone & Style','Friendly and appropriate',15]]
-  },
-  T2:{label:'Task 2',timerSecs:3000,timerLabel:'Task 2 Timer — 50 min',wcMin:250,wcGuide:'Task 2: minimum 250 words',
-    prompt:'"Young adults today lack survival skills." Write an essay expressing your opinion on this comment.',
-    bullets:[],
-    coach:'State your thesis in sentence one of the introduction. Use PEEL for each body paragraph. Aim for 300–400 words.',
-    s1Content:`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-      <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center"><span style="font-size:24px;display:block">📝</span><b style="font-family:'Sora';font-size:14px;display:block;margin-top:4px">Discursive / Argumentative</b><small style="color:var(--muted);font-weight:900">State a clear thesis</small></div>
-      <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center"><span style="font-size:24px;display:block">⏱️</span><b style="font-family:'Sora';font-size:14px;display:block;margin-top:4px">50 minutes</b><small style="color:var(--muted);font-weight:900">~350 words minimum</small></div>
-      <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center;grid-column:span 2"><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:4px"><div style="background:#7a43ff;color:white;border:2px solid var(--ink);border-radius:10px;padding:8px 4px;text-align:center;font-family:'Sora';font-weight:800;font-size:16px">P<small style="display:block;font-family:'DM Sans';font-size:9px;font-weight:900;margin-top:2px">Point</small></div><div style="background:var(--blue);color:white;border:2px solid var(--ink);border-radius:10px;padding:8px 4px;text-align:center;font-family:'Sora';font-weight:800;font-size:16px">E<small style="display:block;font-family:'DM Sans';font-size:9px;font-weight:900;margin-top:2px">Explain</small></div><div style="background:var(--green);border:2px solid var(--ink);border-radius:10px;padding:8px 4px;text-align:center;font-family:'Sora';font-weight:800;font-size:16px">E<small style="display:block;font-family:'DM Sans';font-size:9px;font-weight:900;margin-top:2px">Evidence</small></div><div style="background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:8px 4px;text-align:center;font-family:'Sora';font-weight:800;font-size:16px">L<small style="display:block;font-family:'DM Sans';font-size:9px;font-weight:900;margin-top:2px">Link</small></div></div></div>
-    </div>`,
-    tipsContent:`<div class="coach-note pink"><div class="tag">THESIS FIRST</div><p>State your position clearly in sentence one. Examiners decide within 30 seconds if you understand the question.</p></div>
-    <div style="background:#f8fafc;border:var(--line);border-radius:14px;padding:12px;margin-top:10px;font-size:13px;font-weight:850;display:grid;gap:6px">
-      <div style="display:flex;gap:8px"><span>🎯</span><span>One PEEL per paragraph — do not mix two arguments</span></div>
-      <div style="display:flex;gap:8px"><span>🇲🇾</span><span>Use Malaysian examples: PTPTN, public transport, social media</span></div>
-      <div style="display:flex;gap:8px"><span>⚖️</span><span>Balanced view (partial agreement) scores better than extreme positions</span></div>
-      <div style="display:flex;gap:8px"><span>🔢</span><span>Count words — minimum 250, aim for 300–400</span></div>
-    </div>`,
-    sampleHtml:`<div style="background:#dcfce7;border:var(--line);border-radius:14px;padding:14px;font-size:13px;font-weight:800;line-height:1.7"><b>Sample intro + PEEL paragraph — Band 4.0:</b><br><br><b>Introduction:</b> While modern conveniences have made life more comfortable, I believe this has not entirely stripped young people of their survival skills — though certain practical competencies are being neglected.<br><br><b>PEEL Body paragraph:</b><br><b>P:</b> To a certain extent, young adults do lack practical survival skills compared to previous generations.<br><b>E:</b> The rise of technology means many young Malaysians have never learned to cook, budget finances or handle minor repairs.<br><b>E:</b> A study found many Malaysian undergraduates could not budget their monthly allowance effectively or prepare a simple meal.<br><b>L:</b> This supports the speaker's concern — digital capability does not equal practical life competency.</div>
-    <div class="coach-note pink" style="margin-top:10px"><div class="tag">EXAMINER NOTE</div><p>Clear thesis · well-structured PEEL · local evidence · link back to the question. Avoid full agreement or full disagreement.</p></div>`,
-    rubric:[['task','Task Fulfilment','Thesis clear; argument addresses the comment',20],['org','Organisation','Intro, PEEL body paragraphs, conclusion',20],['lang','Language Accuracy','Grammar mostly correct; varied structures',20],['vocab','Vocabulary Range','Academic vocabulary used appropriately',15],['depth','Depth of Argument','Ideas elaborated with specific evidence',15]]
-  }
+/* ─────────────────────────────────────────────────────────────
+   DATA — all topics, notes, emails, samples preserved exactly
+───────────────────────────────────────────────────────────── */
+
+const T1_TOPICS = [
+  {id:1, cat:'social', emoji:'🍳', theme:'Social',
+   title:'Cooking competition — suggest 2 dishes & opinion on recipe books',
+   prompt:'Your friend, Cindy, is taking part in a cooking competition organised by the district\'s Lions Club. She emails you asking for help.',
+   email:`Hi Nora,\n\nHow are you? I have not heard from you for some time now. You must be very busy.\n\nAnyway, I will be taking part in a cooking competition organised by the district's Lions Club. I am excited as this will be my first time taking part in a cooking competition.\n\nI cannot decide on what to cook for the competition. I need to prepare two dishes for afternoon tea. Can you give me some suggestions?\n\nI also need to present my dishes in an interesting way. I am thinking of buying recipe books to get some ideas. Do you think that will be helpful?\n\nPlease help me out. Looking forward to your reply. Bye.\n\nYour friend,\nCindy`,
+   notes:['Yes, ...','Great! ...','Suggest two','Tell Cindy'],
+   noteRefs:['You must be very busy.','My first time taking part in a cooking competition!','I need to prepare two dishes. Can you give me some suggestions?','I am thinking of buying recipe books. Do you think that will be helpful?'],
+   coach:'Semi-formal reply to a classmate. Address ALL four notes. Missing one reduces Task Fulfilment marks significantly.'},
+
+  {id:2, cat:'school', emoji:'🎓', theme:'School',
+   title:'Friend moving to new school — advice & express feelings',
+   prompt:'Your friend Ahmad is moving to a new school and emails you for advice and support.',
+   email:`Dear Nisha,\n\nI hope you are doing well. I wanted to let you know that I will be transferring to a new school next month because my family is moving to a new area.\n\nI am feeling quite nervous about the change. Could you give me some advice on how to adjust to a new school environment?\n\nI am also worried about making new friends. Do you think I should join school clubs to help with that?\n\nThank you for always being such a good friend. I hope we can keep in touch!\n\nYours sincerely,\nAhmad`,
+   notes:['Sad to hear...','Give 2 tips','Yes, join clubs — explain why','Promise to stay in touch'],
+   noteRefs:['I will be transferring to a new school next month.','Could you give me some advice on how to adjust?','Do you think I should join school clubs?','I hope we can keep in touch!'],
+   coach:'Warm, friendly tone. Cover all four notes in order. Mention specific clubs or activities when responding to the joining-clubs note.'},
+
+  {id:3, cat:'health', emoji:'🏃', theme:'Health',
+   title:'Classmate starting exercise routine — suggest activities & healthy eating',
+   prompt:'Your classmate, Priya, wants to start a healthier lifestyle and asks for your advice.',
+   email:`Hi there,\n\nI hope this finds you well! I have decided that I want to start living a healthier lifestyle. I sit at my desk too much and I feel tired all the time.\n\nCan you suggest some simple exercise activities I can start with? I don't want anything too extreme!\n\nI have also been thinking about eating better but I find healthy food boring. Any tips on making healthy eating more enjoyable?\n\nThanks so much! You always give such good advice.\n\nYour friend,\nPriya`,
+   notes:['Encourage her!','Suggest 2 exercises','Give tips on healthy eating','Invite her to exercise together'],
+   noteRefs:['I want to start living a healthier lifestyle.','Can you suggest some simple exercise activities?','I find healthy food boring. Any tips?','You always give such good advice.'],
+   coach:'Encouraging and friendly. Suggest specific exercises — e.g. jogging, yoga. Make the healthy eating tips practical and relatable.'},
+
+  {id:4, cat:'community', emoji:'🌿', theme:'Community',
+   title:'Neighbourhood clean-up — confirm participation & suggest activities',
+   prompt:'Your neighbour, Mr Tan, is organising a neighbourhood clean-up campaign and invites you to join.',
+   email:`Dear Resident,\n\nI am writing to invite you to our upcoming Neighbourhood Clean-Up Campaign scheduled for this Saturday morning.\n\nAs you know, our neighbourhood has been getting quite untidy lately. We need everyone's help to make it clean and beautiful again.\n\nCould you please confirm whether you will be able to join us? We would also love to hear your ideas for activities we could include in the campaign.\n\nYour participation would mean a lot to the community.\n\nYours truly,\nMr Tan\n(Neighbourhood Committee)`,
+   notes:['Confirm — Yes!','Suggest 2 activities','Mention importance of clean neighbourhood','Will bring friends'],
+   noteRefs:['Could you please confirm whether you will be able to join us?','We would love to hear your ideas for activities.','Our neighbourhood has been getting quite untidy lately.','We need everyone\'s help to make it clean and beautiful again.'],
+   coach:'Formal tone — this is to a neighbourhood committee. Confirm clearly, suggest 2 specific activities, and show community spirit.'}
+];
+
+const T2_TOPICS = [
+  {id:1, cat:'health',       emoji:'🧠', theme:'Health',       statement:'"Education on mental health is necessary in the 21st century."'},
+  {id:2, cat:'technology',   emoji:'📱', theme:'Technology',   statement:'"Smartphones do more harm than good for young people."'},
+  {id:3, cat:'education',    emoji:'📚', theme:'Education',    statement:'"University education should be free for all students."'},
+  {id:4, cat:'society',      emoji:'👨‍👩‍👧', theme:'Society',    statement:'"Parents play a more important role than teachers in a child\'s education."'},
+  {id:5, cat:'environment',  emoji:'🌍', theme:'Environment',  statement:'"Each individual has a responsibility to protect the environment."'},
+  {id:6, cat:'technology',   emoji:'🤖', theme:'Technology',   statement:'"Artificial intelligence will eventually replace human workers."'},
+  {id:7, cat:'health',       emoji:'🍎', theme:'Health',       statement:'"Fast food should be banned in school canteens."'},
+  {id:8, cat:'society',      emoji:'💼', theme:'Society',      statement:'"Young people today lack the resilience needed to face life\'s challenges."'}
+];
+
+const VOCAB_BANK = {
+  'Opinion':          ['"In my opinion,"','"I strongly believe that"','"From my perspective,"','"It is my view that"'],
+  'Agreement':        ['"I completely agree with"','"There is no doubt that"','"I wholeheartedly support"'],
+  'Disagreement':     ['"I beg to differ"','"On the contrary,"','"However, this argument overlooks"'],
+  'Adding points':    ['"Furthermore,"','"In addition,"','"Moreover,"','"Not only that, but also"'],
+  'Giving examples':  ['"For example,"','"For instance,"','"A prime example of this is"','"This can be seen in"'],
+  'Conclusion':       ['"In conclusion,"','"To summarise,"','"Therefore, it is clear that"','"Taking everything into account,"']
 };
 
-let currentTask='T1', secs=1500, timerId=null;
+const TIPS = {
+  T1:[
+    {icon:'📧',title:'Email Format',body:'Greeting → one paragraph per bullet → Closing. Use "Hi [Name]," for semi-formal. End with "Take care" or "Yours sincerely."'},
+    {icon:'🎯',title:'Open with Purpose',body:'Start with the reason for your reply in sentence one.'},
+    {icon:'📌',title:'Cover Every Bullet',body:'Cover each bullet point clearly — one per paragraph if possible. Missing one drops your Task Fulfilment score.'},
+    {icon:'🚫',title:'Stay on Task',body:'Do NOT add information not asked for — only respond to what is in the notes.'},
+    {icon:'🔢',title:'Word Count',body:'Aim for 100 to 150 words. Count before submitting.'}
+  ],
+  T2:[
+    {icon:'🎯',title:'Thesis First',body:'State your position clearly in sentence one. Examiners decide within 30 seconds if you understand the question.'},
+    {icon:'📐',title:'One PEEL per Paragraph',body:'Do not mix two arguments in one paragraph. Point → Explain → Evidence → Link back.'},
+    {icon:'🇲🇾',title:'Malaysian Examples',body:'Use local examples: PTPTN, public transport, social media, workplace culture in Malaysia.'},
+    {icon:'⚖️',title:'Balanced View Scores Better',body:'Partial agreement scores better than extreme positions. Acknowledge the other side before countering.'},
+    {icon:'🔢',title:'Word Count',body:'Minimum 250 words. Aim for 300–400. Quality matters more than quantity.'}
+  ]
+};
 
-const W={};
-W.toggle=function(id){const b=document.getElementById('b-'+id),c=document.getElementById('c-'+id);if(!b)return;const open=b.style.display==='none';b.style.display=open?'block':'none';if(c)c.textContent=open?'▴':'▾';};
-W.open=function(id){const b=document.getElementById('b-'+id),c=document.getElementById('c-'+id);if(!b)return;b.style.display='block';if(c)c.textContent='▴';setTimeout(()=>b.scrollIntoView({behavior:'smooth',block:'start'}),100);};
+const MODEL_T1 = `Dear Cindy,\n\nThank you so much for your email! I was absolutely delighted to hear that you will be joining the cooking competition organised by the Lions Club. What fantastic news — I am sure you will do brilliantly!\n\nAs for suggestions for afternoon tea, I would recommend you prepare a classic Malaysian kuih, such as kuih lapis, along with mini sandwiches with a variety of fillings. Both dishes are elegant, easy to prepare in advance, and are always crowd-pleasers.\n\nRegarding recipe books, I personally think they can be very helpful, especially for someone trying out competition cooking for the first time. They provide detailed instructions and presentation ideas that can really elevate your dishes. However, do also search for online videos for more visual guidance.\n\nI have full confidence in you, Cindy! Please keep me updated.\n\nYours sincerely,\nNora`;
 
+const MODEL_T2 = `Mental health, once considered a taboo subject, has gradually gained recognition as an essential component of overall wellbeing in the 21st century. I firmly agree with the view that education on mental health is not merely beneficial, but absolutely necessary in today's world.\n\nFirstly, the prevalence of mental health issues among young people has increased significantly. According to various health organisations, cases of depression and anxiety among teenagers and young adults have risen sharply in recent years, partly due to academic pressure and social media influence. By educating students about mental health from an early age, schools can equip them with the tools to identify and manage these challenges before they escalate.\n\nFurthermore, education on mental health helps to reduce the stigma associated with seeking help. When students learn about mental health in school, they develop greater empathy and understanding, creating a more supportive environment for those who are struggling.\n\nIn conclusion, I strongly believe that mental health education is a necessity, not a luxury, for the 21st century. By incorporating it into school curricula, we can produce a generation that is not only academically successful, but also emotionally resilient and socially responsible.`;
+
+const T1_BEFORE = `
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+  <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center"><span style="font-size:24px;display:block">📧</span><b style="font-family:'Sora';font-size:13px;display:block;margin-top:4px">Email / Letter</b><small style="color:var(--muted);font-weight:900">Respond to all bullet points</small></div>
+  <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center"><span style="font-size:24px;display:block">⏱️</span><b style="font-family:'Sora';font-size:13px;display:block;margin-top:4px">25 minutes</b><small style="color:var(--muted);font-weight:900">~100–150 words</small></div>
+  <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center"><span style="font-size:24px;display:block">📝</span><b style="font-family:'Sora';font-size:13px;display:block;margin-top:4px">Formal or Semi-formal</b><small style="color:var(--muted);font-weight:900">Match tone to recipient</small></div>
+  <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center"><span style="font-size:24px;display:block">✅</span><b style="font-family:'Sora';font-size:13px;display:block;margin-top:4px">All bullets</b><small style="color:var(--muted);font-weight:900">Miss one = lower marks</small></div>
+</div>`;
+
+const T2_BEFORE = `
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+  <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center"><span style="font-size:24px;display:block">📝</span><b style="font-family:'Sora';font-size:13px;display:block;margin-top:4px">Discursive Essay</b><small style="color:var(--muted);font-weight:900">State a clear thesis</small></div>
+  <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center"><span style="font-size:24px;display:block">⏱️</span><b style="font-family:'Sora';font-size:13px;display:block;margin-top:4px">50 minutes</b><small style="color:var(--muted);font-weight:900">~350 words minimum</small></div>
+  <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center;grid-column:span 2">
+    <b style="font-family:'Sora';font-size:12px;display:block;margin-bottom:8px">PEEL Structure</b>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+      <div style="background:#7a43ff;color:white;border:2px solid var(--ink);border-radius:10px;padding:8px 4px;text-align:center;font-family:'Sora';font-weight:800;font-size:16px">P<small style="display:block;font-family:'DM Sans';font-size:9px;font-weight:900;margin-top:2px">Point</small></div>
+      <div style="background:var(--blue);color:white;border:2px solid var(--ink);border-radius:10px;padding:8px 4px;text-align:center;font-family:'Sora';font-weight:800;font-size:16px">E<small style="display:block;font-family:'DM Sans';font-size:9px;font-weight:900;margin-top:2px">Explain</small></div>
+      <div style="background:var(--green);border:2px solid var(--ink);border-radius:10px;padding:8px 4px;text-align:center;font-family:'Sora';font-weight:800;font-size:16px">E<small style="display:block;font-family:'DM Sans';font-size:9px;font-weight:900;margin-top:2px">Evidence</small></div>
+      <div style="background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:8px 4px;text-align:center;font-family:'Sora';font-weight:800;font-size:16px">L<small style="display:block;font-family:'DM Sans';font-size:9px;font-weight:900;margin-top:2px">Link</small></div>
+    </div>
+  </div>
+</div>`;
+
+const T2_CHECKLIST = [
+  'Wrote a clear introduction with my stand',
+  'Paragraph 2: Point + Reason + Example',
+  'Paragraph 3: Point + Reason + Example',
+  'Wrote a clear conclusion',
+  'Used connectives (Firstly, Furthermore, etc.)',
+  'At least 250 words written',
+  'Varied my vocabulary (no word repeated too much)',
+  'Checked spelling, punctuation, and grammar'
+];
+
+/* ── State ── */
+let currentTask = 'T1';
+let selectedTopic = null;
+let secs = 1500, timerId = null;
+
+/* ── Toggle / open helpers ── */
+const W = {};
+W.toggle = function(id){
+  const b = document.getElementById('b-'+id), c = document.getElementById('c-'+id);
+  if(!b) return;
+  const open = b.style.display === 'none';
+  b.style.display = open ? 'block' : 'none';
+  if(c) c.textContent = open ? '▴' : '▾';
+};
+W.open = function(id){
+  const b = document.getElementById('b-'+id), c = document.getElementById('c-'+id);
+  if(!b) return;
+  b.style.display = 'block';
+  if(c) c.textContent = '▴';
+  setTimeout(() => b.scrollIntoView({behavior:'smooth', block:'start'}), 100);
+};
+
+/* ── Task switcher ── */
 function setTask(t){
-  currentTask=t;
-  document.getElementById('tabT1').style.background=t==='T1'?'var(--yellow)':'white';
-  document.getElementById('tabT2').style.background=t==='T2'?'var(--lime)':'white';
-  const td=tasks[t];
-  secs=td.timerSecs; stopTimer(); renderTimer();
-  document.getElementById('s1sub').textContent=t==='T1'?'What Task 1 tests':'What Task 2 tests';
-  document.getElementById('beforeContent').innerHTML=td.s1Content;
-  document.getElementById('tipsContent').innerHTML=td.tipsContent;
-  document.getElementById('sampleContent').innerHTML=td.sampleHtml;
-  document.getElementById('promptLabel').textContent=td.label+' Prompt';
-  document.getElementById('promptText').textContent=td.prompt;
-  document.getElementById('bulletPoints').innerHTML=td.bullets.map(b=>`<div style="margin-bottom:4px">${b}</div>`).join('');
-  document.getElementById('coachNote').textContent=td.coach;
-  document.getElementById('wcGuide').textContent=td.wcGuide;
-  document.getElementById('rubricList').innerHTML=td.rubric.map(([id,name,desc,pts])=>`<label class="rubric-item"><input type="checkbox" data-score="${pts}" data-id="${id}"/><span><b>${name}</b><br><small style="color:var(--muted);font-weight:900">${desc}</small></span><span class="score-pill">${pts}pts</span></label>`).join('');
-  document.getElementById('answerBox').value='';
-  document.getElementById('resultCard').classList.remove('show');
-  countWords();
-}
-function countWords(){const t=document.getElementById('answerBox').value.trim(),wc=t?t.split(/\s+/).length:0,min=tasks[currentTask].wcMin,el=document.getElementById('wcNum');el.textContent=wc;el.className='wc-num '+(wc>=min?'wc-good':wc>=min*.7?'wc-warn':'wc-low');}
-function toggleTimer(){if(timerId){clearInterval(timerId);timerId=null;document.getElementById('timerBtn').textContent='Resume';return;}timerId=setInterval(()=>{secs--;renderTimer();if(secs<=0){clearInterval(timerId);MUET.toast('Time is up!');}},1000);document.getElementById('timerBtn').textContent='Pause';}
-function stopTimer(){clearInterval(timerId);timerId=null;const b=document.getElementById('timerBtn');if(b)b.textContent='Start';}
-function renderTimer(){const m=String(Math.floor(secs/60)).padStart(2,'0'),s=String(secs%60).padStart(2,'0');document.getElementById('timerDisp').textContent=`${m}:${s}`;document.getElementById('timerLbl').textContent=tasks[currentTask].timerLabel;}
-function submitWriting(){
-  const answer=document.getElementById('answerBox').value.trim();
-  if(!answer||answer.split(/\s+/).length<30){MUET.toast('Please write at least 30 words before submitting.');return;}
-  const checks=[...document.querySelectorAll('#rubricList input:checked')];
-  const raw=checks.reduce((s,c)=>s+Number(c.dataset.score),0);
-  const maxPts=tasks[currentTask].rubric.reduce((s,r)=>s+r[3],0);
-  const score90=Math.round(raw/maxPts*90),band=MUET.scoreToBand(score90);
-  const session={vaultId:'SKILL-MODULE',taskType:currentTask,score90,score:score90,band,wordCount:answer.split(/\s+/).length,answer,date:new Date().toISOString()};
-  const list=MUET.loadSessions('writing');list.push(session);MUET.saveSessions('writing',list);
-  MUET.awardBadge('essay_builder');MUET.addXP(90);
-  document.getElementById('resultScore').textContent=`${score90}/90`;
-  document.getElementById('resultBand').textContent=`Estimated Band ${band}`;
-  document.getElementById('resultFb').textContent=MUET.feedbackText('writing',score90);
-  document.getElementById('resultCard').classList.add('show');
-  MUET.toast('Writing saved!');
-  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
-}
-function resetWriting(){document.getElementById('answerBox').value='';document.querySelectorAll('#rubricList input').forEach(x=>x.checked=false);document.getElementById('resultCard').classList.remove('show');secs=tasks[currentTask].timerSecs;stopTimer();renderTimer();countWords();MUET.toast('Reset.');}
+  currentTask = t;
+  selectedTopic = null;
+  document.getElementById('tabT1').style.background = t === 'T1' ? 'var(--yellow)' : 'white';
+  document.getElementById('tabT2').style.background = t === 'T2' ? 'var(--lime)'   : 'white';
+  document.getElementById('s1sub').textContent = t === 'T1' ? 'What Task 1 tests' : 'What Task 2 tests';
 
-document.addEventListener('DOMContentLoaded',()=>{
+  // Step 1 content
+  document.getElementById('beforeContent').innerHTML = t === 'T1' ? T1_BEFORE : T2_BEFORE;
+
+  // Step 2 tips
+  document.getElementById('tipsContent').innerHTML =
+    TIPS[t].map(tip =>
+      `<div class="tip-item"><span class="tip-icon">${tip.icon}</span><div class="tip-body"><b>${tip.title}</b><span>${tip.body}</span></div></div>`
+    ).join('');
+
+  // Step 3 sample
+  const sampleLabel = t === 'T1' ? 'Sample reply — Band 4.0:' : 'Sample intro + PEEL paragraph — Band 4.0:';
+  const sampleNote  = t === 'T1'
+    ? 'All four notes addressed · friendly but appropriate tone · approximately 150 words · each note in its own paragraph.'
+    : 'Clear thesis · well-structured PEEL · local evidence · link back to the question. Avoid full agreement or full disagreement.';
+  document.getElementById('sampleContent').innerHTML =
+    `<div style="background:#dcfce7;border:var(--line);border-radius:14px;padding:14px;font-size:13px;font-weight:800;line-height:1.7">
+       <b>${sampleLabel}</b><br><br>${(t==='T1'?MODEL_T1:MODEL_T2).replace(/\n/g,'<br>')}
+     </div>
+     <div class="coach-note lime" style="margin-top:10px"><div class="tag">EXAMINER NOTE</div><p>${sampleNote}</p></div>`;
+
+  // Step 4: reset practice area
+  document.getElementById('topicSelectionArea').style.display = 'block';
+  document.getElementById('practiceArea').style.display = 'none';
+  document.getElementById('submittedBanner').classList.remove('show');
+
+  // Render topic list
+  renderTopics('all');
+  renderCatPills();
+
+  // Reset timer
+  secs = t === 'T1' ? 1500 : 3000;
+  stopTimer(); renderTimer();
+
+  // Close all steps and reopen step 1
+  ['s1','s2','s3','s4'].forEach(id => {
+    const b = document.getElementById('b-'+id);
+    const c = document.getElementById('c-'+id);
+    if(b){ b.style.display = 'none'; if(c) c.textContent = '▾'; }
+  });
+  const b1 = document.getElementById('b-s1');
+  if(b1){ b1.style.display = 'block'; document.getElementById('c-s1').textContent = '▴'; }
+}
+
+/* ── Category pills ── */
+function renderCatPills(){
+  const topics = currentTask === 'T1' ? T1_TOPICS : T2_TOPICS;
+  const cats = ['all', ...new Set(topics.map(t => t.cat))];
+  document.getElementById('catPills').innerHTML = cats.map(c =>
+    `<button class="cat-pill${c==='all'?' act':''}" onclick="filterCat('${c}',this)">${c==='all'?'All':c.charAt(0).toUpperCase()+c.slice(1)}</button>`
+  ).join('');
+}
+
+function filterCat(cat, btn){
+  document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('act'));
+  btn.classList.add('act');
+  renderTopics(cat);
+}
+
+/* ── Topic list ── */
+function renderTopics(cat){
+  const topics = currentTask === 'T1' ? T1_TOPICS : T2_TOPICS;
+  const filtered = cat === 'all' ? topics : topics.filter(t => t.cat === cat);
+  document.getElementById('topicList').innerHTML = filtered.map(t =>
+    `<div class="topic-item${selectedTopic?.id===t.id?' sel':''}" onclick="selectTopic(${t.id},this)">
+       <div class="ti-num">${t.emoji}</div>
+       <div>
+         <div class="ti-theme">${t.theme}</div>
+         <div class="ti-title">${t.statement || t.title}</div>
+       </div>
+     </div>`
+  ).join('');
+}
+
+function selectTopic(id, el){
+  const topics = currentTask === 'T1' ? T1_TOPICS : T2_TOPICS;
+  selectedTopic = topics.find(t => t.id === id);
+  document.querySelectorAll('#topicList .topic-item').forEach(i => i.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('selectedLabel').textContent = selectedTopic.emoji + ' ' + (selectedTopic.statement || selectedTopic.title);
+  document.getElementById('startWrap').style.display = 'block';
+  document.getElementById('startBtn').textContent = currentTask === 'T1' ? '✉️ Start Task 1 Practice →' : '📝 Start Task 2 Practice →';
+}
+
+/* ── Start practice ── */
+function startPractice(){
+  if(!selectedTopic){ MUET.toast('Please choose a topic first.'); return; }
+
+  document.getElementById('topicSelectionArea').style.display = 'none';
+  document.getElementById('practiceArea').style.display = 'block';
+  document.getElementById('submittedBanner').classList.remove('show');
+
+  // Timer
+  secs = currentTask === 'T1' ? 1500 : 3000;
+  stopTimer(); renderTimer();
+  document.getElementById('timerLbl').textContent = currentTask === 'T1' ? 'Task 1 Timer — 25 min' : 'Task 2 Timer — 50 min';
+
+  // Prompt
+  document.getElementById('promptLabel').textContent = currentTask === 'T1' ? 'Task 1 Prompt' : 'Task 2 Statement';
+
+  if(currentTask === 'T1'){
+    document.getElementById('promptText').textContent  = selectedTopic.prompt;
+    document.getElementById('emailDisplay').style.display = 'block';
+    document.getElementById('emailDisplay').innerHTML =
+      `<div class="email-box">${selectedTopic.email.replace(/\n/g,'<br>')}</div>`;
+    document.getElementById('notesGuide').innerHTML =
+      `<b style="font-size:12px;font-weight:1000;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);display:block;margin-bottom:6px">Notes to cover:</b>
+       <div class="notes-grid">${selectedTopic.notes.map((n,i) =>
+         `<div class="note-card"><div class="ref">${selectedTopic.noteRefs[i]}</div><div class="hint">→ ${n}</div></div>`
+       ).join('')}</div>`;
+    document.getElementById('bulletPoints').innerHTML = '';
+    document.getElementById('plannerArea').style.display = 'none';
+    document.getElementById('vocabBank').style.display = 'none';
+    document.getElementById('checklistArea').style.display = 'none';
+  } else {
+    document.getElementById('promptText').textContent  = '';
+    document.getElementById('emailDisplay').style.display = 'none';
+    document.getElementById('notesGuide').innerHTML =
+      `<div style="background:white;border:var(--line);border-radius:14px;padding:12px;font-size:14px;font-weight:800;font-style:italic;line-height:1.5;box-shadow:2px 2px 0 var(--ink)">${selectedTopic.statement}</div>
+       <p style="margin-top:8px;font-size:12px;font-weight:800;color:var(--muted)">Write an essay expressing your opinion. Write at least 250 words.</p>`;
+    document.getElementById('bulletPoints').innerHTML = '';
+    document.getElementById('plannerArea').style.display = 'block';
+    document.getElementById('vocabBank').style.display = 'block';
+    document.getElementById('checklistArea').style.display = 'block';
+    renderVocabBank();
+    renderChecklist();
+  }
+
+  document.getElementById('coachNote').textContent = selectedTopic.coach ||
+    (currentTask === 'T1' ? 'Address ALL bullet points. Missing one costs Task Fulfilment marks.' : 'State your thesis in sentence one. Use PEEL for each body paragraph.');
+  document.getElementById('wcGuide').textContent = currentTask === 'T1' ? 'Task 1: minimum 100 words' : 'Task 2: minimum 250 words';
+  document.getElementById('answerBox').value = '';
+  document.getElementById('wcNum').textContent = '0';
+  document.getElementById('wcNum').className = 'wc-num wc-low';
+
+  W.open('s4');
+  document.getElementById('practiceArea').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ── Vocab bank ── */
+function renderVocabBank(){
+  document.getElementById('vocabContent').innerHTML = Object.entries(VOCAB_BANK).map(([cat, phrases]) =>
+    `<div class="vocab-section">
+       <span class="vocab-label">${cat}</span>
+       <div class="vocab-chips">${phrases.map(p =>
+         `<button class="vocab-chip" onclick="copyVocab('${p.replace(/'/g,"\\'")}')">${p}</button>`
+       ).join('')}</div>
+     </div>`
+  ).join('');
+}
+
+function copyVocab(phrase){
+  const ta = document.getElementById('answerBox');
+  const pos = ta.selectionStart;
+  const val = ta.value;
+  ta.value = val.slice(0, pos) + phrase + ' ' + val.slice(pos);
+  ta.selectionStart = ta.selectionEnd = pos + phrase.length + 1;
+  ta.focus();
+  countWords();
+  MUET.toast('Phrase inserted!');
+}
+
+/* ── Checklist ── */
+function renderChecklist(){
+  document.getElementById('checklistItems').innerHTML = T2_CHECKLIST.map((item, i) =>
+    `<div class="checklist-item">
+       <input type="checkbox" id="chk${i}">
+       <label for="chk${i}" style="cursor:pointer;flex:1">${item}</label>
+     </div>`
+  ).join('');
+}
+
+/* ── Word count ── */
+function countWords(){
+  const t  = document.getElementById('answerBox').value.trim();
+  const wc = t ? t.split(/\s+/).length : 0;
+  const min = currentTask === 'T1' ? 100 : 250;
+  const el  = document.getElementById('wcNum');
+  el.textContent = wc;
+  el.className = 'wc-num ' + (wc >= min ? 'wc-good' : wc >= min * 0.7 ? 'wc-warn' : 'wc-low');
+}
+
+/* ── Timer ── */
+function toggleTimer(){
+  if(timerId){ stopTimer(); return; }
+  timerId = setInterval(() => {
+    secs--;
+    renderTimer();
+    if(secs <= 0){ stopTimer(); MUET.toast('Time is up!'); }
+  }, 1000);
+  document.getElementById('timerBtn').textContent = 'Pause';
+}
+function stopTimer(){
+  clearInterval(timerId); timerId = null;
+  const b = document.getElementById('timerBtn');
+  if(b) b.textContent = 'Start';
+}
+function renderTimer(){
+  const m = String(Math.floor(secs / 60)).padStart(2,'0');
+  const s = String(secs % 60).padStart(2,'0');
+  document.getElementById('timerDisp').textContent = `${m}:${s}`;
+}
+
+/* ── Submit ── */
+function submitWriting(){
+  const answer = document.getElementById('answerBox').value.trim();
+  const minWords = currentTask === 'T1' ? 30 : 50;
+  if(!answer || answer.split(/\s+/).length < minWords){
+    MUET.toast(`Please write at least ${minWords} words before submitting.`); return;
+  }
+
+  const wordCount = answer.split(/\s+/).filter(Boolean).length;
+  const taskLabel = currentTask === 'T1' ? 'Task 1 Email/Letter' : 'Task 2 Essay';
+
+  // Collect planner if T2
+  let plannerData = null;
+  if(currentTask === 'T2'){
+    plannerData = {
+      intro: document.getElementById('planIntro')?.value?.trim() || '',
+      p1:    document.getElementById('planP1')?.value?.trim()    || '',
+      p2:    document.getElementById('planP2')?.value?.trim()    || '',
+      conc:  document.getElementById('planConc')?.value?.trim()  || ''
+    };
+  }
+
+  /* Save to localStorage */
+  const session = {
+    vaultId:    'SKILL-MODULE',
+    taskType:   currentTask,
+    topicId:    selectedTopic.id,
+    topicTitle: selectedTopic.statement || selectedTopic.title,
+    answer,
+    wordCount,
+    planner:    plannerData,
+    date:       new Date().toISOString()
+  };
+  const list = MUET.loadSessions('writing');
+  list.push(session);
+  MUET.saveSessions('writing', list);
+
+  /* Send to Apps Script backend — lecturer handles rubric feedback */
+  if(typeof saveSmartMuetAttempt === 'function'){
+    saveSmartMuetAttempt({
+      component:  'writing',
+      vaultId:    'SKILL-MODULE',
+      taskType:   currentTask,
+      topicId:    selectedTopic.id,
+      topicTitle: selectedTopic.statement || selectedTopic.title,
+      answer,
+      wordCount,
+      planner:    plannerData,
+      date:       new Date().toISOString()
+    });
+  }
+
+  /* Badges — same as original */
+  MUET.awardBadge('essay_builder');
+  MUET.addXP(90);
+
+  /* Show submitted banner */
+  document.getElementById('submittedMsg').textContent =
+    `Your ${taskLabel} practice has been saved. Your lecturer will provide feedback.`;
+  document.getElementById('submittedMeta').innerHTML =
+    `<b>Task:</b> ${taskLabel}<br>` +
+    `<b>Topic:</b> ${selectedTopic.statement || selectedTopic.title}<br>` +
+    `<b>Word count:</b> ${wordCount}<br>` +
+    `<b>Saved:</b> ${new Date().toLocaleString('en-MY')}`;
+  document.getElementById('submittedBanner').classList.add('show');
+
+  MUET.toast('Writing saved!');
+  setTimeout(() =>
+    document.getElementById('submittedBanner').scrollIntoView({behavior:'smooth', block:'start'}),
+  200);
+}
+
+/* ── Reset ── */
+function resetPractice(){
+  document.getElementById('answerBox').value = '';
+  ['planIntro','planP1','planP2','planConc'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.value = '';
+  });
+  document.getElementById('submittedBanner').classList.remove('show');
+  secs = currentTask === 'T1' ? 1500 : 3000;
+  stopTimer(); renderTimer(); countWords();
+  MUET.toast('Reset.');
+}
+
+/* ── Init ── */
+document.addEventListener('DOMContentLoaded', () => {
   setTask('T1');
-  document.getElementById('b-s1').style.display='block';
-  document.getElementById('c-s1').textContent='▴';
+  document.getElementById('b-s1').style.display = 'block';
+  document.getElementById('c-s1').textContent   = '▴';
 });
 </script>
 </body>
