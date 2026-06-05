@@ -238,7 +238,7 @@
       </div>
       <div class="qi-expanded" style="display:none">
         <ol style="padding-left:18px;display:grid;gap:8px;margin:0">
-          <li style="font-size:13px;font-weight:900;line-height:1.5"><b>Go to Study Vault</b> — start with Starter Vault, then Vault 1.</li>
+          <li style="font-size:13px;font-weight:900;line-height:1.5"><b>Go to Study Vault</b> — start with Vault 1 (Phase 1 · Guided Learning).</li>
           <li style="font-size:13px;font-weight:900;line-height:1.5"><b>Complete the self-check</b> — rate your confidence before each session.</li>
           <li style="font-size:13px;font-weight:900;line-height:1.5"><b>Work through all 4 components</b> — Speaking → Reading → Listening → Writing.</li>
           <li style="font-size:13px;font-weight:900;line-height:1.5"><b>Submit each component</b> — get score, rubric feedback and badge.</li>
@@ -313,43 +313,30 @@
     <div class="instr-card green">
       <h2>How to Use Study Vault</h2>
       <ol>
-        <li>Start with <b>Starter Vault</b> to learn the app flow.</li>
-        <li>Move to <b>Vault 1</b> for your first full guided practice set.</li>
-        <li>Each vault has all four components: Speaking, Reading, Listening and Writing.</li>
-        <li>Complete all four to unlock your Vault Round-Up score.</li>
+        <li>Complete <b>Vault 1 → 2 → 3</b> (Phase 1 — Guided Learning).</li>
+        <li>Sit <b>Mock MUET 1</b> to get your first real Band estimate.</li>
+        <li>Continue through Phase 2 and Phase 3 for deeper preparation.</li>
+        <li>Each Mock MUET is a full 4-component exam simulation with strict timing.</li>
       </ol>
     </div>
 
-    <!-- Starter Vault card -->
-    <div class="card" style="border-left:6px solid var(--lime)">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
-        <div>
-          <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px">Starter</div>
-          <h3>Starter Vault</h3>
-          <p style="color:var(--muted);font-weight:800;font-size:13px;margin-top:2px">Guided sample practice — learn the app flow</p>
-        </div>
-        <div style="background:var(--lime);border:var(--line);border-radius:999px;padding:6px 10px;font-size:11px;font-weight:1000;white-space:nowrap" id="starterStatus">0/4 Done</div>
+    <!-- ── PHASE 1 HEADER ── -->
+    <div style="background:var(--ink);border:var(--line);border-radius:16px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px">
+      <div style="background:var(--yellow);border:var(--line);border-radius:10px;width:32px;height:32px;display:grid;place-items:center;font-size:15px;font-weight:1000;flex-shrink:0">1</div>
+      <div>
+        <div style="font-size:9px;font-weight:1000;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.5)">Phase 1</div>
+        <div style="font-family:'Sora';font-weight:800;font-size:14px;color:white">Guided Learning</div>
       </div>
-      <div class="comp-dots" style="margin:12px 0 8px" id="starterDots">
-        <div class="dot pending">🎤</div>
-        <div class="dot pending">📖</div>
-        <div class="dot pending">🎧</div>
-        <div class="dot pending">✍️</div>
-      </div>
-      <div class="prog-bar" style="margin-bottom:12px"><span id="starterProg" style="width:0%"></span></div>
-      <div class="card lime" style="font-size:13px;font-weight:900;padding:10px 12px;margin-bottom:12px">
-        ⭐ Start here. This vault uses sample questions and does not count as one of your 10 main practice sets.
-      </div>
-      <button class="btn black" onclick="Hub.openVault('VAULT-00')">Open Starter Vault →</button>
+      <div style="margin-left:auto;font-size:10px;font-weight:900;color:rgba(255,255,255,.4)">Vault 1–3 + Mock 1</div>
     </div>
 
-    <!-- Vault 1 card -->
+    <!-- Vault 1 card (active) -->
     <div class="card" style="border-left:6px solid var(--yellow)">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
         <div>
           <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px">Vault 1 · Foundation</div>
           <h3>Vault 1</h3>
-          <p style="color:var(--muted);font-weight:800;font-size:13px;margin-top:2px">Foundation Practice Set 1 — full guided flow</p>
+          <p style="color:var(--muted);font-weight:800;font-size:13px;margin-top:2px">Heavy guidance · tips and sample answers before each component</p>
         </div>
         <div style="background:var(--yellow);border:var(--line);border-radius:999px;padding:6px 10px;font-size:11px;font-weight:1000;white-space:nowrap" id="v1Status">0/4 Done</div>
       </div>
@@ -360,27 +347,38 @@
         <div class="dot pending">✍️</div>
       </div>
       <div class="prog-bar" style="margin-bottom:12px"><span id="v1Prog" style="width:0%"></span></div>
-      <div class="card blue" style="font-size:13px;font-weight:900;padding:10px 12px;margin-bottom:12px">
-        📋 Foundation level — heavy guidance, tips and sample answers before each component.
-      </div>
       <button class="btn yellow" onclick="Hub.openVault('VAULT-01')">Open Vault 1 →</button>
     </div>
 
-    <!-- Vault 2–10 locked cards -->
-    <div style="margin-bottom:8px">
-      <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:var(--ink);margin-bottom:10px;padding-left:2px">PRACTICE VAULTS · 2 – 10</div>
-      <div style="display:grid;gap:10px" id="lockedVaultGrid">
-        <!-- rendered by renderVaultCards() -->
+    <!-- Phase 1: Vault 2, Vault 3, Mock MUET 1 -->
+    <div style="display:grid;gap:10px;margin-bottom:4px" id="phase1Grid"></div>
+
+    <!-- ── PHASE 2 HEADER ── -->
+    <div style="background:var(--ink);border:var(--line);border-radius:16px;padding:10px 14px;margin-top:18px;margin-bottom:12px;display:flex;align-items:center;gap:10px">
+      <div style="background:var(--blue);border:var(--line);border-radius:10px;width:32px;height:32px;display:grid;place-items:center;font-size:15px;font-weight:1000;flex-shrink:0;color:white">2</div>
+      <div>
+        <div style="font-size:9px;font-weight:1000;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.5)">Phase 2</div>
+        <div style="font-family:'Sora';font-weight:800;font-size:14px;color:white">Building Strength</div>
       </div>
+      <div style="margin-left:auto;font-size:10px;font-weight:900;color:rgba(255,255,255,.4)">Vault 4–6 + Mock 2</div>
     </div>
 
-    <!-- Final Mock Exams locked cards -->
-    <div style="margin-bottom:16px;margin-top:8px">
-      <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:var(--ink);margin-bottom:10px;padding-left:2px">FINAL MOCK EXAMS</div>
-      <div style="display:grid;gap:10px" id="lockedMockGrid">
-        <!-- rendered by renderVaultCards() -->
+    <!-- Phase 2: Vault 4, 5, 6, Mock MUET 2 -->
+    <div style="display:grid;gap:10px;margin-bottom:4px" id="phase2Grid"></div>
+
+    <!-- ── PHASE 3 HEADER ── -->
+    <div style="background:var(--ink);border:var(--line);border-radius:16px;padding:10px 14px;margin-top:18px;margin-bottom:12px;display:flex;align-items:center;gap:10px">
+      <div style="background:var(--pink);border:var(--line);border-radius:10px;width:32px;height:32px;display:grid;place-items:center;font-size:15px;font-weight:1000;flex-shrink:0">3</div>
+      <div>
+        <div style="font-size:9px;font-weight:1000;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.5)">Phase 3</div>
+        <div style="font-family:'Sora';font-weight:800;font-size:14px;color:white">Final Preparation</div>
       </div>
+      <div style="margin-left:auto;font-size:10px;font-weight:900;color:rgba(255,255,255,.4)">Vault 7–9 + Mock 3</div>
     </div>
+
+    <!-- Phase 3: Vault 7, 8, 9, Mock MUET 3 -->
+    <div style="display:grid;gap:10px;margin-bottom:20px" id="phase3Grid"></div>
+
   </section>
 
   <!-- ══ PROGRESS ═════════════════════════════════════════════════════ -->
@@ -630,9 +628,9 @@ const Hub = (() => {
     document.getElementById('focusBtn').onclick       = () => MUET.goPage(weakest[3]);
 
     // ── Continue Last Vault smart card ──────────────────────────────
-    const VAULT_ORDER = ['VAULT-00','VAULT-01'];
-    const VAULT_LABELS = { 'VAULT-00':'Starter Vault', 'VAULT-01':'Vault 1' };
-    const VAULT_PAGES  = { 'VAULT-00':'starter-welcome.html', 'VAULT-01':'vault1-welcome.html' };
+    const VAULT_ORDER = ['VAULT-01','VAULT-02','VAULT-03','MOCK-01','VAULT-04','VAULT-05','VAULT-06','MOCK-02','VAULT-07','VAULT-08','VAULT-09','MOCK-03'];
+    const VAULT_LABELS = { 'VAULT-01':'Vault 1','VAULT-02':'Vault 2','VAULT-03':'Vault 3','MOCK-01':'Mock MUET 1','VAULT-04':'Vault 4','VAULT-05':'Vault 5','VAULT-06':'Vault 6','MOCK-02':'Mock MUET 2','VAULT-07':'Vault 7','VAULT-08':'Vault 8','VAULT-09':'Vault 9','MOCK-03':'Mock MUET 3' };
+    const VAULT_PAGES  = { 'VAULT-01':'vault1-welcome.html','VAULT-02':'vault1-welcome.html','VAULT-03':'vault1-welcome.html','MOCK-01':'vault1-welcome.html','VAULT-04':'vault1-welcome.html','VAULT-05':'vault1-welcome.html','VAULT-06':'vault1-welcome.html','MOCK-02':'vault1-welcome.html','VAULT-07':'vault1-welcome.html','VAULT-08':'vault1-welcome.html','VAULT-09':'vault1-welcome.html','MOCK-03':'vault1-welcome.html' };
     const continuCard  = document.getElementById('continueVaultCard');
     // Find the most recently active vault that is incomplete
     let continueVault  = null;
@@ -664,58 +662,66 @@ const Hub = (() => {
   }
 
   function renderVault() {
-    ['VAULT-00','VAULT-01'].forEach((vid, i) => {
-      const prefix = i === 0 ? 'starter' : 'v1';
-      const prog = MUET.vaultProgress(vid);
-      const count = prog.count;
-      const pct   = Math.round(count / 4 * 100);
-      const el = document.getElementById(prefix + 'Status');
-      if (el) el.textContent = count === 4 ? 'Completed ✅' : count + '/4 Done';
-      const bar = document.getElementById(prefix + 'Prog');
-      if (bar) bar.style.width = pct + '%';
-      // Dots
-      const dots = document.getElementById(prefix + 'Dots');
-      if (dots) {
-        const skills = ['speaking','reading','listening','writing'];
-        const icons  = ['🎤','📖','🎧','✍️'];
-        dots.innerHTML = skills.map((s, si) =>
-          `<div class="dot ${prog.done[s] ? 'done' : ''}">${icons[si]}</div>`
-        ).join('');
-      }
-    });
+    // Update Vault 1 live card
+    const prog = MUET.vaultProgress('VAULT-01');
+    const count = prog.count;
+    const pct   = Math.round(count / 4 * 100);
+    const el  = document.getElementById('v1Status');
+    if (el) el.textContent = count === 4 ? 'Completed ✅' : count + '/4 Done';
+    const bar = document.getElementById('v1Prog');
+    if (bar) bar.style.width = pct + '%';
+    const dots = document.getElementById('v1Dots');
+    if (dots) {
+      const skills = ['speaking','reading','listening','writing'];
+      const icons  = ['🎤','📖','🎧','✍️'];
+      dots.innerHTML = skills.map((s, si) =>
+        `<div class="dot ${prog.done[s] ? 'done' : ''}">${icons[si]}</div>`
+      ).join('');
+    }
     renderVaultCards();
   }
 
-  // ── Render locked Vault 2-10 and Mock cards ───────────────────────
+  // ── Render phased vault + mock cards ────────────────────────────
   function renderVaultCards() {
-    const LOCKED_VAULTS = [
-      { id:'VAULT-02', label:'Vault 2',  tag:'Foundation+',    note:'Guided practice with score feedback.' },
-      { id:'VAULT-03', label:'Vault 3',  tag:'Developing',     note:'More independent component practice.' },
-      { id:'VAULT-04', label:'Vault 4',  tag:'Developing',     note:'Question type and rubric awareness.' },
-      { id:'VAULT-05', label:'Vault 5',  tag:'Developing+',    note:'Component-level timing introduced.' },
-      { id:'VAULT-06', label:'Vault 6',  tag:'Proficient',     note:'Writing thesis and Speaking interaction focus.' },
-      { id:'VAULT-07', label:'Vault 7',  tag:'Proficient',     note:'More timed conditions.' },
-      { id:'VAULT-08', label:'Vault 8',  tag:'Time Pressure',  note:'Mistake pattern practice.' },
-      { id:'VAULT-09', label:'Vault 9',  tag:'Advanced',       note:'Near-exam practice conditions.' },
-      { id:'VAULT-10', label:'Vault 10', tag:'Pre-Mock',       note:'Band prediction and focus-area alert.' }
-    ];
-    const MOCK_VAULTS = [
-      { id:'MOCK-01', label:'Final Mock Exam 1', tag:'Strict · Full Simulation', note:'Full exam sequence · Timed · Complete report.' },
-      { id:'MOCK-02', label:'Final Mock Exam 2', tag:'Strict · Final Check',     note:'Final readiness benchmark and intervention plan.' }
+
+    // ── Phase 1: Vault 2, Vault 3, Mock MUET 1
+    const PHASE1 = [
+      { id:'VAULT-02', label:'Vault 2', tag:'Development', note:'Less hand-holding · timed practice introduced.', isMock:false },
+      { id:'VAULT-03', label:'Vault 3', tag:'Exam Readiness', note:'Near-exam conditions · minimal guidance.', isMock:false },
+      { id:'MOCK-01',  label:'Mock MUET 1', tag:'🎯 Real Exam Simulation', note:'Full 4 components · strict timing · real Band estimate.', isMock:true }
     ];
 
-    const vaultGrid = document.getElementById('lockedVaultGrid');
-    const mockGrid  = document.getElementById('lockedMockGrid');
-    if (!vaultGrid || !mockGrid) return;
+    // ── Phase 2: Vault 4, 5, 6, Mock MUET 2
+    const PHASE2 = [
+      { id:'VAULT-04', label:'Vault 4', tag:'Building Strength', note:'Question type awareness · deeper practice.', isMock:false },
+      { id:'VAULT-05', label:'Vault 5', tag:'Building Strength', note:'Component-level timing introduced.', isMock:false },
+      { id:'VAULT-06', label:'Vault 6', tag:'Building Strength', note:'Writing thesis and Speaking interaction focus.', isMock:false },
+      { id:'MOCK-02',  label:'Mock MUET 2', tag:'🎯 Progress Check', note:'Full exam · compare with Mock 1 · identify weak areas.', isMock:true }
+    ];
 
-    function lockedCard(v, accentColor, isMock) {
+    // ── Phase 3: Vault 7, 8, 9, Mock MUET 3
+    const PHASE3 = [
+      { id:'VAULT-07', label:'Vault 7', tag:'Final Preparation', note:'Advanced practice · near-exam conditions.', isMock:false },
+      { id:'VAULT-08', label:'Vault 8', tag:'Final Preparation', note:'Timed · mistake pattern focus.', isMock:false },
+      { id:'VAULT-09', label:'Vault 9', tag:'Final Preparation', note:'Last full practice before final mock.', isMock:false },
+      { id:'MOCK-03',  label:'Mock MUET 3', tag:'🎯 Final Readiness Check', note:'Full exam · final Band report · intervention plan.', isMock:true }
+    ];
+
+    function vaultCard(v) {
       const prog = MUET.vaultProgress(v.id);
       const hasAttempt = prog.count > 0;
+      const accentColor = v.isMock ? 'var(--pink)' : 'var(--yellow)';
+      const borderColor = v.isMock ? '#f472b6' : '#94a3b8';
+      const bgColor     = v.isMock ? '#fdf2f8' : 'white';
+      const tagColor    = v.isMock ? '#db2777' : '#94a3b8';
+      const labelColor  = v.isMock ? 'var(--ink)' : '#64748b';
+      const noteColor   = v.isMock ? '#9d174d' : '#94a3b8';
+      const icon        = v.isMock ? '📋' : '🔒';
+      const statusText  = v.isMock ? 'Coming soon' : 'Locked';
 
       if (hasAttempt) {
-        // Show partial progress state
-        const pct = Math.round(prog.count / 4 * 100);
-        const icons = ['🎤','📖','🎧','✍️'];
+        const pct    = Math.round(prog.count / 4 * 100);
+        const icons  = ['🎤','📖','🎧','✍️'];
         const skills = ['speaking','reading','listening','writing'];
         return `<div style="background:var(--paper);border:var(--line);box-shadow:var(--shadow);border-radius:20px;padding:14px">
           <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px">
@@ -728,27 +734,31 @@ const Hub = (() => {
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:10px">
             ${skills.map((s,si) => `<div style="background:${prog.done[s]?accentColor:'white'};border:var(--line);border-radius:10px;padding:6px 4px;text-align:center;font-size:14px">${icons[si]}</div>`).join('')}
           </div>
-          <div style="background:#e2e8f0;border-radius:8px;height:8px;border:2px solid var(--ink);overflow:hidden"><div style="background:var(--ink);height:100%;width:${pct}%;transition:width .3s"></div></div>
+          <div style="background:#e2e8f0;border-radius:8px;height:8px;border:2px solid var(--ink);overflow:hidden">
+            <div style="background:var(--ink);height:100%;width:${pct}%;transition:width .3s"></div>
+          </div>
         </div>`;
       }
 
-      return `<div style="border:3px dashed ${isMock ? '#f472b6' : '#94a3b8'};border-radius:20px;padding:14px;background:${isMock ? '#fdf2f8' : 'white'}">
+      return `<div style="border:3px dashed ${borderColor};border-radius:20px;padding:14px;background:${bgColor}">
         <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:44px;height:44px;min-width:44px;border:2px solid ${isMock ? '#f472b6' : '#cbd5e1'};border-radius:50%;display:grid;place-items:center;font-size:20px;background:white">
-            ${isMock ? '📋' : '🔒'}
-          </div>
+          <div style="width:44px;height:44px;min-width:44px;border:2px solid ${borderColor};border-radius:50%;display:grid;place-items:center;font-size:20px;background:white">${icon}</div>
           <div style="flex:1;min-width:0">
-            <div style="font-size:9px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:${isMock ? '#db2777' : '#94a3b8'};margin-bottom:2px">${v.tag}</div>
-            <div style="font-family:'Sora';font-weight:800;font-size:15px;color:${isMock ? 'var(--ink)' : '#64748b'}">${v.label}</div>
-            <div style="font-size:11px;font-weight:800;color:${isMock ? '#9d174d' : '#94a3b8'};margin-top:2px">${v.note}</div>
+            <div style="font-size:9px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:${tagColor};margin-bottom:2px">${v.tag}</div>
+            <div style="font-family:'Sora';font-weight:800;font-size:15px;color:${labelColor}">${v.label}</div>
+            <div style="font-size:11px;font-weight:800;color:${noteColor};margin-top:2px">${v.note}</div>
           </div>
-          <div style="font-size:10px;font-weight:1000;color:${isMock ? '#db2777' : '#94a3b8'};white-space:nowrap">${isMock ? 'Coming soon' : 'Locked'}</div>
+          <div style="font-size:10px;font-weight:1000;color:${tagColor};white-space:nowrap">${statusText}</div>
         </div>
       </div>`;
     }
 
-    vaultGrid.innerHTML = LOCKED_VAULTS.map(v => lockedCard(v, 'var(--yellow)', false)).join('');
-    mockGrid.innerHTML  = MOCK_VAULTS.map(v => lockedCard(v, 'var(--pink)', true)).join('');
+    const g1 = document.getElementById('phase1Grid');
+    const g2 = document.getElementById('phase2Grid');
+    const g3 = document.getElementById('phase3Grid');
+    if (g1) g1.innerHTML = PHASE1.map(v => vaultCard(v)).join('');
+    if (g2) g2.innerHTML = PHASE2.map(v => vaultCard(v)).join('');
+    if (g3) g3.innerHTML = PHASE3.map(v => vaultCard(v)).join('');
   }
 
   function openVault(vaultId) {
@@ -756,11 +766,7 @@ const Hub = (() => {
     if (!vault) return;
     MUET.saveActiveVault({ vaultId: vault.id, vaultTitle: vault.title, vaultType: vault.type });
     // Route to correct welcome page based on vault type
-    if (vaultId === 'VAULT-00') {
-      MUET.goPage('starter-welcome.html');
-    } else {
-      MUET.goPage('vault1-welcome.html');
-    }
+    MUET.goPage('vault1-welcome.html');
   }
 
   // ── Progress tab switcher ─────────────────────────────────────────
@@ -783,19 +789,18 @@ const Hub = (() => {
 
   // ── All vaults in order ────────────────────────────────────────────
   const ALL_VAULTS = [
-    { id:'VAULT-00', label:'Starter Vault',    type:'starter',  accentColor:'var(--lime)' },
-    { id:'VAULT-01', label:'Vault 1',          type:'practice', accentColor:'var(--yellow)' },
-    { id:'VAULT-02', label:'Vault 2',          type:'practice', accentColor:'var(--yellow)' },
-    { id:'VAULT-03', label:'Vault 3',          type:'practice', accentColor:'var(--yellow)' },
-    { id:'VAULT-04', label:'Vault 4',          type:'practice', accentColor:'var(--yellow)' },
-    { id:'VAULT-05', label:'Vault 5',          type:'practice', accentColor:'var(--yellow)' },
-    { id:'VAULT-06', label:'Vault 6',          type:'practice', accentColor:'var(--yellow)' },
-    { id:'VAULT-07', label:'Vault 7',          type:'practice', accentColor:'var(--yellow)' },
-    { id:'VAULT-08', label:'Vault 8',          type:'practice', accentColor:'var(--yellow)' },
-    { id:'VAULT-09', label:'Vault 9',          type:'practice', accentColor:'var(--yellow)' },
-    { id:'VAULT-10', label:'Vault 10',         type:'practice', accentColor:'var(--yellow)' },
-    { id:'MOCK-01',  label:'Final Mock Exam 1',type:'mock',     accentColor:'var(--pink)' },
-    { id:'MOCK-02',  label:'Final Mock Exam 2',type:'mock',     accentColor:'var(--pink)' }
+    { id:'VAULT-01', label:'Vault 1',      type:'practice', accentColor:'var(--yellow)' },
+    { id:'VAULT-02', label:'Vault 2',      type:'practice', accentColor:'var(--yellow)' },
+    { id:'VAULT-03', label:'Vault 3',      type:'practice', accentColor:'var(--yellow)' },
+    { id:'MOCK-01',  label:'Mock MUET 1',  type:'mock',     accentColor:'var(--pink)'   },
+    { id:'VAULT-04', label:'Vault 4',      type:'practice', accentColor:'var(--yellow)' },
+    { id:'VAULT-05', label:'Vault 5',      type:'practice', accentColor:'var(--yellow)' },
+    { id:'VAULT-06', label:'Vault 6',      type:'practice', accentColor:'var(--yellow)' },
+    { id:'MOCK-02',  label:'Mock MUET 2',  type:'mock',     accentColor:'var(--pink)'   },
+    { id:'VAULT-07', label:'Vault 7',      type:'practice', accentColor:'var(--yellow)' },
+    { id:'VAULT-08', label:'Vault 8',      type:'practice', accentColor:'var(--yellow)' },
+    { id:'VAULT-09', label:'Vault 9',      type:'practice', accentColor:'var(--yellow)' },
+    { id:'MOCK-03',  label:'Mock MUET 3',  type:'mock',     accentColor:'var(--pink)'   }
   ];
 
   function getVaultScore(vaultId, skill) {
