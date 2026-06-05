@@ -79,7 +79,7 @@
         <div class="bar-label" style="margin-bottom:1px">WELCOME BACK</div>
         <div class="bar-title" id="homeName" style="font-size:20px;line-height:1.1">Smart MUET Guide</div>
       </div>
-      <button onclick="Hub.goTo('profileScreen')" style="margin-left:auto;width:56px;height:56px;min-width:56px;border:var(--line);border-radius:14px;background:white;color:var(--ink);box-shadow:3px 3px 0 var(--ink);font-size:26px;cursor:pointer;display:grid;place-items:center;flex-shrink:0">👤</button>
+      <button id="homeAvatarBtn" onclick="Hub.goTo('profileScreen')" style="margin-left:auto;width:56px;height:56px;min-width:56px;border:var(--line);border-radius:14px;background:var(--yellow);color:var(--ink);box-shadow:3px 3px 0 var(--ink);font-size:20px;font-weight:1000;font-family:'Sora',sans-serif;cursor:pointer;display:grid;place-items:center;flex-shrink:0;letter-spacing:-.02em;line-height:1">JM</button>
     </div>
 
     <!-- HERO BANNER — natural height, no compression -->
@@ -591,6 +591,15 @@ const Hub = (() => {
   function renderHome() {
     const p = MUET.loadProfile(); if (!p) return;
     document.getElementById('homeName').textContent   = p.name || 'Smart MUET Guide';
+    // Update avatar initials
+    const avatarBtn = document.getElementById('homeAvatarBtn');
+    if (avatarBtn && p.name) {
+      const parts    = p.name.trim().split(/\s+/);
+      const initials = parts.length >= 2
+        ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+        : parts[0].substring(0, 2).toUpperCase();
+      avatarBtn.textContent = initials;
+    }
     const gl = document.getElementById('homeGroupLabel');
     if (gl) gl.textContent = p.group ? `${p.group} · ELU` : 'ELU · JPA · PPD';
     document.getElementById('homeStreak').textContent = p.streak || 0;
