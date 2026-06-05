@@ -24,7 +24,7 @@
 
     <!-- Register hero banner -->
     <div style="border:var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:14px">
-      <img src="assets/heroes/register-hero-banner.svg" alt="Smart MUET Guide hero banner" style="display:block;width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center top" onerror="this.style.display='none'"/>
+      <img src="assets/heroes/welcome-hero.svg" alt="Smart MUET Guide hero banner" style="display:block;width:100%;height:auto" onerror="this.style.display='none'"/>
     </div>
 
     <div class="hero-note-card">
@@ -336,7 +336,7 @@
         <div>
           <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px">Vault 1 · Foundation</div>
           <h3>Vault 1</h3>
-          <p style="color:var(--muted);font-weight:800;font-size:13px;margin-top:2px">Heavy guidance · tips and sample answers before each component</p>
+          <p style="color:var(--muted);font-weight:800;font-size:13px;margin-top:2px">Foundation · tips and sample answers before each component</p>
         </div>
         <div style="background:var(--yellow);border:var(--line);border-radius:999px;padding:6px 10px;font-size:11px;font-weight:1000;white-space:nowrap" id="v1Status">0/4 Done</div>
       </div>
@@ -695,8 +695,8 @@ const Hub = (() => {
 
     // ── Phase 1: Vault 2, Vault 3, Mock MUET 1
     const PHASE1 = [
-      { id:'VAULT-02', label:'Vault 2', tag:'Development', note:'Less hand-holding · timed practice introduced.', isMock:false },
-      { id:'VAULT-03', label:'Vault 3', tag:'Exam Readiness', note:'Near-exam conditions · minimal guidance.', isMock:false },
+      { id:'VAULT-02', label:'Vault 2', tag:'Foundation', note:'Guided practice with tips and sample answers.', isMock:false },
+      { id:'VAULT-03', label:'Vault 3', tag:'Foundation', note:'Consolidate foundation skills before Mock 1.', isMock:false },
       { id:'MOCK-01',  label:'Mock MUET 1', tag:'🎯 Real Exam Simulation', note:'Full 4 components · strict timing · real Band estimate.', isMock:true }
     ];
 
