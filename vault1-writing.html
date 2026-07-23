@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Writing · Vault 1 · Smart MUET Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -117,6 +117,84 @@
         <p style="font-size:13px;font-weight:800;color:var(--muted);margin-bottom:10px" id="wcGuide">Task 1: minimum 100 words required</p>
         <textarea id="answerBox" rows="10" placeholder="Begin writing your response here..." oninput="Wrt.countWords()"></textarea>
       </div>      <!-- Rubric -->
+
+      <!-- PLANNING BOX -->
+      <div style="background:#fff7cc;border:var(--line);box-shadow:var(--shadow);border-radius:var(--r2);padding:18px;margin-bottom:16px">
+        <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px">&#128196; PLANNING BOX &mdash; Plan before you write</div>
+        <p style="font-size:13px;font-weight:800;margin-bottom:10px">Spend 3&ndash;5 minutes here. Students who plan write clearer, more focused answers.</p>
+        <div style="display:grid;gap:8px">
+          <label style="font-size:12px;font-weight:900">My main stand / purpose:<textarea id="planStand" rows="2" style="margin-top:4px" placeholder="e.g. I agree that young adults lack survival skills because..."></textarea></label>
+          <label style="font-size:12px;font-weight:900">Body point 1 (with example):<textarea id="planP1" rows="2" style="margin-top:4px" placeholder="e.g. Lack practical skills → parents handle cooking, finances..."></textarea></label>
+          <label style="font-size:12px;font-weight:900">Body point 2 (with example):<textarea id="planP2" rows="2" style="margin-top:4px" placeholder="e.g. However, young adults have digital survival skills..."></textarea></label>
+          <label style="font-size:12px;font-weight:900">Conclusion idea:<textarea id="planConc" rows="2" style="margin-top:4px" placeholder="e.g. Balance needed — build practical and digital skills..."></textarea></label>
+        </div>
+        <div style="background:var(--yellow);border:2px solid var(--ink);border-radius:12px;padding:8px 12px;margin-top:10px;font-size:12px;font-weight:1000">
+          &#9888;&#65039; Planning box is for your notes only &mdash; it is NOT submitted. Write your full answer in the box below.
+        </div>
+      </div>
+
+      <!-- USEFUL LANGUAGE BANK -->
+      <div style="background:var(--ink);border:var(--line);box-shadow:var(--shadow);border-radius:var(--r2);padding:18px;margin-bottom:16px">
+        <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.6);margin-bottom:12px">&#128218; USEFUL LANGUAGE BANK</div>
+        <div style="display:grid;gap:10px">
+          <div style="background:rgba(255,255,255,.1);border-radius:14px;padding:12px">
+            <div style="font-size:11px;font-weight:1000;text-transform:uppercase;color:var(--yellow);margin-bottom:6px">TASK 1 &mdash; EMAIL OPENERS</div>
+            <div style="font-size:12px;font-weight:800;color:white;line-height:1.7">
+              &ldquo;I am writing to&hellip;&rdquo; &middot; &ldquo;Thank you for your email regarding&hellip;&rdquo;<br>
+              &ldquo;I hope this email finds you well.&rdquo; &middot; &ldquo;I am delighted to inform you that&hellip;&rdquo;<br>
+              Closing: &ldquo;Yours sincerely,&rdquo; &middot; &ldquo;Kind regards,&rdquo; &middot; &ldquo;Best wishes,&rdquo;
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,.1);border-radius:14px;padding:12px">
+            <div style="font-size:11px;font-weight:1000;text-transform:uppercase;color:var(--pink);margin-bottom:6px">TASK 2 &mdash; ESSAY CONNECTORS</div>
+            <div style="font-size:12px;font-weight:800;color:white;line-height:1.7">
+              Adding: &ldquo;Furthermore,&rdquo; &middot; &ldquo;Moreover,&rdquo; &middot; &ldquo;In addition to this,&rdquo;<br>
+              Contrasting: &ldquo;However,&rdquo; &middot; &ldquo;On the other hand,&rdquo; &middot; &ldquo;Despite this,&rdquo;<br>
+              Concluding: &ldquo;In conclusion,&rdquo; &middot; &ldquo;To sum up,&rdquo; &middot; &ldquo;Therefore, it is evident that&hellip;&rdquo;
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,.1);border-radius:14px;padding:12px">
+            <div style="font-size:11px;font-weight:1000;text-transform:uppercase;color:var(--green);margin-bottom:6px">ACADEMIC VOCABULARY</div>
+            <div style="font-size:12px;font-weight:800;color:white;line-height:1.7">
+              &ldquo;significantly&rdquo; &middot; &ldquo;consequently&rdquo; &middot; &ldquo;predominantly&rdquo; &middot; &ldquo;attributed to&rdquo;<br>
+              &ldquo;evident that&rdquo; &middot; &ldquo;substantial&rdquo; &middot; &ldquo;crucial&rdquo; &middot; &ldquo;implement&rdquo; &middot; &ldquo;facilitate&rdquo;
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WRITING CHECKLIST -->
+      <div style="background:var(--paper);border:var(--line);box-shadow:var(--shadow);border-radius:var(--r2);padding:18px;margin-bottom:16px">
+        <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px">&#9989; WRITING CHECKLIST &mdash; Before You Submit</div>
+        <div id="wrtChecklist">
+          <label style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;border:2px solid var(--ink);border-radius:13px;background:white;padding:12px;font-weight:900;cursor:pointer;margin-bottom:8px">
+            <input type="checkbox" id="wc1" style="width:20px;height:20px;margin-top:1px" onchange="Wrt.updateChecklist()">
+            <span>Task 1: I responded to ALL bullet points in the prompt</span>
+          </label>
+          <label style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;border:2px solid var(--ink);border-radius:13px;background:white;padding:12px;font-weight:900;cursor:pointer;margin-bottom:8px">
+            <input type="checkbox" id="wc2" style="width:20px;height:20px;margin-top:1px" onchange="Wrt.updateChecklist()">
+            <span>Task 2: My first sentence clearly states my thesis / stand</span>
+          </label>
+          <label style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;border:2px solid var(--ink);border-radius:13px;background:white;padding:12px;font-weight:900;cursor:pointer;margin-bottom:8px">
+            <input type="checkbox" id="wc3" style="width:20px;height:20px;margin-top:1px" onchange="Wrt.updateChecklist()">
+            <span>I used PEEL paragraphs: Point &rarr; Explain &rarr; Evidence &rarr; Link</span>
+          </label>
+          <label style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;border:2px solid var(--ink);border-radius:13px;background:white;padding:12px;font-weight:900;cursor:pointer;margin-bottom:8px">
+            <input type="checkbox" id="wc4" style="width:20px;height:20px;margin-top:1px" onchange="Wrt.updateChecklist()">
+            <span>I used connectors to link paragraphs and ideas clearly</span>
+          </label>
+          <label style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;border:2px solid var(--ink);border-radius:13px;background:white;padding:12px;font-weight:900;cursor:pointer;margin-bottom:8px">
+            <input type="checkbox" id="wc5" style="width:20px;height:20px;margin-top:1px" onchange="Wrt.updateChecklist()">
+            <span>My word count meets the minimum (100+ for Task 1, 250+ for Task 2)</span>
+          </label>
+          <label style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;border:2px solid var(--ink);border-radius:13px;background:white;padding:12px;font-weight:900;cursor:pointer;margin-bottom:8px">
+            <input type="checkbox" id="wc6" style="width:20px;height:20px;margin-top:1px" onchange="Wrt.updateChecklist()">
+            <span>I used appropriate tone (formal for Task 1, academic for Task 2)</span>
+          </label>
+        </div>
+        <div id="wrtCheckResult" style="display:none;background:var(--yellow);border:var(--line);border-radius:14px;padding:10px 14px;margin-top:10px;font-weight:1000;font-size:14px;text-align:center"></div>
+      </div>
+
       <div class="guide-action-stack">
         <button class="btn submit-standard wide" style="background:var(--yellow)!important;color:#111!important" onclick="Wrt.submit()">Submit Writing Practice</button>
         <div class="guide-secondary-row">
@@ -251,6 +329,7 @@ const Wrt = (() => {
     const enriched = {
       studentEmail: profile.email || profile.studentEmail || 'demo@student.local',
       studentName: profile.name || profile.studentName || 'Demo Student',
+      studentRegNo: profile.regNo || profile.studentRegNo || '',
       classGroup: profile.classGroup || profile.group || '',
       vaultId: VAULT_ID,
       ...payload
@@ -416,7 +495,21 @@ const Wrt = (() => {
     if (chev) chev.textContent = open ? '▴' : '▾';
   }
 
-  return { setTask, countWords, toggleTimer, submit, resetPractice, openStep, toggle, togglePracticeGuide };
+
+  function updateChecklist() {
+    const boxes = ['wc1','wc2','wc3','wc4','wc5','wc6'];
+    const checked = boxes.filter(id => document.getElementById(id)?.checked).length;
+    const el = document.getElementById('wrtCheckResult');
+    if (el) {
+      el.style.display = 'block';
+      el.textContent = checked >= 5
+        ? `✅ ${checked}/6 checked — Ready to submit!`
+        : checked >= 3
+        ? `⚡ ${checked}/6 checked — Review the remaining items.`
+        : `⚠️ ${checked}/6 checked — Complete your checklist first.`;
+    }
+  }
+  return { setTask, countWords, toggleTimer, submit, resetPractice, openStep, toggle, togglePracticeGuide, updateChecklist };
 })();
 
 function updateVaultProgress() {

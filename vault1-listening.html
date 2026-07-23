@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Listening · Vault 1 · Smart MUET Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -115,7 +115,57 @@
       </div>
 
       <!-- MCQ questions -->
-      <div id="lstQList" style="display:grid;gap:14px"></div>      <div class="guide-action-stack">
+      <div id="lstQList" style="display:grid;gap:14px"></div>
+        <!-- SIGNAL WORDS -->
+        <div style="background:var(--orange);border:var(--line);box-shadow:var(--shadow);border-radius:var(--r2);padding:16px;margin-bottom:14px">
+          <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.7);margin-bottom:10px">&#128678; SIGNAL WORDS TO WATCH</div>
+          <div style="background:rgba(255,255,255,.15);border-radius:12px;padding:12px;margin-bottom:8px">
+            <div style="font-size:11px;font-weight:1000;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:6px">CORRECTION SIGNALS &mdash; second answer is correct</div>
+            <div style="font-size:13px;font-weight:800;color:white;line-height:1.7">&ldquo;actually&hellip;&rdquo; &middot; &ldquo;but in fact&hellip;&rdquo; &middot; &ldquo;however&hellip;&rdquo; &middot; &ldquo;I mean&hellip;&rdquo; &middot; &ldquo;sorry, I meant&hellip;&rdquo; &middot; &ldquo;to correct myself&hellip;&rdquo;</div>
+          </div>
+          <div style="background:rgba(255,255,255,.15);border-radius:12px;padding:12px;margin-bottom:8px">
+            <div style="font-size:11px;font-weight:1000;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:6px">EXAMPLE</div>
+            <div style="font-size:13px;font-weight:800;color:white">&ldquo;The meeting was on <s>Thursday</s> &mdash; sorry, I mean <b>Friday</b>.&rdquo; &rarr; Answer = Friday</div>
+          </div>
+          <div style="background:var(--yellow);color:var(--ink);border-radius:10px;padding:8px 12px;font-size:12px;font-weight:1000">
+            &#9888;&#65039; Wait for the speaker to FINISH the complete thought before writing your answer.
+          </div>
+        </div>
+
+        <!-- NOTE-TAKING SHORTCUTS -->
+        <div style="background:var(--paper);border:var(--line);box-shadow:var(--shadow);border-radius:var(--r2);padding:16px;margin-bottom:14px">
+          <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px">&#9999;&#65039; NOTE-TAKING SHORTCUTS</div>
+          <p style="font-size:13px;font-weight:800;margin-bottom:10px">Write 2&ndash;3 keywords only. Leave blanks and complete after audio ends.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div style="background:white;border:2px solid var(--ink);border-radius:12px;padding:8px;text-align:center"><div style="font-weight:1000">env</div><div style="font-size:10px;color:var(--muted);font-weight:800">environment</div></div>
+            <div style="background:white;border:2px solid var(--ink);border-radius:12px;padding:8px;text-align:center"><div style="font-weight:1000">tech</div><div style="font-size:10px;color:var(--muted);font-weight:800">technology</div></div>
+            <div style="background:white;border:2px solid var(--ink);border-radius:12px;padding:8px;text-align:center"><div style="font-weight:1000">gov</div><div style="font-size:10px;color:var(--muted);font-weight:800">government</div></div>
+            <div style="background:white;border:2px solid var(--ink);border-radius:12px;padding:8px;text-align:center"><div style="font-weight:1000">&rarr;</div><div style="font-size:10px;color:var(--muted);font-weight:800">leads to / causes</div></div>
+            <div style="background:white;border:2px solid var(--ink);border-radius:12px;padding:8px;text-align:center"><div style="font-weight:1000">&#8593; / &#8595;</div><div style="font-size:10px;color:var(--muted);font-weight:800">increase / decrease</div></div>
+            <div style="background:white;border:2px solid var(--ink);border-radius:12px;padding:8px;text-align:center"><div style="font-weight:1000">&asymp;</div><div style="font-size:10px;color:var(--muted);font-weight:800">approximately</div></div>
+          </div>
+        </div>
+
+        <!-- SELF-CHECK BEFORE SUBMIT -->
+        <div style="background:var(--paper);border:var(--line);box-shadow:var(--shadow);border-radius:var(--r2);padding:16px;margin-bottom:14px">
+          <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px">&#128203; SELF-CHECK BEFORE SUBMITTING</div>
+          <div style="display:grid;gap:8px">
+            <label style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;border:2px solid var(--ink);border-radius:13px;background:white;padding:12px;font-weight:900;cursor:pointer">
+              <input type="checkbox" style="width:20px;height:20px"> <span>I read all questions BEFORE the audio started</span>
+            </label>
+            <label style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;border:2px solid var(--ink);border-radius:13px;background:white;padding:12px;font-weight:900;cursor:pointer">
+              <input type="checkbox" style="width:20px;height:20px"> <span>I listened for correction signals (actually, I mean, sorry)</span>
+            </label>
+            <label style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;border:2px solid var(--ink);border-radius:13px;background:white;padding:12px;font-weight:900;cursor:pointer">
+              <input type="checkbox" style="width:20px;height:20px"> <span>I wrote keywords only &mdash; not full sentences</span>
+            </label>
+            <label style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;border:2px solid var(--ink);border-radius:13px;background:white;padding:12px;font-weight:900;cursor:pointer">
+              <input type="checkbox" style="width:20px;height:20px"> <span>I did not leave any answer blank (guessed if unsure)</span>
+            </label>
+          </div>
+        </div>
+
+      <div class="guide-action-stack">
         <button class="btn submit-standard wide" style="background:var(--yellow)!important;color:#111!important" onclick="Lst.submit()">Submit Listening Practice</button>
         <div class="guide-secondary-row">
           <button class="btn practice-guide-btn white" onclick="Lst.togglePracticeGuide()">Practice Guide</button>
@@ -707,6 +757,7 @@ const Lst = (() => {
     const enriched = {
       studentEmail: profile.email || profile.studentEmail || 'demo@student.local',
       studentName: profile.name || profile.studentName || 'Demo Student',
+      studentRegNo: profile.regNo || profile.studentRegNo || '',
       classGroup: profile.classGroup || profile.group || '',
       vaultId: VAULT_ID,
       ...payload
