@@ -589,7 +589,7 @@ textarea:focus{outline:4px solid rgba(7,87,255,.22)}
   h1{font-size:42px} h2{font-size:26px} h3{font-size:20px}
   .strategy-steps{grid-template-columns:1fr 1fr}
   #progRows{grid-template-columns:repeat(2,1fr)}
-  #editForm,#regForm{max-width:640px}
+  #registerScreen,#profileScreen{max-width:680px;margin:0 auto;float:none}
 }
 
 @media(min-width:1440px){
