@@ -4,13 +4,6 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Smart MUET Guide 2026 · ELU · JPA · PPD</title>
-  <link rel="icon" href="data:,">
-  <script>
-    // Prevent the browser from restoring a previous scroll position.
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
-    }
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -572,15 +565,6 @@ const Hub = (() => {
 
   function goTo(id) {
     MUET.goTo(id);
-
-    // Always place the selected screen at the top. This prevents a restored
-    // scroll position from making the application appear blank.
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-      const activeScreen = document.getElementById(id);
-      if (activeScreen) activeScreen.scrollTop = 0;
-    });
-
     if (id === 'homeScreen')     renderHome();
     if (id === 'vaultScreen')    renderVault();
     if (id === 'progressScreen') { renderProgress(); progTab('dash'); }
@@ -653,22 +637,31 @@ const Hub = (() => {
     document.getElementById('focusBtn').onclick       = () => MUET.goPage(weakest[3]);
 
     // ── Continue Last Vault smart card ──────────────────────────────
-    const VAULT_ORDER = ['VAULT-01','VAULT-02','VAULT-03','MOCK-01','VAULT-04','VAULT-05','VAULT-06','MOCK-02','VAULT-07','VAULT-08','VAULT-09','MOCK-03'];
+    // Full roadmap (for future reference/labels only — NOT used to decide what's clickable)
     const VAULT_LABELS = { 'VAULT-01':'Vault 1','VAULT-02':'Vault 2','VAULT-03':'Vault 3','MOCK-01':'Mock MUET 1','VAULT-04':'Vault 4','VAULT-05':'Vault 5','VAULT-06':'Vault 6','MOCK-02':'Mock MUET 2','VAULT-07':'Vault 7','VAULT-08':'Vault 8','VAULT-09':'Vault 9','MOCK-03':'Mock MUET 3' };
-    const VAULT_PAGES  = { 'VAULT-01':'vault1-welcome.html','VAULT-02':'vault1-welcome.html','VAULT-03':'vault1-welcome.html','MOCK-01':'vault1-welcome.html','VAULT-04':'vault1-welcome.html','VAULT-05':'vault1-welcome.html','VAULT-06':'vault1-welcome.html','MOCK-02':'vault1-welcome.html','VAULT-07':'vault1-welcome.html','VAULT-08':'vault1-welcome.html','VAULT-09':'vault1-welcome.html','MOCK-03':'vault1-welcome.html' };
+    // Only map pages for vaults that actually exist right now.
+    // Add an entry here the same day a new vault is added to MUET.VAULT_MAP in muet-shared.js.
+    const VAULT_PAGES  = { 'VAULT-01':'vault1-welcome.html' };
     const continuCard  = document.getElementById('continueVaultCard');
-    // Find the most recently active vault that is incomplete
+
+    // Source of truth for "what's actually built" is MUET.VAULT_MAP (js/muet-shared.js),
+    // not the full 12-vault roadmap — VAULT-02 onward aren't built yet, so they must
+    // never be suggested here even though they exist as labels/locked cards elsewhere.
+    const BUILT_VAULTS = Object.keys(MUET.VAULT_MAP).filter(vid => vid !== 'VAULT-00');
+
+    // Find the most recently active built vault that is incomplete
     let continueVault  = null;
-    for (const vid of VAULT_ORDER) {
+    for (const vid of BUILT_VAULTS) {
       const prog = MUET.vaultProgress(vid);
       if (prog.count > 0 && !prog.complete) { continueVault = vid; break; }
     }
-    // If all started vaults are complete, suggest the next unopened one
+    // If all started built vaults are complete, suggest the next unopened built one
     if (!continueVault) {
-      for (const vid of VAULT_ORDER) {
+      for (const vid of BUILT_VAULTS) {
         if (MUET.vaultProgress(vid).count === 0) { continueVault = vid; break; }
       }
     }
+
     if (continueVault && continuCard) {
       const prog  = MUET.vaultProgress(continueVault);
       const label = VAULT_LABELS[continueVault] || continueVault;
@@ -682,7 +675,18 @@ const Hub = (() => {
       document.getElementById('continueVaultBtn').onclick      = () => MUET.goPage(page);
       continuCard.style.display = 'block';
     } else if (continuCard) {
-      continuCard.style.display = 'none';
+      // Every currently-built vault is complete — don't dead-end into a mislabeled
+      // "next vault" that doesn't exist yet. Show a clear completed state instead.
+      const allComplete = BUILT_VAULTS.length > 0 && BUILT_VAULTS.every(vid => MUET.vaultProgress(vid).complete);
+      if (allComplete) {
+        document.getElementById('continueVaultTitle').textContent  = 'All Vaults Complete 🎉';
+        document.getElementById('continueVaultStatus').textContent = 'New vaults are being prepared — check back soon.';
+        document.getElementById('continueVaultBtn').textContent    = 'Review Progress →';
+        document.getElementById('continueVaultBtn').onclick        = () => Hub.goTo('progressScreen');
+        continuCard.style.display = 'block';
+      } else {
+        continuCard.style.display = 'none';
+      }
     }
   }
 
@@ -1074,21 +1078,7 @@ const Hub = (() => {
     if (chev) chev.textContent = open ? '▴' : '▾';
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    window.scrollTo(0, 0);
-    init();
-    requestAnimationFrame(() => window.scrollTo(0, 0));
-  });
-
-  // Chrome can restore an old scroll position when returning to a tab or
-  // reloading from the back-forward cache. Reset it whenever the page appears.
-  window.addEventListener('pageshow', () => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  });
-
-  window.addEventListener('load', () => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  });
+  document.addEventListener('DOMContentLoaded', init);
   return { goTo, openVault, resetAll, progTab, toggleGuide, toggleTip };
 })();  // ── Quick Info Accordion toggle ─────────────────────────────────
   function toggleQI(card) {
