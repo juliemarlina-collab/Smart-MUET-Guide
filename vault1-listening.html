@@ -6,7 +6,7 @@
   <title>Listening · Vault 1 · Smart MUET Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/muet-guide.css"/>
+  <link rel="stylesheet" href="css/muet-guide.css?v=2"/>
   <style>
     .lst-hero { background:var(--yellow); }
     .flow-step { background:white;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px; }
@@ -151,16 +151,16 @@
           <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px">&#128203; SELF-CHECK BEFORE SUBMITTING</div>
           <div style="display:grid;gap:8px">
             <label style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;border:2px solid var(--ink);border-radius:13px;background:white;padding:12px;font-weight:900;cursor:pointer">
-              <input type="checkbox" style="width:20px;height:20px"> <span>I read all questions BEFORE the audio started</span>
+              <input type="checkbox" id="lc1" style="width:20px;height:20px"> <span>I read all questions BEFORE the audio started</span>
             </label>
             <label style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;border:2px solid var(--ink);border-radius:13px;background:white;padding:12px;font-weight:900;cursor:pointer">
-              <input type="checkbox" style="width:20px;height:20px"> <span>I listened for correction signals (actually, I mean, sorry)</span>
+              <input type="checkbox" id="lc2" style="width:20px;height:20px"> <span>I listened for correction signals (actually, I mean, sorry)</span>
             </label>
             <label style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;border:2px solid var(--ink);border-radius:13px;background:white;padding:12px;font-weight:900;cursor:pointer">
-              <input type="checkbox" style="width:20px;height:20px"> <span>I wrote keywords only &mdash; not full sentences</span>
+              <input type="checkbox" id="lc3" style="width:20px;height:20px"> <span>I wrote keywords only &mdash; not full sentences</span>
             </label>
             <label style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;border:2px solid var(--ink);border-radius:13px;background:white;padding:12px;font-weight:900;cursor:pointer">
-              <input type="checkbox" style="width:20px;height:20px"> <span>I did not leave any answer blank (guessed if unsure)</span>
+              <input type="checkbox" id="lc4" style="width:20px;height:20px"> <span>I did not leave any answer blank (guessed if unsure)</span>
             </label>
           </div>
         </div>
@@ -238,8 +238,8 @@
 </section>
 </main>
 <div id="toast" class="toast"></div>
-<script src="js/muet-shared.js"></script>
-<script src="js/backend-config.js"></script>
+<script src="js/muet-shared.js?v=2"></script>
+<script src="js/backend-config.js?v=2"></script>
 <script>
 // Read vaultId from activeVault so Starter Vault and Vault 1 both work correctly
 const _activeVault = MUET.loadActiveVault();

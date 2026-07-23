@@ -6,7 +6,7 @@
   <title>Listening Guide · MUET SmartHub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/muet-guide.css"/>
+  <link rel="stylesheet" href="css/muet-guide.css?v=2"/>
   <style>
     .flow-step{background:white;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
     .flow-step-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;font-weight:1000}
@@ -102,9 +102,9 @@
       <div style="border:var(--line);border-radius:14px;background:white;padding:12px;margin-bottom:10px">
         <p style="font-weight:900;margin-bottom:10px;font-size:13px">When will the library be closed?</p>
         <div class="options">
-          <label class="option wrong"><input type="radio" disabled/><span>A. Thursday</span></label>
-          <label class="option correct"><input type="radio" disabled checked/><span>B. Friday</span></label>
-          <label class="option wrong"><input type="radio" disabled/><span>C. Monday</span></label>
+          <label class="option wrong"><input type="radio" name="demo-listening-q1" id="demo-listening-q1-a" disabled/><span>A. Thursday</span></label>
+          <label class="option correct"><input type="radio" name="demo-listening-q1" id="demo-listening-q1-b" disabled checked/><span>B. Friday</span></label>
+          <label class="option wrong"><input type="radio" name="demo-listening-q1" id="demo-listening-q1-c" disabled/><span>C. Monday</span></label>
         </div>
         <div class="explain show" style="margin-top:10px"><b>B — Friday.</b> Speaker first says Thursday (distractor), then corrects to Friday. Signal: <i>"Actually — sorry, I made an error."</i></div>
       </div>
@@ -158,7 +158,7 @@
 </section>
 </main>
 <div id="toast" class="toast"></div>
-<script src="js/muet-shared.js"></script>
+<script src="js/muet-shared.js?v=2"></script>
 <script>
 const sampleQs=[
   {id:'L1',stem:'When was the workshop rescheduled to?',options:['A. Wednesday the 14th','B. Thursday the 15th','C. Tuesday the 13th'],answer:1,explanation:'Speaker first says Wednesday (distractor), then corrects: "It\'s now Thursday the 15th."'},

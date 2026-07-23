@@ -6,7 +6,7 @@
   <title>Reading Guide · MUET SmartHub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/muet-guide.css"/>
+  <link rel="stylesheet" href="css/muet-guide.css?v=2"/>
   <style>
     .flow-step{background:white;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
     .flow-step-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;font-weight:1000}
@@ -102,9 +102,9 @@
       <div style="border:var(--line);border-radius:14px;background:white;padding:12px;margin-bottom:10px">
         <p style="font-weight:900;margin-bottom:10px;font-size:13px">What is the main reason Malaysians hesitate to buy electric vehicles?</p>
         <div class="options">
-          <label class="option correct"><input type="radio" disabled checked/><span>A. Insufficient charging stations</span></label>
-          <label class="option wrong"><input type="radio" disabled/><span>B. Electric vehicles are too expensive</span></label>
-          <label class="option wrong"><input type="radio" disabled/><span>C. Lack of awareness</span></label>
+          <label class="option correct"><input type="radio" name="demo-reading-q1" id="demo-reading-q1-a" disabled checked/><span>A. Insufficient charging stations</span></label>
+          <label class="option wrong"><input type="radio" name="demo-reading-q1" id="demo-reading-q1-b" disabled/><span>B. Electric vehicles are too expensive</span></label>
+          <label class="option wrong"><input type="radio" name="demo-reading-q1" id="demo-reading-q1-c" disabled/><span>C. Lack of awareness</span></label>
         </div>
         <div class="explain show" style="margin-top:10px"><b>A is correct:</b> "limited charging stations as the primary barrier" → paraphrased as "insufficient charging stations." B and C are not mentioned — classic distractors.</div>
       </div>
@@ -144,7 +144,7 @@
 </section>
 </main>
 <div id="toast" class="toast"></div>
-<script src="js/muet-shared.js"></script>
+<script src="js/muet-shared.js?v=2"></script>
 <script>
 // Sample passage for skill module (independent of vault)
 const samplePassage = {
