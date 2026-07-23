@@ -569,7 +569,8 @@ textarea:focus{outline:4px solid rgba(7,87,255,.22)}
 }
 
 @media(min-width:1024px){
-  html,body{background:#060a12;display:grid;grid-template-columns:260px 1fr;min-height:100dvh;align-items:start}
+  html{background:#060a12}
+  body{background:#060a12;display:grid;grid-template-columns:260px 1fr;min-height:100dvh;align-items:start}
   .app-shell{grid-column:2;max-width:none;width:100%;border-left:3px solid var(--ink);border-right:none;min-height:100dvh}
   .screen{padding:32px 48px 60px;max-width:860px}
   .brand-bar{border-radius:0;margin:0 0 24px;position:sticky;top:0;z-index:60}
@@ -587,7 +588,7 @@ textarea:focus{outline:4px solid rgba(7,87,255,.22)}
 }
 
 @media(min-width:1440px){
-  html,body{grid-template-columns:300px 1fr}
+  body{grid-template-columns:300px 1fr}
   .bottom-nav{width:300px;max-width:300px;padding-top:108px}
   .bottom-nav::before{font-size:18px;height:100px}
   .nav-btn{height:68px;padding:0 28px!important}
