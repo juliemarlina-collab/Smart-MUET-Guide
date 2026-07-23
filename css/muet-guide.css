@@ -547,3 +547,61 @@ textarea:focus{outline:4px solid rgba(7,87,255,.22)}
   margin-bottom: 10px;
   box-shadow: 3px 3px 0 var(--yellow);
 }
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE v2.0 — Multi-device support
+   Tablet 640px | Laptop 1024px | Desktop 1440px
+═══════════════════════════════════════════════ */
+
+@media(min-width:640px){
+  html,body{background:#0a0a0f}
+  .app-shell{max-width:700px;margin:0 auto;border-left:3px solid var(--ink);border-right:3px solid var(--ink)}
+  .screen{padding:20px 24px 110px}
+  .brand-bar{border-radius:var(--r2);margin:16px 0 var(--gap)}
+  .module-grid{grid-template-columns:repeat(4,1fr)}
+  .bottom-nav{max-width:700px;left:50%;transform:translateX(-50%);border-radius:20px 20px 0 0}
+  .roundup-grid,.vault-score-grid{grid-template-columns:repeat(4,1fr)}
+  .badge-grid{grid-template-columns:repeat(3,1fr)}
+  h1{font-size:clamp(28px,4vw,40px)}
+  h2{font-size:clamp(18px,3vw,26px)}
+  .prep-grid{grid-template-columns:1fr 1fr}
+  .guide-secondary-row{grid-template-columns:1fr 1fr}
+}
+
+@media(min-width:1024px){
+  html,body{background:#060a12;display:grid;grid-template-columns:260px 1fr;min-height:100dvh;align-items:start}
+  .app-shell{grid-column:2;max-width:none;width:100%;border-left:3px solid var(--ink);border-right:none;min-height:100dvh}
+  .screen{padding:32px 48px 60px;max-width:860px}
+  .brand-bar{border-radius:0;margin:0 0 24px;position:sticky;top:0;z-index:60}
+  .bottom-nav{grid-column:1;grid-row:1;position:fixed;top:0;left:0;bottom:0;width:260px;height:100vh;max-width:260px;transform:none;border-top:none;border-right:3px solid var(--ink);border-radius:0;grid-template-columns:1fr;grid-template-rows:repeat(4,auto) 1fr;padding-top:100px;align-content:start}
+  .bottom-nav::before{content:'Smart MUET Guide';position:absolute;top:0;left:0;right:0;height:96px;background:var(--ink);border-bottom:3px solid var(--ink);font-family:'Sora',sans-serif;font-weight:800;font-size:16px;color:white;display:flex;align-items:center;padding:0 24px;letter-spacing:-.04em}
+  .nav-btn{height:60px;justify-content:flex-start!important;padding:0 24px!important;gap:14px;border-radius:0!important;align-content:center!important;place-items:start center!important}
+  .nav-btn span{font-size:13px!important;text-transform:none!important;letter-spacing:0!important;font-weight:900!important}
+  .nav-btn.active{border-left:5px solid var(--yellow);background:rgba(255,196,0,.12);border-radius:0!important}
+  .module-grid{grid-template-columns:repeat(4,1fr)}
+  .roundup-grid,.badge-grid,.vault-score-grid{grid-template-columns:repeat(4,1fr)}
+  .toast{left:calc(260px + 50%);transform:translateX(-50%) translateY(16px);bottom:32px}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  h1{font-size:42px} h2{font-size:26px} h3{font-size:20px}
+  .strategy-steps{grid-template-columns:1fr 1fr}
+}
+
+@media(min-width:1440px){
+  html,body{grid-template-columns:300px 1fr}
+  .bottom-nav{width:300px;max-width:300px;padding-top:108px}
+  .bottom-nav::before{font-size:18px;height:100px}
+  .nav-btn{height:68px;padding:0 28px!important}
+  .nav-btn span{font-size:14px!important}
+  .screen{padding:40px 64px 60px;max-width:960px}
+  .toast{left:calc(300px + 50%)}
+  h1{font-size:48px} h2{font-size:30px}
+  .band-disc{width:110px;height:110px}
+  .band-disc span{width:78px;height:78px;font-size:16px}
+}
+
+@media print{
+  .bottom-nav,.icon-btn,.btn,.focus-box{display:none!important}
+  .screen{padding:0}
+  html,body{display:block;background:white}
+  .app-shell{border:none;max-width:100%}
+}
