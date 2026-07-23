@@ -11,7 +11,7 @@
  */
 
 const SMART_MUET_BACKEND_ENABLED = true;
-const SMART_MUET_BACKEND_URL     = 'https://script.google.com/macros/s/AKfycbxykw1lbRGwtBAg18s6MY04E3CQ3U9lIwRLJrCFQI1FoJosY4bpWTdaP7-Wca4cqtGmzA/exec';
+const SMART_MUET_BACKEND_URL     = 'https://script.google.com/macros/s/AKfycbyDxRrVXlFjP6FqAn82PkD0JZ-a8c3KDFCfHvXW0G4rJFCJlH7tUAOW--Frs2q-DUzP/exec';
 
 // ── Primary save function (called after every attempt) ────────────────
 async function saveSmartMuetAttempt(payload) {
