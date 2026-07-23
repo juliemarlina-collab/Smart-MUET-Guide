@@ -3,6 +3,266 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vault 1 Welcome · Smart MUET Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/muet-guide.css?v=2"/>
+  <link rel="stylesheet" href="css/vault-hero.css?v=2">
+</head>
+<body>
+<main class="app-shell">
+<section class="screen active" style="padding-bottom:30px">
+  <div class="brand-bar">
+    <button class="icon-btn" onclick="location.href='index.html'" style="margin-left:0;margin-right:8px">←</button>
+    <div>
+      <div class="bar-label">Vault 1 · Foundation</div>
+      <div class="bar-title">Vault Welcome</div>
+    </div>
+    <img src="assets/heroes/smart-muet-logo.svg" alt="Logo" style="width:38px;height:38px;border-radius:10px;border:2px solid rgba(255,255,255,.3);object-fit:contain;background:white"/>
+  </div>
+  <!-- Hero — rendered by js/vault-hero.js -->
+  <div id="vaultHeroMount"></div>
+  <!-- Hidden progress state elements — used by updateVaultProgress() JS -->
+  <div style="display:none">
+    <div id="vaultDots">
+      <div class="dot pending" id="dot-spk">🎤</div>
+      <div class="dot pending" id="dot-read">📖</div>
+      <div class="dot pending" id="dot-lst">🎧</div>
+      <div class="dot pending" id="dot-wrt">✍️</div>
+    </div>
+    <div class="prog-bar"><span id="vaultProg" style="width:0%"></span></div>
+    <p id="progLabel">0 of 4 components completed</p>
+  </div>
+  <!-- What to expect -->
+  <div class="instr-card yellow">
+    <h2>What Happens in This Vault</h2>
+    <ol>
+      <li>Do a quick <b>self-check</b> — tell us how you feel today.</li>
+      <li>Open each component one at a time.</li>
+      <li>Read the <b>tips and sample answer</b> before practising.</li>
+      <li>Complete the practice and submit to save your score.</li>
+      <li>After all four, check your <b>Vault Round-Up</b> feedback.</li>
+    </ol>
+    <div class="step-chips">
+      <span class="chip">Self-Check</span>
+      <span class="chip">Tips</span>
+      <span class="chip">Sample</span>
+      <span class="chip">Practice</span>
+      <span class="chip">Score</span>
+      <span class="chip">Round-Up</span>
+    </div>
+  </div>
+  <!-- Time estimate infographic -->
+  <div class="card lime">
+    <h3>⏱ Estimated Time</h3>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0">
+      <div style="background:var(--blue);color:white;border:var(--line);border-radius:14px;padding:10px 4px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
+        <span style="font-size:20px;display:block">🎤</span>
+        <b style="font-family:'Sora';font-size:18px;display:block;margin-top:2px">~20</b>
+        <small style="font-size:10px;font-weight:900;opacity:.8">min</small>
+      </div>
+      <div style="background:var(--green);border:var(--line);border-radius:14px;padding:10px 4px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
+        <span style="font-size:20px;display:block">📖</span>
+        <b style="font-family:'Sora';font-size:18px;display:block;margin-top:2px">~30</b>
+        <small style="font-size:10px;font-weight:900;color:var(--muted)">min</small>
+      </div>
+      <div style="background:var(--yellow);border:var(--line);border-radius:14px;padding:10px 4px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
+        <span style="font-size:20px;display:block">🎧</span>
+        <b style="font-family:'Sora';font-size:18px;display:block;margin-top:2px">~25</b>
+        <small style="font-size:10px;font-weight:900;color:var(--muted)">min</small>
+      </div>
+      <div style="background:var(--pink);border:var(--line);border-radius:14px;padding:10px 4px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
+        <span style="font-size:20px;display:block">✍️</span>
+        <b style="font-family:'Sora';font-size:18px;display:block;margin-top:2px">~35</b>
+        <small style="font-size:10px;font-weight:900;color:var(--muted)">min</small>
+      </div>
+    </div>
+    <div style="background:white;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center;font-weight:1000;font-size:15px">
+      Total ≈ 1 hr 50 min
+    </div>
+    <p style="margin-top:8px;font-size:12px;font-weight:900;color:var(--muted)">No need to finish all four in one sitting. Each component saves automatically.</p>
+  </div>
+  <!-- Self-check form -->
+  <div class="card" id="selfCheckCard">
+    <h2>Student Self-Check</h2>
+    <p style="margin-top:6px;font-weight:800;color:var(--muted);font-size:13px">Answer honestly — this helps the app guide you better. It takes less than a minute.</p>
+    <div class="selfcheck-grid" style="margin-top:16px">
+      <!-- Confidence -->
+      <div>
+        <span class="check-group-label">How confident are you about MUET today?</span>
+        <div class="confidence-row" id="confRow">
+          <button class="conf-btn" data-val="low"    onclick="SC.select('conf','low',this)">😟 Low</button>
+          <button class="conf-btn" data-val="medium" onclick="SC.select('conf','medium',this)">😐 Medium</button>
+          <button class="conf-btn" data-val="high"   onclick="SC.select('conf','high',this)">😊 High</button>
+        </div>
+      </div>
+      <!-- Weakest skill -->
+      <div>
+        <span class="check-group-label">Which component do you find hardest?</span>
+        <div class="confidence-row" style="flex-wrap:wrap" id="weakRow">
+          <button class="conf-btn" data-val="speaking"  onclick="SC.select('weak','speaking',this)">🎤 Speaking</button>
+          <button class="conf-btn" data-val="reading"   onclick="SC.select('weak','reading',this)">📖 Reading</button>
+          <button class="conf-btn" data-val="listening" onclick="SC.select('weak','listening',this)">🎧 Listening</button>
+          <button class="conf-btn" data-val="writing"   onclick="SC.select('weak','writing',this)">✍️ Writing</button>
+        </div>
+      </div>
+      <!-- Support needed -->
+      <div>
+        <span class="check-group-label">What do you need most today?</span>
+        <div class="confidence-row" style="flex-wrap:wrap" id="supportRow">
+          <button class="conf-btn" data-val="tips"     onclick="SC.select('support','tips',this)">💡 Tips</button>
+          <button class="conf-btn" data-val="sample"   onclick="SC.select('support','sample',this)">📝 Sample</button>
+          <button class="conf-btn" data-val="practice" onclick="SC.select('support','practice',this)">🏃 Practice</button>
+          <button class="conf-btn" data-val="all"      onclick="SC.select('support','all',this)">✅ All of it</button>
+        </div>
+      </div>
+      <!-- Readiness note -->
+      <div>
+        <span class="check-group-label">One thing you want to improve today: <span style="color:var(--muted);font-weight:800">(optional)</span></span>
+        <textarea id="readinessNote" rows="2" placeholder="e.g. I want to speak more clearly in Task A..."></textarea>
+      </div>
+    </div>
+    <div id="scError" style="display:none;color:
+#dc2626;font-weight:900;font-size:13px;margin-top:10px">
+      Please answer confidence, weakest component and support needed before continuing.
+    </div>
+    <button class="btn lime" style="margin-top:16px" onclick="SC.submit()">Save Self-Check &amp; Begin Vault 1 →</button>
+  </div>
+  <!-- Already checked — show continue options -->
+  <div class="card" id="continueCard" style="display:none">
+    <h2>✅ Self-Check Saved</h2>
+    <div id="checkSummary" style="margin:12px 0;background:
+#f8fafc;border:2px solid var(--ink);border-radius:14px;padding:12px;font-weight:800;font-size:13px"></div>
+    <p style="font-weight:800;color:var(--muted);font-size:13px;margin-bottom:12px">Continue with your next incomplete component:</p>
+    <div style="display:grid;gap:10px" id="compButtons"></div>
+  </div>
+</section>
+</main>
+<div id="toast" class="toast"></div>
+<script src="js/muet-shared.js?v=2"></script>
+<script>
+const VAULT_ID = 'VAULT-01';
+// ── Render progress dots ───────────────────────────────────────────
+function renderDots() {
+  const prog = MUET.vaultProgress(VAULT_ID);
+  const map  = { speaking:'dot-spk', reading:'dot-read', listening:'dot-lst', writing:'dot-wrt' };
+  Object.entries(map).forEach(([skill, dotId]) => {
+    const el = document.getElementById(dotId);
+    if (!el) return;
+    el.className = 'dot ' + (prog.done[skill] ? 'done' : '');
+  });
+  const pct = Math.round(prog.count / 4 * 100);
+  document.getElementById('vaultProg').style.width = pct + '%';
+  document.getElementById('progLabel').textContent = ${prog.count} of 4 components completed;
+}
+// ── Self-check state ────────────────────────────────────────────────
+const SC = (() => {
+  const state = { conf: null, weak: null, support: null };
+  function select(key, val, btn) {
+    state[key] = val;
+    const rowId = { conf:'confRow', weak:'weakRow', support:'supportRow' }[key];
+    document.querySelectorAll(#${rowId} .conf-btn).forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    document.getElementById('scError').style.display = 'none';
+  }
+  function submit() {
+    if (!state.conf || !state.weak || !state.support) {
+      document.getElementById('scError').style.display = 'block';
+      return;
+    }
+    const note = document.getElementById('readinessNote').value.trim();
+    const data = { ...state, readinessNote: note, savedAt: new Date().toISOString() };
+    MUET.saveSelfCheck(VAULT_ID, data);
+    MUET.addXP(20);
+    MUET.toast('Self-check saved. Good luck with Vault 1!');
+    showContinue(data);
+  }
+  return { select, submit };
+})();
+// ── Show continue options ───────────────────────────────────────────
+function showContinue(data) {
+  document.getElementById('selfCheckCard').style.display = 'none';
+  document.getElementById('continueCard').style.display  = 'block';
+  const confLabel    = { low:'😟 Low confidence', medium:'😐 Medium confidence', high:'😊 High confidence' };
+  const weakLabel    = { speaking:'🎤 Speaking', reading:'📖 Reading', listening:'🎧 Listening', writing:'✍️ Writing' };
+  const supportLabel = { tips:'💡 Tips', sample:'📝 Sample answers', practice:'🏃 More practice', all:'✅ All of it' };
+  document.getElementById('checkSummary').innerHTML = 
+    <b>Confidence:</b> ${confLabel[data.conf] || '—'}<br>
+    <b>Hardest component:</b> ${weakLabel[data.weak] || '—'}<br>
+    <b>I need:</b> ${supportLabel[data.support] || '—'}
+    ${data.readinessNote ? <br><b>Goal today:</b> ${data.readinessNote} : ''};
+  const prog = MUET.vaultProgress(VAULT_ID);
+  const comps = [
+    ['speaking','🎤 Speaking','vault1-speaking.html'],
+    ['reading','📖 Reading','vault1-reading.html'],
+    ['listening','🎧 Listening','vault1-listening.html'],
+    ['writing','✍️ Writing','vault1-writing.html']
+  ];
+  const el = document.getElementById('compButtons');
+  el.innerHTML = comps.map(([skill, label, page]) => {
+    const done = prog.done[skill];
+    return <button class="btn ${done ? 'white' : 'yellow'}" onclick="${done ? '' : MUET.saveActiveVault({vaultId:'${VAULT_ID}',vaultTitle:'Vault 1',skill:'${skill}'}); MUET.goPage('${page}')}" ${done ? 'disabled style="opacity:.5"' : ''}>
+      ${done ? '✅ ' : '→ '} ${label} ${done ? '(Completed)' : ''}
+    </button>;
+  }).join('');
+}
+// ── Init ────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  // Profile guard
+  if (!MUET.loadProfile()) { location.href = 'index.html'; return; }
+  renderDots();
+  // Set active vault
+  MUET.saveActiveVault({ vaultId: VAULT_ID, vaultTitle: 'Vault 1', vaultType: 'practice' });
+  // Check if self-check already done
+  const existing = MUET.loadSelfCheck(VAULT_ID);
+  if (existing) { showContinue(existing); }
+});
+</script>
+<script src="js/vault-hero.js?v=2"></script>
+</body>
+</html>
+
+Show more
+
+Ran 2 commands, created a file
+Ran 2 commands, created a file
+Now wiring index.html so links like index.html#vaultScreen actually land on that screen (small addition to init()).
+
+
+Ran a command
+Ran a command
+Copying the updated index.html over and delivering both files.
+
+
+Ran a command, read a file
+Ran a command, read a file
+Root cause: vault1-welcome.html never had the <nav id="nav" class="bottom-nav"> sidebar markup at all — index.html has it, this page didn't, so on desktop the layout still reserved the 260px column but had nothing to put in it.
+
+Two fixes:
+
+vault1-welcome.html — added the same sidebar nav, with "Vault" marked active. Its links point to index.html#homeScreen / #vaultScreen / #progressScreen / #profileScreen.
+index.html — init() now reads that hash on load and opens the matching screen, so clicking those links actually lands you on Home/Vault/Progress/Profile instead of always defaulting to Home.
+Replace both files in your repo (same paths) and push. If you have other sub-pages like vault1-speaking.html, vault1-reading.html, etc., they likely have the same missing-nav issue — send those over too and I'll patch them the same way.
+
+
+C:\Users\user\AppData\Roaming\Claude\local-agent-mode-sessions\faeecb4b-8c97-4653-bb8c-70b117aeef08\4b1619b8-a0f7-458b-bc16-148fe668d379\local_c7eac203-2cef-454e-b1b5-103694112589\outputs\vault1-welcome.html
+Code 
+
+C:\Users\user\AppData\Roaming\Claude\local-agent-mode-sessions\faeecb4b-8c97-4653-bb8c-70b117aeef08\4b1619b8-a0f7-458b-bc16-148fe668d379\local_c7eac203-2cef-454e-b1b5-103694112589\outputs\index.html
+Code 
+
+
+
+
+Claude is AI and can make mistakes. Please double-check responses. Give us feedback
+
+
+Index · HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Smart MUET Guide 2026 · ELU · JPA · PPD</title>
   <link rel="icon" href="data:,">
   <script>
@@ -18,7 +278,7 @@
 </head>
 <body>
 <main class="app-shell">
-
+ 
   <!-- ══ REGISTER ════════════════════════════════════════════════════ -->
   <section id="registerScreen" class="screen active">
     <div class="brand-bar">
@@ -28,12 +288,12 @@
         <div class="bar-title" style="font-size:15px;letter-spacing:-.02em">Smart MUET Guide</div>
       </div>
     </div>
-
+ 
     <!-- Register hero banner -->
     <div style="border:var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:14px">
       <img src="assets/heroes/welcome-hero.svg" alt="Smart MUET Guide hero banner" style="display:block;width:100%;height:auto" onerror="this.style.display='none'"/>
     </div>
-
+ 
     <div class="hero-note-card">
       <div>
         <p class="tiny">Smart MUET Guide 2026 · ELU · JPA · PPD</p>
@@ -41,7 +301,7 @@
       </div>
       <p>Guided practice for all four MUET components — Speaking, Reading, Listening and Writing. Complete Study Vaults, get rubric feedback and track your band progress toward your target.</p>
     </div>
-
+ 
     <div class="card">
       <h2>Create Your Profile</h2>
       <p class="tiny" style="margin-top:4px;color:var(--muted)">Register once. Your profile is used across all vaults and modules.</p>
@@ -74,10 +334,10 @@
       </form>
     </div>
   </section>
-
+ 
   <!-- ══ HOME ════════════════════════════════════════════════════════ -->
   <section id="homeScreen" class="screen">
-
+ 
     <!-- HEADER -->
     <div class="brand-bar">
       <img src="assets/heroes/small-muet-logo.svg" alt="Smart MUET Guide"
@@ -88,7 +348,7 @@
       </div>
       <button id="homeAvatarBtn" onclick="Hub.goTo('profileScreen')" style="margin-left:auto;width:56px;height:56px;min-width:56px;border:var(--line);border-radius:14px;background:var(--yellow);color:var(--ink);box-shadow:3px 3px 0 var(--ink);font-size:20px;font-weight:1000;font-family:'Sora',sans-serif;cursor:pointer;display:grid;place-items:center;flex-shrink:0;letter-spacing:-.02em;line-height:1">JM</button>
     </div>
-
+ 
     <!-- HERO BANNER — natural height, no compression -->
     <div style="border:var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px">
       <img src="assets/heroes/home-hero-banner-main.svg"
@@ -96,12 +356,12 @@
         style="display:block;width:100%;height:auto"
         onerror="this.onerror=null;this.src='assets/heroes/home-hero-portrait.png'"/>
     </div>
-
+ 
     <!-- 1. ABOUT MUET — intro first -->
     <div class="home-section-pill">📚 ABOUT MUET</div>
     <p style="font-size:12px;font-weight:900;color:var(--muted);margin-bottom:10px;margin-top:-4px">Tap any card to expand and learn more.</p>
     <div style="display:grid;gap:10px;margin-bottom:20px">
-
+ 
       <div class="qi-card" onclick="toggleQI(this)">
         <div class="qi-header">
           <div class="qi-icon-wrap qi-icon-blue">
@@ -120,7 +380,7 @@
           <p style="font-size:12px;font-weight:800;color:var(--ink);line-height:1.6">Used for university entry and academic English readiness. Result valid for <b>5 years</b>. Sessions: 1, 2, 3 and MUET on Demand (MoD).</p>
         </div>
       </div>
-
+ 
       <div class="qi-card" onclick="toggleQI(this)">
         <div class="qi-header">
           <div class="qi-icon-wrap qi-icon-green">
@@ -139,7 +399,7 @@
           <p style="font-size:12px;font-weight:800;color:var(--ink);line-height:1.6">Many universities require Band 3 or 4 for degree entry. A higher band strengthens scholarship and postgraduate applications.</p>
         </div>
       </div>
-
+ 
       <div class="qi-card" onclick="toggleQI(this)">
         <div class="qi-header">
           <div class="qi-icon-wrap qi-icon-yellow">
@@ -163,7 +423,7 @@
           </div>
         </div>
       </div>
-
+ 
       <div class="qi-card" onclick="toggleQI(this)">
         <div class="qi-header">
           <div class="qi-icon-wrap qi-icon-pink">
@@ -181,9 +441,9 @@
           <div class="qi-chevron">›</div>
         </div>
       </div>
-
+ 
     </div>
-
+ 
     <!-- CTA STRIP -->
     <div style="background:var(--ink);border:var(--line);border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:10px;margin-bottom:20px;box-shadow:var(--shadow)">
       <span style="font-size:22px;flex-shrink:0">⭐</span>
@@ -192,7 +452,7 @@
       </div>
       <button class="btn yellow" style="min-width:42px;width:42px;height:42px;padding:0;border-radius:50%;font-size:22px;flex-shrink:0;line-height:1" onclick="Hub.goTo('vaultScreen')">›</button>
     </div>
-
+ 
     <!-- 2. YOUR PROGRESS -->
     <div class="home-section-pill">📊 YOUR PROGRESS</div>
     <div class="dash-card" style="margin-bottom:10px">
@@ -208,7 +468,7 @@
       <div class="stat-card blue"><span>⭐</span><b id="homeXP">0</b><small>XP Earned</small></div>
       <div class="stat-card lime"><span>🎯</span><b id="homeTarget">4.0</b><small>Target Band</small></div>
     </div>
-
+ 
     <!-- 3. CONTINUE VAULT (hidden until started) -->
     <div id="continueVaultCard" style="display:none;margin-bottom:20px">
       <div class="home-section-pill">🔒 CONTINUE YOUR VAULT</div>
@@ -221,7 +481,7 @@
         <button id="continueVaultBtn" class="btn yellow" style="min-height:44px;width:auto;padding:10px 18px;white-space:nowrap;font-size:14px;font-weight:1000">Continue →</button>
       </div>
     </div>
-
+ 
     <!-- 4. TODAY'S FOCUS -->
     <div class="focus-box" id="focusBox" style="margin-bottom:20px">
       <div class="tag">TODAY'S FOCUS</div>
@@ -229,7 +489,7 @@
       <p id="focusText" style="margin-top:6px;font-weight:800;font-size:13px;line-height:1.5">Complete one Task A using PREP structure.</p>
       <button class="btn black" style="margin-top:12px;font-size:15px;font-weight:1000" id="focusBtn">Open Focus Skill</button>
     </div>
-
+ 
     <!-- 5. HOW TO USE — collapsible -->
     <div class="home-section-pill">📋 HOW TO USE THIS APP</div>
     <div class="qi-card" onclick="toggleQI(this)" style="margin-bottom:20px">
@@ -253,7 +513,7 @@
         </ol>
       </div>
     </div>
-
+ 
     <!-- 6. SKILL MODULES -->
     <div class="home-section-pill">🎓 SKILL MODULES</div>
     <p style="font-size:12px;font-weight:900;color:var(--muted);margin-bottom:10px;margin-top:-4px">Standalone guides — practise anytime. Scores do not count toward vault progress.</p>
@@ -283,15 +543,15 @@
         <small id="wrtScore">No attempt</small>
       </button>
     </div>
-
+ 
     <!-- OPEN VAULT CTA -->
     <button class="btn lime" onclick="Hub.goTo('vaultScreen')"
       style="margin-bottom:24px;font-size:16px;font-weight:1000;padding:16px">
       🔒 Open Study Vault →
     </button>
-
+ 
   </section>
-
+ 
   <!-- ══ VAULT ════════════════════════════════════════════════════════ -->
   <section id="vaultScreen" class="screen">
     <div class="brand-bar">
@@ -302,7 +562,7 @@
       </div>
       <button class="icon-btn">🔒</button>
     </div>
-
+ 
     <!-- Vault hero banner -->
     <div style="background:var(--ink);border:var(--line);box-shadow:var(--shadow);border-radius:var(--r2);padding:18px;margin-bottom:16px;overflow:hidden;position:relative">
       <div style="position:absolute;right:-10px;top:-10px;font-size:80px;opacity:.08;line-height:1">🔒</div>
@@ -316,7 +576,7 @@
         <div style="background:var(--pink);border:2px solid rgba(255,255,255,.3);border-radius:12px;padding:8px 4px;text-align:center"><div style="font-size:18px">✍️</div><div style="font-size:9px;font-weight:1000;color:var(--ink);margin-top:2px">WRITE</div></div>
       </div>
     </div>
-
+ 
     <div class="instr-card green">
       <h2>How to Use Study Vault</h2>
       <ol>
@@ -326,7 +586,7 @@
         <li>Each Mock MUET is a full 4-component exam simulation with strict timing.</li>
       </ol>
     </div>
-
+ 
     <!-- ── PHASE 1 HEADER ── -->
     <div style="background:var(--ink);border:var(--line);border-radius:16px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px">
       <div style="background:var(--yellow);border:var(--line);border-radius:10px;width:32px;height:32px;display:grid;place-items:center;font-size:15px;font-weight:1000;flex-shrink:0">1</div>
@@ -336,7 +596,7 @@
       </div>
       <div style="margin-left:auto;font-size:10px;font-weight:900;color:rgba(255,255,255,.4)">Vault 1–3 + Mock 1</div>
     </div>
-
+ 
     <!-- Vault 1 card (active) -->
     <div class="card" style="border-left:6px solid var(--yellow)">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
@@ -356,10 +616,10 @@
       <div class="prog-bar" style="margin-bottom:12px"><span id="v1Prog" style="width:0%"></span></div>
       <button class="btn yellow" onclick="Hub.openVault('VAULT-01')">Open Vault 1 →</button>
     </div>
-
+ 
     <!-- Phase 1: Vault 2, Vault 3, Mock MUET 1 -->
     <div style="display:grid;gap:10px;margin-bottom:4px" id="phase1Grid"></div>
-
+ 
     <!-- ── PHASE 2 HEADER ── -->
     <div style="background:var(--ink);border:var(--line);border-radius:16px;padding:10px 14px;margin-top:18px;margin-bottom:12px;display:flex;align-items:center;gap:10px">
       <div style="background:var(--blue);border:var(--line);border-radius:10px;width:32px;height:32px;display:grid;place-items:center;font-size:15px;font-weight:1000;flex-shrink:0;color:white">2</div>
@@ -369,10 +629,10 @@
       </div>
       <div style="margin-left:auto;font-size:10px;font-weight:900;color:rgba(255,255,255,.4)">Vault 4–6 + Mock 2</div>
     </div>
-
+ 
     <!-- Phase 2: Vault 4, 5, 6, Mock MUET 2 -->
     <div style="display:grid;gap:10px;margin-bottom:4px" id="phase2Grid"></div>
-
+ 
     <!-- ── PHASE 3 HEADER ── -->
     <div style="background:var(--ink);border:var(--line);border-radius:16px;padding:10px 14px;margin-top:18px;margin-bottom:12px;display:flex;align-items:center;gap:10px">
       <div style="background:var(--pink);border:var(--line);border-radius:10px;width:32px;height:32px;display:grid;place-items:center;font-size:15px;font-weight:1000;flex-shrink:0">3</div>
@@ -382,12 +642,12 @@
       </div>
       <div style="margin-left:auto;font-size:10px;font-weight:900;color:rgba(255,255,255,.4)">Vault 7–9 + Mock 3</div>
     </div>
-
+ 
     <!-- Phase 3: Vault 7, 8, 9, Mock MUET 3 -->
     <div style="display:grid;gap:10px;margin-bottom:20px" id="phase3Grid"></div>
-
+ 
   </section>
-
+ 
   <!-- ══ PROGRESS ═════════════════════════════════════════════════════ -->
   <section id="progressScreen" class="screen">
     <div class="brand-bar">
@@ -395,14 +655,14 @@
       <div><div class="bar-label">Analytics</div><div class="bar-title">Progress</div></div>
       <button class="icon-btn">📈</button>
     </div>
-
+ 
     <!-- Progress tabs -->
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">
       <button id="ptab-dash"   class="prog-tab prog-tab-active" onclick="Hub.progTab('dash')">Dashboard</button>
       <button id="ptab-vaults" class="prog-tab" onclick="Hub.progTab('vaults')">Vault History</button>
       <button id="ptab-badges" class="prog-tab" onclick="Hub.progTab('badges')">Badges</button>
     </div>
-
+ 
     <!-- TAB: Dashboard -->
     <div id="prog-dash">
       <!-- Overall band -->
@@ -414,7 +674,7 @@
         </div>
         <div class="band-disc" id="pd-disc"><span id="pd-pct">0%</span></div>
       </div>
-
+ 
       <!-- 4 score bars + total -->
       <div class="card">
         <h2>Component Scores</h2>
@@ -423,20 +683,20 @@
           <span>Total</span><span id="totalScore">0 / 360 · Band 0.0</span>
         </div>
       </div>
-
+ 
       <!-- Target gap -->
       <div class="card yellow" id="pd-gapCard">
         <h2>Target Band Gap</h2>
         <div id="pd-gap" style="margin-top:10px;font-weight:800;font-size:13px;line-height:1.6"></div>
       </div>
-
+ 
       <!-- Latest feedback per skill -->
       <div class="card">
         <h2>Latest Feedback</h2>
         <div id="feedbackRows" style="display:grid;gap:10px;margin-top:12px"></div>
       </div>
     </div>
-
+ 
     <!-- TAB: Vault History -->
     <div id="prog-vaults" style="display:none">
       <div class="instr-card green">
@@ -449,7 +709,7 @@
       </div>
       <div id="vaultHistoryList" style="display:grid;gap:14px"></div>
     </div>
-
+ 
     <!-- TAB: Badges -->
     <div id="prog-badges" style="display:none">
       <div class="card">
@@ -459,7 +719,7 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- ══ PROFILE ═══════════════════════════════════════════════════════ -->
   <section id="profileScreen" class="screen">
     <div class="brand-bar">
@@ -467,7 +727,7 @@
       <div><div class="bar-label">Settings</div><div class="bar-title">Profile</div></div>
       <button class="icon-btn">⚙️</button>
     </div>
-
+ 
     <div class="card">
       <h2>Student Profile</h2>
       <form id="editForm" class="form">
@@ -489,7 +749,7 @@
       </form>
     </div>
   </section>
-
+ 
   <nav id="nav" class="bottom-nav">
     <button class="nav-btn active" id="nav-home" onclick="Hub.goTo('homeScreen')">
       <img src="assets/heroes/nav-home.svg" alt="Home" class="nav-icon"/>
@@ -508,14 +768,14 @@
       <span>Profile</span>
     </button>
   </nav>
-
+ 
   <div id="toast" class="toast"></div>
 </main>
-
+ 
 <script src="js/muet-shared.js"></script>
 <script>
 const Hub = (() => {
-
+ 
   const BADGES = [
     ['✨','First Step','first_step'],
     ['🎤','PREP Starter','prep_starter'],
@@ -527,19 +787,25 @@ const Hub = (() => {
     ['🎯','Mock Finisher','mock_finisher'],
     ['📈','Band Climber','band_climber']
   ];
-
+ 
   const SKILLS = [
     ['speaking','Speaking','🎤','speaking.html'],
     ['reading','Reading','📖','reading.html'],
     ['listening','Listening','🎧','listening.html'],
     ['writing','Writing','✍️','writing.html']
   ];
-
+ 
   function init() {
     const p = MUET.loadProfile();
-    if (p) { goTo('homeScreen'); renderHome(); fillEdit(); }
-    else    { goTo('registerScreen'); }
-
+    const validHash = ['homeScreen','vaultScreen','progressScreen','profileScreen'];
+    const hashId = (location.hash || '').replace('#','');
+    if (p) {
+      goTo(validHash.includes(hashId) ? hashId : 'homeScreen');
+      renderHome(); fillEdit();
+    } else {
+      goTo('registerScreen');
+    }
+ 
     document.getElementById('regForm')?.addEventListener('submit', e => {
       e.preventDefault();
       const p = {
@@ -555,7 +821,7 @@ const Hub = (() => {
       MUET.toast('Welcome to Smart MUET Guide! Your journey starts now.');
       goTo('homeScreen'); renderHome(); fillEdit();
     });
-
+ 
     document.getElementById('editForm')?.addEventListener('submit', e => {
       e.preventDefault();
       const p = MUET.loadProfile() || {};
@@ -569,10 +835,10 @@ const Hub = (() => {
       goTo('homeScreen'); renderHome();
     });
   }
-
+ 
   function goTo(id) {
     MUET.goTo(id);
-
+ 
     // Always place the selected screen at the top. This prevents a restored
     // scroll position from making the application appear blank.
     requestAnimationFrame(() => {
@@ -580,7 +846,7 @@ const Hub = (() => {
       const activeScreen = document.getElementById(id);
       if (activeScreen) activeScreen.scrollTop = 0;
     });
-
+ 
     if (id === 'homeScreen')     renderHome();
     if (id === 'vaultScreen')    renderVault();
     if (id === 'progressScreen') { renderProgress(); progTab('dash'); }
@@ -588,6 +854,7 @@ const Hub = (() => {
     const nav = document.getElementById('nav');
     if (nav) {
       nav.style.display = (id === 'registerScreen') ? 'none' : 'grid';
+      document.body.classList.toggle('no-sidebar', id === 'registerScreen');
       // Update active nav button
       const navMap = {
         homeScreen: 'nav-home',
@@ -603,7 +870,7 @@ const Hub = (() => {
       }
     }
   }
-
+ 
   function renderHome() {
     const p = MUET.loadProfile(); if (!p) return;
     document.getElementById('homeName').textContent   = p.name || 'Smart MUET Guide';
@@ -621,7 +888,7 @@ const Hub = (() => {
     document.getElementById('homeStreak').textContent = p.streak || 0;
     document.getElementById('homeXP').textContent     = p.xp || 0;
     document.getElementById('homeTarget').textContent = p.targetBand || '4.0';
-
+ 
     const scores = {};
     SKILLS.forEach(([skill]) => {
       scores[skill] = MUET.latestScore(skill);
@@ -633,7 +900,7 @@ const Hub = (() => {
       if (bar) bar.style.width = Math.min(100, pc) + '%';
       if (txt) txt.textContent = scores[skill] ? `${scores[skill]}/90 · ${pc}%` : 'No attempt';
     });
-
+ 
     const total = scores.speaking + scores.reading + scores.listening + scores.writing;
     const b     = MUET.calcBand(total);
     const pc    = Math.round(total / 360 * 100);
@@ -641,7 +908,7 @@ const Hub = (() => {
     document.getElementById('homeBandMsg').textContent = MUET.bandMessage(b);
     document.getElementById('homePercent').textContent = pc + '%';
     document.getElementById('bandDisc').style.setProperty('--p', pc + '%');
-
+ 
     // Focus
     const weakest = SKILLS.slice().sort((a,b) => scores[a[0]] - scores[b[0]])[0];
     const tips = { speaking:'Complete one Task A using PREP: Point, Reason, Example, Point again.',
@@ -651,7 +918,7 @@ const Hub = (() => {
     document.getElementById('focusTitle').textContent = weakest[2] + ' Focus: ' + weakest[1];
     document.getElementById('focusText').textContent  = tips[weakest[0]];
     document.getElementById('focusBtn').onclick       = () => MUET.goPage(weakest[3]);
-
+ 
     // ── Continue Last Vault smart card ──────────────────────────────
     const VAULT_ORDER = ['VAULT-01','VAULT-02','VAULT-03','MOCK-01','VAULT-04','VAULT-05','VAULT-06','MOCK-02','VAULT-07','VAULT-08','VAULT-09','MOCK-03'];
     const VAULT_LABELS = { 'VAULT-01':'Vault 1','VAULT-02':'Vault 2','VAULT-03':'Vault 3','MOCK-01':'Mock MUET 1','VAULT-04':'Vault 4','VAULT-05':'Vault 5','VAULT-06':'Vault 6','MOCK-02':'Mock MUET 2','VAULT-07':'Vault 7','VAULT-08':'Vault 8','VAULT-09':'Vault 9','MOCK-03':'Mock MUET 3' };
@@ -685,7 +952,7 @@ const Hub = (() => {
       continuCard.style.display = 'none';
     }
   }
-
+ 
   function renderVault() {
     // Update Vault 1 live card
     const prog = MUET.vaultProgress('VAULT-01');
@@ -705,17 +972,17 @@ const Hub = (() => {
     }
     renderVaultCards();
   }
-
+ 
   // ── Render phased vault + mock cards ────────────────────────────
   function renderVaultCards() {
-
+ 
     // ── Phase 1: Vault 2, Vault 3, Mock MUET 1
     const PHASE1 = [
       { id:'VAULT-02', label:'Vault 2', tag:'Foundation', note:'Guided practice with tips and sample answers.', isMock:false },
       { id:'VAULT-03', label:'Vault 3', tag:'Foundation', note:'Consolidate foundation skills before Mock 1.', isMock:false },
       { id:'MOCK-01',  label:'Mock MUET 1', tag:'🎯 Real Exam Simulation', note:'Full 4 components · strict timing · real Band estimate.', isMock:true }
     ];
-
+ 
     // ── Phase 2: Vault 4, 5, 6, Mock MUET 2
     const PHASE2 = [
       { id:'VAULT-04', label:'Vault 4', tag:'Building Strength', note:'Question type awareness · deeper practice.', isMock:false },
@@ -723,7 +990,7 @@ const Hub = (() => {
       { id:'VAULT-06', label:'Vault 6', tag:'Building Strength', note:'Writing thesis and Speaking interaction focus.', isMock:false },
       { id:'MOCK-02',  label:'Mock MUET 2', tag:'🎯 Progress Check', note:'Full exam · compare with Mock 1 · identify weak areas.', isMock:true }
     ];
-
+ 
     // ── Phase 3: Vault 7, 8, 9, Mock MUET 3
     const PHASE3 = [
       { id:'VAULT-07', label:'Vault 7', tag:'Final Preparation', note:'Advanced practice · near-exam conditions.', isMock:false },
@@ -731,7 +998,7 @@ const Hub = (() => {
       { id:'VAULT-09', label:'Vault 9', tag:'Final Preparation', note:'Last full practice before final mock.', isMock:false },
       { id:'MOCK-03',  label:'Mock MUET 3', tag:'🎯 Final Readiness Check', note:'Full exam · final Band report · intervention plan.', isMock:true }
     ];
-
+ 
     function vaultCard(v) {
       const prog = MUET.vaultProgress(v.id);
       const hasAttempt = prog.count > 0;
@@ -743,7 +1010,7 @@ const Hub = (() => {
       const noteColor   = v.isMock ? '#9d174d' : '#94a3b8';
       const icon        = v.isMock ? '📋' : '🔒';
       const statusText  = v.isMock ? 'Coming soon' : 'Locked';
-
+ 
       if (hasAttempt) {
         const pct    = Math.round(prog.count / 4 * 100);
         const icons  = ['🎤','📖','🎧','✍️'];
@@ -764,7 +1031,7 @@ const Hub = (() => {
           </div>
         </div>`;
       }
-
+ 
       return `<div style="border:3px dashed ${borderColor};border-radius:20px;padding:14px;background:${bgColor}">
         <div style="display:flex;align-items:center;gap:12px">
           <div style="width:44px;height:44px;min-width:44px;border:2px solid ${borderColor};border-radius:50%;display:grid;place-items:center;font-size:20px;background:white">${icon}</div>
@@ -777,7 +1044,7 @@ const Hub = (() => {
         </div>
       </div>`;
     }
-
+ 
     const g1 = document.getElementById('phase1Grid');
     const g2 = document.getElementById('phase2Grid');
     const g3 = document.getElementById('phase3Grid');
@@ -785,7 +1052,7 @@ const Hub = (() => {
     if (g2) g2.innerHTML = PHASE2.map(v => vaultCard(v)).join('');
     if (g3) g3.innerHTML = PHASE3.map(v => vaultCard(v)).join('');
   }
-
+ 
   function openVault(vaultId) {
     const vault = MUET.VAULT_MAP[vaultId];
     if (!vault) return;
@@ -793,7 +1060,7 @@ const Hub = (() => {
     // Route to correct welcome page based on vault type
     MUET.goPage('vault1-welcome.html');
   }
-
+ 
   // ── Progress tab switcher ─────────────────────────────────────────
   function progTab(id) {
     ['dash','vaults','badges'].forEach(t => {
@@ -803,7 +1070,7 @@ const Hub = (() => {
     if (id === 'vaults') renderVaultHistory();
     if (id === 'badges') renderBadges();
   }
-
+ 
   // ── Full skills list ──────────────────────────────────────────────
   const SKILLS_LIST = [
     ['speaking','Speaking','🎤','#0757ff','white'],
@@ -811,7 +1078,7 @@ const Hub = (() => {
     ['listening','Listening','🎧','#ffc400','var(--ink)'],
     ['writing','Writing','✍️','#ff70b8','var(--ink)']
   ];
-
+ 
   // ── All vaults in order ────────────────────────────────────────────
   const ALL_VAULTS = [
     { id:'VAULT-01', label:'Vault 1',      type:'practice', accentColor:'var(--yellow)' },
@@ -827,7 +1094,7 @@ const Hub = (() => {
     { id:'VAULT-09', label:'Vault 9',      type:'practice', accentColor:'var(--yellow)' },
     { id:'MOCK-03',  label:'Mock MUET 3',  type:'mock',     accentColor:'var(--pink)'   }
   ];
-
+ 
   function getVaultScore(vaultId, skill) {
     const list = MUET.loadSessions(skill);
     const hits = list.filter(s => s.vaultId === vaultId);
@@ -835,7 +1102,7 @@ const Hub = (() => {
     const l = hits[hits.length - 1];
     return l.score90 ?? l.score ?? null;
   }
-
+ 
   function renderProgress() {
     // ── Dashboard tab ─────────────────────────────────────────────
     const allScores = {};
@@ -843,14 +1110,14 @@ const Hub = (() => {
     const total = Object.values(allScores).reduce((s,v) => s+v, 0);
     const b     = MUET.calcBand(total);
     const pct   = Math.round(total / 360 * 100);
-
+ 
     document.getElementById('pd-band').textContent    = 'Band ' + b;
     document.getElementById('pd-bandmsg').textContent = MUET.bandMessage(b);
     document.getElementById('pd-pct').textContent     = pct + '%';
     document.getElementById('pd-disc').style.setProperty('--p', pct + '%');
     const tsEl = document.getElementById('totalScore');
     if (tsEl) tsEl.textContent = `${total} / 360  ·  Band ${b}`;
-
+ 
     const pr = document.getElementById('progRows');
     if (pr) {
       pr.innerHTML = SKILLS_LIST.map(([skill, label, icon, color, tc]) => {
@@ -869,7 +1136,7 @@ const Hub = (() => {
         </div>`;
       }).join('');
     }
-
+ 
     // Target gap
     const p      = MUET.loadProfile();
     const target = p?.targetBand || '4.0';
@@ -896,7 +1163,7 @@ const Hub = (() => {
           </div>`;
       }
     }
-
+ 
     // Latest feedback
     const fr = document.getElementById('feedbackRows');
     if (fr) {
@@ -914,12 +1181,12 @@ const Hub = (() => {
       }).join('');
     }
   }
-
+ 
   // ── Vault History tab ────────────────────────────────────────────
   function renderVaultHistory() {
     const el = document.getElementById('vaultHistoryList');
     if (!el) return;
-
+ 
     el.innerHTML = ALL_VAULTS.map(vault => {
       const scores = {};
       let anyAttempt = false;
@@ -928,15 +1195,15 @@ const Hub = (() => {
         scores[skill] = s;
         if (s !== null) anyAttempt = true;
       });
-
+ 
       const validScores = Object.values(scores).filter(s => s !== null);
       const completed   = validScores.length === 4;
       const total       = validScores.reduce((s,v) => s+v, 0);
       const band        = completed ? MUET.calcBand(total) : null;
       const count       = validScores.length;
-
+ 
       const typeLabel = { starter:'Starter', practice:'Practice', mock:'Mock Exam' }[vault.type] || '';
-
+ 
       // Compact locked state
       if (!anyAttempt) {
         return `<div style="border:3px dashed #94a3b8;border-radius:20px;padding:14px;opacity:.6">
@@ -950,13 +1217,13 @@ const Hub = (() => {
           </div>
         </div>`;
       }
-
+ 
       // Attempted vault
       const roundup = MUET.loadRoundup(vault.id);
       const dateStr  = roundup?.completedAt
         ? new Date(roundup.completedAt).toLocaleDateString('en-MY',{day:'numeric',month:'short',year:'numeric'})
         : '—';
-
+ 
       return `<div style="background:var(--paper);border:var(--line);box-shadow:var(--shadow);border-radius:22px;overflow:hidden">
         <!-- Header -->
         <div style="background:${vault.accentColor};padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:var(--line)">
@@ -968,7 +1235,7 @@ const Hub = (() => {
             ${completed ? `✅ Band ${band}` : `${count}/4 Done`}
           </div>
         </div>
-
+ 
         <!-- Component scores row -->
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-bottom:2px solid rgba(0,0,0,.08)">
           ${SKILLS_LIST.map(([skill, label, icon, color, tc]) => {
@@ -981,7 +1248,7 @@ const Hub = (() => {
             </div>`;
           }).join('')}
         </div>
-
+ 
         <!-- Total + feedback -->
         <div style="padding:12px 16px">
           ${completed ? `
@@ -1012,7 +1279,7 @@ const Hub = (() => {
       </div>`;
     }).join('');
   }
-
+ 
   // ── Badges tab ───────────────────────────────────────────────────
   function renderBadges() {
     const p  = MUET.loadProfile(); if (!p) return;
@@ -1038,7 +1305,7 @@ const Hub = (() => {
       </div>`;
     }).join('');
   }
-
+ 
   function fillEdit() {
     const p = MUET.loadProfile(); if (!p) return;
     const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
@@ -1048,14 +1315,14 @@ const Hub = (() => {
     set('editGroup', p.group      || '');
     set('editBand',  p.targetBand || '4.0');
   }
-
+ 
   function resetAll() {
     if (!confirm('Reset all Smart MUET Guide data? This cannot be undone.')) return;
     Object.values(MUET.LS).forEach(k => localStorage.removeItem(k));
     ['speaking','reading','listening','writing'].forEach(s => localStorage.removeItem(MUET.LS[s]));
     MUET.toast('App reset.'); setTimeout(() => location.reload(), 500);
   }
-
+ 
   function toggleGuide(id) {
     const body = document.getElementById('gbody-' + id);
     const chev = document.getElementById('gchev-' + id);
@@ -1064,7 +1331,7 @@ const Hub = (() => {
     body.style.display = open ? 'block' : 'none';
     chev.textContent   = open ? '▴' : '▾';
   }
-
+ 
   function toggleTip(id) {
     const el   = document.getElementById(id);
     const chev = document.getElementById(id + '-chev');
@@ -1073,19 +1340,19 @@ const Hub = (() => {
     el.style.display   = open ? 'block' : 'none';
     if (chev) chev.textContent = open ? '▴' : '▾';
   }
-
+ 
   document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo(0, 0);
     init();
     requestAnimationFrame(() => window.scrollTo(0, 0));
   });
-
+ 
   // Chrome can restore an old scroll position when returning to a tab or
   // reloading from the back-forward cache. Reset it whenever the page appears.
   window.addEventListener('pageshow', () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   });
-
+ 
   window.addEventListener('load', () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   });
@@ -1099,7 +1366,7 @@ const Hub = (() => {
     expanded.style.display = isOpen ? 'none' : 'block';
     if (chevron) chevron.textContent = isOpen ? '›' : '⌄';
   }
-
+ 
 </script>
 </body>
 </html>
