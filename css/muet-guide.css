@@ -571,6 +571,8 @@ textarea:focus{outline:4px solid rgba(7,87,255,.22)}
 @media(min-width:1024px){
   html{background:#060a12}
   body{background:#060a12;display:grid;grid-template-columns:260px 1fr;min-height:100dvh;align-items:start}
+  body.no-sidebar{grid-template-columns:1fr}
+  body.no-sidebar .app-shell{grid-column:1}
   .app-shell{grid-column:2;max-width:none;width:100%;border-left:3px solid var(--ink);border-right:none;min-height:100dvh}
   .screen{padding:32px 48px 60px;max-width:860px}
   .brand-bar{border-radius:0;margin:0 0 24px;position:sticky;top:0;z-index:60}
