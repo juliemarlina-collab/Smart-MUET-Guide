@@ -411,11 +411,16 @@
       <button class="icon-btn">📈</button>
     </div>
 
+    <!-- Progress hero banner -->
+    <div style="border:var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:14px">
+      <img src="assets/heroes/progress-hero.svg" alt="Progress hero banner" style="display:block;width:100%;height:auto" onerror="this.style.display='none'"/>
+    </div>
+
     <!-- Progress tabs -->
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">
-      <button id="ptab-dash"   class="prog-tab prog-tab-active" onclick="Hub.progTab('dash')">Dashboard</button>
-      <button id="ptab-vaults" class="prog-tab" onclick="Hub.progTab('vaults')">Vault History</button>
-      <button id="ptab-badges" class="prog-tab" onclick="Hub.progTab('badges')">Badges</button>
+      <button id="ptab-dash"   class="prog-tab prog-tab-active" onclick="Hub.progTab('dash')">📊 Dashboard</button>
+      <button id="ptab-vaults" class="prog-tab" onclick="Hub.progTab('vaults')">🗂️ Vault History</button>
+      <button id="ptab-badges" class="prog-tab" onclick="Hub.progTab('badges')">🏅 Badges</button>
     </div>
 
     <!-- TAB: Dashboard -->
