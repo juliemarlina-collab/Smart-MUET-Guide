@@ -69,6 +69,24 @@ textarea:focus{outline:4px solid rgba(7,87,255,.22)}
 .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .btn-row .wide{grid-column:1/-1}
 
+/* Progress page tabs */
+.prog-tab{
+  border:var(--line);
+  border-radius:14px;
+  background:white;
+  box-shadow:3px 3px 0 var(--ink);
+  padding:12px 6px;
+  font-weight:1000;
+  font-size:12px;
+  color:var(--ink);
+  cursor:pointer;
+  transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.prog-tab:hover{transform:translateY(-2px);box-shadow:4px 5px 0 var(--ink)}
+.prog-tab:active{transform:translateY(1px);box-shadow:1px 1px 0 var(--ink)}
+.prog-tab-active{background:var(--yellow);box-shadow:3px 3px 0 var(--ink)}
+@media(min-width:640px){.prog-tab{font-size:14px;padding:14px 10px}}
+
 /* PREP */
 .prep-grid{display:grid;gap:10px}
 .prep-box{border:var(--line);border-radius:var(--r);background:white;padding:12px;box-shadow:3px 3px 0 var(--ink)}
