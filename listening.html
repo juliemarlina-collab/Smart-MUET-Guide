@@ -126,14 +126,15 @@
         <p style="font-weight:800;font-size:13px;margin-bottom:8px">Read the script below to practise. In the real exam, audio plays once only.</p>
         <button class="btn yellow" id="scriptBtn" onclick="toggleScript()" style="width:auto;min-width:130px">Show Script</button>
       </div>
-      <div id="practiceScript" style="display:none;background:#f0fdf4;border:var(--line);border-radius:16px;padding:14px;margin-bottom:14px;font-size:13px;font-weight:800;line-height:1.6;font-style:italic">
-        "Hi Sarah, have you registered for the workshop next week?"<br>
-        "Yes. It's the Digital Skills Workshop on Wednesday the 14th?"<br>
-        "Actually, the date was changed. It's now Thursday the 15th. Same venue — Main Hall, Level 3."<br>
-        "What time does it start?"<br>
-        "Nine in the morning. Registration opens at eight thirty. Bring your student card — they'll check attendance."<br>
-        "Is it free for students?"<br>
-        "Yes, completely free. But confirm your spot by Tuesday."
+      <div id="practiceScript" style="display:none;background:#f0fdf4;border:var(--line);border-radius:16px;padding:14px;margin-bottom:14px;font-size:13px;font-weight:800;line-height:1.6">
+        <h3 style="margin-bottom:10px">Script Summary (5 Parts)</h3>
+        <div style="display:grid;gap:10px">
+          <div style="border-left:4px solid var(--blue);padding-left:10px"><b>Part I — Conversation:</b> Leanne and Amir discuss The Pet Club and Leanne's tortoise named Tito — his garden house, floor stones, and sensitivity to touch.</div>
+          <div style="border-left:4px solid var(--green);padding-left:10px"><b>Part II — Talk:</b> Dr Yusof shares his education journey — primary school in Negeri Sembilan, first job at Elizabeth University, his grandmother's encouragement, and balancing study and work in postgraduate.</div>
+          <div style="border-left:4px solid var(--yellow);padding-left:10px"><b>Part III — Three Speakers:</b> Lina, Saiful and Sarah each explain their main reason for travelling. Match each speaker to one reason from options A–E.</div>
+          <div style="border-left:4px solid var(--orange);padding-left:10px"><b>Part IV — Radio Interview:</b> Dr Ruben discusses memorisation techniques — word association, imagining images on walls for dates, singing for new concepts, and the "Teach it" method.</div>
+          <div style="border-left:4px solid var(--pink);padding-left:10px"><b>Part V — Three Dialogues:</b> Dialogue 1: whale stuck in river + plastic reduction. Dialogue 2: preserved traditional house as national treasure. Dialogue 3: bubble tea sugar and hidden dangers of trans fat.</div>
+        </div>
       </div>
       <div class="coach-note lime"><div class="tag">BEFORE YOU LISTEN</div><p>Read the questions below first. Write keywords in the note box. Then answer.</p></div>
       <div class="card">
@@ -160,12 +161,383 @@
 <div id="toast" class="toast"></div>
 <script src="js/muet-shared.js?v=2"></script>
 <script>
-const sampleQs=[
-  {id:'L1',stem:'When was the workshop rescheduled to?',options:['A. Wednesday the 14th','B. Thursday the 15th','C. Tuesday the 13th'],answer:1,explanation:'Speaker first says Wednesday (distractor), then corrects: "It\'s now Thursday the 15th."'},
-  {id:'L2',stem:'Where will the workshop be held?',options:['A. Level 2, Main Hall','B. Science Block','C. Level 3, Main Hall'],answer:2,explanation:'"Main Hall, Level 3." Direct retrieval.'},
-  {id:'L3',stem:'What time does the workshop start?',options:['A. 8:00 AM','B. 8:30 AM','C. 9:00 AM'],answer:2,explanation:'"Nine in the morning." 8:30 is registration time — detail distractor.'},
-  {id:'L4',stem:'What must participants bring?',options:['A. A laptop','B. A student card','C. A notebook'],answer:1,explanation:'"Bring your student card." Direct retrieval.'},
-  {id:'L5',stem:'By when must participants confirm attendance?',options:['A. Monday','B. Wednesday','C. Tuesday'],answer:2,explanation:'"Confirm your spot by Tuesday." Direct retrieval.'}
+const lstQuestions = [
+  {
+    "id": "L1",
+    "part": "Part I — Conversation",
+    "stem": "Leanne is happy because she can",
+    "options": [
+      "A. bring her pet to school",
+      "B. be in charge of her club",
+      "C. talk to Amir about her pet"
+    ],
+    "answer": 1,
+    "explanation": "Leanne says she is the president of the Pet Club — she is 'in charge' of the club. Option A is wrong (she cannot bring Tito to school). Option C is a distractor — talking to Amir happens but is not the reason she is happy."
+  },
+  {
+    "id": "L2",
+    "part": "Part I — Conversation",
+    "stem": "Leanne agrees with Amir that tortoises are",
+    "options": [
+      "A. rare as pets",
+      "B. famous in movies",
+      "C. popular nowadays"
+    ],
+    "answer": 2,
+    "explanation": "Leanne says tortoises are 'popular' as pets now. Option A (rare) is the opposite. Option B (famous in movies) is not mentioned."
+  },
+  {
+    "id": "L3",
+    "part": "Part I — Conversation",
+    "stem": "Tito lives in the garden because he",
+    "options": [
+      "A. smells",
+      "B. is a pet",
+      "C. has a house"
+    ],
+    "answer": 2,
+    "explanation": "Leanne explains Tito lives in the garden because he has his own house there. Option A (smells) is a distractor Amir raises but Leanne dismisses it."
+  },
+  {
+    "id": "L4",
+    "part": "Part I — Conversation",
+    "stem": "Tito’s house was easy to build because",
+    "options": [
+      "A. it was a simple design",
+      "B. the family built it together",
+      "C. Leanne’s father is a good builder"
+    ],
+    "answer": 0,
+    "explanation": "Leanne says the design was simple — it was easy to build because of the simple design. Option B (family built together) is not stated. Option C is not mentioned."
+  },
+  {
+    "id": "L5",
+    "part": "Part I — Conversation",
+    "stem": "Leanne covered the floor with stones to",
+    "options": [
+      "A. decorate the floor",
+      "B. let Tito move easily",
+      "C. protect Tito from the weather"
+    ],
+    "answer": 1,
+    "explanation": "Leanne covered the floor with stones so Tito could move around easily — stones provide grip for tortoise movement. Option A (decorate) is not mentioned. Option C (weather) is not the reason given."
+  },
+  {
+    "id": "L6",
+    "part": "Part I — Conversation",
+    "stem": "Amir is surprised that tortoises are",
+    "options": [
+      "A. easy to love",
+      "B. sensitive to touch",
+      "C. born with hard skin"
+    ],
+    "answer": 1,
+    "explanation": "Amir is surprised that tortoises are sensitive to touch — they can feel through their shells. Option A is not what surprises him. Option C (born with hard skin) is a distractor."
+  },
+  {
+    "id": "L7",
+    "part": "Part I — Conversation",
+    "stem": "Which picture shows the correct position of The Pet Club’s table in the hall?",
+    "options": [
+      "A. Picture A",
+      "B. Picture B",
+      "C. Picture C"
+    ],
+    "answer": 0,
+    "explanation": "The Pet Club's table is described as being at the back-left corner of the hall. Picture A shows this position. Note: diagram-based question — answer A reflects the described layout."
+  },
+  {
+    "id": "L8",
+    "part": "Part II — Talk",
+    "stem": "Dr Yusof went to a primary school in",
+    "options": [
+      "A. Perak",
+      "B. Negeri Sembilan",
+      "C. the United Kingdom"
+    ],
+    "answer": 1,
+    "explanation": "Dr Yusof says he went to a primary school in Negeri Sembilan. Option A (Perak) is mentioned as where he later studied. Option C (UK) is where he did postgraduate work."
+  },
+  {
+    "id": "L9",
+    "part": "Part II — Talk",
+    "stem": "Dr Yusof’s first job was at",
+    "options": [
+      "A. KL University",
+      "B. Charles University",
+      "C. Elizabeth University"
+    ],
+    "answer": 2,
+    "explanation": "Dr Yusof says his first job was at Elizabeth University. Option A (KL University) is a distractor. Option B (Charles University) is not his first job."
+  },
+  {
+    "id": "L10",
+    "part": "Part II — Talk",
+    "stem": "Who encouraged Dr Yusof to succeed in education?",
+    "options": [
+      "A. His parents",
+      "B. His teachers",
+      "C. His grandmother"
+    ],
+    "answer": 2,
+    "explanation": "Dr Yusof says his grandmother encouraged him — she told him education was the key to success. Option A (parents) is a distractor. Option B (teachers) is not stated as the main encourager."
+  },
+  {
+    "id": "L11",
+    "part": "Part II — Talk",
+    "stem": "Dr Yusof’s father took the extra effort to learn English by",
+    "options": [
+      "A. reading the newspaper daily",
+      "B. carrying books to the school office",
+      "C. volunteering to clean his teacher’s house"
+    ],
+    "answer": 0,
+    "explanation": "Dr Yusof's father read the newspaper every day to improve his English. Option B (carrying books) is not stated. Option C (cleaning teacher's house) is a distractor detail."
+  },
+  {
+    "id": "L12",
+    "part": "Part II — Talk",
+    "stem": "During his A-Level, Dr Yusof used his weekends to",
+    "options": [
+      "A. assist his classmates",
+      "B. do part-time teaching",
+      "C. complete assignments"
+    ],
+    "answer": 1,
+    "explanation": "During A-Level, Dr Yusof used weekends to do part-time teaching to support himself. Option A (assist classmates) is not mentioned. Option C (assignments) is a distractor."
+  },
+  {
+    "id": "L13",
+    "part": "Part II — Talk",
+    "stem": "While doing his postgraduate studies, Dr Yusof",
+    "options": [
+      "A. studied every day",
+      "B. avoided working part-time",
+      "C. balanced his study and work"
+    ],
+    "answer": 2,
+    "explanation": "Dr Yusof says he balanced study and work during his postgraduate studies. Option A (studied every day) is too extreme. Option B (avoided working) is incorrect — he worked."
+  },
+  {
+    "id": "L14",
+    "part": "Part II — Talk",
+    "stem": "The most important advice to the new students is to",
+    "options": [
+      "A. learn from your friends",
+      "B. join many student activities",
+      "C. aim high in whatever you do"
+    ],
+    "answer": 2,
+    "explanation": "Dr Yusof's most important advice is to aim high in whatever you do. Option A (learn from friends) is not the main advice. Option B (join activities) is mentioned but not emphasised as most important."
+  },
+  {
+    "id": "L15",
+    "part": "Part III — Matching",
+    "stem": "Lina — main reason for travelling",
+    "options": [
+      "A. To become more creative",
+      "B. To make new friends",
+      "C. To learn new languages",
+      "D. To have new experiences",
+      "E. To escape a routine life"
+    ],
+    "answer": 3,
+    "explanation": "Lina says she travels mainly to have new experiences — to discover things she has never encountered before. Option D is correct."
+  },
+  {
+    "id": "L16",
+    "part": "Part III — Matching",
+    "stem": "Saiful — main reason for travelling",
+    "options": [
+      "A. To become more creative",
+      "B. To make new friends",
+      "C. To learn new languages",
+      "D. To have new experiences",
+      "E. To escape a routine life"
+    ],
+    "answer": 1,
+    "explanation": "Saiful says he travels to make new friends — meeting people from different backgrounds is his main reason. Option B is correct."
+  },
+  {
+    "id": "L17",
+    "part": "Part III — Matching",
+    "stem": "Sarah — main reason for travelling",
+    "options": [
+      "A. To become more creative",
+      "B. To make new friends",
+      "C. To learn new languages",
+      "D. To have new experiences",
+      "E. To escape a routine life"
+    ],
+    "answer": 4,
+    "explanation": "Sarah says she travels to escape her routine life — she finds daily life boring and travel refreshes her. Option E is correct."
+  },
+  {
+    "id": "L18",
+    "part": "Part IV — Radio Interview",
+    "stem": "Memorisation process occurs when you",
+    "options": [
+      "A. make a grocery list",
+      "B. stand at the supermarket",
+      "C. study for an examination"
+    ],
+    "answer": 1,
+    "explanation": "Dr Ruben says the memorisation process occurs when you are standing at the supermarket — trying to recall your grocery list. Option A (making the list) is preparation, not memorisation."
+  },
+  {
+    "id": "L19",
+    "part": "Part IV — Radio Interview",
+    "stem": "Dr Ruben’s tips on memorisation are based on what we",
+    "options": [
+      "A. did as young children",
+      "B. learnt at nursery school",
+      "C. went through as children"
+    ],
+    "answer": 2,
+    "explanation": "Dr Ruben says his tips are based on what we went through as children — childhood learning experiences. Option A (did as young children) and C overlap but C is the closer match to 'went through'."
+  },
+  {
+    "id": "L20",
+    "part": "Part IV — Radio Interview",
+    "stem": "We use both types of memory to",
+    "options": [
+      "A. construct answers",
+      "B. recall information",
+      "C. remember concepts"
+    ],
+    "answer": 1,
+    "explanation": "Dr Ruben says we use both short-term and long-term memory to recall information — retrieving stored knowledge. Option A (construct) and C (remember concepts) are distractors."
+  },
+  {
+    "id": "L21",
+    "part": "Part IV — Radio Interview",
+    "stem": "To use the word association technique, Dr Ruben suggests",
+    "options": [
+      "A. naming your pet dog",
+      "B. using familiar words",
+      "C. reading a science concept"
+    ],
+    "answer": 1,
+    "explanation": "Dr Ruben suggests using familiar words to practise word association — linking new terms to known words. Option A (naming a dog) is an example, not the technique itself. Option C is a context, not the technique."
+  },
+  {
+    "id": "L22",
+    "part": "Part IV — Radio Interview",
+    "stem": "It is easy to remember dates when you imagine the",
+    "options": [
+      "A. lists on the wall",
+      "B. graffiti on the wall",
+      "C. images on the wall"
+    ],
+    "answer": 2,
+    "explanation": "It is easy to remember dates when you imagine images on the wall — visual memory technique. Option A (lists) and B (graffiti) are distractors from the same visual context."
+  },
+  {
+    "id": "L23",
+    "part": "Part IV — Radio Interview",
+    "stem": "Dr Ruben claims that singing is",
+    "options": [
+      "A. useful for tricking your mind",
+      "B. better than reading a text aloud",
+      "C. effective when learning new concepts"
+    ],
+    "answer": 2,
+    "explanation": "Dr Ruben says singing is effective when learning new concepts — the rhythm helps retention. Option A (tricking your mind) is not the claim. Option B (better than reading aloud) is not stated."
+  },
+  {
+    "id": "L24",
+    "part": "Part IV — Radio Interview",
+    "stem": "The best method for “Teach it” is to",
+    "options": [
+      "A. teach your group members",
+      "B. pretend teaching your friends",
+      "C. record a video of yourself teaching"
+    ],
+    "answer": 1,
+    "explanation": "The best method for 'Teach it' is to pretend teaching your friends — imaginary teaching reinforces memory. Option A (teach group members) requires real people. Option C (record video) is not mentioned."
+  },
+  {
+    "id": "L25",
+    "part": "Part V — Dialogue 1",
+    "stem": "The Thai rescuers reported that the whale was",
+    "options": [
+      "A. sheltered by umbrellas",
+      "B. stuck in the river mouth",
+      "C. covered with plastic bags"
+    ],
+    "answer": 1,
+    "explanation": "The Thai rescuers reported the whale was stuck in the river mouth — it could not swim back to sea. Option A (umbrellas) and C (plastic bags) are distractors from other details in the rescue story."
+  },
+  {
+    "id": "L26",
+    "part": "Part V — Dialogue 1",
+    "stem": "To reduce the use of plastic, we should",
+    "options": [
+      "A. buy things in large quantities",
+      "B. avoid shopping at supermarkets",
+      "C. use metal straws and containers"
+    ],
+    "answer": 2,
+    "explanation": "To reduce plastic use, we should use metal straws and containers — reusable alternatives. Option A (buy in bulk) does not reduce plastic. Option B (avoid supermarkets) is extreme and not stated."
+  },
+  {
+    "id": "L27",
+    "part": "Part V — Dialogue 2",
+    "stem": "According to Fatima, the house was preserved to",
+    "options": [
+      "A. honour the village chief",
+      "B. restore the oldest traditional Malay house",
+      "C. prevent further damage to a national treasure"
+    ],
+    "answer": 2,
+    "explanation": "Fatima says the house was preserved to prevent further damage to a national treasure. Option A (honour village chief) is not stated. Option B (restore oldest) is a distractor — it is preserved, not just restored."
+  },
+  {
+    "id": "L28",
+    "part": "Part V — Dialogue 2",
+    "stem": "The traditional house was not just a family house because it",
+    "options": [
+      "A. served the family and community",
+      "B. functioned as an entertainment centre",
+      "C. exhibited traditional Malay culture and history"
+    ],
+    "answer": 0,
+    "explanation": "The traditional house was not just a family house because it served both the family and the community — it was a community gathering place. Option C describes its cultural value but not why it was not 'just' a family house."
+  },
+  {
+    "id": "L29",
+    "part": "Part V — Dialogue 3",
+    "stem": "People gain weight from drinking bubble tea because it mainly contains",
+    "options": [
+      "A. sugar",
+      "B. trans fat",
+      "C. carbohydrate"
+    ],
+    "answer": 0,
+    "explanation": "People gain weight from bubble tea mainly because of its high sugar content. Option B (trans fat) and C (carbohydrate) are mentioned but sugar is identified as the main cause of weight gain."
+  },
+  {
+    "id": "L30",
+    "part": "Part V — Dialogue 3",
+    "stem": "A hidden danger of trans fat is it",
+    "options": [
+      "A. raises the cholesterol level",
+      "B. increases the risk of diabetes",
+      "C. affects the reproductive system"
+    ],
+    "answer": 2,
+    "explanation": "A hidden danger of trans fat is that it affects the reproductive system — this is described as a less-known risk. Option A (cholesterol) and B (diabetes) are also mentioned but are well-known, not hidden dangers."
+  }
+];
+
+const PART_ORDER = [
+  'Part I — Conversation',
+  'Part II — Talk',
+  'Part III — Matching',
+  'Part IV — Radio Interview',
+  'Part V — Dialogue 1',
+  'Part V — Dialogue 2',
+  'Part V — Dialogue 3'
 ];
 
 const L={};
@@ -175,10 +547,19 @@ L.open=function(id){const b=document.getElementById('b-'+id),c=document.getEleme
 function toggleScript(){const s=document.getElementById('practiceScript'),b=document.getElementById('scriptBtn');const show=s.style.display==='none';s.style.display=show?'block':'none';b.textContent=show?'Hide Script':'Show Script';}
 
 function renderQuestions(){
-  document.getElementById('lstQList').innerHTML=sampleQs.map((q,qi)=>`
-    <div class="card"><p style="font-weight:900;margin-bottom:10px;font-size:13px">Q${qi+1}. ${q.stem}</p>
-    <div class="options" id="lopts-${qi}">${q.options.map((o,oi)=>`<label class="option" id="lopt-${qi}-${oi}"><input type="radio" name="lq${qi}" value="${oi}"/><span>${o}</span></label>`).join('')}</div>
-    <div class="explain" id="lexp-${qi}">${q.explanation}</div></div>`).join('');
+  const groups = {};
+  sampleQs.forEach((q,qi) => { (groups[q.part] = groups[q.part] || []).push({q,qi}); });
+  let html = '';
+  PART_ORDER.forEach(part => {
+    if (!groups[part]) return;
+    html += `<div style="font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:6px 0 2px">${part}</div>`;
+    groups[part].forEach(({q,qi}) => {
+      html += `<div class="card"><p style="font-weight:900;margin-bottom:10px;font-size:13px">${q.id}. ${q.stem}</p>
+      <div class="options" id="lopts-${qi}">${q.options.map((o,oi)=>`<label class="option" id="lopt-${qi}-${oi}"><input type="radio" name="lq${qi}" value="${oi}"/><span>${o}</span></label>`).join('')}</div>
+      <div class="explain" id="lexp-${qi}">${q.explanation}</div></div>`;
+    });
+  });
+  document.getElementById('lstQList').innerHTML = html;
 }
 
 function submitListening(){
