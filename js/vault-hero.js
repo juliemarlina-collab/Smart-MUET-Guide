@@ -1,9 +1,84 @@
 /* =================================================
    MUET SmartHub — vault-hero.js
-   Blueprint v3.3 — dynamic vault hero renderer
+   Blueprint v3.4 — dynamic vault hero renderer
    Reads activeVault from localStorage so it works
-   for both Starter Vault (VAULT-00) and Vault 1+
+   for the Starter Vault (VAULT-00) and every Vault
+   in VAULT_HERO_CONFIG below. Add a new vault by
+   adding one entry to the config — no other code
+   changes needed.
 ================================================= */
+
+// Fix v3.4: Vault 1's hero image previously pointed at a .png file that does
+// not exist in the repo (only the .svg does), so it silently failed via
+// onerror and never rendered. Also generalised so every vault gets its own
+// title/subtitle/image instead of always showing "Vault 1 Guided Journey".
+const VAULT_HERO_CONFIG = {
+  'VAULT-00': {
+    label: 'Starter Vault · Sample Practice',
+    title: 'Starter Vault',
+    subtitle: 'Learn the app flow using sample questions. Does not count toward your main vault scores.',
+    image: 'assets/heroes/welcome-hero.svg'
+  },
+  'VAULT-01': {
+    label: 'Foundation Practice Set 1',
+    title: 'Vault 1 Guided Journey',
+    subtitle: 'Start strong with guided MUET practice across all four tested components.',
+    image: 'assets/heroes/vault-1-guided-journey-card.svg'
+  },
+  'VAULT-02': {
+    label: 'Foundation Practice Set 2',
+    title: 'Vault 2 Guided Journey',
+    subtitle: 'Keep building your MUET skills with a fresh set of guided practice across all four tested components.',
+    image: 'assets/heroes/vault 02-hero.svg'
+  },
+  'VAULT-03': {
+    label: 'Foundation Practice Set 3',
+    title: 'Vault 3 Guided Journey',
+    subtitle: 'Keep building your MUET skills with a fresh set of guided practice across all four tested components.',
+    image: 'assets/heroes/vault 03-hero.svg'
+  },
+  'VAULT-04': {
+    label: 'Foundation Practice Set 4',
+    title: 'Vault 4 Guided Journey',
+    subtitle: 'Keep building your MUET skills with a fresh set of guided practice across all four tested components.',
+    image: 'assets/heroes/vault 04-hero.svg'
+  },
+  'VAULT-05': {
+    label: 'Foundation Practice Set 5',
+    title: 'Vault 5 Guided Journey',
+    subtitle: 'Keep building your MUET skills with a fresh set of guided practice across all four tested components.',
+    image: 'assets/heroes/vault 05- hero.svg'
+  },
+  'VAULT-06': {
+    label: 'Foundation Practice Set 6',
+    title: 'Vault 6 Guided Journey',
+    subtitle: 'Keep building your MUET skills with a fresh set of guided practice across all four tested components.',
+    image: 'assets/heroes/vault 06-hero.svg'
+  },
+  'MOCK-01': {
+    label: 'Full Mock Exam 1',
+    title: 'Mock Exam 1',
+    subtitle: 'A full, timed simulation of all four MUET components.',
+    image: 'assets/heroes/mock exam 01-hero.svg'
+  },
+  'MOCK-02': {
+    label: 'Full Mock Exam 2',
+    title: 'Mock Exam 2',
+    subtitle: 'A full, timed simulation of all four MUET components.',
+    image: 'assets/heroes/mock exam 02-hero.svg'
+  }
+};
+
+// Fallback used for any vaultId not yet listed above (e.g. new vaults added
+// before their hero artwork/config entry is ready).
+function fallbackHeroConfig(vaultId, vaultTitle) {
+  return {
+    label: 'Guided Practice Set',
+    title: vaultTitle || vaultId,
+    subtitle: 'Keep building your MUET skills with a fresh set of guided practice across all four tested components.',
+    image: 'assets/heroes/study-vault-hero.svg'
+  };
+}
 
 document.addEventListener('DOMContentLoaded', function () {
   const mount = document.getElementById('vaultHeroMount');
@@ -28,16 +103,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   } catch (_) {}
 
-  // Vault-specific config
-  const isStarter = vaultId === 'VAULT-00';
-  const label     = isStarter ? 'Starter Vault · Sample Practice' : 'Foundation Practice Set 1';
-  const title     = isStarter ? 'Starter Vault' : 'Vault 1 Guided Journey';
-  const subtitle  = isStarter
-    ? 'Learn the app flow using sample questions. Does not count toward your main vault scores.'
-    : 'Start strong with guided MUET practice across all four tested components.';
-  const image     = isStarter
-    ? 'assets/heroes/welcome-hero.svg'           // reuse welcome hero for starter
-    : 'assets/heroes/vault-1-guided-journey-card.png';
+  const cfg = VAULT_HERO_CONFIG[vaultId] || fallbackHeroConfig(vaultId, vaultTitle);
+  const { label, title, subtitle, image } = cfg;
 
   const progressLabel = count === 4 ? '✅ All 4 Components Done' : `🏆 ${count} / 4 Completed`;
 
