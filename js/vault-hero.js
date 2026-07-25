@@ -20,7 +20,7 @@ const VAULT_HERO_CONFIG = {
     label: 'Foundation Practice Set 1',
     title: 'Vault 1 Guided Journey',
     subtitle: 'Start strong with guided MUET practice across all four tested components.',
-    image: 'assets/heroes/vault-1-guided-journey-card.svg'
+    image: 'assets/heroes/vault-01-hero.svg'
   },
   'VAULT-02': {
     label: 'Foundation Practice Set 2',
