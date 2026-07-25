@@ -230,6 +230,7 @@
         <div style="background:var(--yellow);border:var(--line);border-radius:14px;padding:12px 14px;margin-top:12px;font-weight:1000;font-size:13px">
           &#9201;&#65039; Task B reminder: Write 3&ndash;4 keywords only during prep time. Agree politely, add one reason, invite others by name, and help the group reach a final decision in the last 2 minutes.
         </div>
+        <button onclick="Spk.toggleSec('sample');document.getElementById('sec-sample').scrollIntoView({behavior:'smooth'})" style="display:block;background:var(--yellow);border:var(--line);border-radius:14px;box-shadow:var(--shadow);padding:13px 16px;font-weight:1000;cursor:pointer;width:100%;margin-top:12px;font-size:14px">I&apos;ve read the tips &#8212; show me a sample &#8594;</button>
       </div>
     </div>
   </div>
@@ -264,6 +265,7 @@
             &#128221; Examiner note: Direct answer &middot; one clear reason &middot; specific relatable example &middot; strong closing. About 90 seconds.
           </div>
         </div>
+        <button onclick="Spk.toggleSec('phrases');document.getElementById('sec-phrases').scrollIntoView({behavior:'smooth'})" style="display:block;background:var(--yellow);border:var(--line);border-radius:14px;box-shadow:var(--shadow);padding:13px 16px;font-weight:1000;cursor:pointer;width:100%;margin-top:12px;font-size:14px">I&apos;m ready &#8212; go to practice &#8594;</button>
       </div>
     </div>
   </div>
@@ -293,8 +295,8 @@
           <div class="phrase-text">&ldquo;For example&hellip;&rdquo; &middot; &ldquo;For instance&hellip;&rdquo; &middot; &ldquo;A clear example of this is&hellip;&rdquo;<br>&ldquo;Take Malaysia as an example&hellip;&rdquo; &middot; &ldquo;To illustrate this point&hellip;&rdquo;</div>
         </div>
         <div class="phrase-section">
-          <div class="phrase-label">&#128483;&#65039; TASK B &mdash; INTERACTION PHRASES</div>
-          <div class="phrase-text">&ldquo;What do you think, [name]?&rdquo; &middot; &ldquo;I agree with [name] because&hellip;&rdquo;<br>&ldquo;Building on what [name] said&hellip;&rdquo; &middot; &ldquo;Could you elaborate on that?&rdquo;<br>&ldquo;That is a valid point, however&hellip;&rdquo; &middot; &ldquo;So, as a group, we have decided&hellip;&rdquo;</div>
+          <div class="phrase-label">&#128101; TASK B &mdash; INTERACTION PHRASES (MPM FUNCTIONS)</div>
+          <div class="phrase-text">Initiate: &ldquo;Shall we start by looking at&hellip;?&rdquo;<br>Prompt: &ldquo;What do you think, [name]?&rdquo; &middot; &ldquo;[Name], do you agree?&rdquo;<br>Turn-take: &ldquo;Building on what [name] said&hellip;&rdquo; &middot; &ldquo;I would like to add&hellip;&rdquo;<br>Negotiate: &ldquo;That is a valid point, however&hellip;&rdquo; &middot; &ldquo;I see it differently because&hellip;&rdquo;<br>Interrupt: &ldquo;May I add something?&rdquo; &middot; &ldquo;Sorry to interrupt, but&hellip;&rdquo;<br>Conclude: &ldquo;So as a group, we have decided the best option is&hellip;&rdquo;</div>
         </div>
         <div class="phrase-section">
           <div class="phrase-label">&#128683; AVOID THESE FILLER WORDS</div>
@@ -371,27 +373,28 @@
     <textarea id="transcript" rows="5" style="margin-top:10px" placeholder="I believe students should work part-time because..."></textarea>
   </div>
 
-  <!-- ══ PART 6: SPEAKING SELF-ASSESSMENT (NEW) ═══════════════════ -->
+  <!-- ══ PART 6: SELF-ASSESSMENT (MPM language functions) ═════════ -->
   <div style="background:var(--paper);border:var(--line);box-shadow:var(--shadow);border-radius:var(--r2);padding:18px;margin-bottom:16px">
     <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:4px">6</div>
-    <h2 style="margin-bottom:4px">Speaking Self-Assessment</h2>
-    <p style="font-size:13px;font-weight:800;color:var(--muted);margin-bottom:14px">Check these before submitting &mdash; they help the app give you better feedback.</p>
-    <div id="selfCheckList">
-      <label class="self-check-item" onclick="Spk.updateSelfCheck()">
-        <input type="checkbox" id="sc1"> <span>I used a clear PREP structure: Point &rarr; Reason &rarr; Example &rarr; Point again</span>
-      </label>
-      <label class="self-check-item" onclick="Spk.updateSelfCheck()">
-        <input type="checkbox" id="sc2"> <span>I answered the prompt directly and stayed on topic throughout</span>
-      </label>
-      <label class="self-check-item" onclick="Spk.updateSelfCheck()">
-        <input type="checkbox" id="sc3"> <span>I gave a specific, relevant example (preferably Malaysian context)</span>
-      </label>
-      <label class="self-check-item" onclick="Spk.updateSelfCheck()">
-        <input type="checkbox" id="sc4"> <span>I avoided filler words (erm, like, you know) and used pauses instead</span>
-      </label>
-      <label class="self-check-item" onclick="Spk.updateSelfCheck()">
-        <input type="checkbox" id="sc5"> <span>Task B only: I referred to at least one group member by name</span>
-      </label>
+    <h2 id="scTitle" style="margin-bottom:4px">Task A &#8212; Self-Assessment</h2>
+    <p style="font-size:13px;font-weight:800;color:var(--muted);margin-bottom:14px">Tick each language function you used. These map directly to what the examiner listens for.</p>
+    <!-- Task A checklist -->
+    <div id="scTaskA">
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()"><input type="checkbox" id="scA1"><span>I stated my opinion clearly in the first sentence <span style="display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;background:#dbeafe;margin-left:6px">Expressing Opinions</span></span></label>
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()"><input type="checkbox" id="scA2"><span>I gave one strong reason using &ldquo;because&rdquo; or &ldquo;the reason is&rdquo; <span style="display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;background:#fef3c7;margin-left:6px">Giving Reasons</span></span></label>
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()"><input type="checkbox" id="scA3"><span>I gave a specific example to elaborate my point <span style="display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;background:#dcfce7;margin-left:6px">Elaborating</span></span></label>
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()"><input type="checkbox" id="scA4"><span>I linked my example back: &ldquo;This shows that&hellip;&rdquo; or &ldquo;This means that&hellip;&rdquo; <span style="display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;background:#fce7f3;margin-left:6px">Justifying</span></span></label>
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()"><input type="checkbox" id="scA5"><span>I closed with a clear concluding statement <span style="display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;background:#e0e7ff;margin-left:6px">Concluding</span></span></label>
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()"><input type="checkbox" id="scA6"><span>I avoided filler words (erm, like, you know) and used pauses instead <span style="display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;background:#f0fdf4;margin-left:6px">Fluency</span></span></label>
+    </div>
+    <!-- Task B checklist -->
+    <div id="scTaskB" style="display:none">
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()"><input type="checkbox" id="scB1"><span>I initiated or opened the discussion <span style="display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;background:#dbeafe;margin-left:6px">Initiating</span></span></label>
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()"><input type="checkbox" id="scB2"><span>I asked at least one group member for their opinion by name <span style="display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;background:#fef3c7;margin-left:6px">Prompting</span></span></label>
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()"><input type="checkbox" id="scB3"><span>I built on someone else&apos;s point: &ldquo;Building on what [name] said&hellip;&rdquo; <span style="display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;background:#dcfce7;margin-left:6px">Turn-Taking</span></span></label>
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()"><input type="checkbox" id="scB4"><span>I agreed or disagreed with a reason: &ldquo;That is valid, however&hellip;&rdquo; <span style="display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;background:#fce7f3;margin-left:6px">Negotiating</span></span></label>
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()"><input type="checkbox" id="scB5"><span>I evaluated at least two options before deciding <span style="display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;background:#e0e7ff;margin-left:6px">Evaluating</span></span></label>
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()"><input type="checkbox" id="scB6"><span>I helped the group reach a final decision with a concluding statement <span style="display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;background:#f0fdf4;margin-left:6px">Concluding</span></span></label>
     </div>
     <div id="selfCheckResult" style="display:none;background:var(--yellow);border:var(--line);border-radius:14px;padding:10px 14px;margin-top:10px;font-weight:1000;font-size:14px;text-align:center"></div>
   </div>
@@ -402,6 +405,25 @@
     <div class="guide-secondary-row">
       <button class="btn btn-white" onclick="Spk.toggleSec('phrases');document.getElementById('sec-phrases').scrollIntoView({behavior:'smooth'})">Phrase Bank &#128483;&#65039;</button>
       <button class="btn btn-pink" onclick="location.href=vaultWelcomePage">&#8592; Vault Menu</button>
+    </div>
+  </div>
+
+  <!-- MPM Language Function Feedback -->
+  <div id="fbCard" style="display:none;border:var(--line);border-radius:var(--r2);overflow:hidden;margin-top:14px">
+    <div style="padding:14px 16px;background:var(--ink);color:white;font-family:'Sora';font-size:18px;font-weight:800">&#127919; Language Function Feedback</div>
+    <div id="fbBody" style="padding:14px 16px;background:white"></div>
+  </div>
+
+  <!-- 4-Criteria Round-Up -->
+  <div id="ruCard" style="display:none;border:var(--line);border-radius:var(--r2);overflow:hidden;margin-top:14px">
+    <div style="background:var(--ink);color:white;padding:14px 16px">
+      <p class="tiny" style="color:rgba(255,255,255,.6)">Vault 2 Speaking &#8212; Round-Up</p>
+      <h2 style="margin-top:4px">Your 4 Criteria</h2>
+    </div>
+    <div id="ruGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 16px;background:white"></div>
+    <div id="ruTotal" style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#f8fafc;border-top:2px solid var(--ink)"></div>
+    <div style="padding:14px 16px;background:white;border-top:2px solid var(--ink)">
+      <p style="font-size:12px;font-weight:800;color:var(--muted)">&#128161; This is a practice indicator only. Your lecturer marks you officially.</p>
     </div>
   </div>
 
@@ -492,6 +514,12 @@ const Spk = (() => {
     document.getElementById('tabB').classList.toggle('active', t === 'B');
     document.getElementById('taskTitle').textContent = t === 'A'
       ? 'Task A \u2014 Individual Response' : 'Task B \u2014 Group Discussion';
+    const scTitle = document.getElementById('scTitle');
+    if(scTitle) scTitle.textContent = t==='A' ? 'Task A \u2014 Self-Assessment' : 'Task B \u2014 Self-Assessment';
+    const scA = document.getElementById('scTaskA');
+    const scB = document.getElementById('scTaskB');
+    if(scA) scA.style.display = t==='A'?'block':'none';
+    if(scB) scB.style.display = t==='B'?'block':'none';
     secs = t === 'A' ? 120 : 180;
     stopTimer(); renderTimer(); renderTopics(); changeTopic();
   }
@@ -538,31 +566,106 @@ const Spk = (() => {
     document.getElementById('timerLabel').textContent = task === 'A' ? '2-Minute Prep Timer' : '3-Minute Prep Timer';
   }
 
-  // ── Self-assessment ─────────────────────────────────────────────────
+  // ── Self-assessment (MPM language functions) ───────────────────────
   function updateSelfCheck() {
     setTimeout(() => {
-      const boxes   = ['sc1','sc2','sc3','sc4','sc5'];
-      const checked = boxes.filter(id => document.getElementById(id)?.checked).length;
-      const items   = document.querySelectorAll('.self-check-item');
-      items.forEach(item => {
-        const cb = item.querySelector('input[type=checkbox]');
-        item.classList.toggle('checked', cb?.checked || false);
+      const ids = task==='A'?['scA1','scA2','scA3','scA4','scA5','scA6']:['scB1','scB2','scB3','scB4','scB5','scB6'];
+      const checked = ids.filter(id => document.getElementById(id)?.checked).length;
+      ids.forEach(id => {
+        const label = document.getElementById(id)?.closest('.self-check-item');
+        if(label) label.classList.toggle('checked', document.getElementById(id).checked);
       });
       const el = document.getElementById('selfCheckResult');
       if (el) {
         el.style.display = 'block';
-        el.textContent = checked >= 4
-          ? `\u2705 ${checked}/5 checked \u2014 Ready to submit!`
-          : checked >= 2
-          ? `\u26a1 ${checked}/5 checked \u2014 Review the remaining items before submitting.`
-          : `\u26a0\ufe0f ${checked}/5 checked \u2014 Complete your PREP before submitting.`;
+        el.textContent = checked >= 5
+          ? `\u2705 ${checked}/${ids.length} checked \u2014 Ready to submit!`
+          : checked >= 3
+          ? `\u26a1 ${checked}/${ids.length} checked \u2014 Review the remaining items.`
+          : `\u26a0\ufe0f ${checked}/${ids.length} checked \u2014 Complete your PREP before submitting.`;
       }
     }, 50);
   }
 
+  // ── MPM Language Function Analysis ─────────────────────────────────
+  function analyseFunctions(transcript) {
+    const t = transcript.toLowerCase();
+    if(task === 'A') return [
+      {fn:'Expressing Opinions (P)',
+       pass:/\b(i believe|i think|in my opinion|personally|i strongly feel|i would argue|from my perspective)\b/.test(t),
+       passMsg:'Opinion phrase detected. You stated your stand clearly.',
+       failMsg:'No opinion phrase. Start with: \u201cI believe\u2026\u201d or \u201cIn my opinion\u2026\u201d'},
+      {fn:'Giving Reasons (R)',
+       pass:/\b(because|this is because|the reason is|due to the fact|one major reason|since)\b/.test(t),
+       passMsg:'Reasoning language detected. You explained your point well.',
+       failMsg:'Add a reason: \u201cThis is because\u2026\u201d or \u201cThe reason is\u2026\u201d'},
+      {fn:'Elaborating (E)',
+       pass:/\b(for example|for instance|such as|take .{1,20} as an example|to illustrate|a clear example)\b/.test(t),
+       passMsg:'Example language detected. You elaborated your point well.',
+       failMsg:'Add an example: \u201cFor example\u2026\u201d or \u201cTake Malaysia as an example\u2026\u201d'},
+      {fn:'Justifying',
+       pass:/\b(this shows|this proves|this means that|this demonstrates|which means|therefore|thus)\b/.test(t),
+       passMsg:'Justification language detected. You linked your example back to your argument.',
+       failMsg:'After your example, link it back: \u201cThis shows that\u2026\u201d or \u201cThis means that\u2026\u201d'},
+      {fn:'Concluding / Summarising (P again)',
+       pass:/\b(therefore|thus|hence|in conclusion|to conclude|to summarise|this is why i|i strongly believe)\b/.test(t),
+       passMsg:'Closing language detected. You ended your response clearly.',
+       failMsg:'Close with: \u201cTherefore, I strongly believe that\u2026\u201d or \u201cIn conclusion\u2026\u201d'}
+    ];
+    else return [
+      {fn:'Initiating Discussion',
+       pass:/\b(shall we|let us begin|let\u2019s start|i would like to start|can we discuss)\b/.test(t),
+       passMsg:'You initiated the discussion.',
+       failMsg:'Try to initiate: \u201cShall we begin by looking at\u2026?\u201d'},
+      {fn:'Prompting (Turn-Taking)',
+       pass:/\b(what do you think|do you agree|your thoughts|would you like to add)\b/.test(t)||/[a-z]+,\s+(what|do|did|can|could)\b/.test(t),
+       passMsg:'You prompted other speakers. Good interaction.',
+       failMsg:'Prompt others: \u201cWhat do you think, [name]?\u201d'},
+      {fn:'Expressing Opinions',
+       pass:/\b(i believe|i think|in my opinion|i feel|i would|personally)\b/.test(t),
+       passMsg:'You expressed your opinions clearly.',
+       failMsg:'State your view: \u201cI believe\u2026\u201d or \u201cIn my opinion\u2026\u201d'},
+      {fn:'Negotiating / Evaluating',
+       pass:/\b(however|on the other hand|i see it differently|that is a valid point|i agree but|i disagree because|compared to)\b/.test(t),
+       passMsg:'You negotiated and evaluated ideas. Good group skills.',
+       failMsg:'Negotiate: \u201cThat is a valid point, however\u2026\u201d'},
+      {fn:'Concluding / Reaching Consensus',
+       pass:/\b(as a group|we have decided|we agree|the best option is|to conclude|in conclusion|we chose)\b/.test(t),
+       passMsg:'You helped the group reach a conclusion.',
+       failMsg:'Conclude: \u201cSo as a group, we have decided that\u2026\u201d'}
+    ];
+  }
+
+  // ── 4-Criteria Round-Up ─────────────────────────────────────────────
+  function buildRoundup(transcript, prep, fnResults, scCount) {
+    const t=transcript.toLowerCase();
+    const wc=transcript.split(/\s+/).filter(Boolean).length;
+    const filledPrep=Object.values(prep).filter(v=>v.length>0).length;
+    const fnPassed=fnResults.filter(f=>f.pass).length;
+    const fnTotal=fnResults.length;
+    const tf=Math.min(25,Math.round((filledPrep/4)*10+(fnPassed/fnTotal)*10+(scCount/6)*5));
+    const hasComplex=/\b(although|despite|however|which|that|who|because|if|unless|since|whereas)\b/.test(t);
+    const hasPunct=(t.match(/[,;]/g)||[]).length>=2;
+    const acc=Math.min(25,Math.round(8+(hasComplex?8:0)+(hasPunct?5:0)+Math.min(4,Math.floor(wc/20))));
+    const hasComparison=/\b(more|less|better|worse|rather than|compared to|not only|but also|unlike)\b/.test(t);
+    const hasConditional=/\b(if|unless|should|would|could|might)\b/.test(t);
+    const range=Math.min(25,Math.round(8+(hasComparison?8:0)+(hasConditional?5:0)+Math.min(4,Math.floor(wc/25))));
+    const fillers=(t.match(/\b(erm|uhh|umm|you know|so yeah|like,)\b/g)||[]).length;
+    const fluency=Math.min(25,Math.round(Math.min(20,wc/4)+5-(fillers*2)));
+    return {
+      criteria:[
+        {label:'Task Fulfilment',score:tf,max:25,desc:filledPrep>=3?'PREP plan complete.':'Complete more PREP boxes.',grade:tf>=20?'pass':tf>=12?'mid':'fail'},
+        {label:'Accuracy',score:acc,max:25,desc:hasComplex?'Complex sentences detected.':'Use: although, because, however.',grade:acc>=20?'pass':acc>=12?'mid':'fail'},
+        {label:'Range',score:range,max:25,desc:hasComparison?'Sentence variety detected.':'Add comparisons or conditionals.',grade:range>=20?'pass':range>=12?'mid':'fail'},
+        {label:'Fluency',score:fluency,max:25,desc:fluency>=18?`Word count: ${wc}. Good flow.`:`Word count: ${wc}. Remove fillers.`,grade:fluency>=20?'pass':fluency>=12?'mid':'fail'}
+      ],
+      total:tf+acc+range+fluency
+    };
+  }
+
   // ── Profile helper ──────────────────────────────────────────────────
   function getProfile() {
-    try { return JSON.parse(localStorage.getItem('muet_profile') || '{}'); } catch { return {}; }
+    try { return JSON.parse(localStorage.getItem('smartMuetProfile') || '{}'); } catch { return {}; }
   }
 
   // ── Backend save ────────────────────────────────────────────────────
@@ -586,94 +689,95 @@ const Spk = (() => {
   function submit() {
     const transcript = document.getElementById('transcript').value.trim();
     if (!transcript) { MUET.toast('Please type your transcript or speaking notes before submitting.'); return; }
-
     const prep = {
       point:   document.getElementById('prepP').value.trim(),
       reason:  document.getElementById('prepR').value.trim(),
       example: document.getElementById('prepE').value.trim(),
       close:   document.getElementById('prepClose').value.trim()
     };
-    const filledPrep  = Object.values(prep).filter(v => v.length > 0).length;
-    const wc          = transcript.split(/\s+/).length;
-    const selfChecked = ['sc1','sc2','sc3','sc4','sc5'].filter(id => document.getElementById(id)?.checked).length;
-
-    // Scoring rubric (rule-based)
-    const hasOpinion  = /\b(i think|i believe|in my opinion|personally|i strongly)\b/i.test(transcript);
-    const hasReason   = /\b(because|since|this is because|the reason)\b/i.test(transcript);
-    const hasExample  = /\b(for example|for instance|such as|take .* as an example)\b/i.test(transcript);
-    const hasClose    = /\b(therefore|thus|hence|in conclusion|to conclude|i strongly believe)\b/i.test(transcript);
-
-    const score90 = Math.min(90, Math.round(
-      (filledPrep / 4) * 30 +
-      Math.min(20, wc / 5) +
-      (hasOpinion ? 8 : 0) +
-      (hasReason  ? 8 : 0) +
-      (hasExample ? 8 : 0) +
-      (hasClose   ? 6 : 0) +
-      selfChecked * 2
-    ));
-    const band     = MUET.scoreToBand(score90);
+    const filledPrep = Object.values(prep).filter(v => v.length > 0).length;
+    if(filledPrep < 2){ MUET.toast('Please fill at least 2 PREP boxes before submitting.'); return; }
     const topic    = getTopic();
+    const fnResults = analyseFunctions(transcript);
+    const scIds = task==='A'?['scA1','scA2','scA3','scA4','scA5','scA6']:['scB1','scB2','scB3','scB4','scB5','scB6'];
+    const scCount = scIds.filter(id => document.getElementById(id)?.checked).length;
+    const roundup = buildRoundup(transcript, prep, fnResults, scCount);
+    const score90 = Math.min(90, Math.round(roundup.total * 0.9));
+    const band     = MUET.scoreToBand(score90);
+    const fnPassed = fnResults.filter(f=>f.pass).length;
 
     // Save session
+    const wc = transcript.split(/\s+/).length;
     const session = {
-      vaultId: VAULT_ID, type: task === 'A' ? 'Task A' : 'Task B',
+      vaultId: VAULT_ID, type: task==='A'?'Task A':'Task B',
       topicId: topic.id, topicTitle: topic.title, prompt: topic.prompt,
       score90, score: score90, band, bandLabel: band,
-      prep, transcript, selfChecked,
+      prep, transcript, selfChecked: scCount, fnPassed, roundupTotal: roundup.total,
       date: new Date().toISOString(), xpEarned: 80 + filledPrep * 5
     };
     const sessions = MUET.loadSessions('speaking');
     sessions.push(session);
     MUET.saveSessions('speaking', sessions);
     MUET.awardBadge('first_step');
-    if (task === 'A') MUET.awardBadge('prep_starter');
-    if (task === 'B') MUET.awardBadge('discussion_builder');
+    if(task==='A') MUET.awardBadge('prep_starter');
+    if(task==='B') MUET.awardBadge('discussion_builder');
     MUET.addXP(session.xpEarned);
 
-    const fb       = MUET.feedbackText('speaking', score90);
-    const strength = score90 >= 64
-      ? 'Clear PREP planning and sufficient speaking notes.'
-      : 'You attempted the task and recorded your thinking.';
-    const nextAct  = task === 'A'
-      ? 'Practise Task B interaction: agree, disagree and invite others by name.'
-      : 'Practise closing with a clear group consensus statement.';
-    const badge    = task === 'A' ? 'PREP Starter' : 'Discussion Builder';
+    // Render MPM feedback
+    document.getElementById('fbBody').innerHTML = fnResults.map(fn=>`
+      <div style="display:flex;align-items:flex-start;gap:10px;border:2px solid var(--ink);border-radius:12px;padding:10px;margin-bottom:8px;background:${fn.pass?'#f0fdf4':'#fff7ed'};border-color:${fn.pass?'#16a34a':'#ea580c'}">
+        <div style="font-size:20px;flex-shrink:0">${fn.pass?'&#9989;':'&#9888;&#65039;'}</div>
+        <div>
+          <div style="font-size:11px;font-weight:1000;text-transform:uppercase;color:var(--muted);letter-spacing:.06em">${fn.fn}</div>
+          <div style="font-size:13px;font-weight:800;margin-top:2px;line-height:1.4">${fn.pass?fn.passMsg:fn.failMsg}</div>
+        </div>
+      </div>`).join('');
+    document.getElementById('fbCard').style.display = 'block';
 
-    document.getElementById('resultScore').textContent    = `${score90}/90`;
-    document.getElementById('resultBand').textContent     = `Estimated Band ${band}`;
+    // Render round-up
+    const gradeCss = {pass:'#f0fdf4;border-color:#16a34a', mid:'#fff7ed;border-color:#ea580c', fail:'#fef2f2;border-color:#dc2626'};
+    const gradeColor = {pass:'#16a34a', mid:'#ea580c', fail:'#dc2626'};
+    document.getElementById('ruGrid').innerHTML = roundup.criteria.map(c=>`
+      <div style="border:2px solid var(--ink);border-radius:14px;padding:12px;text-align:center;background:${gradeCss[c.grade]}">
+        <span style="font-family:'Sora';font-size:26px;font-weight:800;display:block;color:${gradeColor[c.grade]}">${c.score}</span>
+        <span style="font-size:11px;font-weight:1000;text-transform:uppercase;color:var(--muted);display:block;margin-top:2px">${c.label}</span>
+        <div style="font-size:11px;font-weight:800;margin-top:6px;line-height:1.4;color:var(--muted)">${c.desc}</div>
+      </div>`).join('');
+    document.getElementById('ruTotal').innerHTML =
+      `<div><b style="font-family:'Sora';font-size:13px">Practice Indicator</b><br><small style="font-weight:800;color:var(--muted)">Indicative only \u2014 lecturer marks officially</small></div>
+       <div style="font-family:'Sora';font-size:28px;font-weight:800;color:var(--blue)">${roundup.total}<small style="font-size:14px">/100</small></div>`;
+    document.getElementById('ruCard').style.display = 'block';
+
+    const fb = MUET.feedbackText('speaking', score90);
+    const strength = score90>=64?'Clear PREP planning and sufficient speaking notes.':'You attempted the task and recorded your thinking.';
+    const nextAct = task==='A'?'Practise Task B: initiate, prompt others by name, negotiate and conclude.':'Practise closing with a clear group consensus statement.';
+    const badge = task==='A'?'PREP Starter':'Discussion Builder';
+
+    document.getElementById('resultScore').textContent = `${score90}/90`;
+    document.getElementById('resultBand').textContent  = `Estimated Band ${band}`;
     document.getElementById('resultStrength').textContent = `\u2705 Strength: ${strength}`;
     document.getElementById('resultImprove').textContent  = `\u26a1 Feedback: ${fb}`;
-    document.getElementById('resultNext').textContent     = `\u{1f3af} Next action: ${nextAct}`;
-    document.getElementById('achieveBadge').textContent   = `\u{1f3c5} Badge Unlocked: ${badge} \u2014 +${session.xpEarned} XP`;
+    document.getElementById('resultNext').textContent     = `\ud83c\udfaf Next: ${nextAct}`;
+    document.getElementById('achieveBadge').textContent   = `\ud83c\udfc5 Badge: ${badge} \u2014 +${session.xpEarned} XP \u2014 ${fnPassed}/${fnResults.length} language functions passed`;
 
     saveToBackend({
-      component:'Speaking', taskType: task === 'A' ? 'Task A' : 'Task B',
+      component:'Speaking', taskType: task==='A'?'Task A':'Task B',
       rawScore: score90, totalItems: 90, score90, estimatedBand: band,
       feedback: fb, nextAction: nextAct, badgeEarned: badge,
-      status:'Rule-based auto-feedback', answerText: transcript,
+      status:'Rule-based auto-feedback v3', answerText: transcript,
       topicId: topic.id, topicTitle: topic.title, prompt: topic.prompt, prep,
-      rubric:{
-        engine:'Rule-based speaking rubric v2',
-        criteria:[
-          {name:'Task Fulfilment', score: filledPrep >= 3 ? 18 : 12, feedback: filledPrep >= 3 ? 'PREP planning mostly complete.' : 'Complete more PREP boxes.'},
-          {name:'Fluency',         score: wc >= 80 ? 18 : wc >= 50 ? 14 : 10, feedback:`Transcript length: ${wc} words.`},
-          {name:'Language',        score: hasReason ? 16 : 12, feedback: hasReason ? 'Reasoning language detected.' : 'Add \u201cbecause\u201d or \u201cthe reason is\u201d.'},
-          {name:'Vocabulary',      score: hasExample ? 15 : 11, feedback: hasExample ? 'Example language detected.' : 'Add \u201cfor example\u201d.'},
-          {name:'Opinion Phrase',  score: hasOpinion ? 15 : 10, feedback: hasOpinion ? 'Opinion phrase detected.' : 'Start with a clear opinion phrase.'}
-        ]
-      }
+      fnPassed, roundupTotal: roundup.total, selfChecked: scCount
     });
 
     document.getElementById('resultCard').classList.add('show');
-    if (score90 >= 74) MUET.toast('Speaking submitted. Excellent \u2014 Band 5 range!');
-    else if (score90 >= 53) MUET.toast('Speaking submitted. Good progress \u2014 keep improving.');
+    if(score90>=74) MUET.toast('Speaking submitted. Excellent \u2014 Band 5 range!');
+    else if(score90>=53) MUET.toast('Speaking submitted. Good progress \u2014 keep improving.');
     else MUET.toast('Speaking submitted. Review the Phrase Bank and try again.');
-    window.scrollTo({ top: document.body.scrollHeight, behavior:'smooth' });
+    window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
     updateVaultProgress();
   }
 
-  return { toggleSec, setTask, changeTopic, toggleTimer, submit, updateSelfCheck };
+  return { toggleSec, setTask, changeTopic, toggleTimer, submit, updateSelfCheck, analyseFunctions, buildRoundup };
 })();
 
 // ── Vault progress display ─────────────────────────────────────────────
@@ -691,6 +795,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!MUET.loadProfile()) { location.href = 'index.html'; return; }
   const barLabel = document.querySelector('.bar-label');
   if (barLabel) barLabel.textContent = VAULT_TITLE + ' \u00b7 Speaking';
+  Spk.toggleSec('tips');
   Spk.setTask('A');
   updateVaultProgress();
 });
