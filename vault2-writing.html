@@ -50,14 +50,6 @@
     .guide-secondary-row .practice-guide-btn{background:#fff!important;color:#111!important}
     .guide-secondary-row .vault-menu-btn{background:#f65ab8!important;color:#111!important}
 
-    /* ── Planning box PEEL / note badges ── */
-    .plan-letter{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:2px solid var(--ink);border-radius:6px;font-weight:1000;font-size:12px;margin-right:6px;vertical-align:middle}
-    .plan-letter.p1{background:#2563eb;color:#fff}
-    .plan-letter.e1{background:#ff8a00}
-    .plan-letter.e2{background:#00ff00}
-    .plan-letter.l1{background:#f65ab8}
-    .plan-note-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:2px solid var(--ink);border-radius:999px;background:#ffc400;font-weight:1000;font-size:11px;margin-right:6px;vertical-align:middle}
-
   </style>
 </head>
 <body>
@@ -113,16 +105,6 @@
         <p id="wrtCoach"></p>
       </div>
 
-      <!-- PLANNING BOX (task-aware — filled in by Wrt.renderPlanningBox) -->
-      <div style="background:#fff7cc;border:var(--line);box-shadow:var(--shadow);border-radius:var(--r2);padding:18px;margin-bottom:16px">
-        <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px">&#128196; PLANNING BOX &mdash; Plan before you write</div>
-        <p id="planningIntro" style="font-size:13px;font-weight:800;margin-bottom:10px">Spend 3&ndash;5 minutes here. Students who plan write clearer, more focused answers.</p>
-        <div id="planningFields" style="display:grid;gap:8px"></div>
-        <div style="background:var(--yellow);border:2px solid var(--ink);border-radius:12px;padding:8px 12px;margin-top:10px;font-size:12px;font-weight:1000">
-          &#9888;&#65039; Planning box is for your notes only &mdash; it is NOT submitted. Write your full answer in the box below.
-        </div>
-      </div>
-
       <!-- Answer box -->
       <div class="card">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -135,6 +117,21 @@
         <p style="font-size:13px;font-weight:800;color:var(--muted);margin-bottom:10px" id="wcGuide">Task 1: minimum 100 words required</p>
         <textarea id="answerBox" rows="10" placeholder="Begin writing your response here..." oninput="Wrt.countWords()"></textarea>
       </div>      <!-- Rubric -->
+
+      <!-- PLANNING BOX -->
+      <div style="background:#fff7cc;border:var(--line);box-shadow:var(--shadow);border-radius:var(--r2);padding:18px;margin-bottom:16px">
+        <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px">&#128196; PLANNING BOX &mdash; Plan before you write</div>
+        <p style="font-size:13px;font-weight:800;margin-bottom:10px">Spend 3&ndash;5 minutes here. Students who plan write clearer, more focused answers.</p>
+        <div style="display:grid;gap:8px">
+          <label style="font-size:12px;font-weight:900">My main stand / purpose:<textarea id="planStand" rows="2" style="margin-top:4px" placeholder="e.g. I agree that young adults lack survival skills because..."></textarea></label>
+          <label style="font-size:12px;font-weight:900">Body point 1 (with example):<textarea id="planP1" rows="2" style="margin-top:4px" placeholder="e.g. Lack practical skills → parents handle cooking, finances..."></textarea></label>
+          <label style="font-size:12px;font-weight:900">Body point 2 (with example):<textarea id="planP2" rows="2" style="margin-top:4px" placeholder="e.g. However, young adults have digital survival skills..."></textarea></label>
+          <label style="font-size:12px;font-weight:900">Conclusion idea:<textarea id="planConc" rows="2" style="margin-top:4px" placeholder="e.g. Balance needed — build practical and digital skills..."></textarea></label>
+        </div>
+        <div style="background:var(--yellow);border:2px solid var(--ink);border-radius:12px;padding:8px 12px;margin-top:10px;font-size:12px;font-weight:1000">
+          &#9888;&#65039; Planning box is for your notes only &mdash; it is NOT submitted. Write your full answer in the box below.
+        </div>
+      </div>
 
       <!-- USEFUL LANGUAGE BANK -->
       <div style="background:var(--ink);border:var(--line);box-shadow:var(--shadow);border-radius:var(--r2);padding:18px;margin-bottom:16px">
@@ -269,37 +266,7 @@ const Wrt = (() => {
     if (pBulls) pBulls.innerHTML   = (td.bullets || []).map(b => `<div style="margin-bottom:4px">${b || '&nbsp;'}</div>`).join('');
     if (coach)  coach.textContent  = td.coach;
     if (wcG)    wcG.textContent    = td.wcGuide;
-    renderPlanningBox(t, td);
     countWords();
-  }
-
-  // ── Planning box: tailored per task type ─────────────────────────────
-  // Task 1 (email/letter) — one small note field per required response point,
-  // pulled straight from this task's own bullet notes so planning matches
-  // exactly what the email/letter asks for.
-  // Task 2 (essay) — explicit PEEL fields (Point, Explain, Evidence, Link).
-  function renderPlanningBox(t, td) {
-    const intro  = document.getElementById('planningIntro');
-    const fields = document.getElementById('planningFields');
-    if (!fields) return;
-
-    if (t === 'T1') {
-      if (intro) intro.textContent = 'Spend 3–5 minutes here. Jot a quick note for each point your reply must cover — taken directly from the notes above.';
-      const notes = (td.bullets || []).filter(b => b.trim().startsWith('✅'));
-      fields.innerHTML = notes.length
-        ? notes.map((b, i) => {
-            const clean = b.replace(/^✅\s*/, '').replace(/"/g, '&quot;');
-            return `<label style="font-size:12px;font-weight:900"><span class="plan-note-num">${i + 1}</span>${clean}<textarea id="planNote${i}" rows="2" style="margin-top:4px" placeholder="Jot a short note for this point..."></textarea></label>`;
-          }).join('')
-        : `<label style="font-size:12px;font-weight:900">Key points to cover:<textarea id="planNote0" rows="3" style="margin-top:4px" placeholder="List the points your reply must cover..."></textarea></label>`;
-    } else {
-      if (intro) intro.textContent = 'Spend 3–5 minutes here. Plan your essay using PEEL — Point → Explain → Evidence → Link.';
-      fields.innerHTML = `
-        <label style="font-size:12px;font-weight:900"><span class="plan-letter p1">P</span>Point — your stand / thesis:<textarea id="planStand" rows="2" style="margin-top:4px" placeholder="e.g. I agree that young adults lack survival skills because..."></textarea></label>
-        <label style="font-size:12px;font-weight:900"><span class="plan-letter e1">E</span>Explain — your main reasoning:<textarea id="planP1" rows="2" style="margin-top:4px" placeholder="e.g. Parents and services often handle daily tasks for them, so..."></textarea></label>
-        <label style="font-size:12px;font-weight:900"><span class="plan-letter e2">E</span>Evidence — a specific example:<textarea id="planP2" rows="2" style="margin-top:4px" placeholder="e.g. Many young adults are highly skilled in digital tools and adapt quickly..."></textarea></label>
-        <label style="font-size:12px;font-weight:900"><span class="plan-letter l1">L</span>Link — tie back to the question:<textarea id="planConc" rows="2" style="margin-top:4px" placeholder="e.g. Balance needed — build practical and digital skills together..."></textarea></label>`;
-    }
   }
 
   function t1Tips() {
