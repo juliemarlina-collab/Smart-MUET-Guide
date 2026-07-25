@@ -8,10 +8,11 @@ body {
   font-family:'DM Sans',sans-serif;
   background:var(--paper);
   color:var(--ink);
-  line-height:1.5;
+  line-height:1.6;
   -webkit-font-smoothing:antialiased;
   -webkit-tap-highlight-color:transparent;
-  overflow-x:hidden
+  overflow-x:hidden;
+  font-size:15px
 }
 
 html, body { width:100%; height:100% }
@@ -37,7 +38,7 @@ main.app-shell {
 
 @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 
-/* ── Brand bar ── */
+/* ─── Brand bar ─── */
 .brand-bar {
   display:flex;
   align-items:center;
@@ -58,8 +59,8 @@ main.app-shell {
 
 .brand-bar .bar-title {
   font-family:'Sora';
-  font-weight:800;
-  font-size:18px;
+  font-weight:900;
+  font-size:20px;
   line-height:1.1
 }
 
@@ -80,7 +81,7 @@ main.app-shell {
 
 .icon-btn:active { transform:translate(1px, 1px); box-shadow:1px 1px 0 var(--ink) }
 
-/* ── Cards ── */
+/* ─── Cards ─── */
 .card {
   background:white;
   border:var(--line);
@@ -92,22 +93,27 @@ main.app-shell {
 
 .card h2 {
   font-family:'Sora';
-  font-size:18px;
-  font-weight:800;
+  font-size:20px;
+  font-weight:900;
   margin-bottom:8px
 }
 
 .card h3 {
   font-family:'Sora';
-  font-size:16px;
-  font-weight:800;
+  font-size:18px;
+  font-weight:900;
   margin-bottom:6px
 }
 
 .card p {
-  font-size:14px;
-  font-weight:800;
+  font-size:15px;
+  font-weight:900;
   line-height:1.6
+}
+
+.card b, .card strong {
+  font-weight:1000;
+  font-size:inherit
 }
 
 .card.blue {
@@ -117,6 +123,10 @@ main.app-shell {
   box-shadow:4px 4px 0 rgba(7,87,255,.3)
 }
 
+.card.blue h2, .card.blue h3 {
+  color:white
+}
+
 .card.yellow {
   background:var(--yellow);
   color:var(--ink);
@@ -124,7 +134,7 @@ main.app-shell {
   box-shadow:4px 4px 0 rgba(254,240,138,.5)
 }
 
-/* ── Form ── */
+/* ─── Form ─── */
 .form {
   display:grid;
   gap:12px
@@ -134,7 +144,7 @@ main.app-shell {
   display:flex;
   flex-direction:column;
   gap:6px;
-  font-weight:900;
+  font-weight:1000;
   font-size:14px
 }
 
@@ -145,8 +155,8 @@ main.app-shell {
   border-radius:14px;
   padding:12px 14px;
   font-family:inherit;
-  font-size:14px;
-  font-weight:800;
+  font-size:15px;
+  font-weight:900;
   background:white;
   color:var(--ink)
 }
@@ -164,13 +174,13 @@ main.app-shell {
   min-height:100px
 }
 
-/* ── Buttons ── */
+/* ─── Buttons ─── */
 .btn {
   border:var(--line);
   border-radius:14px;
   padding:12px 16px;
   font-family:inherit;
-  font-size:13px;
+  font-size:14px;
   font-weight:1000;
   cursor:pointer;
   display:inline-flex;
@@ -225,7 +235,7 @@ main.app-shell {
   width:100%
 }
 
-/* ── Coach notes ── */
+/* ─── Coach notes ─── */
 .coach-note {
   border:var(--line);
   border-radius:16px;
@@ -264,13 +274,13 @@ main.app-shell {
 }
 
 .coach-note p {
-  font-size:13px;
-  font-weight:800;
+  font-size:14px;
+  font-weight:900;
   margin:0;
-  line-height:1.5
+  line-height:1.6
 }
 
-/* ── Instruction cards ── */
+/* ─── Instruction cards ─── */
 .instr-card {
   border:var(--line);
   border-radius:16px;
@@ -280,8 +290,8 @@ main.app-shell {
 
 .instr-card h2 {
   font-family:'Sora';
-  font-size:16px;
-  font-weight:800;
+  font-size:18px;
+  font-weight:900;
   margin-bottom:10px
 }
 
@@ -292,9 +302,9 @@ main.app-shell {
 }
 
 .instr-card li {
-  font-size:13px;
-  font-weight:800;
-  line-height:1.5
+  font-size:14px;
+  font-weight:900;
+  line-height:1.6
 }
 
 .instr-card.green {
@@ -312,14 +322,14 @@ main.app-shell {
   border-color:#3b82f6
 }
 
-/* ── Sample box ── */
+/* ─── Sample box ─── */
 .sample-box {
   background:#f0f9ff;
   border:2px solid var(--ink);
   border-radius:14px;
   padding:12px;
-  font-size:13px;
-  font-weight:800;
+  font-size:14px;
+  font-weight:900;
   line-height:1.6
 }
 
@@ -335,7 +345,7 @@ main.app-shell {
   width:fit-content
 }
 
-/* ── PREP Grid ── */
+/* ─── PREP Grid ─── */
 .prep-grid {
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -363,12 +373,12 @@ main.app-shell {
   border:var(--line);
   border-radius:10px;
   padding:10px;
-  font-size:12px;
-  font-weight:800;
+  font-size:13px;
+  font-weight:900;
   resize:vertical
 }
 
-/* ── Timer card ── */
+/* ─── Timer card ─── */
 .timer-card {
   border:var(--line);
   border-radius:var(--r2);
@@ -389,7 +399,7 @@ main.app-shell {
   color:white
 }
 
-/* ── Row helpers ── */
+/* ─── Row helpers ─── */
 .btn-row {
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
@@ -421,13 +431,14 @@ main.app-shell {
 
 .stat-card b {
   font-family:'Sora';
-  font-size:18px;
-  display:block
+  font-size:22px;
+  display:block;
+  font-weight:1000
 }
 
 .stat-card small {
   font-size:11px;
-  font-weight:900;
+  font-weight:1000;
   color:var(--muted)
 }
 
@@ -455,7 +466,7 @@ main.app-shell {
   border:none
 }
 
-/* ── Tiny text ── */
+/* ─── Tiny text ─── */
 .tiny {
   font-size:11px;
   font-weight:1000;
@@ -465,7 +476,7 @@ main.app-shell {
   margin:0
 }
 
-/* ── Progress bar ── */
+/* ─── Progress bar ─── */
 .prog-bar {
   width:100%;
   height:10px;
@@ -482,7 +493,7 @@ main.app-shell {
   transition:width .3s
 }
 
-/* ── Responsive ── */
+/* ─── Responsive ─── */
 @media (max-width:600px) {
   .screen { padding:14px; padding-bottom:90px }
   .prep-grid { grid-template-columns:1fr }
