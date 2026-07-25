@@ -1,17 +1,14 @@
 /* =================================================
    MUET SmartHub — vault-hero.js
-   Blueprint v3.4 — dynamic vault hero renderer
-   Reads activeVault from localStorage so it works
-   for the Starter Vault (VAULT-00) and every Vault
-   in VAULT_HERO_CONFIG below. Add a new vault by
-   adding one entry to the config — no other code
-   changes needed.
+   Blueprint v3.5 — SVG NAMING FIX
+   Renamed vault files to remove spaces from paths
 ================================================= */
 
-// Fix v3.4: Vault 1's hero image previously pointed at a .png file that does
-// not exist in the repo (only the .svg does), so it silently failed via
-// onerror and never rendered. Also generalised so every vault gets its own
-// title/subtitle/image instead of always showing "Vault 1 Guided Journey".
+// IMPORTANT: SVG files have been renamed to remove spaces:
+// OLD: vault 02-hero.svg → NEW: vault-02-hero.svg
+// OLD: mock exam 01-hero.svg → NEW: mock-exam-01-hero.svg
+// This prevents loading errors and improves compatibility
+
 const VAULT_HERO_CONFIG = {
   'VAULT-00': {
     label: 'Starter Vault · Sample Practice',
@@ -29,43 +26,43 @@ const VAULT_HERO_CONFIG = {
     label: 'Foundation Practice Set 2',
     title: 'Vault 2 Guided Journey',
     subtitle: 'Keep building your MUET skills with a fresh set of guided practice across all four tested components.',
-    image: 'assets/heroes/vault 02-hero.svg'
+    image: 'assets/heroes/vault-02-hero.svg'  // ← FIXED: was "vault 02-hero.svg"
   },
   'VAULT-03': {
     label: 'Foundation Practice Set 3',
     title: 'Vault 3 Guided Journey',
     subtitle: 'Keep building your MUET skills with a fresh set of guided practice across all four tested components.',
-    image: 'assets/heroes/vault 03-hero.svg'
+    image: 'assets/heroes/vault-03-hero.svg'  // ← FIXED: was "vault 03-hero.svg"
   },
   'VAULT-04': {
     label: 'Foundation Practice Set 4',
     title: 'Vault 4 Guided Journey',
     subtitle: 'Keep building your MUET skills with a fresh set of guided practice across all four tested components.',
-    image: 'assets/heroes/vault 04-hero.svg'
+    image: 'assets/heroes/vault-04-hero.svg'  // ← FIXED: was "vault 04-hero.svg"
   },
   'VAULT-05': {
     label: 'Foundation Practice Set 5',
     title: 'Vault 5 Guided Journey',
     subtitle: 'Keep building your MUET skills with a fresh set of guided practice across all four tested components.',
-    image: 'assets/heroes/vault 05- hero.svg'
+    image: 'assets/heroes/vault-05-hero.svg'  // ← FIXED: was "vault 05- hero.svg"
   },
   'VAULT-06': {
     label: 'Foundation Practice Set 6',
     title: 'Vault 6 Guided Journey',
     subtitle: 'Keep building your MUET skills with a fresh set of guided practice across all four tested components.',
-    image: 'assets/heroes/vault 06-hero.svg'
+    image: 'assets/heroes/vault-06-hero.svg'
   },
   'MOCK-01': {
     label: 'Full Mock Exam 1',
     title: 'Mock Exam 1',
     subtitle: 'A full, timed simulation of all four MUET components.',
-    image: 'assets/heroes/mock exam 01-hero.svg'
+    image: 'assets/heroes/mock-exam-01-hero.svg'  // ← FIXED: was "mock exam 01-hero.svg"
   },
   'MOCK-02': {
     label: 'Full Mock Exam 2',
     title: 'Mock Exam 2',
     subtitle: 'A full, timed simulation of all four MUET components.',
-    image: 'assets/heroes/mock exam 02-hero.svg'
+    image: 'assets/heroes/mock-exam-02-hero.svg'  // ← FIXED: was "mock exam 02-hero.svg"
   }
 };
 
@@ -115,7 +112,8 @@ document.addEventListener('DOMContentLoaded', function () {
           src="${image}"
           alt="${title} hero image"
           class="vault-hero-image"
-          onerror="this.style.display='none'"
+          loading="lazy"
+          onerror="this.closest('.vault-hero-card').style.background='linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%)'; this.style.display='none'"
         >
         <div class="vault-hero-caption">
           <div class="vault-hero-label">${label}</div>
@@ -140,7 +138,14 @@ document.addEventListener('DOMContentLoaded', function () {
       try {
         const prog = MUET.vaultProgress(vaultId);
         const chip = document.getElementById('heroProgressChip');
-        if (chip) chip.textContent = prog.count === 4 ? '✅ All 4 Components Done' : `🏆 ${prog.count} / 4 Completed`;
+        if (chip) {
+          // Animate the update
+          chip.style.animation = 'none';
+          setTimeout(() => {
+            chip.textContent = prog.count === 4 ? '✅ All 4 Components Done' : `🏆 ${prog.count} / 4 Completed`;
+            chip.style.animation = 'progressPulse 2s ease-in-out';
+          }, 10);
+        }
       } catch (_) {}
     };
   }
