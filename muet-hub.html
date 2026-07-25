@@ -213,18 +213,88 @@
         <button class="hamb">⚙️</button>
       </div>
 
+      <!-- 🎨 NEW: PROFILE HERO SECTION -->
+      <div class="profile-hero-section">
+        <div class="profile-hero-card">
+          <!-- Profile Photo -->
+          <div class="profile-photo-display">
+            <img id="profileHeroPhoto" 
+                 src="assets/heroes/profile-hero.svg" 
+                 alt="Profile photo" 
+                 class="profile-avatar"
+                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2240%22 r=%2230%22 fill=%22%23ccc%22/%3E%3Cellipse cx=%2250%22 cy=%2275%22 rx=%2240%22 ry=%2225%22 fill=%22%23ccc%22/%3E%3C/svg%3E'">
+            <div class="photo-upload-badge">📷</div>
+          </div>
+
+          <!-- Profile Info -->
+          <div class="profile-hero-info">
+            <h2 id="profileHeroName">Student Name</h2>
+            <div class="profile-quick-stats">
+              <div class="stat-item target">
+                <span class="label">Target</span>
+                <span class="value" id="profileHeroTarget">Band 4.0</span>
+              </div>
+              <div class="stat-item current">
+                <span class="label">Current</span>
+                <span class="value" id="profileHeroCurrent">Band 0.0</span>
+              </div>
+            </div>
+            <div class="profile-engagement-stats">
+              <span class="engagement-stat">
+                <span class="emoji">🔥</span>
+                <span class="text"><span id="profileHeroStreak">0</span>-day streak</span>
+              </span>
+              <span class="engagement-stat">
+                <span class="emoji">⭐</span>
+                <span class="text"><span id="profileHeroXP">0</span> XP</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Student Profile Form -->
       <div class="neo-panel">
         <h2>Student Profile</h2>
         <form id="editForm" class="form">
+          
           <label>Full Name
             <input id="editName"/>
           </label>
+
+          <!-- 🎨 NEW: Photo Upload Section -->
+          <label>Profile Photo
+            <div class="photo-upload-section">
+              <div class="current-photo-preview">
+                <img id="editPhotoPreview" 
+                     src="assets/heroes/profile-hero.svg" 
+                     alt="Profile preview"
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2240%22 r=%2230%22 fill=%22%23e0e0e0%22/%3E%3Cellipse cx=%2250%22 cy=%2275%22 rx=%2240%22 ry=%2225%22 fill=%22%23e0e0e0%22/%3E%3C/svg%3E'">
+              </div>
+              <div class="photo-upload-buttons">
+                <button type="button" class="photo-btn upload-btn" onclick="document.getElementById('photoInput').click()">
+                  📱 Upload Photo
+                </button>
+                <button type="button" class="photo-btn camera-btn" onclick="MuetNeo.requestCameraPhoto()">
+                  📷 Take Selfie
+                </button>
+              </div>
+              <input type="file" 
+                     id="photoInput" 
+                     accept="image/*" 
+                     style="display:none" 
+                     onchange="MuetNeo.handlePhotoUpload(event)">
+            </div>
+          </label>
+
           <label>Student No.
             <input id="editRegNo"/>
           </label>
+
           <label>Class / Group
             <input id="editGroup"/>
           </label>
+
           <label>Target Band
             <select id="editTarget">
               <option value="3.5">Band 3.5</option>
@@ -234,6 +304,7 @@
               <option value="5+">Band 5+</option>
             </select>
           </label>
+
           <button class="neo-btn yellow" type="submit">Save Profile</button>
           <button class="neo-btn pink" type="button" onclick="MuetNeo.resetAll()">Reset App</button>
         </form>
