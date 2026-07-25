@@ -547,7 +547,7 @@ const Spk = (() => {
 
   // ── Profile helper ──────────────────────────────────────────────────
   function getProfile() {
-    try { return JSON.parse(localStorage.getItem('smartMuetProfile') || '{}'); } catch { return {}; }
+    try { return JSON.parse(localStorage.getItem('muet_profile') || '{}'); } catch { return {}; }
   }
 
   // ── Backend save ────────────────────────────────────────────────────
