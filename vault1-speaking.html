@@ -6,24 +6,26 @@
   <title>Speaking · Vault 1 · Smart MUET Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/muet-guide.css?v=2"/>
+  <link rel="stylesheet" href="css/muet-guide.css"/>
   <style>
     /* ── Component colours ── */
     .spk-hero{background:var(--blue);color:white}
     .spk-hero p{font-weight:800;color:rgba(255,255,255,.85)}
 
-    /* ── Candidate tabs ── */
-    .candidate-tabs{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:14px}
-    .candidate-tab{border:var(--line);box-shadow:3px 3px 0 var(--ink);border-radius:14px;background:white;padding:11px;font-weight:1000;cursor:pointer;transition:.1s;text-align:center;font-size:13px}
-    .candidate-tab.active{background:var(--yellow)}
+    /* ── Task tabs ── */
+    .task-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+    .task-tab{border:var(--line);box-shadow:3px 3px 0 var(--ink);border-radius:14px;background:white;padding:11px;font-weight:1000;cursor:pointer;transition:.1s}
+    .task-tab.active{background:var(--yellow)}
 
     /* ── PREP boxes ── */
     .prep-grid{display:grid;gap:10px}
     .prep-box{background:white;border:var(--line);border-radius:16px;padding:12px;box-shadow:var(--shadow-sm)}
     .prep-box h3{font-size:14px;margin-bottom:6px}
-    .prep-box textarea{width:100%;border:2px solid var(--ink);border-radius:12px;padding:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:800;resize:none;height:80px}
-    .prep-box textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
     .prep-letter{display:inline-block;width:32px;height:32px;border:2px solid var(--ink);border-radius:8px;text-align:center;line-height:32px;font-weight:1000;font-size:18px;margin-right:6px}
+
+    /* ── Sample answer panel ── */
+    .sample-panel{display:none;background:#fff7cc;border:var(--line);border-radius:22px;box-shadow:var(--shadow);padding:16px;margin:14px 0}
+    .sample-panel.show{display:block}
 
     /* ── Strategy steps (PREP visual) ── */
     .strategy-steps{display:grid;gap:10px}
@@ -37,17 +39,18 @@
     .phrase-label{font-size:10px;font-weight:1000;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px}
     .phrase-text{font-size:13px;font-weight:800;color:white;line-height:1.6}
 
-    /* ── Timer ── */
-    .timer-card{border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);border-radius:16px;padding:16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-    .timer-card.yellow{background:var(--yellow)}
-    .timer-big{font-family:'Sora';font-size:48px;font-weight:800;color:var(--ink)}
-    .timer-card p{margin:0;font-size:11px;font-weight:1000;text-transform:uppercase;color:var(--muted);letter-spacing:.08em}
+    /* ── Self-assessment checklist ── */
+    .self-check-item{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;border:2px solid var(--ink);border-radius:13px;background:white;padding:12px;font-weight:900;cursor:pointer;margin-bottom:8px;transition:.15s}
+    .self-check-item:hover{background:#fefce8}
+    .self-check-item.checked{background:#dcfce7;border-color:#16a34a}
+    .self-check-item input{width:20px;height:20px;margin-top:1px;flex-shrink:0;accent-color:#16a34a}
 
-    /* ── Coach note ── */
-    .coach-note{border:3px solid var(--ink);border-radius:16px;padding:14px;box-shadow:4px 4px 0 var(--ink);margin-bottom:14px}
-    .coach-note.pink{background:#fce7f3}
-    .coach-note .tag{display:inline-block;background:var(--pink);color:var(--ink);border:2px solid var(--ink);border-radius:8px;padding:4px 10px;font-size:10px;font-weight:1000;margin-bottom:8px}
-    .coach-note p{margin:8px 0 0;font-size:13px;font-weight:800;line-height:1.5}
+    /* ── Action buttons ── */
+    .guide-action-stack{display:grid;gap:12px;margin-top:14px}
+    .guide-secondary-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .btn.btn-yellow{background:var(--yellow)!important;color:var(--ink)!important}
+    .btn.btn-white{background:white!important;color:var(--ink)!important}
+    .btn.btn-pink{background:var(--pink)!important;color:var(--ink)!important}
 
     /* ── Expandable section toggle ── */
     .section-toggle{background:var(--paper);border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
@@ -58,22 +61,10 @@
     .toggle-num{width:34px;height:34px;border:var(--line);border-radius:50%;background:var(--yellow);display:grid;place-items:center;font-weight:1000;font-size:15px;flex-shrink:0}
     .toggle-chev{margin-left:auto;font-size:16px;transition:.15s}
 
-    /* ── Candidate card ── */
-    .candidate-card{display:none}
-    .candidate-card.active{display:block}
-
-    /* ── Action buttons ── */
-    .guide-action-stack{display:grid;gap:12px;margin-top:14px}
-    .btn{border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);border-radius:12px;padding:12px;font-weight:1000;cursor:pointer;transition:.15s}
-    .btn:hover{transform:translateY(-2px)}
-    .btn.yellow{background:var(--yellow);color:var(--ink)}
-
-    /* ── Responsive ── */
+    /* ── Responsive: tablet+ ── */
     @media(min-width:640px){
       .prep-grid{grid-template-columns:1fr 1fr}
-    }
-    @media(max-width:639px){
-      .candidate-tabs{grid-template-columns:1fr 1fr}
+      .guide-secondary-row{grid-template-columns:1fr 1fr}
     }
     @media(min-width:1024px){
       .strategy-steps{grid-template-columns:1fr 1fr}
@@ -91,7 +82,7 @@
       <div class="bar-label">Vault 1 &middot; Component 1 of 4</div>
       <div class="bar-title">SmartSpeaking</div>
     </div>
-    <button class="icon-btn">🎤</button>
+    <button class="icon-btn">&#127908;</button>
   </div>
 
   <!-- Vault progress bar -->
@@ -105,13 +96,13 @@
 
   <!-- Hero -->
   <div class="card spk-hero">
-    <p class="tiny" style="color:rgba(255,255,255,.7)">Speaking 800/2 &middot; 90 marks &middot; Part 1 &middot; Vault 1</p>
+    <p class="tiny" style="color:rgba(255,255,255,.7)">Speaking 800/2 &middot; 90 marks &middot; 25% of MUET &middot; Vault 1</p>
     <h1 style="margin-top:6px">Speak with structure.</h1>
-    <p style="margin-top:8px">Use PREP for Task A: Point, Reason, Example, Point Again.</p>
+    <p style="margin-top:8px">Use PREP for Task A. Use interaction phrases for Task B.</p>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px">
       <div style="background:rgba(255,255,255,.15);border-radius:12px;padding:10px;text-align:center">
-        <div style="font-family:'Sora';font-size:22px;font-weight:800">4</div>
-        <div style="font-size:10px;font-weight:900;color:rgba(255,255,255,.7)">CANDIDATES</div>
+        <div style="font-family:'Sora';font-size:22px;font-weight:800">2</div>
+        <div style="font-size:10px;font-weight:900;color:rgba(255,255,255,.7)">TASKS</div>
       </div>
       <div style="background:rgba(255,255,255,.15);border-radius:12px;padding:10px;text-align:center">
         <div style="font-family:'Sora';font-size:22px;font-weight:800">90</div>
@@ -132,52 +123,86 @@
     </div>
     <div class="section-toggle-body" id="body-before">
       <div style="display:grid;gap:12px;padding-top:4px">
+        <!-- Task A -->
         <div style="background:#dbeafe;border:3px solid var(--ink);border-radius:18px;padding:14px;box-shadow:4px 4px 0 var(--ink)">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-            <div style="background:var(--blue);color:white;border:2px solid var(--ink);border-radius:999px;padding:4px 14px;font-weight:1000;font-size:12px">TASK</div>
-            <div style="font-weight:1000;font-size:13px">Individual Presentation</div>
+            <div style="background:var(--blue);color:white;border:2px solid var(--ink);border-radius:999px;padding:4px 14px;font-weight:1000;font-size:12px">TASK A</div>
+            <div style="font-weight:1000;font-size:13px">Individual Response</div>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
             <div style="background:white;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center">
-              <div style="font-size:22px">🎤</div>
+              <div style="font-size:22px">&#127908;</div>
               <div style="font-size:11px;font-weight:1000;margin-top:4px">Alone</div>
               <div style="font-size:10px;color:var(--muted);font-weight:800">Individual</div>
             </div>
             <div style="background:white;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center">
-              <div style="font-size:22px">⏱️</div>
+              <div style="font-size:22px">&#9201;&#65039;</div>
               <div style="font-size:11px;font-weight:1000;margin-top:4px">~2 min</div>
-              <div style="font-size:10px;color:var(--muted);font-weight:800">2 prep + 2 speak</div>
+              <div style="font-size:10px;color:var(--muted);font-weight:800">1 prep + 1&ndash;2 speak</div>
             </div>
           </div>
           <div style="background:var(--blue);color:white;border-radius:10px;padding:8px 12px;margin-top:10px;font-size:12px;font-weight:900">
-            💡 Use <b>PREP</b> &mdash; Point &middot; Reason &middot; Example &middot; Point again
+            &#128161; Use <b>PREP</b> &mdash; Point &middot; Reason &middot; Example &middot; Point again
           </div>
         </div>
-        <div style="background:var(--yellow);border:var(--line);border-radius:14px;padding:12px 14px;font-weight:1000;font-size:13px">
-          📋 <b>Situation:</b> Students prepare for exams in different ways. What are some of the ways?
+        <!-- Task B -->
+        <div style="background:#fce7f3;border:3px solid var(--ink);border-radius:18px;padding:14px;box-shadow:4px 4px 0 var(--ink)">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <div style="background:#db2777;color:white;border:2px solid var(--ink);border-radius:999px;padding:4px 14px;font-weight:1000;font-size:12px">TASK B</div>
+            <div style="font-weight:1000;font-size:13px">Group Discussion</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div style="background:white;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center">
+              <div style="font-size:22px">&#128101;</div>
+              <div style="font-size:11px;font-weight:1000;margin-top:4px">3&ndash;4 people</div>
+              <div style="font-size:10px;color:var(--muted);font-weight:800">Group</div>
+            </div>
+            <div style="background:white;border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center">
+              <div style="font-size:22px">&#9201;&#65039;</div>
+              <div style="font-size:11px;font-weight:1000;margin-top:4px">10 min</div>
+              <div style="font-size:10px;color:var(--muted);font-weight:800">Reach consensus</div>
+            </div>
+          </div>
+          <div style="background:#db2777;color:white;border-radius:10px;padding:8px 12px;margin-top:10px;font-size:12px;font-weight:900">
+            &#128161; Discuss, don&apos;t lecture. Refer to others by name at least twice.
+          </div>
+        </div>
+        <!-- Marking criteria -->
+        <div style="background:#f0fdf4;border:3px solid var(--ink);border-radius:18px;padding:14px;box-shadow:4px 4px 0 var(--ink)">
+          <div style="font-size:12px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px">&#128202; How You Are Marked</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div style="background:white;border:2px solid var(--ink);border-radius:10px;padding:8px 10px;font-size:12px;font-weight:900;text-align:center">&#9989; Task Fulfilment</div>
+            <div style="background:white;border:2px solid var(--ink);border-radius:10px;padding:8px 10px;font-size:12px;font-weight:900;text-align:center">&#128161; Idea Development</div>
+            <div style="background:white;border:2px solid var(--ink);border-radius:10px;padding:8px 10px;font-size:12px;font-weight:900;text-align:center">&#128221; Language Control</div>
+            <div style="background:white;border:2px solid var(--ink);border-radius:10px;padding:8px 10px;font-size:12px;font-weight:900;text-align:center">&#128483;&#65039; Fluency</div>
+          </div>
+          <div style="background:#b8ff36;border:2px solid var(--ink);border-radius:10px;padding:8px 12px;margin-top:10px;font-size:13px;font-weight:1000;text-align:center">
+            Task A: 45 marks &nbsp;+&nbsp; Task B: 45 marks = <span style="font-size:16px">90 total</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ══ PART 2: UNDERSTAND PREP ════════════════════════════════════ -->
-  <div class="section-toggle" id="sec-prep">
-    <div class="section-toggle-head" onclick="Spk.toggleSec('prep')">
+  <!-- ══ PART 2: TIPS & TRICKS ══════════════════════════════════════ -->
+  <div class="section-toggle" id="sec-tips">
+    <div class="section-toggle-head" onclick="Spk.toggleSec('tips')">
       <div class="toggle-num" style="background:var(--orange)">2</div>
       <div>
-        <div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">Understand PREP</div>
-        <div style="font-size:15px;font-weight:1000">How to Structure Your Answer</div>
+        <div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">Tips &amp; Tricks</div>
+        <div style="font-size:15px;font-weight:1000">PREP Strategy Before You Practise</div>
       </div>
-      <div class="toggle-chev" id="chev-prep">&#9660;</div>
+      <div class="toggle-chev" id="chev-tips">&#9660;</div>
     </div>
-    <div class="section-toggle-body" id="body-prep">
-      <div style="display:grid;gap:12px;padding-top:4px">
+    <div class="section-toggle-body" id="body-tips">
+      <div style="padding-top:4px">
+        <!-- PREP visual blocks -->
         <div class="strategy-steps">
           <div class="step-card">
             <div class="step-letter" style="background:var(--blue);color:white">P</div>
             <div>
               <div class="step-title">Point &mdash; State your stand</div>
-              <div class="step-desc">Begin with one clear opinion. Example: <b>&ldquo;I believe studying in groups is effective because&hellip;&rdquo;</b><br>Start strong. The examiner listens to your opening sentence first.</div>
+              <div class="step-desc">Begin with one clear opinion. Example: <b>&ldquo;I believe students should work part-time because&hellip;&rdquo;</b><br>Start strong. The examiner listens to your opening sentence first.</div>
             </div>
           </div>
           <div class="step-card">
@@ -191,7 +216,7 @@
             <div class="step-letter" style="background:var(--green)">E</div>
             <div>
               <div class="step-title">Example &mdash; Malaysian context</div>
-              <div class="step-desc">Use: <b>for example, for instance, a clear example of this is&hellip;</b><br>Local examples score better: school experience, friends, study methods.</div>
+              <div class="step-desc">Use: <b>for example, for instance, a clear example of this is&hellip;</b><br>Local examples score better: PTPTN, campus life, Malaysian companies, EPF.</div>
             </div>
           </div>
           <div class="step-card">
@@ -201,6 +226,9 @@
               <div class="step-desc">Restate your stand: <b>&ldquo;Therefore, I strongly believe that&hellip;&rdquo;</b><br>This signals the examiner that you have completed your response.</div>
             </div>
           </div>
+        </div>
+        <div style="background:var(--yellow);border:var(--line);border-radius:14px;padding:12px 14px;margin-top:12px;font-weight:1000;font-size:13px">
+          &#9201;&#65039; Task B reminder: Write 3&ndash;4 keywords only during prep time. Agree politely, add one reason, invite others by name, and help the group reach a final decision in the last 2 minutes.
         </div>
       </div>
     </div>
@@ -219,7 +247,7 @@
     <div class="section-toggle-body" id="body-sample">
       <div style="padding-top:4px">
         <div style="background:#fff7cc;border:var(--line);border-radius:18px;padding:16px">
-          <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px">SAMPLE TOPIC: STUDYING IN GROUPS</div>
+          <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px">SAMPLE TOPIC: SALARY AS REASON FOR CHOOSING A JOB</div>
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px">
             <div style="background:var(--blue);color:white;border:2px solid var(--ink);border-radius:10px;padding:8px;text-align:center;font-weight:1000;font-size:13px">P<div style="font-size:9px;font-weight:900;color:rgba(255,255,255,.7)">Point</div></div>
             <div style="background:var(--orange);color:white;border:2px solid var(--ink);border-radius:10px;padding:8px;text-align:center;font-weight:1000;font-size:13px">R<div style="font-size:9px;font-weight:900;color:rgba(255,255,255,.7)">Reason</div></div>
@@ -227,393 +255,430 @@
             <div style="background:var(--pink);color:var(--ink);border:2px solid var(--ink);border-radius:10px;padding:8px;text-align:center;font-weight:1000;font-size:13px">P<div style="font-size:9px;font-weight:900;color:rgba(0,0,0,.5)">Point Again</div></div>
           </div>
           <div style="background:white;border:2px solid var(--ink);border-radius:14px;padding:14px;font-size:13px;font-weight:800;line-height:1.7">
-            <b style="color:var(--blue)">P —</b> I believe studying in groups is very effective because it helps students understand difficult topics better.<br><br>
-            <b style="color:var(--orange)">R —</b> This is because when students study together, they can discuss different ideas and perspectives. They can teach each other, which makes learning more enjoyable.<br><br>
-            <b style="color:var(--green)">E —</b> For example, when I study with my friends, I can explain things they don't understand, and they can help me too. Group study keeps us motivated because with friends, studying becomes more fun and interesting.<br><br>
-            <b style="color:var(--pink)">P —</b> Therefore, I strongly believe that studying in groups is an excellent way to prepare for exams because it makes learning easier, more enjoyable, and more effective.
+            <b style="color:var(--blue)">P &mdash;</b> I believe salary is the most important reason when choosing a job because it directly determines financial security.<br><br>
+            <b style="color:var(--orange)">R &mdash;</b> A good salary allows a graduate to repay education loans, cover living expenses and begin saving &mdash; all at once.<br><br>
+            <b style="color:var(--green)">E &mdash;</b> Many Malaysian graduates with PTPTN loans must prioritise salary because repayment starts six months after graduation. A salary below RM2,000 in KL makes this extremely difficult.<br><br>
+            <b style="color:var(--pink)">P &mdash;</b> Therefore, salary is the most critical factor as it forms the foundation of financial independence.
           </div>
           <div style="background:var(--ink);color:white;border-radius:12px;padding:10px 12px;margin-top:12px;font-size:12px;font-weight:900">
-            ✍️ Examiner note: Direct answer · one clear reason · specific relatable example · strong closing. About 90 seconds.
+            &#128221; Examiner note: Direct answer &middot; one clear reason &middot; specific local example &middot; strong closing. About 90 seconds.
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ══ PART 4: USEFUL PHRASES ═════════════════════════════════════ -->
+  <!-- ══ PART 4: USEFUL SPEAKING PHRASES (NEW) ════════════════════ -->
   <div class="section-toggle" id="sec-phrases">
     <div class="section-toggle-head" onclick="Spk.toggleSec('phrases')">
       <div class="toggle-num" style="background:var(--pink)">4</div>
       <div>
         <div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">Useful Speaking Phrases</div>
-        <div style="font-size:15px;font-weight:1000">Ready-Made Phrases for PREP</div>
+        <div style="font-size:15px;font-weight:1000">Ready-Made Phrases for Task A &amp; Task B</div>
       </div>
       <div class="toggle-chev" id="chev-phrases">&#9660;</div>
     </div>
     <div class="section-toggle-body" id="body-phrases">
       <div style="background:var(--blue);border:var(--line);border-radius:18px;padding:16px;margin-top:4px">
         <div class="phrase-section">
-          <div class="phrase-label">💭 STATING YOUR POINT (P)</div>
-          <div class="phrase-text">&ldquo;I believe that...&rdquo; · &ldquo;In my opinion...&rdquo; · &ldquo;I strongly feel that...&rdquo;<br>&ldquo;From my perspective...&rdquo; · &ldquo;I would argue that...&rdquo;</div>
+          <div class="phrase-label">&#129395; STATING YOUR POINT (P)</div>
+          <div class="phrase-text">&ldquo;I believe that&hellip;&rdquo; &middot; &ldquo;In my opinion&hellip;&rdquo; &middot; &ldquo;I strongly feel that&hellip;&rdquo;<br>&ldquo;From my perspective&hellip;&rdquo; &middot; &ldquo;I would argue that&hellip;&rdquo;</div>
         </div>
         <div class="phrase-section">
-          <div class="phrase-label">💡 GIVING YOUR REASON (R)</div>
-          <div class="phrase-text">&ldquo;This is because...&rdquo; · &ldquo;The reason is...&rdquo; · &ldquo;Due to the fact that...&rdquo;<br>&ldquo;This can be attributed to...&rdquo; · &ldquo;One major reason is...&rdquo;</div>
+          <div class="phrase-label">&#128161; GIVING YOUR REASON (R)</div>
+          <div class="phrase-text">&ldquo;This is because&hellip;&rdquo; &middot; &ldquo;The reason is&hellip;&rdquo; &middot; &ldquo;Due to the fact that&hellip;&rdquo;<br>&ldquo;This can be attributed to&hellip;&rdquo; &middot; &ldquo;One major reason is&hellip;&rdquo;</div>
         </div>
         <div class="phrase-section">
-          <div class="phrase-label">🏠 GIVING AN EXAMPLE (E)</div>
-          <div class="phrase-text">&ldquo;For example...&rdquo; · &ldquo;For instance...&rdquo; · &ldquo;A clear example of this is...&rdquo;<br>&ldquo;From my own experience...&rdquo; · &ldquo;To illustrate this point...&rdquo;</div>
+          <div class="phrase-label">&#127981; GIVING AN EXAMPLE (E)</div>
+          <div class="phrase-text">&ldquo;For example&hellip;&rdquo; &middot; &ldquo;For instance&hellip;&rdquo; &middot; &ldquo;A clear example of this is&hellip;&rdquo;<br>&ldquo;Take Malaysia as an example&hellip;&rdquo; &middot; &ldquo;To illustrate this point&hellip;&rdquo;</div>
         </div>
         <div class="phrase-section">
-          <div class="phrase-label">✅ RESTATING YOUR POINT (P)</div>
-          <div class="phrase-text">&ldquo;Therefore, I strongly believe that...&rdquo; · &ldquo;In conclusion...&rdquo;<br>&ldquo;To sum up...&rdquo; · &ldquo;This shows that...&rdquo;</div>
+          <div class="phrase-label">&#128483;&#65039; TASK B &mdash; INTERACTION PHRASES</div>
+          <div class="phrase-text">&ldquo;What do you think, [name]?&rdquo; &middot; &ldquo;I agree with [name] because&hellip;&rdquo;<br>&ldquo;Building on what [name] said&hellip;&rdquo; &middot; &ldquo;Could you elaborate on that?&rdquo;<br>&ldquo;That is a valid point, however&hellip;&rdquo; &middot; &ldquo;So, as a group, we have decided&hellip;&rdquo;</div>
+        </div>
+        <div class="phrase-section">
+          <div class="phrase-label">&#128683; AVOID THESE FILLER WORDS</div>
+          <div class="phrase-text">&#10060; erm&hellip; &middot; &#10060; like&hellip; &middot; &#10060; you know&hellip; &middot; &#10060; so yeah&hellip;<br>Replace with a 1-second pause. A pause sounds confident. Fillers sound nervous.</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ══ PART 5: PRACTICE NOW ════════════════════════════════════════ -->
+  <!-- ══ PART 5: YOUR PRACTICE ══════════════════════════════════════ -->
   <div style="background:var(--ink);border:var(--line);border-radius:16px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px">
     <div style="background:var(--yellow);border:var(--line);border-radius:10px;width:32px;height:32px;display:grid;place-items:center;font-weight:1000;flex-shrink:0">5</div>
     <div style="font-family:'Sora';font-weight:800;font-size:14px;color:white">Your Practice</div>
-    <div style="margin-left:auto;font-size:10px;font-weight:900;color:rgba(255,255,255,.5)">Pick candidate + write PREP + practice</div>
+    <div style="margin-left:auto;font-size:10px;font-weight:900;color:rgba(255,255,255,.5)">PREP notes + transcript + submit</div>
   </div>
 
-  <!-- Candidate selector tabs -->
-  <div class="candidate-tabs">
-    <button class="candidate-tab active" onclick="Spk.selectCandidate('A')">A: Groups</button>
-    <button class="candidate-tab" onclick="Spk.selectCandidate('B')">B: Library</button>
-    <button class="candidate-tab" onclick="Spk.selectCandidate('C')">C: Extra Classes</button>
-    <button class="candidate-tab" onclick="Spk.selectCandidate('D')">D: Past Papers</button>
+  <!-- Task tabs -->
+  <div class="task-tabs">
+    <button id="tabA" class="task-tab active" onclick="Spk.setTask('A')">&#127908; Task A — Individual</button>
+    <button id="tabB" class="task-tab" onclick="Spk.setTask('B')">&#128101; Task B — Group</button>
   </div>
 
-  <!-- ═════ CANDIDATE A: GROUPS ═════ -->
-  <div class="candidate-card active" id="cardA">
-    <div style="background:var(--paper);border:var(--line);border-radius:var(--r2);padding:14px;margin-bottom:14px;box-shadow:var(--shadow)">
-      <p class="tiny" style="color:var(--muted)">Practice Candidate — Vault 1</p>
-      <h2 style="margin-top:6px">Candidate A — Studying in Groups</h2>
-      <p style="margin-top:10px;font-weight:800;font-size:14px;line-height:1.5">
-        <b>Situation:</b> Students prepare for exams in different ways. What are some of the ways?<br>
-        <b>Your task:</b> You have to give a presentation to your class. <b>Talk about studying in groups.</b>
-      </p>
-    </div>
+  <!-- Topic selector -->
+  <div style="background:var(--paper);border:var(--line);border-radius:var(--r2);padding:14px;margin-bottom:14px;box-shadow:var(--shadow)">
+    <p class="tiny" style="color:var(--muted)">Practice Topic &mdash; Vault 1</p>
+    <h2 id="taskTitle" style="margin-top:6px">Task A &mdash; Individual Response</h2>
+    <select id="topicSelect" style="margin-top:10px" onchange="Spk.changeTopic()"></select>
+    <p id="topicPrompt" style="margin-top:10px;font-weight:800;font-size:14px;line-height:1.5"></p>
+  </div>
 
-    <div class="coach-note pink">
-      <div class="tag">🎤 COACH TIP FOR THIS TOPIC</div>
-      <p>Use PREP. Start with: "I believe studying in groups is..." Give one benefit. Use a personal example. Close with: "Therefore, group study is..."</p>
-    </div>
+  <!-- Coach tip -->
+  <div class="coach-note pink">
+    <div class="tag">&#127908; COACH TIP FOR THIS TOPIC</div>
+    <p id="coachTip">Use PREP. Choose one clear stand. Give one specific example.</p>
+  </div>
 
-    <div class="timer-card yellow">
-      <div>
-        <p>2-Minute Prep Timer</p>
-        <div class="timer-big">02:00</div>
+  <!-- Timer -->
+  <div class="timer-card yellow">
+    <div>
+      <p class="tiny" id="timerLabel">2-Minute Prep Timer</p>
+      <div id="timerDisp" class="timer-big">02:00</div>
+    </div>
+    <button class="btn black" style="width:auto;min-width:80px" id="timerBtn" onclick="Spk.toggleTimer()">Start</button>
+  </div>
+
+  <!-- PREP notes -->
+  <div class="card">
+    <h2>PREP Notes <span class="req">Required</span></h2>
+    <p style="font-size:13px;font-weight:800;color:var(--muted);margin-top:4px">Write keywords only &mdash; not full sentences.</p>
+    <div class="prep-grid" style="margin-top:12px">
+      <div class="prep-box">
+        <h3><span class="prep-letter" style="background:var(--blue);color:white">P</span> Point</h3>
+        <textarea id="prepP" placeholder="My stand is..."></textarea>
       </div>
-      <button class="btn yellow" style="width:auto;min-width:80px" onclick="Spk.toggleTimer()">Start</button>
-    </div>
-
-    <div class="card">
-      <h2>PREP Notes <span class="req">Required</span></h2>
-      <p style="font-size:13px;font-weight:800;color:var(--muted);margin-top:4px">Write keywords only — not full sentences. Use these to guide your speaking.</p>
-      <div class="prep-grid" style="margin-top:12px">
-        <div class="prep-box">
-          <h3><span class="prep-letter" style="background:var(--blue);color:white">P</span> Point</h3>
-          <textarea id="prepP-A" placeholder="My stand is... I believe studying in groups is..."></textarea>
-        </div>
-        <div class="prep-box">
-          <h3><span class="prep-letter" style="background:var(--orange)">R</span> Reason</h3>
-          <textarea id="prepR-A" placeholder="The reason is... This is because..."></textarea>
-        </div>
-        <div class="prep-box">
-          <h3><span class="prep-letter" style="background:var(--green)">E</span> Example</h3>
-          <textarea id="prepE-A" placeholder="For example... When I..."></textarea>
-        </div>
-        <div class="prep-box">
-          <h3><span class="prep-letter" style="background:var(--pink)">P</span> Point Again</h3>
-          <textarea id="prepP2-A" placeholder="Therefore... In conclusion..."></textarea>
-        </div>
+      <div class="prep-box">
+        <h3><span class="prep-letter" style="background:var(--orange)">R</span> Reason</h3>
+        <textarea id="prepR" placeholder="This is because..."></textarea>
       </div>
-    </div>
-
-    <div class="guide-action-stack" style="margin-top:16px">
-      <button class="btn yellow" onclick="alert('Ready to speak? Hit record and talk for 2 minutes using your PREP notes')">🎙️ Start Recording</button>
-      <button class="btn" style="background:white;color:var(--ink)" onclick="Spk.showSample('A')">📝 Show Sample Answer</button>
+      <div class="prep-box">
+        <h3><span class="prep-letter" style="background:var(--green)">E</span> Example</h3>
+        <textarea id="prepE" placeholder="For example..."></textarea>
+      </div>
+      <div class="prep-box">
+        <h3><span class="prep-letter" style="background:var(--pink)">P</span> Point Again</h3>
+        <textarea id="prepClose" placeholder="Therefore, I believe..."></textarea>
+      </div>
     </div>
   </div>
 
-  <!-- ═════ CANDIDATE B: LIBRARY ═════ -->
-  <div class="candidate-card" id="cardB">
-    <div style="background:var(--paper);border:var(--line);border-radius:var(--r2);padding:14px;margin-bottom:14px;box-shadow:var(--shadow)">
-      <p class="tiny" style="color:var(--muted)">Practice Candidate — Vault 1</p>
-      <h2 style="margin-top:6px">Candidate B — Studying in a Library</h2>
-      <p style="margin-top:10px;font-weight:800;font-size:14px;line-height:1.5">
-        <b>Situation:</b> Students prepare for exams in different ways. What are some of the ways?<br>
-        <b>Your task:</b> You have to give a presentation to your class. <b>Talk about studying in a library.</b>
-      </p>
-    </div>
+  <!-- Transcript -->
+  <div class="card">
+    <h2>Transcript / Speaking Notes <span class="req">Required</span></h2>
+    <p style="font-size:13px;font-weight:800;color:var(--muted);margin-top:4px">After speaking aloud, type your response here. This helps track your vocabulary and structure.</p>
+    <textarea id="transcript" rows="5" style="margin-top:10px" placeholder="I believe students should work part-time because..."></textarea>
+  </div>
 
-    <div class="coach-note pink">
-      <div class="tag">🎤 COACH TIP FOR THIS TOPIC</div>
-      <p>Focus on the quiet environment, available resources, and how this helps concentration. Use a specific example from your school library.</p>
+  <!-- ══ PART 6: SPEAKING SELF-ASSESSMENT (NEW) ═══════════════════ -->
+  <div style="background:var(--paper);border:var(--line);box-shadow:var(--shadow);border-radius:var(--r2);padding:18px;margin-bottom:16px">
+    <div style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:4px">6</div>
+    <h2 style="margin-bottom:4px">Speaking Self-Assessment</h2>
+    <p style="font-size:13px;font-weight:800;color:var(--muted);margin-bottom:14px">Check these before submitting &mdash; they help the app give you better feedback.</p>
+    <div id="selfCheckList">
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()">
+        <input type="checkbox" id="sc1"> <span>I used a clear PREP structure: Point &rarr; Reason &rarr; Example &rarr; Point again</span>
+      </label>
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()">
+        <input type="checkbox" id="sc2"> <span>I answered the prompt directly and stayed on topic throughout</span>
+      </label>
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()">
+        <input type="checkbox" id="sc3"> <span>I gave a specific, relevant example (preferably Malaysian context)</span>
+      </label>
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()">
+        <input type="checkbox" id="sc4"> <span>I avoided filler words (erm, like, you know) and used pauses instead</span>
+      </label>
+      <label class="self-check-item" onclick="Spk.updateSelfCheck()">
+        <input type="checkbox" id="sc5"> <span>Task B only: I referred to at least one group member by name</span>
+      </label>
     </div>
+    <div id="selfCheckResult" style="display:none;background:var(--yellow);border:var(--line);border-radius:14px;padding:10px 14px;margin-top:10px;font-weight:1000;font-size:14px;text-align:center"></div>
+  </div>
 
-    <div class="timer-card yellow">
-      <div>
-        <p>2-Minute Prep Timer</p>
-        <div class="timer-big">02:00</div>
-      </div>
-      <button class="btn yellow" style="width:auto;min-width:80px" onclick="Spk.toggleTimer()">Start</button>
-    </div>
-
-    <div class="card">
-      <h2>PREP Notes <span class="req">Required</span></h2>
-      <p style="font-size:13px;font-weight:800;color:var(--muted);margin-top:4px">Write keywords only — not full sentences. Use these to guide your speaking.</p>
-      <div class="prep-grid" style="margin-top:12px">
-        <div class="prep-box">
-          <h3><span class="prep-letter" style="background:var(--blue);color:white">P</span> Point</h3>
-          <textarea id="prepP-B" placeholder="My stand is... The library is a good place to study because..."></textarea>
-        </div>
-        <div class="prep-box">
-          <h3><span class="prep-letter" style="background:var(--orange)">R</span> Reason</h3>
-          <textarea id="prepR-B" placeholder="The reason is... It provides..."></textarea>
-        </div>
-        <div class="prep-box">
-          <h3><span class="prep-letter" style="background:var(--green)">E</span> Example</h3>
-          <textarea id="prepE-B" placeholder="For example... In my school library..."></textarea>
-        </div>
-        <div class="prep-box">
-          <h3><span class="prep-letter" style="background:var(--pink)">P</span> Point Again</h3>
-          <textarea id="prepP2-B" placeholder="Therefore... The library helps students..."></textarea>
-        </div>
-      </div>
-    </div>
-
-    <div class="guide-action-stack" style="margin-top:16px">
-      <button class="btn yellow" onclick="alert('Ready to speak? Hit record and talk for 2 minutes using your PREP notes')">🎙️ Start Recording</button>
-      <button class="btn" style="background:white;color:var(--ink)" onclick="Spk.showSample('B')">📝 Show Sample Answer</button>
+  <!-- Submit buttons -->
+  <div class="guide-action-stack">
+    <button class="btn btn-yellow wide" onclick="Spk.submit()">Submit Speaking Practice &#127908;</button>
+    <div class="guide-secondary-row">
+      <button class="btn btn-white" onclick="Spk.toggleSec('phrases');document.getElementById('sec-phrases').scrollIntoView({behavior:'smooth'})">Phrase Bank &#128483;&#65039;</button>
+      <button class="btn btn-pink" onclick="location.href=vaultWelcomePage">&#8592; Vault Menu</button>
     </div>
   </div>
 
-  <!-- ═════ CANDIDATE C: EXTRA CLASSES ═════ -->
-  <div class="candidate-card" id="cardC">
-    <div style="background:var(--paper);border:var(--line);border-radius:var(--r2);padding:14px;margin-bottom:14px;box-shadow:var(--shadow)">
-      <p class="tiny" style="color:var(--muted)">Practice Candidate — Vault 1</p>
-      <h2 style="margin-top:6px">Candidate C — Going to Extra Classes</h2>
-      <p style="margin-top:10px;font-weight:800;font-size:14px;line-height:1.5">
-        <b>Situation:</b> Students prepare for exams in different ways. What are some of the ways?<br>
-        <b>Your task:</b> You have to give a presentation to your class. <b>Talk about going to extra classes.</b>
-      </p>
+  <!-- Result card -->
+  <div id="resultCard" class="result-card lime">
+    <div class="tag">SPEAKING RESULT SAVED</div>
+    <span id="resultScore" class="result-score">0/90</span>
+    <span id="resultBand"  class="result-band">Band &mdash;</span>
+    <div style="margin:12px 0;border:var(--line);border-radius:14px;background:white;padding:12px">
+      <p id="resultStrength" style="font-weight:900;font-size:13px"></p>
+      <p id="resultImprove"  style="font-weight:800;font-size:13px;color:var(--muted);margin-top:6px"></p>
+      <p id="resultNext"     style="font-weight:800;font-size:13px;margin-top:6px"></p>
     </div>
-
-    <div class="coach-note pink">
-      <div class="tag">🎤 COACH TIP FOR THIS TOPIC</div>
-      <p>Mention personalized attention from teachers and how tutoring helps with weak areas. Give an example of how it improved your grades.</p>
+    <div style="background:var(--ink);color:white;border:var(--line);border-radius:14px;padding:10px 12px;margin-bottom:12px;font-weight:900;font-size:13px" id="achieveBadge"></div>
+    <div class="btn-row">
+      <button class="btn black wide" onclick="location.href='vault1-reading.html'">Next: Reading &#128214; &rarr;</button>
+      <button class="btn btn-white" onclick="location.href=vaultWelcomePage">&#8592; Vault Menu</button>
     </div>
-
-    <div class="timer-card yellow">
-      <div>
-        <p>2-Minute Prep Timer</p>
-        <div class="timer-big">02:00</div>
-      </div>
-      <button class="btn yellow" style="width:auto;min-width:80px" onclick="Spk.toggleTimer()">Start</button>
-    </div>
-
-    <div class="card">
-      <h2>PREP Notes <span class="req">Required</span></h2>
-      <p style="font-size:13px;font-weight:800;color:var(--muted);margin-top:4px">Write keywords only — not full sentences. Use these to guide your speaking.</p>
-      <div class="prep-grid" style="margin-top:12px">
-        <div class="prep-box">
-          <h3><span class="prep-letter" style="background:var(--blue);color:white">P</span> Point</h3>
-          <textarea id="prepP-C" placeholder="My stand is... Extra classes are helpful because..."></textarea>
-        </div>
-        <div class="prep-box">
-          <h3><span class="prep-letter" style="background:var(--orange)">R</span> Reason</h3>
-          <textarea id="prepR-C" placeholder="The reason is... Teachers can focus on..."></textarea>
-        </div>
-        <div class="prep-box">
-          <h3><span class="prep-letter" style="background:var(--green)">E</span> Example</h3>
-          <textarea id="prepE-C" placeholder="For example... When I attended tuition..."></textarea>
-        </div>
-        <div class="prep-box">
-          <h3><span class="prep-letter" style="background:var(--pink)">P</span> Point Again</h3>
-          <textarea id="prepP2-C" placeholder="Therefore... Extra classes really help..."></textarea>
-        </div>
-      </div>
-    </div>
-
-    <div class="guide-action-stack" style="margin-top:16px">
-      <button class="btn yellow" onclick="alert('Ready to speak? Hit record and talk for 2 minutes using your PREP notes')">🎙️ Start Recording</button>
-      <button class="btn" style="background:white;color:var(--ink)" onclick="Spk.showSample('C')">📝 Show Sample Answer</button>
-    </div>
-  </div>
-
-  <!-- ═════ CANDIDATE D: PAST PAPERS ═════ -->
-  <div class="candidate-card" id="cardD">
-    <div style="background:var(--paper);border:var(--line);border-radius:var(--r2);padding:14px;margin-bottom:14px;box-shadow:var(--shadow)">
-      <p class="tiny" style="color:var(--muted)">Practice Candidate — Vault 1</p>
-      <h2 style="margin-top:6px">Candidate D — Doing Past Year Exam Questions</h2>
-      <p style="margin-top:10px;font-weight:800;font-size:14px;line-height:1.5">
-        <b>Situation:</b> Students prepare for exams in different ways. What are some of the ways?<br>
-        <b>Your task:</b> You have to give a presentation to your class. <b>Talk about doing past year exam questions.</b>
-      </p>
-    </div>
-
-    <div class="coach-note pink">
-      <div class="tag">🎤 COACH TIP FOR THIS TOPIC</div>
-      <p>Talk about understanding the exam format, practicing time management, and identifying question patterns. Use a specific example from your exam prep.</p>
-    </div>
-
-    <div class="timer-card yellow">
-      <div>
-        <p>2-Minute Prep Timer</p>
-        <div class="timer-big">02:00</div>
-      </div>
-      <button class="btn yellow" style="width:auto;min-width:80px" onclick="Spk.toggleTimer()">Start</button>
-    </div>
-
-    <div class="card">
-      <h2>PREP Notes <span class="req">Required</span></h2>
-      <p style="font-size:13px;font-weight:800;color:var(--muted);margin-top:4px">Write keywords only — not full sentences. Use these to guide your speaking.</p>
-      <div class="prep-grid" style="margin-top:12px">
-        <div class="prep-box">
-          <h3><span class="prep-letter" style="background:var(--blue);color:white">P</span> Point</h3>
-          <textarea id="prepP-D" placeholder="My stand is... Practicing past papers is effective because..."></textarea>
-        </div>
-        <div class="prep-box">
-          <h3><span class="prep-letter" style="background:var(--orange)">R</span> Reason</h3>
-          <textarea id="prepR-D" placeholder="The reason is... It helps understand..."></textarea>
-        </div>
-        <div class="prep-box">
-          <h3><span class="prep-letter" style="background:var(--green)">E</span> Example</h3>
-          <textarea id="prepE-D" placeholder="For example... When I practiced past papers..."></textarea>
-        </div>
-        <div class="prep-box">
-          <h3><span class="prep-letter" style="background:var(--pink)">P</span> Point Again</h3>
-          <textarea id="prepP2-D" placeholder="Therefore... Past papers are very useful..."></textarea>
-        </div>
-      </div>
-    </div>
-
-    <div class="guide-action-stack" style="margin-top:16px">
-      <button class="btn yellow" onclick="alert('Ready to speak? Hit record and talk for 2 minutes using your PREP notes')">🎙️ Start Recording</button>
-      <button class="btn" style="background:white;color:var(--ink)" onclick="Spk.showSample('D')">📝 Show Sample Answer</button>
-    </div>
-  </div>
-
-  <!-- Sample answers modal -->
-  <div id="sampleModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);z-index:999;padding:20px;overflow-y:auto">
-    <div style="background:white;border-radius:16px;padding:20px;max-width:600px;margin:40px auto">
-      <button onclick="Spk.closeSample()" style="float:right;border:none;background:none;font-size:24px;cursor:pointer">✕</button>
-      <h3 id="sampleTitle" style="margin-top:0;color:var(--blue)">Sample Answer</h3>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px">
-        <div style="background:var(--blue);color:white;border:2px solid var(--ink);border-radius:10px;padding:8px;text-align:center;font-weight:1000;font-size:13px">P</div>
-        <div style="background:var(--orange);color:white;border:2px solid var(--ink);border-radius:10px;padding:8px;text-align:center;font-weight:1000;font-size:13px">R</div>
-        <div style="background:var(--green);color:var(--ink);border:2px solid var(--ink);border-radius:10px;padding:8px;text-align:center;font-weight:1000;font-size:13px">E</div>
-        <div style="background:var(--pink);color:var(--ink);border:2px solid var(--ink);border-radius:10px;padding:8px;text-align:center;font-weight:1000;font-size:13px">P</div>
-      </div>
-      <div id="sampleContent" style="background:#f8fafc;border:2px solid var(--ink);border-radius:14px;padding:14px;font-size:13px;font-weight:800;line-height:1.7"></div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <div class="guide-action-stack" style="margin-top:20px;margin-bottom:20px">
-    <button class="btn" style="background:white;color:var(--ink)" onclick="location.href=vaultWelcomePage">← Back to Vault Welcome</button>
-    <button class="btn yellow" onclick="alert('Mark as complete and move to Reading component')">Next: Reading →</button>
   </div>
 
 </section>
 </main>
 
+<div id="toast" class="toast"></div>
+<script src="js/muet-shared.js"></script>
+<script src="js/backend-config.js"></script>
 <script>
-  const vaultWelcomePage = 'vault1-welcome.html';
-  const samples = {
-    'A': {
-      'title': 'Candidate A — Studying in Groups',
-      'text': '<b style="color:var(--blue)">P —</b> I believe studying in groups is very effective because it helps students understand difficult topics better.<br><br><b style="color:var(--orange)">R —</b> This is because when students study together, they can discuss different ideas and perspectives. They can teach each other, which makes learning more enjoyable.<br><br><b style="color:var(--green)">E —</b> For example, when I study with my friends, I can explain things they don\'t understand, and they can help me too. Group study keeps us motivated because with friends, studying becomes more fun and interesting.<br><br><b style="color:var(--pink)">P —</b> Therefore, I strongly believe that studying in groups is an excellent way to prepare for exams because it makes learning easier, more enjoyable, and more effective.'
-    },
-    'B': {
-      'title': 'Candidate B — Studying in a Library',
-      'text': '<b style="color:var(--blue)">P —</b> I believe that the library is one of the best places to study because it provides a quiet and focused environment.<br><br><b style="color:var(--orange)">R —</b> This is because the library has fewer distractions than other places like home or coffee shops. Students can concentrate fully on their studies without interruptions.<br><br><b style="color:var(--green)">E —</b> For example, in my school library, there are many resources like reference books and computers. When I study there, I feel more focused and productive compared to studying at home.<br><br><b style="color:var(--pink)">P —</b> Therefore, I strongly recommend studying in a library for exam preparation because it provides the right environment and resources for effective learning.'
-    },
-    'C': {
-      'title': 'Candidate C — Going to Extra Classes',
-      'text': '<b style="color:var(--blue)">P —</b> I believe extra classes are very helpful for exam preparation because they provide personalized attention from teachers.<br><br><b style="color:var(--orange)">R —</b> This is because in regular classes, teachers cannot focus on individual students, but in extra classes, teachers can help students with their weak areas specifically.<br><br><b style="color:var(--green)">E —</b> For example, I was struggling with Mathematics, so I attended extra tuition classes. The teacher explained difficult concepts step by step until I understood them completely.<br><br><b style="color:var(--pink)">P —</b> Therefore, I believe extra classes are essential for students who want to improve their grades and build confidence before the actual exam.'
-    },
-    'D': {
-      'title': 'Candidate D — Doing Past Year Exam Questions',
-      'text': '<b style="color:var(--blue)">P —</b> I believe practicing past year exam questions is one of the most effective ways to prepare for exams because it helps students understand the exam format.<br><br><b style="color:var(--orange)">R —</b> This is because when students practice with real past papers, they know what to expect and can practice under timed conditions similar to the actual exam.<br><br><b style="color:var(--green)">E —</b> For example, when I practiced past MUET questions, I became familiar with the question patterns and improved my time management. This made me feel more confident on the actual exam day.<br><br><b style="color:var(--pink)">P —</b> Therefore, I strongly recommend practicing past year questions because it helps students build confidence and perform better in the actual examination.'
-    }
-  };
+// ── Vault context ─────────────────────────────────────────────────────
+const _activeVault   = MUET.loadActiveVault();
+const VAULT_ID       = (_activeVault && _activeVault.vaultId) ? _activeVault.vaultId : 'VAULT-01';
+const VAULT_TITLE    = (_activeVault && _activeVault.vaultTitle) ? _activeVault.vaultTitle : 'Vault 1';
+const IS_STARTER     = VAULT_ID === 'VAULT-00';
+const vaultWelcomePage = IS_STARTER ? 'starter-welcome.html' : 'vault1-welcome.html';
 
-  const Spk = {
-    currentCandidate: 'A',
-    timerInterval: null,
-    timeLeft: 120,
+// ── Topic data (Vault 1 · MUET Session 3 2022 · Speaking 800/2) ───────
+const topicsA = [
+  { id:'A1', title:'Candidate A \u2014 Location',
+    prompt:'Everyone has different reasons when choosing a job. Your task is to talk about: LOCATION. Explain why location is an important reason when choosing a job.',
+    tip:'Use PREP. Example point: \u201cLocation matters because it affects your daily commute and quality of life.\u201d Give a local example \u2014 commuting from Nilai to KL, or working far from family in Sabah.' },
+  { id:'A2', title:'Candidate B \u2014 Salary',
+    prompt:'Everyone has different reasons when choosing a job. Your task is to talk about: SALARY. Explain why salary is an important reason when choosing a job.',
+    tip:'Use PREP. Example point: \u201cSalary is important because it determines your financial stability.\u201d Use a local angle \u2014 PTPTN loan repayment, cost of living in urban areas like KL or PJ.' },
+  { id:'A3', title:'Candidate C \u2014 Working Hours',
+    prompt:'Everyone has different reasons when choosing a job. Your task is to talk about: WORKING HOURS. Explain why working hours are an important reason when choosing a job.',
+    tip:'Use PREP. Example point: \u201cWorking hours affect work-life balance and personal wellbeing.\u201d Mention shift work, overtime culture, or flexible working arrangements in Malaysia.' },
+  { id:'A4', title:'Candidate D \u2014 Facilities',
+    prompt:'Everyone has different reasons when choosing a job. Your task is to talk about: FACILITIES. Explain why workplace facilities are an important reason when choosing a job.',
+    tip:'Use PREP. Example point: \u201cGood facilities improve productivity and employee satisfaction.\u201d Examples: gym, childcare, canteen, remote working tools, medical benefits.' }
+];
+const topicsB = [
+  { id:'B1', title:'Career Guidance \u2014 Group Discussion',
+    prompt:'It is very important for students to choose the right career. In your group, discuss how universities can provide better career guidance for students. Consider: relevant clubs, internship programmes, professional courses, career guidance advisers, talks by professionals. Decide the BEST way universities can provide better career guidance.',
+    tip:'Compare all five options fairly before reaching a conclusion. Invite others: \u201cWhat do you think, [name]?\u201d Build on each other\u0027s points. Guide the group to one agreed best method in the last 2 minutes.' }
+];
 
-    selectCandidate(letter) {
-      document.querySelectorAll('.candidate-card').forEach(card => card.classList.remove('active'));
-      document.getElementById('card' + letter).classList.add('active');
-      document.querySelectorAll('.candidate-tab').forEach(tab => tab.classList.remove('active'));
-      event.target.classList.add('active');
-      this.currentCandidate = letter;
-      this.timeLeft = 120;
-      document.querySelector('.timer-big').textContent = '02:00';
-      window.scrollTo(0, 0);
-    },
+const Spk = (() => {
+  let task = 'A', secs = 120, timerId = null;
 
-    toggleTimer() {
-      if (this.timerInterval) {
-        clearInterval(this.timerInterval);
-        this.timerInterval = null;
-        event.target.textContent = 'Resume';
-        return;
+  // ── Section toggle ──────────────────────────────────────────────────
+  function toggleSec(id) {
+    const body = document.getElementById('body-' + id);
+    const chev = document.getElementById('chev-' + id);
+    if (!body) return;
+    const open = body.classList.toggle('open');
+    if (chev) chev.style.transform = open ? 'rotate(180deg)' : '';
+    if (open) setTimeout(() => body.scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
+  }
+
+  // ── Task toggle ─────────────────────────────────────────────────────
+  function setTask(t) {
+    task = t;
+    document.getElementById('tabA').classList.toggle('active', t === 'A');
+    document.getElementById('tabB').classList.toggle('active', t === 'B');
+    document.getElementById('taskTitle').textContent = t === 'A'
+      ? 'Task A \u2014 Individual Response' : 'Task B \u2014 Group Discussion';
+    secs = t === 'A' ? 120 : 180;
+    stopTimer(); renderTimer(); renderTopics(); changeTopic();
+  }
+
+  function renderTopics() {
+    const sel  = document.getElementById('topicSelect');
+    const data = task === 'A' ? topicsA : topicsB;
+    sel.innerHTML = data.map(x => `<option value="${x.id}">${x.title}</option>`).join('');
+  }
+
+  function getTopic() {
+    const id   = document.getElementById('topicSelect').value;
+    const data = task === 'A' ? topicsA : topicsB;
+    return data.find(x => x.id === id) || data[0];
+  }
+
+  function changeTopic() {
+    const t = getTopic();
+    document.getElementById('topicPrompt').textContent = t.prompt;
+    document.getElementById('coachTip').textContent    = t.tip;
+  }
+
+  // ── Timer ───────────────────────────────────────────────────────────
+  function toggleTimer() {
+    if (timerId) { stopTimer(); return; }
+    timerId = setInterval(() => {
+      secs--;
+      renderTimer();
+      if (secs <= 0) { stopTimer(); MUET.toast(task === 'A' ? 'Prep time done. Start speaking!' : 'Prep time done. Begin discussion.'); }
+    }, 1000);
+    document.getElementById('timerBtn').textContent = 'Pause';
+  }
+
+  function stopTimer() {
+    clearInterval(timerId); timerId = null;
+    const b = document.getElementById('timerBtn');
+    if (b) b.textContent = 'Start';
+  }
+
+  function renderTimer() {
+    const m = String(Math.floor(secs / 60)).padStart(2,'0');
+    const s = String(secs % 60).padStart(2,'0');
+    document.getElementById('timerDisp').textContent = `${m}:${s}`;
+    document.getElementById('timerLabel').textContent = task === 'A' ? '2-Minute Prep Timer' : '3-Minute Prep Timer';
+  }
+
+  // ── Self-assessment ─────────────────────────────────────────────────
+  function updateSelfCheck() {
+    setTimeout(() => {
+      const boxes   = ['sc1','sc2','sc3','sc4','sc5'];
+      const checked = boxes.filter(id => document.getElementById(id)?.checked).length;
+      const items   = document.querySelectorAll('.self-check-item');
+      items.forEach(item => {
+        const cb = item.querySelector('input[type=checkbox]');
+        item.classList.toggle('checked', cb?.checked || false);
+      });
+      const el = document.getElementById('selfCheckResult');
+      if (el) {
+        el.style.display = 'block';
+        el.textContent = checked >= 4
+          ? `\u2705 ${checked}/5 checked \u2014 Ready to submit!`
+          : checked >= 2
+          ? `\u26a1 ${checked}/5 checked \u2014 Review the remaining items before submitting.`
+          : `\u26a0\ufe0f ${checked}/5 checked \u2014 Complete your PREP before submitting.`;
       }
+    }, 50);
+  }
 
-      event.target.textContent = 'Pause';
-      this.timerInterval = setInterval(() => {
-        this.timeLeft--;
-        const mins = Math.floor(this.timeLeft / 60);
-        const secs = this.timeLeft % 60;
-        document.querySelector('.timer-big').textContent = 
-          `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+  // ── Profile helper ──────────────────────────────────────────────────
+  function getProfile() {
+    try { return JSON.parse(localStorage.getItem('smartMuetProfile') || '{}'); } catch { return {}; }
+  }
 
-        if (this.timeLeft <= 0) {
-          clearInterval(this.timerInterval);
-          this.timerInterval = null;
-          alert('⏱️ Time\'s up! You now have 2 minutes to speak. Start recording!');
-          event.target.textContent = 'Start';
-        }
-      }, 1000);
-    },
-
-    showSample(letter) {
-      const sample = samples[letter];
-      document.getElementById('sampleTitle').textContent = sample.title;
-      document.getElementById('sampleContent').innerHTML = sample.text;
-      document.getElementById('sampleModal').style.display = 'block';
-    },
-
-    closeSample() {
-      document.getElementById('sampleModal').style.display = 'none';
-    },
-
-    toggleSec(secId) {
-      const body = document.getElementById('body-' + secId);
-      const chev = document.getElementById('chev-' + secId);
-      body.classList.toggle('open');
-      chev.textContent = body.classList.contains('open') ? '▲' : '▼';
+  // ── Backend save ────────────────────────────────────────────────────
+  function saveToBackend(payload) {
+    const p = getProfile();
+    const enriched = {
+      studentEmail: p.email || p.studentEmail || 'demo@student.local',
+      studentName:  p.name  || p.studentName  || 'Demo Student',
+      studentRegNo: p.regNo || p.studentRegNo || '',
+      classGroup:   p.classGroup || p.group   || '',
+      vaultId: VAULT_ID,
+      ...payload
+    };
+    if (typeof saveSmartMuetAttempt === 'function') {
+      saveSmartMuetAttempt(enriched).catch(err => console.warn('Backend save failed:', err));
     }
-  };
+    return enriched;
+  }
 
-  window.addEventListener('load', () => {
-    try {
-      const vaultId = 'VAULT-01';
-      if (typeof MUET !== 'undefined' && MUET.vaultProgress) {
-        const progress = MUET.vaultProgress(vaultId);
-        document.getElementById('vaultProgBar').style.width = (progress.speaking / 4) * 100 + '%';
-        document.getElementById('vaultProgLabel').textContent = progress.count + '/4';
+  // ── Submit ──────────────────────────────────────────────────────────
+  function submit() {
+    const transcript = document.getElementById('transcript').value.trim();
+    if (!transcript) { MUET.toast('Please type your transcript or speaking notes before submitting.'); return; }
+
+    const prep = {
+      point:   document.getElementById('prepP').value.trim(),
+      reason:  document.getElementById('prepR').value.trim(),
+      example: document.getElementById('prepE').value.trim(),
+      close:   document.getElementById('prepClose').value.trim()
+    };
+    const filledPrep  = Object.values(prep).filter(v => v.length > 0).length;
+    const wc          = transcript.split(/\s+/).length;
+    const selfChecked = ['sc1','sc2','sc3','sc4','sc5'].filter(id => document.getElementById(id)?.checked).length;
+
+    // Scoring rubric (rule-based)
+    const hasOpinion  = /\b(i think|i believe|in my opinion|personally|i strongly)\b/i.test(transcript);
+    const hasReason   = /\b(because|since|this is because|the reason)\b/i.test(transcript);
+    const hasExample  = /\b(for example|for instance|such as|take .* as an example)\b/i.test(transcript);
+    const hasClose    = /\b(therefore|thus|hence|in conclusion|to conclude|i strongly believe)\b/i.test(transcript);
+
+    const score90 = Math.min(90, Math.round(
+      (filledPrep / 4) * 30 +
+      Math.min(20, wc / 5) +
+      (hasOpinion ? 8 : 0) +
+      (hasReason  ? 8 : 0) +
+      (hasExample ? 8 : 0) +
+      (hasClose   ? 6 : 0) +
+      selfChecked * 2
+    ));
+    const band     = MUET.scoreToBand(score90);
+    const topic    = getTopic();
+
+    // Save session
+    const session = {
+      vaultId: VAULT_ID, type: task === 'A' ? 'Task A' : 'Task B',
+      topicId: topic.id, topicTitle: topic.title, prompt: topic.prompt,
+      score90, score: score90, band, bandLabel: band,
+      prep, transcript, selfChecked,
+      date: new Date().toISOString(), xpEarned: 80 + filledPrep * 5
+    };
+    const sessions = MUET.loadSessions('speaking');
+    sessions.push(session);
+    MUET.saveSessions('speaking', sessions);
+    MUET.awardBadge('first_step');
+    if (task === 'A') MUET.awardBadge('prep_starter');
+    if (task === 'B') MUET.awardBadge('discussion_builder');
+    MUET.addXP(session.xpEarned);
+
+    const fb       = MUET.feedbackText('speaking', score90);
+    const strength = score90 >= 64
+      ? 'Clear PREP planning and sufficient speaking notes.'
+      : 'You attempted the task and recorded your thinking.';
+    const nextAct  = task === 'A'
+      ? 'Practise Task B interaction: agree, disagree and invite others by name.'
+      : 'Practise closing with a clear group consensus statement.';
+    const badge    = task === 'A' ? 'PREP Starter' : 'Discussion Builder';
+
+    document.getElementById('resultScore').textContent    = `${score90}/90`;
+    document.getElementById('resultBand').textContent     = `Estimated Band ${band}`;
+    document.getElementById('resultStrength').textContent = `\u2705 Strength: ${strength}`;
+    document.getElementById('resultImprove').textContent  = `\u26a1 Feedback: ${fb}`;
+    document.getElementById('resultNext').textContent     = `\u{1f3af} Next action: ${nextAct}`;
+    document.getElementById('achieveBadge').textContent   = `\u{1f3c5} Badge Unlocked: ${badge} \u2014 +${session.xpEarned} XP`;
+
+    saveToBackend({
+      component:'Speaking', taskType: task === 'A' ? 'Task A' : 'Task B',
+      rawScore: score90, totalItems: 90, score90, estimatedBand: band,
+      feedback: fb, nextAction: nextAct, badgeEarned: badge,
+      status:'Rule-based auto-feedback', answerText: transcript,
+      topicId: topic.id, topicTitle: topic.title, prompt: topic.prompt, prep,
+      rubric:{
+        engine:'Rule-based speaking rubric v2',
+        criteria:[
+          {name:'Task Fulfilment', score: filledPrep >= 3 ? 18 : 12, feedback: filledPrep >= 3 ? 'PREP planning mostly complete.' : 'Complete more PREP boxes.'},
+          {name:'Fluency',         score: wc >= 80 ? 18 : wc >= 50 ? 14 : 10, feedback:`Transcript length: ${wc} words.`},
+          {name:'Language',        score: hasReason ? 16 : 12, feedback: hasReason ? 'Reasoning language detected.' : 'Add \u201cbecause\u201d or \u201cthe reason is\u201d.'},
+          {name:'Vocabulary',      score: hasExample ? 15 : 11, feedback: hasExample ? 'Example language detected.' : 'Add \u201cfor example\u201d.'},
+          {name:'Opinion Phrase',  score: hasOpinion ? 15 : 10, feedback: hasOpinion ? 'Opinion phrase detected.' : 'Start with a clear opinion phrase.'}
+        ]
       }
-    } catch(e) {}
-  });
+    });
+
+    document.getElementById('resultCard').classList.add('show');
+    if (score90 >= 74) MUET.toast('Speaking submitted. Excellent \u2014 Band 5 range!');
+    else if (score90 >= 53) MUET.toast('Speaking submitted. Good progress \u2014 keep improving.');
+    else MUET.toast('Speaking submitted. Review the Phrase Bank and try again.');
+    window.scrollTo({ top: document.body.scrollHeight, behavior:'smooth' });
+    updateVaultProgress();
+  }
+
+  return { toggleSec, setTask, changeTopic, toggleTimer, submit, updateSelfCheck };
+})();
+
+// ── Vault progress display ─────────────────────────────────────────────
+function updateVaultProgress() {
+  const prog = MUET.vaultProgress(VAULT_ID);
+  const pct  = Math.round(prog.count / 4 * 100);
+  const bar  = document.getElementById('vaultProgBar');
+  const lbl  = document.getElementById('vaultProgLabel');
+  if (bar) bar.style.width = pct + '%';
+  if (lbl) lbl.textContent = prog.count + '/4';
+}
+
+// ── Init ───────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  if (!MUET.loadProfile()) { location.href = 'index.html'; return; }
+  const barLabel = document.querySelector('.bar-label');
+  if (barLabel) barLabel.textContent = VAULT_TITLE + ' \u00b7 Speaking';
+  Spk.setTask('A');
+  updateVaultProgress();
+});
 </script>
 </body>
 </html>
