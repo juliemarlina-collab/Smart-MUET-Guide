@@ -2,23 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reading Guide · MUET SmartHub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>Reading Guide · Smart MUET Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/muet-guide.css?v=2"/>
+  <link rel="stylesheet" href="css/muet-guide.css?v=20260726-2"/>
   <style>
-    .flow-step{background:white;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+    .flow-step{background:#fff;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
     .flow-step-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;font-weight:1000}
     .flow-step-head:active{background:rgba(0,0,0,.04)}
-    .step-num{width:38px;height:38px;border:var(--line);border-radius:50%;background:var(--green);display:grid;place-items:center;font-weight:1000;font-size:16px;flex-shrink:0;box-shadow:2px 2px 0 var(--ink)}
-    .info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:4px 0 10px}
+    .flow-body{display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)}
+    .step-num{width:38px;height:38px;border:var(--line);border-radius:50%;display:grid;place-items:center;font-weight:1000;font-size:16px;flex-shrink:0;box-shadow:2px 2px 0 var(--ink)}
+    .next-btn{display:block;width:100%;margin-top:14px;padding:13px 16px;border:var(--line);border-radius:14px;background:var(--green);box-shadow:3px 3px 0 var(--ink);font-weight:1000;cursor:pointer}
+    .info-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:4px 0 12px}
     .info-tile{border:var(--line);border-radius:14px;padding:10px 4px;text-align:center;box-shadow:2px 2px 0 var(--ink);background:var(--green)}
     .info-tile .big{font-family:"Sora";font-size:18px;font-weight:800;display:block}
     .info-tile .lbl{font-size:10px;font-weight:1000;text-transform:uppercase;color:var(--muted);display:block;margin-top:2px}
+    .scan-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:4px 0 12px}
+    .scan-block{min-height:88px;border:var(--line);border-radius:16px;padding:10px 6px;text-align:center;box-shadow:3px 3px 0 var(--ink);font-weight:1000}
+    .scan-block strong{display:block;font-family:"Sora";font-size:30px;line-height:1;margin-bottom:5px}
+    .scan-block small{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.03em}
+    .scan-s{background:#dbeafe}.scan-c{background:#fef3c7}.scan-a{background:#dcfce7}.scan-n{background:#fce7f3}
+    .strategy-card{border:var(--line);border-radius:14px;padding:12px;box-shadow:3px 3px 0 var(--ink);font-size:13px;font-weight:800;line-height:1.55}
     .qtag{display:inline-block;background:var(--pink);border:2px solid var(--ink);border-radius:999px;padding:3px 9px;font-size:11px;font-weight:1000;margin:3px}
+    .part-grid,.skill-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .mini-card{border:var(--line);border-radius:14px;padding:12px;background:#fff;box-shadow:2px 2px 0 var(--ink);font-size:12px;font-weight:800;line-height:1.45}
+    .mini-card b{display:block;font-size:13px;margin-bottom:3px}
+    .worked-line{border:var(--line);border-radius:14px;padding:12px;margin-top:8px;font-size:13px;font-weight:800;line-height:1.55}
+    .worked-label{display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;margin-bottom:6px;background:#fff}
     .passage-box{background:white;border:var(--line);border-radius:var(--r);padding:14px;font-weight:700;line-height:1.6;font-size:14px;max-height:260px;overflow-y:auto;margin-bottom:14px}
+    @media(max-width:620px){.info-grid,.scan-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.part-grid,.skill-grid{grid-template-columns:1fr}.scan-block{min-height:76px}}
   </style>
+  <link rel="stylesheet" href="css/responsive-fix.css?v=20260726-2">
 </head>
 <body>
 <main class="app-shell">
@@ -27,105 +42,176 @@
   <div class="brand-bar">
     <button class="icon-btn" onclick="location.href='index.html'" style="margin-left:0;margin-right:8px">←</button>
     <div><div class="bar-label">Skill Module</div><div class="bar-title">Reading 800/3</div></div>
-    <button class="icon-btn">📖</button>
+    <button class="icon-btn" aria-label="Reading guide">📖</button>
   </div>
 
   <div class="card" style="background:var(--green);margin-bottom:16px">
     <p class="tiny" style="color:rgba(0,0,0,.5)">Reading 800/3 · 90 marks · 25% of MUET</p>
-    <h1 style="margin-top:6px">Read questions<br>first.</h1>
-    <p style="margin-top:8px;font-weight:800">Targeted reading, answer checking and explanation review.</p>
+    <h1 style="margin-top:6px">Read smarter<br>with SCAN.</h1>
+    <p style="margin-top:8px;font-weight:800">Study the question, circle keywords, analyse the passage and narrow the choices.</p>
   </div>
 
   <!-- STEP 1 -->
-  <div class="flow-step">
+  <div class="flow-step" id="step1">
     <div class="flow-step-head" onclick="R.toggle('s1')">
-      <div class="step-num">1</div>
-      <div style="flex:1"><b>Before You Start</b><br><small style="color:var(--muted)">What Reading 800/3 tests</small></div>
+      <div class="step-num" style="background:var(--blue)">1</div>
+      <div style="flex:1"><b>Before You Start</b><br><small style="color:var(--muted)">Understand the MUET Reading test</small></div>
       <span id="c-s1">▴</span>
     </div>
-    <div id="b-s1" style="padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+    <div id="b-s1" class="flow-body" style="display:block">
       <div class="info-grid">
         <div class="info-tile"><span class="big">7</span><span class="lbl">Parts</span></div>
         <div class="info-tile"><span class="big">40</span><span class="lbl">Questions</span></div>
         <div class="info-tile"><span class="big">75</span><span class="lbl">Minutes</span></div>
         <div class="info-tile"><span class="big">25%</span><span class="lbl">of MUET</span></div>
       </div>
-      <div style="background:#dcfce7;border:var(--line);border-radius:14px;padding:12px;margin-bottom:10px">
-        <p style="font-size:12px;font-weight:1000;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px">Question Types</p>
-        <div>
-          <span class="qtag">Main Idea</span><span class="qtag">Detail</span><span class="qtag">Inference</span>
-          <span class="qtag">Vocabulary</span><span class="qtag">Writer's Purpose</span><span class="qtag">Cohesion</span>
-        </div>
+      <div class="coach-note lime"><div class="tag">WHAT THE TEST MEASURES</div>
+        <p>Your ability to locate information, understand ideas, interpret meaning, identify a writer's purpose and evaluate how a text is organised.</p>
       </div>
-      <div style="background:#f0fdf4;border:2px solid var(--ink);border-radius:14px;padding:12px;font-size:13px;font-weight:900">
-        All questions are <b>multiple choice</b> — one best answer from 3–4 options. Tests <b>accurate reading</b>, not general understanding.
+      <div class="skill-grid" style="margin-top:10px">
+        <div class="mini-card"><b>📌 Locate information</b>Find specific facts, names, numbers, dates and details quickly.</div>
+        <div class="mini-card"><b>💡 Understand ideas</b>Identify main ideas, supporting details and relationships between points.</div>
+        <div class="mini-card"><b>🔍 Interpret meaning</b>Recognise paraphrases, vocabulary in context and implied meaning.</div>
+        <div class="mini-card"><b>🧭 Evaluate purpose</b>Identify tone, attitude, intention, audience and text organisation.</div>
       </div>
-      <button class="btn green" style="margin-top:14px" onclick="R.open('s2')">I understand — show me tips →</button>
+      <button class="next-btn" onclick="R.open('s2')">I understand — learn the SCAN technique →</button>
     </div>
   </div>
 
   <!-- STEP 2 -->
-  <div class="flow-step">
+  <div class="flow-step" id="step2">
     <div class="flow-step-head" onclick="R.toggle('s2')">
-      <div class="step-num">2</div>
-      <div style="flex:1"><b>Tips &amp; Tricks</b><br><small style="color:var(--muted)">Question-First Strategy</small></div>
+      <div class="step-num" style="background:var(--orange)">2</div>
+      <div style="flex:1"><b>The SCAN Technique</b><br><small style="color:var(--muted)">A four-step method for every question</small></div>
       <span id="c-s2">▾</span>
     </div>
-    <div id="b-s2" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
-      <div class="coach-note lime"><div class="tag">QUESTION-FIRST</div>
-        <p>Always <b>read the questions first</b>. Underline keywords. Then <b>scan</b> the passage for those keywords — do not read every word.</p></div>
-      <div style="background:#f8fafc;border:var(--line);border-radius:14px;padding:12px;margin-top:10px">
-        <h3 style="margin-bottom:10px;font-size:15px">Know Your Question Type</h3>
-        <div style="display:grid;gap:8px;font-size:13px;font-weight:850">
-          <div style="border-left:4px solid var(--blue);padding-left:10px"><b>Direct retrieval</b> — answer is almost word-for-word in the text</div>
-          <div style="border-left:4px solid var(--green);padding-left:10px"><b>Paraphrase</b> — same meaning, different words</div>
-          <div style="border-left:4px solid var(--orange);padding-left:10px"><b>Inference</b> — implied by the text, read between the lines</div>
-        </div>
+    <div id="b-s2" class="flow-body">
+      <div class="scan-strip">
+        <div class="scan-block scan-s"><strong>S</strong><small>Study the question</small></div>
+        <div class="scan-block scan-c"><strong>C</strong><small>Circle keywords</small></div>
+        <div class="scan-block scan-a"><strong>A</strong><small>Analyse &amp; scan</small></div>
+        <div class="scan-block scan-n"><strong>N</strong><small>Narrow the choices</small></div>
       </div>
-      <div class="coach-note pink" style="margin-top:10px"><div class="tag">AVOID DISTRACTORS</div>
-        <p>Options that use the same words as the passage but different meaning. Always check if the <b>idea</b> matches, not just the words.</p></div>
-      <button class="btn green" style="margin-top:14px" onclick="R.open('s3')">I've read the tips — show me a sample →</button>
+      <div style="display:grid;gap:9px">
+        <div class="strategy-card" style="background:#dbeafe"><b>S — Study the question first.</b><br>Identify what the question is asking: a fact, main idea, inference, purpose, vocabulary meaning or reference.</div>
+        <div class="strategy-card" style="background:#fef3c7"><b>C — Circle the keywords.</b><br>Mark names, dates, numbers and strong content words. Think of possible synonyms because the passage may paraphrase them.</div>
+        <div class="strategy-card" style="background:#dcfce7"><b>A — Analyse and scan the passage.</b><br>Move your eyes quickly to locate the matching section. Read one or two sentences before and after the keyword for context.</div>
+        <div class="strategy-card" style="background:#fce7f3"><b>N — Narrow the choices.</b><br>Eliminate options that are not mentioned, partly true, too general or opposite in meaning. Choose the option supported by evidence.</div>
+      </div>
+      <div class="coach-note pink" style="margin-top:12px"><div class="tag">GOLDEN RULE</div>
+        <p>Match the <b>meaning</b>, not only the same words. A distractor may copy words from the passage but change the idea.</p>
+      </div>
+      <button class="next-btn" onclick="R.open('s3')">I know SCAN — explore the question types →</button>
     </div>
   </div>
 
   <!-- STEP 3 -->
-  <div class="flow-step">
+  <div class="flow-step" id="step3">
     <div class="flow-step-head" onclick="R.toggle('s3')">
-      <div class="step-num">3</div>
-      <div style="flex:1"><b>Sample Explanation</b><br><small style="color:var(--muted)">How answers are explained</small></div>
+      <div class="step-num" style="background:var(--yellow)">3</div>
+      <div style="flex:1"><b>Question Types &amp; Test Parts</b><br><small style="color:var(--muted)">Know what each question requires</small></div>
       <span id="c-s3">▾</span>
     </div>
-    <div id="b-s3" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
-      <div style="background:#dcfce7;border:var(--line);border-radius:14px;padding:12px;font-size:13px;font-weight:800;line-height:1.5;margin-bottom:12px">
-        <b>Sample passage:</b> Despite the increasing availability of electric vehicles, many Malaysians still prefer conventional cars due to concerns about charging infrastructure. A 2023 survey revealed that 68% cited limited charging stations as the primary barrier.
+    <div id="b-s3" class="flow-body">
+      <p style="font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:7px">Common question types</p>
+      <div style="margin-bottom:12px">
+        <span class="qtag">Main Idea</span><span class="qtag">Specific Detail</span><span class="qtag">Inference</span>
+        <span class="qtag">Vocabulary in Context</span><span class="qtag">Writer's Purpose</span><span class="qtag">Tone &amp; Attitude</span><span class="qtag">Reference</span><span class="qtag">Cohesion</span>
       </div>
-      <div style="border:var(--line);border-radius:14px;background:white;padding:12px;margin-bottom:10px">
-        <p style="font-weight:900;margin-bottom:10px;font-size:13px">What is the main reason Malaysians hesitate to buy electric vehicles?</p>
-        <div class="options">
-          <label class="option correct"><input type="radio" name="demo-reading-q1" id="demo-reading-q1-a" disabled checked/><span>A. Insufficient charging stations</span></label>
-          <label class="option wrong"><input type="radio" name="demo-reading-q1" id="demo-reading-q1-b" disabled/><span>B. Electric vehicles are too expensive</span></label>
-          <label class="option wrong"><input type="radio" name="demo-reading-q1" id="demo-reading-q1-c" disabled/><span>C. Lack of awareness</span></label>
+      <div class="part-grid">
+        <div class="mini-card" style="background:#dbeafe"><b>Parts 1–2</b>Short notices, advertisements, messages and everyday texts. Focus on direct information and purpose.</div>
+        <div class="mini-card" style="background:#dcfce7"><b>Parts 3–4</b>Longer factual or narrative texts. Track main ideas, details, sequence and paraphrases.</div>
+        <div class="mini-card" style="background:#fef3c7"><b>Part 5</b>Gapped text or cohesion task. Follow pronouns, linkers, repeated ideas and paragraph flow.</div>
+        <div class="mini-card" style="background:#fce7f3"><b>Parts 6–7</b>Extended academic texts. Handle inference, writer's view, purpose, tone and evaluation.</div>
+      </div>
+      <div style="background:#f8fafc;border:var(--line);border-radius:14px;padding:12px;margin-top:12px">
+        <h3 style="font-size:15px;margin-bottom:9px">Fast clue guide</h3>
+        <div style="display:grid;gap:7px;font-size:13px;font-weight:850">
+          <div><b>“According to the text…”</b> → locate a direct detail.</div>
+          <div><b>“It can be inferred…”</b> → combine clues; do not add outside knowledge.</div>
+          <div><b>“The writer's purpose…”</b> → decide whether the writer informs, explains, argues, warns or persuades.</div>
+          <div><b>“The word/phrase refers to…”</b> → look backwards for the nearest logical noun or idea.</div>
         </div>
-        <div class="explain show" style="margin-top:10px"><b>A is correct:</b> "limited charging stations as the primary barrier" → paraphrased as "insufficient charging stations." B and C are not mentioned — classic distractors.</div>
       </div>
-      <button class="btn green" style="margin-top:4px" onclick="R.open('s4')">I'm ready — start practice →</button>
+      <button class="next-btn" onclick="R.open('s4')">Question types understood — see SCAN in action →</button>
     </div>
   </div>
 
   <!-- STEP 4 -->
-  <div class="flow-step">
+  <div class="flow-step" id="step4">
     <div class="flow-step-head" onclick="R.toggle('s4')">
-      <div class="step-num">4</div>
-      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Answer all questions</small></div>
+      <div class="step-num" style="background:var(--green)">4</div>
+      <div style="flex:1"><b>Worked Example</b><br><small style="color:var(--muted)">Apply SCAN step by step</small></div>
       <span id="c-s4">▾</span>
     </div>
-    <div id="b-s4" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+    <div id="b-s4" class="flow-body">
+      <div style="background:#ecfdf5;border:var(--line);border-radius:14px;padding:12px;font-size:13px;font-weight:800;line-height:1.6">
+        <b>Sample passage:</b> Despite the increasing availability of electric vehicles, many Malaysians still prefer conventional cars because they are concerned about charging infrastructure. A survey found that 68% identified limited charging stations as the main barrier.
+      </div>
+      <div style="border:var(--line);border-radius:14px;background:#fff;padding:12px;margin-top:10px">
+        <p style="font-weight:900;margin-bottom:10px;font-size:13px">Question: What is the main reason Malaysians hesitate to buy electric vehicles?</p>
+        <div class="options">
+          <label class="option correct"><input type="radio" name="demo-reading-q1" disabled checked/><span>A. Insufficient charging stations</span></label>
+          <label class="option wrong"><input type="radio" name="demo-reading-q1" disabled/><span>B. Electric vehicles are too expensive</span></label>
+          <label class="option wrong"><input type="radio" name="demo-reading-q1" disabled/><span>C. Drivers lack awareness of electric vehicles</span></label>
+        </div>
+      </div>
+      <div class="worked-line" style="background:#dbeafe"><span class="worked-label">S — STUDY</span><br>The question asks for the <b>main reason</b> for hesitation.</div>
+      <div class="worked-line" style="background:#fef3c7"><span class="worked-label">C — CIRCLE</span><br>Keywords: <b>main reason</b>, <b>Malaysians</b>, <b>hesitate</b>, <b>electric vehicles</b>.</div>
+      <div class="worked-line" style="background:#dcfce7"><span class="worked-label">A — ANALYSE</span><br>The passage says “limited charging stations” are the “main barrier.” This is the evidence sentence.</div>
+      <div class="worked-line" style="background:#fce7f3"><span class="worked-label">N — NARROW</span><br>Option A paraphrases the evidence. Options B and C are not stated, so eliminate them.</div>
+      <div class="explain show" style="margin-top:10px"><b>Correct answer: A.</b> “Limited” is paraphrased as “insufficient,” while “main barrier” matches “main reason.”</div>
+      <button class="next-btn" onclick="R.open('s5')">I can apply SCAN — show me the exam workflow →</button>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="flow-step" id="step5">
+    <div class="flow-step-head" onclick="R.toggle('s5')">
+      <div class="step-num" style="background:var(--pink)">5</div>
+      <div style="flex:1"><b>Exam Workflow &amp; Quick Reference</b><br><small style="color:var(--muted)">Timing, traps and final checks</small></div>
+      <span id="c-s5">▾</span>
+    </div>
+    <div id="b-s5" class="flow-body">
+      <div class="coach-note lime"><div class="tag">75-MINUTE WORKFLOW</div>
+        <p><b>First pass:</b> answer easier direct questions. <b>Second pass:</b> return to inference and difficult items. Reserve the final minutes to check unanswered questions.</p>
+      </div>
+      <div class="skill-grid" style="margin-top:10px">
+        <div class="mini-card"><b>⏱ Pace yourself</b>Aim for about 1½ minutes per question, but spend less time on short-text items.</div>
+        <div class="mini-card"><b>🚩 Mark and move</b>Do not allow one difficult question to consume several minutes.</div>
+        <div class="mini-card"><b>🧩 Use text evidence</b>Your answer must be supported by the passage, not personal experience.</div>
+        <div class="mini-card"><b>✅ Answer every item</b>There is no benefit in leaving a multiple-choice question blank.</div>
+      </div>
+      <div style="background:#fff7ed;border:var(--line);border-radius:14px;padding:12px;margin-top:12px">
+        <p style="font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px">Common traps to avoid</p>
+        <div style="display:grid;gap:7px;font-size:13px;font-weight:850">
+          <div>❌ Choosing an option only because it repeats words from the passage.</div>
+          <div>❌ Using outside knowledge instead of the information given.</div>
+          <div>❌ Reading the entire passage slowly before looking at the questions.</div>
+          <div>❌ Ignoring words such as <i>not</i>, <i>except</i>, <i>mainly</i> and <i>most likely</i>.</div>
+        </div>
+      </div>
+      <div class="coach-note pink" style="margin-top:12px"><div class="tag">BEFORE YOU SUBMIT</div>
+        <p>Check that every question has one answer, difficult items were reviewed and your final choice matches evidence from the text.</p>
+      </div>
+      <button class="next-btn" onclick="R.open('s6')">Ready — begin Reading practice →</button>
+    </div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="flow-step" id="step6">
+    <div class="flow-step-head" onclick="R.toggle('s6')">
+      <div class="step-num" style="background:var(--purple, #c4b5fd)">6</div>
+      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Apply SCAN to all 40 questions</small></div>
+      <span id="c-s6">▾</span>
+    </div>
+    <div id="b-s6" class="flow-body">
       <div class="timer-card blue">
         <div><p class="tiny">Reading Timer — 75 min</p><div id="timerDisp" style="font-family:'Sora';font-size:36px;font-weight:800">75:00</div></div>
         <button class="btn yellow" style="width:auto;min-width:80px" id="timerBtn" onclick="toggleTimer()">Start</button>
       </div>
-      <div class="coach-note lime"><div class="tag">BEFORE READING</div><p>Read all questions first. Underline keywords. Then scan the passage.</p></div>
-      <div class="card"><h3 id="passTitle">MUET Reading Practice — 7 Parts, 40 Questions</h3><p id="passText" style="font-size:12px;font-weight:800;color:var(--muted);margin-top:6px">Expand each part below to read its passage, then answer the questions that follow it.</p></div>
+      <div class="coach-note lime"><div class="tag">SCAN REMINDER</div><p><b>S</b>tudy the question · <b>C</b>ircle keywords · <b>A</b>nalyse and scan · <b>N</b>arrow the choices.</p></div>
+      <div class="card"><h3 id="passTitle">MUET Reading Practice — 7 Parts, 40 Questions</h3><p id="passText" style="font-size:12px;font-weight:800;color:var(--muted);margin-top:6px">Expand each part to read its passage, then answer the questions that follow.</p></div>
       <div id="qList" style="display:grid;gap:14px"></div>
       <div class="btn-row" style="margin-top:14px">
         <button class="btn green wide" onclick="submitReading()">Submit Practice</button>
@@ -144,7 +230,7 @@
 </section>
 </main>
 <div id="toast" class="toast"></div>
-<script src="js/muet-shared.js?v=2"></script>
+<script src="js/muet-shared.js?v=20260726-1"></script>
 <script>
 // Full MUET-format practice set for the standalone Reading skill module
 // 7 parts · 10 texts · 40 questions · 75 minutes (matches MUET Reading 800/3 spec)

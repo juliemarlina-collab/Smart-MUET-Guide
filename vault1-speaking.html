@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <title>Speaking · Vault 1 · Smart MUET Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/muet-guide.css"/>
+  <link rel="stylesheet" href="css/muet-guide.css?v=20260726-1"/>
   <style>
     /* ── Section toggles (expandable) ── */
     .sec{background:var(--paper);border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
@@ -98,6 +98,7 @@
       .task-tabs{max-width:400px}
     }
   </style>
+  <link rel="stylesheet" href="css/responsive-fix.css?v=20260726-1">
 </head>
 <body>
 <main class="app-shell">
@@ -411,8 +412,8 @@
 </main>
 
 <div id="toast" class="toast"></div>
-<script src="js/muet-shared.js"></script>
-<script src="js/backend-config.js"></script>
+<script src="js/muet-shared.js?v=20260726-1"></script>
+<script src="js/backend-config.js?v=20260726-1"></script>
 <script>
 /* ── Vault context ─────────────────────────────────────────────── */
 const _av = MUET.loadActiveVault();
