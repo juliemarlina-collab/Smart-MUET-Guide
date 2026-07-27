@@ -103,28 +103,6 @@
     }
   </style>
   <link rel="stylesheet" href="css/responsive-fix.css?v=20260726-2">
-<style>
-/* Smart MUET standardised Neopop */
-:root{--np-blue:#3854f5;--np-green:#19d39a;--np-yellow:#ffca3a;--np-pink:#f76bb2;--np-orange:#ff7043;--np-purple:#9c78ff;--np-teal:#18c7ba;--np-black:#101116}
-body{background:var(--np-black);overflow-x:hidden}
-.app-shell{width:min(1180px,calc(100% - 28px))!important;max-width:1180px!important;margin:16px auto!important;border-radius:30px!important;overflow:hidden}
-.screen.active{padding:18px!important}
-.card,.coach-note,.result-card{border-width:3px!important;box-shadow:6px 6px 0 var(--np-black)!important}
-.muet-standard-hero{display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:18px;align-items:center;border:3px solid var(--np-black);border-radius:24px;box-shadow:7px 7px 0 var(--np-black);padding:20px;margin-bottom:16px}
-.muet-standard-hero h1{font-size:clamp(28px,4vw,46px);line-height:1.02;margin:5px 0 9px}
-.muet-standard-hero p{font-weight:850;line-height:1.5}
-.hero-asset{width:104px;height:104px;background:#fff;border:3px solid var(--np-black);border-radius:22px;box-shadow:5px 5px 0 var(--np-black);display:grid;place-items:center;overflow:hidden}
-.hero-asset img{width:72px;height:72px;object-fit:contain}.hero-asset img[hidden]{display:none}
-.quick-facts-standard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 14px}
-.quick-fact{min-height:84px;padding:12px 8px;border:3px solid var(--np-black);border-radius:17px;box-shadow:4px 4px 0 var(--np-black);display:grid;place-items:center;text-align:center;font-weight:1000}
-.quick-fact strong{display:block;font-family:Sora;font-size:23px;line-height:1}.quick-fact span{display:block;font-size:10px;text-transform:uppercase;margin-top:5px}
-.standard-strategy{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:12px 0}
-.strategy-chip{border:3px solid var(--np-black);border-radius:15px;box-shadow:4px 4px 0 var(--np-black);padding:11px 8px;text-align:center;font-weight:1000;font-size:11px}
-.strategy-chip b{font-family:Sora;font-size:25px;display:block;line-height:1;margin-bottom:4px}
-.optional-guide{border:3px solid var(--np-black);border-radius:18px;background:#fff;box-shadow:5px 5px 0 var(--np-black);margin:14px 0;overflow:hidden}
-.optional-guide summary{padding:14px 16px;font-weight:1000;cursor:pointer;background:var(--np-yellow)}.optional-guide-body{padding:14px 16px}
-@media(max-width:720px){.app-shell{width:min(100% - 12px,1180px)!important;margin:6px auto!important}.screen.active{padding:11px!important}.muet-standard-hero{grid-template-columns:1fr;padding:16px}.hero-asset{display:none}.quick-facts-standard,.standard-strategy{grid-template-columns:repeat(2,minmax(0,1fr))}}
-</style>
 </head>
 <body>
 <main class="app-shell">
@@ -137,17 +115,51 @@ body{background:var(--np-black);overflow-x:hidden}
   </div>
 
   <div class="reading-wrap">
-    <!-- Standardised Hero -->
-    <section class="muet-standard-hero" style="background:var(--np-green)"><div><div class="tiny">READING 800/3 · 90 MARKS · 75 MINUTES · 25% OF MUET</div><h1>Read smarter<br>with SCAN.</h1><p>Seven parts, ten texts and forty questions. Use SCAN on every question and let the text evidence decide your answer.</p></div><div class="hero-asset"><img src="assets/icons/reading.png" alt="Reading" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span hidden style="font-size:44px">📖</span></div></section>
+    <section class="reading-hero">
+      <div class="hero-main">
+        <div>
+          <div class="section-kicker">MUET Reading Guide</div>
+          <h1>Read smarter<br>with SCAN.</h1>
+          <p>Keep the important facts, but learn and practise them in a clearer part-by-part flow.</p>
+        </div>
+        <div class="hero-art"><img src="assets/heroes/small-muet-logo.svg" alt="Smart MUET Guide"></div>
+      </div>
+      <div class="hero-stats" aria-label="Reading test facts">
+        <div class="stat-tile"><strong>7</strong><span>Parts</span></div>
+        <div class="stat-tile"><strong>40</strong><span>Questions</span></div>
+        <div class="stat-tile"><strong>75</strong><span>Minutes</span></div>
+        <div class="stat-tile"><strong>25%</strong><span>of MUET</span></div>
+      </div>
+    </section>
 
-    <div class="quick-facts-standard"><div class="quick-fact" style="background:var(--np-blue);color:white"><strong>7</strong><span>Parts</span></div><div class="quick-fact" style="background:var(--np-yellow)"><strong>10</strong><span>Texts</span></div><div class="quick-fact" style="background:var(--np-green)"><strong>40</strong><span>Questions</span></div><div class="quick-fact" style="background:var(--np-pink)"><strong>90</strong><span>Marks</span></div></div>
-
-    <div class="card" style="margin-bottom:16px"><div class="tiny">MAIN TECHNIQUE</div><h2>SCAN</h2><div class="standard-strategy"><div class="strategy-chip" style="background:var(--np-blue);color:white"><b>S</b>Study the question</div><div class="strategy-chip" style="background:var(--np-yellow)"><b>C</b>Circle keywords</div><div class="strategy-chip" style="background:var(--np-green)"><b>A</b>Analyse the text</div><div class="strategy-chip" style="background:var(--np-pink)"><b>N</b>Narrow choices</div></div>
-      <details class="optional-guide"><summary>View important reading tips and test guidance</summary><div class="optional-guide-body">
-        <p style="font-weight:850;margin-bottom:10px"><b>Test format (MPM official):</b> 7 parts · 10 texts · 40 questions, graded out of 90 marks, in 75 minutes. Questions are multiple-choice with three or four options, and multiple-matching.</p>
-        <p style="font-weight:850;margin-bottom:10px"><b>Band 5 descriptor:</b> grasp lengthy and complex factual and literary texts while recognising different styles, and make sense of detailed articles and long technical instructions — even outside your own field.</p>
-        <p style="font-weight:850;margin-bottom:10px"><b>Reading comprehension:</b> read the text, understand its main ideas, and connect that information with what you already know — while keeping an eye on the time.</p>
-        <div class="guide-more-grid" style="padding:0">
+    <section class="essentials">
+      <div class="section-top">
+        <div><div class="section-kicker">Before You Start</div><h2>Reading Essentials</h2><p>Only the information students need before beginning practice.</p></div>
+      </div>
+      <div class="essentials-grid">
+        <div class="scan-panel">
+          <b>SCAN technique</b>
+          <div class="scan-row">
+            <div class="scan-step"><b>S</b>Study the question</div>
+            <div class="scan-step"><b>C</b>Circle keywords</div>
+            <div class="scan-step"><b>A</b>Analyse the text</div>
+            <div class="scan-step"><b>N</b>Narrow choices</div>
+          </div>
+        </div>
+        <div class="facts-panel">
+          <b>What the test measures</b>
+          <div class="facts-list">
+            <div class="fact-line"><img src="assets/heroes/icon-muet-intro.svg" alt=""><span>Locate facts and supporting details.</span></div>
+            <div class="fact-line"><img src="assets/heroes/icon-why-muet.svg" alt=""><span>Understand main ideas and meaning.</span></div>
+            <div class="fact-line"><img src="assets/heroes/icon-app-facts.svg" alt=""><span>Identify purpose, tone and text organisation.</span></div>
+          </div>
+        </div>
+      </div>
+      <details class="more-guide">
+        <summary>＋ View question types and exam reminders</summary>
+        <div class="guide-more-grid">
+          <div class="guide-mini"><b>Test format (MPM)</b>7 parts · 10 texts · 40 questions · 90 marks. MCQ with 3–4 options and multiple-matching.</div>
+          <div class="guide-mini"><b>Band 5 target</b>Grasp lengthy, complex factual and literary texts and recognise different styles.</div>
           <div class="guide-mini"><b>Common question types</b>Main idea, detail, inference, vocabulary, reference, tone and purpose.</div>
           <div class="guide-mini"><b>Use text evidence</b>Choose the answer supported by the passage, not outside knowledge.</div>
           <div class="guide-mini"><b>Avoid common traps</b>Do not choose an option only because it repeats words from the text.</div>
@@ -155,7 +167,8 @@ body{background:var(--np-black);overflow-x:hidden}
           <div class="guide-mini"><b>Manage your time</b>Complete easier items first and return to difficult questions later.</div>
           <div class="guide-mini"><b>Answer every item</b>Review unanswered questions before submitting the practice.</div>
         </div>
-      </div></details></div>
+      </details>
+    </section>
 
     <section class="practice-shell" id="practiceSection">
       <div class="practice-head">
@@ -274,10 +287,10 @@ const savedAnswers={};
 function itemsFor(part){return readingQuestions.map((q,qi)=>({q,qi})).filter(x=>x.q.type===part)}
 function saveVisibleAnswers(){itemsFor(PART_ORDER[currentPart]).forEach(({qi})=>{const el=document.querySelector(`input[name="q${qi}"]:checked`);if(el)savedAnswers[qi]=Number(el.value)})}
 function renderTabs(){document.getElementById('partTabs').innerHTML=PART_ORDER.map((p,i)=>`<button class="part-tab ${i===currentPart?'active':''} ${completedParts.has(p)?'done':''}" onclick="openPart(${i})">${p}${completedParts.has(p)?' ✓':''}</button>`).join('')}
-function renderPart(){const part=PART_ORDER[currentPart],items=itemsFor(part),first=items[0]?.q.id||'',last=items.at(-1)?.q.id||'';
+function renderPart(scroll=true){const part=PART_ORDER[currentPart],items=itemsFor(part),first=items[0]?.q.id||'',last=items.at(-1)?.q.id||'';
  const theme=PART_THEME[part]||['#3D50F5','#FFFFFF'];
  document.getElementById('partStage').innerHTML=`<article class="part-card" style="--part-color:${theme[0]};--part-text:${theme[1]}"><header class="part-card-head"><div class="part-icon"><img src="${PART_ICON[part]}" alt=""></div><div><div class="section-kicker">${part} of 7</div><h3>${PART_LABELS[part]||part}</h3><small>${items.length} questions · ${first}–${last}</small></div></header><div class="part-body"><button class="passage-button" onclick="togglePassage()"><span style="display:flex;align-items:center;gap:8px"><img src="assets/heroes/icon-muet-intro.svg" alt="" style="width:26px;height:26px">Reading passage</span><span id="passageText">Show passage ▾</span></button><div id="partPassage" class="passage-box" style="display:none">${PART_TEXTS[part]||''}</div><div class="questions-grid">${items.map(({q,qi})=>`<div class="question-card"><span class="question-no">${q.id}</span><p>${q.stem}</p><div class="options">${q.options.map((o,oi)=>`<label class="option"><input type="radio" name="q${qi}" value="${oi}" ${savedAnswers[qi]===oi?'checked':''}><span>${o}</span></label>`).join('')}</div></div>`).join('')}</div><div class="part-actions"><button class="btn white" onclick="previousPart()" ${currentPart===0?'disabled':''}>← Previous Part</button>${currentPart<PART_ORDER.length-1?'<button class="btn green" onclick="nextPart()">Save & Continue →</button>':'<button class="btn green" onclick="finishPractice()">Finish Part 7 →</button>'}</div></div></article>`;
- renderTabs();setTimeout(()=>document.getElementById('partStage').scrollIntoView({behavior:'smooth',block:'start'}),50)}
+ renderTabs();if(scroll)setTimeout(()=>document.getElementById('partStage').scrollIntoView({behavior:'smooth',block:'start'}),50)}
 function togglePassage(){const b=document.getElementById('partPassage'),t=document.getElementById('passageText'),open=b.style.display!=='none';b.style.display=open?'none':'block';t.textContent=open?'Show passage ▾':'Hide passage ▴'}
 function openPart(i){saveVisibleAnswers();currentPart=i;renderPart()}
 function previousPart(){saveVisibleAnswers();if(currentPart>0){currentPart--;renderPart()}}
@@ -289,7 +302,7 @@ function toggleTimer(){if(timerId){clearInterval(timerId);timerId=null;document.
 function toggleAnswerReview(){document.getElementById('answerReview').classList.toggle('show')}
 function buildReview(){document.getElementById('answerReview').innerHTML=PART_ORDER.map(part=>`<div class="review-part"><b>${PART_LABELS[part]||part}</b>${itemsFor(part).map(({q,qi})=>{const a=savedAnswers[qi],mine=a===undefined?'No answer':q.options[a];return `<div style="margin-top:9px"><strong>${q.id}</strong> · Your answer: ${mine}<br>Correct answer: ${q.options[q.answer]}<br><span style="color:var(--muted)">${q.explanation}</span></div>`}).join('')}</div>`).join('')}
 function submitReading(){if(submitted||completedParts.size<7)return;saveVisibleAnswers();let correct=0;readingQuestions.forEach((q,qi)=>{if(savedAnswers[qi]===q.answer)correct++});submitted=true;if(timerId){clearInterval(timerId);timerId=null}const total=readingQuestions.length,score90=Math.round(correct/total*90),band=MUET.scoreToBand(score90),session={vaultId:'SKILL-MODULE',rawScore:correct,totalQ:total,score90,band,date:new Date().toISOString()},list=MUET.loadSessions('reading');list.push(session);MUET.saveSessions('reading',list);MUET.awardBadge('passage_hunter');MUET.addXP(70);if(typeof saveSmartMuetAttempt==='function'){const p=MUET.loadProfile()||{};saveSmartMuetAttempt({studentName:p.name||'',studentEmail:p.email||'',studentRegNo:p.regNo||'',classGroup:p.group||'',component:'reading',vaultId:'SKILL-MODULE',taskType:'SCAN Practice',rawScore:correct,totalItems:total,score90,estimatedBand:band,xpEarned:70,date:new Date().toISOString()});}document.getElementById('resultScore').textContent=`${correct}/${total} · ${score90}/90`;document.getElementById('resultBand').textContent=`Band ${band}`;document.getElementById('resultFb').textContent=MUET.feedbackText('reading',score90);buildReview();document.getElementById('resultCard').classList.add('show');document.getElementById('submitBtn').disabled=true;MUET.toast('Reading saved!');document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'start'})}
-document.addEventListener('DOMContentLoaded',()=>{renderPart();updateFinal()});
+document.addEventListener('DOMContentLoaded',()=>{renderPart(false);updateFinal()});
 </script>
 </body>
 </html>
