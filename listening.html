@@ -45,6 +45,15 @@ body{background:var(--np-black);overflow-x:hidden}
 .part-practice-head{padding:15px 17px;border-bottom:3px solid var(--np-black)}.part-practice-body{padding:16px}
 .standard-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 @media(max-width:720px){.app-shell{width:min(100% - 12px,1180px)!important;margin:6px auto!important}.screen.active{padding:11px!important}.muet-standard-hero{grid-template-columns:1fr;padding:16px}.hero-asset{display:none}.quick-facts-standard,.standard-strategy{grid-template-columns:repeat(2,minmax(0,1fr))}.standard-actions{grid-template-columns:1fr}}
+
+.answer-review{display:none;margin-top:14px}
+.answer-review.show{display:block}
+.answer-review-part{border:3px solid var(--np-black);border-radius:18px;background:#fff;padding:14px;margin-top:12px;box-shadow:4px 4px 0 var(--np-black)}
+.answer-review-item{border-top:2px dashed rgba(0,0,0,.18);padding-top:10px;margin-top:10px;font-size:13px;line-height:1.55;font-weight:750}
+.answer-review-item:first-child{border-top:0;padding-top:0}
+.answer-status{display:inline-block;border:2px solid var(--np-black);border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;margin-bottom:5px}
+.answer-status.correct{background:var(--np-green)}.answer-status.wrong{background:var(--np-pink)}
+
 </style>
 </head>
 <body>
@@ -57,9 +66,14 @@ body{background:var(--np-black);overflow-x:hidden}
     <button class="icon-btn">🎧</button>
   </div>
 
-  <section class="muet-standard-hero" style="background:var(--np-yellow)"><div><div class="tiny">LISTENING 800/1 · 90 MARKS · 25% OF MUET</div><h1>Focus on one part<br>at a time.</h1><p>Use FOCUS to predict, listen for meaning and check the final answer.</p></div><div class="hero-asset"><img src="assets/icons/listening.png" alt="Listening" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span hidden style="font-size:44px">🎧</span></div></section>
+  <section class="muet-standard-hero" style="background:var(--np-yellow)"><div><div class="tiny">LISTENING 800/1 · 90 MARKS · 25% OF MUET</div><h1>Focus on one part<br>at a time.</h1><p>Use HEAR to prepare, follow the audio and confirm each answer.</p></div><div class="hero-asset"><img src="assets/icons/listening.png" alt="Listening" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span hidden style="font-size:44px">🎧</span></div></section>
 
-<div class="quick-facts-standard"><div class="quick-fact" style="background:var(--np-blue);color:white"><strong>5</strong><span>Parts</span></div><div class="quick-fact" style="background:var(--np-green)"><strong>30</strong><span>Questions</span></div><div class="quick-fact" style="background:var(--np-orange)"><strong>≈50</strong><span>Minutes</span></div><div class="quick-fact" style="background:var(--np-pink)"><strong>25%</strong><span>of MUET</span></div></div><div class="card"><div class="tiny">MAIN TECHNIQUE</div><h2>FOCUS</h2><div class="standard-strategy" style="grid-template-columns:repeat(5,minmax(0,1fr))"><div class="strategy-chip" style="background:var(--np-blue);color:white"><b>F</b>Forecast</div><div class="strategy-chip" style="background:var(--np-yellow)"><b>O</b>Observe</div><div class="strategy-chip" style="background:var(--np-green)"><b>C</b>Catch clues</div><div class="strategy-chip" style="background:var(--np-pink)"><b>U</b>Use context</div><div class="strategy-chip" style="background:var(--np-orange)"><b>S</b>Select</div></div><details class="optional-guide"><summary>View important listening tips and test guidance</summary><div class="optional-guide-body">Read the questions first, predict the answer type, note keywords, watch for corrections and match meaning rather than repeated words.</div></details></div>  <!-- STEP 1 -->
+<div class="quick-facts-standard"><div class="quick-fact" style="background:var(--np-blue);color:white"><strong>5</strong><span>Parts</span></div><div class="quick-fact" style="background:var(--np-green)"><strong>30</strong><span>Questions</span></div><div class="quick-fact" style="background:var(--np-orange)"><strong>≈50</strong><span>Minutes</span></div><div class="quick-fact" style="background:var(--np-pink)"><strong>25%</strong><span>of MUET</span></div></div><div class="card"><div class="tiny">MAIN TECHNIQUE</div><h2>HEAR</h2><div class="standard-strategy">
+      <div class="strategy-chip" style="background:var(--np-blue);color:white"><b>H</b>Highlight keywords</div>
+      <div class="strategy-chip" style="background:var(--np-yellow)"><b>E</b>Expect the answer type</div>
+      <div class="strategy-chip" style="background:var(--np-green)"><b>A</b>Attend to clues</div>
+      <div class="strategy-chip" style="background:var(--np-pink)"><b>R</b>Review the evidence</div>
+    </div><details class="optional-guide"><summary>View important listening tips and test guidance</summary><div class="optional-guide-body">Read the questions first, predict the answer type, note keywords, watch for corrections and match meaning rather than repeated words.</div></details></div>  <!-- STEP 1 -->
   <div class="flow-step">
     <div class="flow-step-head" onclick="L.toggle('s1')">
       <div class="step-num">1</div>
@@ -176,7 +190,9 @@ body{background:var(--np-black);overflow-x:hidden}
         <span id="resultScore" class="result-score"></span>
         <span id="resultBand" class="result-band"></span>
         <div id="resultFb" style="border:var(--line);border-radius:14px;background:white;padding:12px;margin:10px 0;font-size:13px;font-weight:800"></div>
-        <button class="btn black" onclick="location.href='index.html'">← Back to Home</button>
+        <button class="btn white wide" onclick="toggleListeningReview()">View Correct Answers &amp; Explanations</button>
+        <div id="listeningAnswerReview" class="answer-review"></div>
+        <button class="btn black" style="margin-top:12px" onclick="location.href='index.html'">← Back to Home</button>
       </div>
     </div>
   </div>
@@ -185,8 +201,9 @@ body{background:var(--np-black);overflow-x:hidden}
 </main>
 <div id="toast" class="toast"></div>
 <script src="js/muet-shared.js?v=20260726-1"></script>
+<script src="js/backend-config.js?v=20260726-1"></script>
 <script>
-const lstQuestions = [
+const sampleQs = [
   {
     "id": "L1",
     "part": "Part I — Conversation",
@@ -555,15 +572,18 @@ const lstQuestions = [
   }
 ];
 
-const PART_ORDER = [
-  'Part I — Conversation',
-  'Part II — Talk',
-  'Part III — Matching',
-  'Part IV — Radio Interview',
-  'Part V — Dialogue 1',
-  'Part V — Dialogue 2',
-  'Part V — Dialogue 3'
-];
+const PART_ORDER = ['Part I','Part II','Part III','Part IV','Part V'];
+const PART_TITLES = {
+  'Part I':'Part I — Conversation',
+  'Part II':'Part II — Talk',
+  'Part III':'Part III — Matching',
+  'Part IV':'Part IV — Radio Interview',
+  'Part V':'Part V — Three Short Dialogues'
+};
+function partKey(label){
+  const m=String(label||'').match(/^Part\s+(I{1,3}|IV|V)/);
+  return m ? `Part ${m[1]}` : label;
+}
 
 const L={};
 L.toggle=function(id){const b=document.getElementById('b-'+id),c=document.getElementById('c-'+id);if(!b)return;const open=b.style.display==='none';b.style.display=open?'block':'none';if(c)c.textContent=open?'▴':'▾';};
@@ -571,32 +591,168 @@ L.open=function(id){const b=document.getElementById('b-'+id),c=document.getEleme
 
 function toggleScript(){const s=document.getElementById('practiceScript'),b=document.getElementById('scriptBtn');const show=s.style.display==='none';s.style.display=show?'block':'none';b.textContent=show?'Hide Script':'Show Script';}
 
-let listeningPartIndex=0;const listeningCompleted=new Set();
-function listenGroups(){const g={};sampleQs.forEach((q,qi)=>{(g[q.part]=g[q.part]||[]).push({q,qi});});return g;}
-function saveListeningChoices(){sampleQs.forEach((q,qi)=>{const s=document.querySelector(`input[name="lq${qi}"]:checked`);if(s)sessionStorage.setItem(`smart-listening-${qi}`,s.value);});}
-function restoreListeningChoices(){sampleQs.forEach((q,qi)=>{const v=sessionStorage.getItem(`smart-listening-${qi}`);if(v!==null){const e=document.querySelector(`input[name="lq${qi}"][value="${v}"]`);if(e)e.checked=true;}});}
-function renderListenNav(){const n=document.getElementById('listenPartNav');if(!n)return;n.innerHTML=PART_ORDER.map((p,i)=>`<button class="${i===listeningPartIndex?'active ':''}${listeningCompleted.has(p)?'done':''}" onclick="goListeningPart(${i})">${i+1}</button>`).join('');}
-function goListeningPart(i){saveListeningChoices();listeningPartIndex=i;renderQuestions();}
-function nextListeningPart(){saveListeningChoices();listeningCompleted.add(PART_ORDER[listeningPartIndex]);if(listeningPartIndex<PART_ORDER.length-1)listeningPartIndex++;renderQuestions();}
-function previousListeningPart(){saveListeningChoices();if(listeningPartIndex>0)listeningPartIndex--;renderQuestions();}
-function finishListeningParts(){saveListeningChoices();listeningCompleted.add(PART_ORDER[listeningPartIndex]);renderListenNav();}
-function renderQuestions(){const groups=listenGroups(),part=PART_ORDER[listeningPartIndex],items=groups[part]||[];let h=`<section class="part-practice-card"><div class="part-practice-head" style="background:${['var(--np-blue)','var(--np-green)','var(--np-yellow)','var(--np-orange)','var(--np-pink)'][listeningPartIndex]}"><div class="tiny">PART ${listeningPartIndex+1} OF ${PART_ORDER.length}</div><h2>${part}</h2><p style="font-weight:800;margin-top:4px">${items.length} questions</p></div><div class="part-practice-body">`;items.forEach(({q,qi})=>{h+=`<div class="card"><p style="font-weight:900;margin-bottom:10px;font-size:13px">${q.id}. ${q.stem}</p><div class="options" id="lopts-${qi}">${q.options.map((o,oi)=>`<label class="option" id="lopt-${qi}-${oi}"><input type="radio" name="lq${qi}" value="${oi}"/><span>${o}</span></label>`).join('')}</div><div class="explain" id="lexp-${qi}">${q.explanation}</div></div>`;});h+=`<div class="standard-actions"><button class="btn white" onclick="previousListeningPart()" ${listeningPartIndex===0?'disabled':''}>← Previous Part</button>${listeningPartIndex<PART_ORDER.length-1?'<button class="btn yellow" onclick="nextListeningPart()">Save & Continue →</button>':'<button class="btn green" onclick="finishListeningParts()">Finish Part 5 →</button>'}</div></div></section>`;document.getElementById('lstQList').innerHTML=h;restoreListeningChoices();renderListenNav();}
+let listeningPartIndex=0;
+let listeningSubmitted=false;
+const listeningCompleted=new Set();
 
+function listenGroups(){
+  const g={};
+  sampleQs.forEach((q,qi)=>{
+    const key=partKey(q.part);
+    (g[key]=g[key]||[]).push({q,qi});
+  });
+  return g;
+}
+function saveListeningChoices(){
+  sampleQs.forEach((q,qi)=>{
+    const s=document.querySelector(`input[name="lq${qi}"]:checked`);
+    if(s)sessionStorage.setItem(`smart-listening-${qi}`,s.value);
+  });
+}
+function restoreListeningChoices(){
+  sampleQs.forEach((q,qi)=>{
+    const v=sessionStorage.getItem(`smart-listening-${qi}`);
+    if(v!==null){
+      const e=document.querySelector(`input[name="lq${qi}"][value="${v}"]`);
+      if(e)e.checked=true;
+    }
+  });
+}
+function renderListenNav(){
+  const n=document.getElementById('listenPartNav');
+  if(!n)return;
+  n.innerHTML=PART_ORDER.map((p,i)=>`<button class="${i===listeningPartIndex?'active ':''}${listeningCompleted.has(p)?'done':''}" onclick="goListeningPart(${i})">${i+1}${listeningCompleted.has(p)?' ✓':''}</button>`).join('');
+}
+function goListeningPart(i){
+  if(listeningSubmitted)return;
+  saveListeningChoices();
+  listeningPartIndex=i;
+  renderQuestions();
+}
+function completeCurrentListeningPart(){
+  saveListeningChoices();
+  listeningCompleted.add(PART_ORDER[listeningPartIndex]);
+}
+function nextListeningPart(){
+  completeCurrentListeningPart();
+  if(listeningPartIndex<PART_ORDER.length-1)listeningPartIndex++;
+  renderQuestions();
+}
+function previousListeningPart(){
+  saveListeningChoices();
+  if(listeningPartIndex>0)listeningPartIndex--;
+  renderQuestions();
+}
+function finishListeningParts(){
+  completeCurrentListeningPart();
+  renderListenNav();
+  document.querySelector('[onclick="submitListening()"]')?.scrollIntoView({behavior:'smooth',block:'center'});
+  MUET.toast('All five parts are ready to submit.');
+}
+function renderQuestions(){
+  const groups=listenGroups();
+  const part=PART_ORDER[listeningPartIndex];
+  const items=groups[part]||[];
+  const colours=['var(--np-blue)','var(--np-green)','var(--np-yellow)','var(--np-orange)','var(--np-pink)'];
+  let h=`<section class="part-practice-card">
+    <div class="part-practice-head" style="background:${colours[listeningPartIndex]};${listeningPartIndex===0?'color:white':''}">
+      <div class="tiny">PART ${listeningPartIndex+1} OF 5</div>
+      <h2>${PART_TITLES[part]}</h2>
+      <p style="font-weight:800;margin-top:4px">${items.length} questions · Apply HEAR before selecting an answer</p>
+    </div>
+    <div class="part-practice-body">
+      <div class="coach-note lime"><div class="tag">HEAR REMINDER</div>
+        <p><b>H</b>ighlight keywords · <b>E</b>xpect the answer type · <b>A</b>ttend to clues · <b>R</b>eview the evidence.</p>
+      </div>`;
+  items.forEach(({q,qi})=>{
+    h+=`<div class="card">
+      <div class="tiny">${q.part}</div>
+      <p style="font-weight:900;margin:6px 0 10px;font-size:13px">${q.id}. ${q.stem}</p>
+      <div class="options" id="lopts-${qi}">
+        ${q.options.map((o,oi)=>`<label class="option" id="lopt-${qi}-${oi}">
+          <input type="radio" name="lq${qi}" value="${oi}" ${listeningSubmitted?'disabled':''}/>
+          <span>${o}</span>
+        </label>`).join('')}
+      </div>
+    </div>`;
+  });
+  h+=`<div class="standard-actions">
+    <button class="btn white" onclick="previousListeningPart()" ${listeningPartIndex===0?'disabled':''}>← Previous Part</button>
+    ${listeningPartIndex<PART_ORDER.length-1
+      ?'<button class="btn yellow" onclick="nextListeningPart()">Save & Continue →</button>'
+      :'<button class="btn green" onclick="finishListeningParts()">Finish Part 5 →</button>'}
+  </div></div></section>`;
+  document.getElementById('lstQList').innerHTML=h;
+  restoreListeningChoices();
+  renderListenNav();
+}
+function buildListeningReview(){
+  const groups=listenGroups();
+  const review=document.getElementById('listeningAnswerReview');
+  review.innerHTML=PART_ORDER.map(part=>`<section class="answer-review-part">
+    <div class="tiny">${part}</div>
+    <h3>${PART_TITLES[part]}</h3>
+    ${(groups[part]||[]).map(({q,qi})=>{
+      const stored=sessionStorage.getItem(`smart-listening-${qi}`);
+      const selected=stored!==null?Number(stored):-1;
+      const correct=selected===q.answer;
+      const mine=selected>=0?q.options[selected]:'No answer selected';
+      return `<div class="answer-review-item">
+        <span class="answer-status ${correct?'correct':'wrong'}">${correct?'Correct':'Review'}</span>
+        <b>${q.id}. ${q.stem}</b><br>
+        <b>Your answer:</b> ${mine}<br>
+        <b>Correct answer:</b> ${q.options[q.answer]}<br>
+        <b>Why:</b> ${q.explanation}
+      </div>`;
+    }).join('')}
+  </section>`).join('');
+}
+function toggleListeningReview(){
+  document.getElementById('listeningAnswerReview')?.classList.toggle('show');
+}
 function submitListening(){
+  if(listeningSubmitted)return;
   const notes=document.getElementById('lstNotes').value.trim();
   if(!notes){MUET.toast('Please write keyword notes before submitting.');return;}
+  saveListeningChoices();
+
   let correct=0;
-  sampleQs.forEach((q,qi)=>{const stored=sessionStorage.getItem(`smart-listening-${qi}`);const ans=stored!==null?parseInt(stored):-1;if(ans===q.answer)correct++;q.options.forEach((_,oi)=>{const el=document.getElementById(`lopt-${qi}-${oi}`);if(!el)return;if(oi===q.answer)el.classList.add('correct');else if(oi===ans)el.classList.add('wrong');});document.getElementById(`lexp-${qi}`)?.classList.add('show');});
-  const total=sampleQs.length,score90=Math.round(correct/total*90),band=MUET.scoreToBand(score90);
+  sampleQs.forEach((q,qi)=>{
+    const stored=sessionStorage.getItem(`smart-listening-${qi}`);
+    const ans=stored!==null?Number(stored):-1;
+    if(ans===q.answer)correct++;
+  });
+
+  listeningSubmitted=true;
+  const total=sampleQs.length;
+  const score90=Math.round(correct/total*90);
+  const band=MUET.scoreToBand(score90);
   const session={vaultId:'SKILL-MODULE',rawScore:correct,totalQ:total,score90,band,notes,date:new Date().toISOString()};
-  const list=MUET.loadSessions('listening');list.push(session);MUET.saveSessions('listening',list);
-  MUET.awardBadge('audio_focus');MUET.addXP(70);
+  const list=MUET.loadSessions('listening');
+  list.push(session);
+  MUET.saveSessions('listening',list);
+  MUET.awardBadge('audio_focus');
+  MUET.addXP(70);
+
+  if(typeof saveSmartMuetAttempt==='function'){
+    const p=MUET.loadProfile()||{};
+    saveSmartMuetAttempt({
+      studentName:p.name||'', studentEmail:p.email||'', studentRegNo:p.regNo||'', classGroup:p.group||'',
+      component:'listening', vaultId:'SKILL-MODULE', taskType:'HEAR Practice',
+      rawScore:correct, totalItems:total, score90, estimatedBand:band,
+      xpEarned:70, answerText:notes, date:new Date().toISOString()
+    });
+  }
+
   document.getElementById('resultScore').textContent=`${correct}/${total} · ${score90}/90`;
   document.getElementById('resultBand').textContent=`Estimated Band ${band}`;
-  document.getElementById('resultFb').textContent=MUET.feedbackText('listening',score90);
+  document.getElementById('resultFb').innerHTML=`${MUET.feedbackText('listening',score90)}<br><br><b>Feedback rule:</b> Each explanation shows the exact clue, correction or meaning that supports the correct option.`;
+  buildListeningReview();
   document.getElementById('resultCard').classList.add('show');
-  MUET.toast('Listening saved!');
-  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+  document.querySelector('[onclick="submitListening()"]').disabled=true;
+  renderQuestions();
+  MUET.toast('Listening submitted. Correct answers are now available.');
+  document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 document.addEventListener('DOMContentLoaded',()=>{

@@ -112,6 +112,12 @@ body{background:var(--np-black);overflow-x:hidden}
 .part-practice-head{padding:15px 17px;border-bottom:3px solid var(--np-black)}.part-practice-body{padding:16px}
 .standard-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 @media(max-width:720px){.app-shell{width:min(100% - 12px,1180px)!important;margin:6px auto!important}.screen.active{padding:11px!important}.muet-standard-hero{grid-template-columns:1fr;padding:16px}.hero-asset{display:none}.quick-facts-standard,.standard-strategy{grid-template-columns:repeat(2,minmax(0,1fr))}.standard-actions{grid-template-columns:1fr}}
+
+.writing-feedback{display:none;margin-top:14px;border:3px solid var(--np-black);border-radius:20px;background:#fff;box-shadow:6px 6px 0 var(--np-black);overflow:hidden}
+.writing-feedback.show{display:block}.writing-feedback-head{padding:14px 16px;background:var(--np-green);border-bottom:3px solid var(--np-black)}
+.writing-feedback-body{padding:14px 16px}.writing-feedback-row{border:2px solid var(--np-black);border-radius:14px;padding:11px;margin-top:9px;font-size:13px;font-weight:800;line-height:1.5}
+.writing-feedback-row.pass{background:#dcfce7}.writing-feedback-row.review{background:#fef3c7}
+
 </style>
 </head>
 <body>
@@ -125,7 +131,7 @@ body{background:var(--np-black);overflow-x:hidden}
     <button class="icon-btn">✍️</button>
   </div>
 
-  <!-- Standardised Hero --><section class="muet-standard-hero" style="background:var(--np-pink)"><div><div class="tiny">WRITING 800/4 · 2 TASKS · 25% OF MUET</div><h1>Plan first.<br>Write with purpose.</h1><p>Complete Task 1 and Task 2 separately, then submit for guided feedback.</p></div><div class="hero-asset"><img src="assets/icons/writing.png" alt="Writing" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span hidden style="font-size:44px">✍️</span></div></section><div class="quick-facts-standard"><div class="quick-fact" style="background:var(--np-blue);color:white"><strong>2</strong><span>Tasks</span></div><div class="quick-fact" style="background:var(--np-yellow)"><strong>75</strong><span>Minutes</span></div><div class="quick-fact" style="background:var(--np-green)"><strong>90</strong><span>Marks</span></div><div class="quick-fact" style="background:var(--np-pink)"><strong>25%</strong><span>of MUET</span></div></div><div class="card"><div class="tiny">MAIN TECHNIQUE</div><h2>PEEL</h2><div class="standard-strategy"><div class="strategy-chip" style="background:var(--np-blue);color:white"><b>P</b>Point</div><div class="strategy-chip" style="background:var(--np-yellow)"><b>E</b>Explain</div><div class="strategy-chip" style="background:var(--np-green)"><b>E</b>Example</div><div class="strategy-chip" style="background:var(--np-pink)"><b>L</b>Link</div></div><details class="optional-guide"><summary>View important writing tips and test guidance</summary><div class="optional-guide-body">Task 1: respond to every note in an appropriate style. Task 2: state a clear position, organise paragraphs and support each point with explanation and examples.</div></details></div>
+  <!-- Standardised Hero --><section class="muet-standard-hero" style="background:var(--np-pink)"><div><div class="tiny">WRITING 800/4 · 2 TASKS · 25% OF MUET</div><h1>Plan first.<br>Write with purpose.</h1><p>Complete Task 1 and Task 2 separately, then submit for guided feedback.</p></div><div class="hero-asset"><img src="assets/icons/writing.png" alt="Writing" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span hidden style="font-size:44px">✍️</span></div></section><div class="quick-facts-standard"><div class="quick-fact" style="background:var(--np-blue);color:white"><strong>2</strong><span>Tasks</span></div><div class="quick-fact" style="background:var(--np-yellow)"><strong>75</strong><span>Minutes</span></div><div class="quick-fact" style="background:var(--np-green)"><strong>90</strong><span>Marks</span></div><div class="quick-fact" style="background:var(--np-pink)"><strong>25%</strong><span>of MUET</span></div></div><div class="card"><div class="tiny">MAIN TECHNIQUE</div><h2>PEEL</h2><div class="standard-strategy"><div class="strategy-chip" style="background:var(--np-blue);color:white"><b>P</b>Point</div><div class="strategy-chip" style="background:var(--np-yellow)"><b>E</b>Explain</div><div class="strategy-chip" style="background:var(--np-green)"><b>E</b>Example</div><div class="strategy-chip" style="background:var(--np-pink)"><b>L</b>Link</div></div><details class="optional-guide"><summary>View important writing tips and test guidance</summary><div class="optional-guide-body">Task 1: respond to every note in an appropriate style. Task 2: state a clear position, organise paragraphs and support each point with explanation and examples. Writing has no single correct answer; feedback checks task fulfilment, organisation, language and word count.</div></details></div>
 
   <!-- Task selector -->
   <div class="task-badges" style="margin-bottom:0">
@@ -274,6 +280,11 @@ body{background:var(--np-black);overflow-x:hidden}
           <h2>Practice Submitted!</h2>
           <p id="submittedMsg">Your writing has been saved.</p>
           <div id="submittedMeta" class="submitted-meta"></div>
+          <div id="writingFeedback" class="writing-feedback">
+            <div class="writing-feedback-head"><h3>Instant Practice Feedback</h3></div>
+            <div id="writingFeedbackBody" class="writing-feedback-body"></div>
+          </div>
+          <button class="btn white wide" style="margin-top:12px" onclick="W.open('s3')">View Model Response</button>
           <button class="btn black" style="margin-top:12px" onclick="location.href='index.html'">← Back to Home</button>
         </div>
 
@@ -454,6 +465,7 @@ function setTask(t){
   document.getElementById('topicSelectionArea').style.display = 'block';
   document.getElementById('practiceArea').style.display = 'none';
   document.getElementById('submittedBanner').classList.remove('show');
+  document.getElementById('writingFeedback')?.classList.remove('show');
 
   // Render topic list
   renderTopics('all');
@@ -633,6 +645,33 @@ function renderTimer(){
 }
 
 /* ── Submit ── */
+function buildWritingFeedback(answer,wordCount){
+  const lower=answer.toLowerCase();
+  const rows=[];
+  if(currentTask==='T1'){
+    const notesCount=(selectedTopic.notes||[]).length;
+    const responseSignals=['sorry','glad','yes','no','suggest','hope','because','thank'];
+    const signalCount=responseSignals.filter(x=>lower.includes(x)).length;
+    rows.push({pass:wordCount>=100,label:'Word count',text:`${wordCount} words. Aim for at least 100 words for the actual task.`});
+    rows.push({pass:signalCount>=3,label:'Task fulfilment',text:`Your reply shows ${signalCount} clear response signals. Check that every note in the prompt is answered directly.`});
+    rows.push({pass:/hi |dear |hello /.test(lower),label:'Opening',text:'Use an appropriate greeting for the relationship and context.'});
+    rows.push({pass:/regards|sincerely|your friend|take care|best wishes/.test(lower),label:'Closing',text:'End the email or letter with an appropriate closing.'});
+  }else{
+    const paragraphs=answer.split(/\n\s*\n/).filter(Boolean).length;
+    const connectors=['firstly','furthermore','moreover','however','for example','therefore','in conclusion'];
+    const connectorCount=connectors.filter(x=>lower.includes(x)).length;
+    rows.push({pass:wordCount>=250,label:'Word count',text:`${wordCount} words. Aim for at least 250 words for the actual task.`});
+    rows.push({pass:paragraphs>=4,label:'Organisation',text:`Detected about ${paragraphs} paragraph(s). A clear essay normally has an introduction, body paragraphs and a conclusion.`});
+    rows.push({pass:connectorCount>=3,label:'Cohesion',text:`Detected ${connectorCount} useful linking expression(s). Use links only when they fit the meaning.`});
+    rows.push({pass:/i agree|i disagree|in my opinion|i believe|i partly agree/.test(lower),label:'Clear stand',text:'State your position clearly in the introduction and maintain it throughout the essay.'});
+    rows.push({pass:/for example|for instance|such as/.test(lower),label:'Support',text:'Use relevant examples to support the explanation in each body paragraph.'});
+  }
+  document.getElementById('writingFeedbackBody').innerHTML=
+    `<p style="font-size:13px;font-weight:800;line-height:1.55"><b>Important:</b> Writing does not have one fixed correct answer. This feedback checks visible features of your response; it does not replace lecturer marking.</p>`+
+    rows.map(r=>`<div class="writing-feedback-row ${r.pass?'pass':'review'}"><b>${r.pass?'✓':'Review'} — ${r.label}</b><br>${r.text}</div>`).join('');
+  document.getElementById('writingFeedback').classList.add('show');
+}
+
 function submitWriting(){
   const answer = document.getElementById('answerBox').value.trim();
   const minWords = currentTask === 'T1' ? 30 : 50;
@@ -671,15 +710,21 @@ function submitWriting(){
 
   /* Send to Apps Script backend — lecturer handles rubric feedback */
   if(typeof saveSmartMuetAttempt === 'function'){
+    const p = MUET.loadProfile()||{};
     saveSmartMuetAttempt({
+      studentName:  p.name||'',
+      studentEmail: p.email||'',
+      studentRegNo: p.regNo||'',
+      classGroup:   p.group||'',
       component:  'writing',
       vaultId:    'SKILL-MODULE',
       taskType:   currentTask,
       topicId:    selectedTopic.id,
       topicTitle: selectedTopic.statement || selectedTopic.title,
-      answer,
+      answerText: answer,
       wordCount,
       planner:    plannerData,
+      status:     'Pending lecturer feedback',
       date:       new Date().toISOString()
     });
   }
@@ -697,8 +742,9 @@ function submitWriting(){
     `<b>Word count:</b> ${wordCount}<br>` +
     `<b>Saved:</b> ${new Date().toLocaleString('en-MY')}`;
   document.getElementById('submittedBanner').classList.add('show');
+  buildWritingFeedback(answer,wordCount);
 
-  MUET.toast('Writing saved!');
+  MUET.toast('Writing saved! Review the instant feedback below.');
   setTimeout(() =>
     document.getElementById('submittedBanner').scrollIntoView({behavior:'smooth', block:'start'}),
   200);
