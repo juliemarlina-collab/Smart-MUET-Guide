@@ -74,6 +74,11 @@ details.more-guide summary::-webkit-details-marker{display:none}
 .part-practice-head{padding:15px 17px;border-bottom:2px solid rgba(0,0,0,.1)}.part-practice-body{padding:16px}
 .standard-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 @media(max-width:620px){.standard-actions{grid-template-columns:1fr}}
+/* Per-part audio player */
+.part-audio{background:var(--ink);color:#fff;border:var(--line);border-radius:14px;padding:12px;margin-bottom:12px}
+.part-audio .tiny{color:rgba(255,255,255,.65)}
+.audio-frame{width:100%;height:88px;border:2px solid var(--ink);border-radius:12px;background:#f8fafc;margin-top:8px}
+.part-audio-note{font-size:11px;font-weight:800;color:rgba(255,255,255,.75);margin-top:6px;line-height:1.4}
 /* Answer review (after submit only) */
 .answer-review{display:none;margin-top:14px}
 .answer-review.show{display:block}
@@ -211,9 +216,9 @@ details.more-guide summary::-webkit-details-marker{display:none}
     </div>
     <div id="b-s4" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
       <div style="background:var(--ink);color:white;border:var(--line);border-radius:var(--r2);padding:14px;margin-bottom:14px">
-        <p class="tiny" style="color:rgba(255,255,255,.7)">Script Mode — Audio pending</p>
+        <p class="tiny" style="color:rgba(255,255,255,.7)">Audio &amp; Script Mode</p>
         <div style="height:36px;background:repeating-linear-gradient(90deg,var(--yellow) 0 6px,transparent 6px 12px);border:2px solid rgba(255,255,255,.3);border-radius:10px;margin:8px 0;opacity:.5"></div>
-        <p style="font-weight:800;font-size:13px;margin-bottom:8px">Read the script below to practise. In the real exam, audio plays once only.</p>
+        <p style="font-weight:800;font-size:13px;margin-bottom:8px">Parts I–III have a Google Drive audio player inside each part below. Parts IV–V run in script mode until their recordings are uploaded. In the real exam, audio plays once only.</p>
         <button class="btn yellow" id="scriptBtn" onclick="toggleScript()" style="width:auto;min-width:130px">Show Script</button>
       </div>
       <div id="practiceScript" style="display:none;background:#f0fdf4;border:var(--line);border-radius:16px;padding:14px;margin-bottom:14px;font-size:13px;font-weight:800;line-height:1.6">
@@ -631,8 +636,20 @@ const PART_TITLES = {
   'Part IV':'Part IV — Radio Interview',
   'Part V':'Part V — Three Short Dialogues'
 };
+const PART_AUDIO = {
+  'Part I':  {title:'Part I Audio — Conversation: Leanne and Amir', track:'01 Track 1.mp3',
+              url:'https://drive.google.com/file/d/1QQj-1FvvZUddWZwo8LeipWk55mPePYum/preview'},
+  'Part II': {title:'Part II Audio — Talk by Dr Yusof Lokman', track:'02 Track 2.mp3',
+              url:'https://drive.google.com/file/d/112QBpHeyqud6f4UjBy_F_-HDJnWLmTYP/preview'},
+  'Part III':{title:'Part III Audio — Lina, Saiful and Sarah on travelling', track:'04 Track 4.mp3',
+              url:'https://drive.google.com/file/d/16hCkjfiQSaVwvTyC-1kx7GV1liFq013h/preview'},
+  'Part IV': {title:'Part IV Audio — Radio interview with Dr Ruben', url:'',
+              note:'The recording for this part is not uploaded yet — press Show Script in the black panel above and read the Part IV summary before answering.'},
+  'Part V':  {title:'Part V Audio — Three short dialogues', url:'',
+              note:'The recording for this part is not uploaded yet — press Show Script in the black panel above and read the Part V summary before answering.'}
+};
 function partKey(label){
-  const m=String(label||'').match(/^Part\s+(I{1,3}|IV|V)/);
+  const m=String(label||'').match(/^Part\s+(IV|V|I{1,3})\b/);
   return m ? `Part ${m[1]}` : label;
 }
 
@@ -712,6 +729,13 @@ function renderQuestions(){
       <p style="font-weight:800;margin-top:4px">${items.length} questions · Apply HEAR before selecting an answer</p>
     </div>
     <div class="part-practice-body">
+      ${(()=>{const a=PART_AUDIO[part]||{};return `<div class="part-audio">
+        <div class="tiny">LISTEN FIRST · AUDIO PLAYS ONCE IN THE REAL EXAM</div>
+        <div style="font-weight:900;font-size:13px;margin-top:3px">${a.title||''}</div>
+        ${a.url?`<iframe class="audio-frame" src="${a.url}" allow="autoplay"></iframe>
+        <div class="part-audio-note">Connected to Google Drive: ${a.track}. Play the audio, then answer the questions below.</div>`
+        :`<div class="part-audio-note">${a.note||'Audio link pending for this part.'}</div>`}
+      </div>`})()}
       <div class="coach-note lime"><div class="tag">HEAR REMINDER</div>
         <p><b>H</b>ighlight keywords · <b>E</b>xpect the answer type · <b>A</b>ttend to clues · <b>R</b>eview the evidence.</p>
       </div>`;
