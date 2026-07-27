@@ -218,7 +218,7 @@ details.more-guide summary::-webkit-details-marker{display:none}
       <div style="background:var(--ink);color:white;border:var(--line);border-radius:var(--r2);padding:14px;margin-bottom:14px">
         <p class="tiny" style="color:rgba(255,255,255,.7)">Audio &amp; Script Mode</p>
         <div style="height:36px;background:repeating-linear-gradient(90deg,var(--yellow) 0 6px,transparent 6px 12px);border:2px solid rgba(255,255,255,.3);border-radius:10px;margin:8px 0;opacity:.5"></div>
-        <p style="font-weight:800;font-size:13px;margin-bottom:8px">Parts I–III have a Google Drive audio player inside each part below. Parts IV–V run in script mode until their recordings are uploaded. In the real exam, audio plays once only.</p>
+        <p style="font-weight:800;font-size:13px;margin-bottom:8px">Every part has its own Google Drive audio player inside the part card below. Play the part audio first, then answer its questions. The script stays available as backup. In the real exam, audio plays once only.</p>
         <button class="btn yellow" id="scriptBtn" onclick="toggleScript()" style="width:auto;min-width:130px">Show Script</button>
       </div>
       <div id="practiceScript" style="display:none;background:#f0fdf4;border:var(--line);border-radius:16px;padding:14px;margin-bottom:14px;font-size:13px;font-weight:800;line-height:1.6">
@@ -637,16 +637,18 @@ const PART_TITLES = {
   'Part V':'Part V — Three Short Dialogues'
 };
 const PART_AUDIO = {
-  'Part I':  {title:'Part I Audio — Conversation: Leanne and Amir', track:'01 Track 1.mp3',
-              url:'https://drive.google.com/file/d/1QQj-1FvvZUddWZwo8LeipWk55mPePYum/preview'},
-  'Part II': {title:'Part II Audio — Talk by Dr Yusof Lokman', track:'02 Track 2.mp3',
-              url:'https://drive.google.com/file/d/112QBpHeyqud6f4UjBy_F_-HDJnWLmTYP/preview'},
-  'Part III':{title:'Part III Audio — Lina, Saiful and Sarah on travelling', track:'04 Track 4.mp3',
-              url:'https://drive.google.com/file/d/16hCkjfiQSaVwvTyC-1kx7GV1liFq013h/preview'},
-  'Part IV': {title:'Part IV Audio — Radio interview with Dr Ruben', url:'',
-              note:'The recording for this part is not uploaded yet — press Show Script in the black panel above and read the Part IV summary before answering.'},
-  'Part V':  {title:'Part V Audio — Three short dialogues', url:'',
-              note:'The recording for this part is not uploaded yet — press Show Script in the black panel above and read the Part V summary before answering.'}
+  'Part I':  {title:'Part I Audio — Conversation: Leanne and Amir', track:'MT1 - Part 1.mp3',
+              url:'https://drive.google.com/file/d/1CG10pjf7puLvpyHuOl-K8FjWD9DoTPGs/preview'},
+  'Part II': {title:'Part II Audio — Talk by Dr Yusof Lokman', track:'MT1 - Part 2.mp3',
+              url:'https://drive.google.com/file/d/1s_zRc3WolzfhZT7GrO4IbRuBf6K4qCIP/preview'},
+  'Part III':{title:'Part III Audio — Lina, Saiful and Sarah on travelling', track:'MT1 - Part 3.mp3',
+              url:'https://drive.google.com/file/d/1hJadCWBrSMnYu7YuqojYLcHWaooL5Hfm/preview'},
+  'Part IV': {title:'Part IV Audio — Radio interview with Dr Ruben', track:'MT1 - Part 4.mp3',
+              url:'https://drive.google.com/file/d/1_t2D-9JGNQEqQgYnaWK6I6Ulsa4v6JZn/preview'},
+  'Part V':  {title:'Part V Audio — Three short dialogues', tracks:[
+              {label:'Dialogue 1 · L25–L26', track:'MT1 - Part 5 - Dialogue 1.mp3', url:'https://drive.google.com/file/d/1e3YKM2Jnx2nbR_ugTBaD8hMw_TrmtIK6/preview'},
+              {label:'Dialogue 2 · L27–L28', track:'MT1 - Part 5 - Dialogue 2.mp3', url:'https://drive.google.com/file/d/1bhWqEaCoL6JRj43Azqeo3_J4uT7GSVBe/preview'},
+              {label:'Dialogue 3 · L29–L30', track:'MT1 - Part 5 - Dialogue 3.mp3', url:'https://drive.google.com/file/d/1IOj-82Z_BOho3OaygBSYd8ziSHDuefqP/preview'}]}
 };
 function partKey(label){
   const m=String(label||'').match(/^Part\s+(IV|V|I{1,3})\b/);
@@ -732,7 +734,10 @@ function renderQuestions(){
       ${(()=>{const a=PART_AUDIO[part]||{};return `<div class="part-audio">
         <div class="tiny">LISTEN FIRST · AUDIO PLAYS ONCE IN THE REAL EXAM</div>
         <div style="font-weight:900;font-size:13px;margin-top:3px">${a.title||''}</div>
-        ${a.url?`<iframe class="audio-frame" src="${a.url}" allow="autoplay"></iframe>
+        ${a.tracks?a.tracks.map(t=>`<div style="font-weight:900;font-size:12px;margin-top:10px">${t.label}</div>
+        <iframe class="audio-frame" src="${t.url}" allow="autoplay"></iframe>`).join('')+
+        `<div class="part-audio-note">Play each dialogue once, then answer its questions below.</div>`
+        :a.url?`<iframe class="audio-frame" src="${a.url}" allow="autoplay"></iframe>
         <div class="part-audio-note">Connected to Google Drive: ${a.track}. Play the audio, then answer the questions below.</div>`
         :`<div class="part-audio-note">${a.note||'Audio link pending for this part.'}</div>`}
       </div>`})()}
