@@ -103,28 +103,6 @@
     }
   </style>
   <link rel="stylesheet" href="css/responsive-fix.css?v=20260726-2">
-<style>
-/* Smart MUET standardised Neopop */
-:root{--np-blue:#3854f5;--np-green:#19d39a;--np-yellow:#ffca3a;--np-pink:#f76bb2;--np-orange:#ff7043;--np-purple:#9c78ff;--np-teal:#18c7ba;--np-black:#101116}
-body{background:var(--np-black);overflow-x:hidden}
-.app-shell{width:min(1180px,calc(100% - 28px))!important;max-width:1180px!important;margin:16px auto!important;border-radius:30px!important;overflow:hidden}
-.screen.active{padding:18px!important}
-.card,.coach-note,.result-card{border-width:3px!important;box-shadow:6px 6px 0 var(--np-black)!important}
-.muet-standard-hero{display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:18px;align-items:center;border:3px solid var(--np-black);border-radius:24px;box-shadow:7px 7px 0 var(--np-black);padding:20px;margin-bottom:16px}
-.muet-standard-hero h1{font-size:clamp(28px,4vw,46px);line-height:1.02;margin:5px 0 9px}
-.muet-standard-hero p{font-weight:850;line-height:1.5}
-.hero-asset{width:104px;height:104px;background:#fff;border:3px solid var(--np-black);border-radius:22px;box-shadow:5px 5px 0 var(--np-black);display:grid;place-items:center;overflow:hidden}
-.hero-asset img{width:72px;height:72px;object-fit:contain}.hero-asset img[hidden]{display:none}
-.quick-facts-standard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 14px}
-.quick-fact{min-height:84px;padding:12px 8px;border:3px solid var(--np-black);border-radius:17px;box-shadow:4px 4px 0 var(--np-black);display:grid;place-items:center;text-align:center;font-weight:1000}
-.quick-fact strong{display:block;font-family:Sora;font-size:23px;line-height:1}.quick-fact span{display:block;font-size:10px;text-transform:uppercase;margin-top:5px}
-.standard-strategy{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:12px 0}
-.strategy-chip{border:3px solid var(--np-black);border-radius:15px;box-shadow:4px 4px 0 var(--np-black);padding:11px 8px;text-align:center;font-weight:1000;font-size:11px}
-.strategy-chip b{font-family:Sora;font-size:25px;display:block;line-height:1;margin-bottom:4px}
-.optional-guide{border:3px solid var(--np-black);border-radius:18px;background:#fff;box-shadow:5px 5px 0 var(--np-black);margin:14px 0;overflow:hidden}
-.optional-guide summary{padding:14px 16px;font-weight:1000;cursor:pointer;background:var(--np-yellow)}.optional-guide-body{padding:14px 16px}
-@media(max-width:720px){.app-shell{width:min(100% - 12px,1180px)!important;margin:6px auto!important}.screen.active{padding:11px!important}.muet-standard-hero{grid-template-columns:1fr;padding:16px}.hero-asset{display:none}.quick-facts-standard,.standard-strategy{grid-template-columns:repeat(2,minmax(0,1fr))}}
-</style>
 </head>
 <body>
 <main class="app-shell">
@@ -137,17 +115,51 @@ body{background:var(--np-black);overflow-x:hidden}
   </div>
 
   <div class="reading-wrap">
-    <!-- Standardised Hero -->
-    <section class="muet-standard-hero" style="background:var(--np-green)"><div><div class="tiny">READING 800/3 · 90 MARKS · 75 MINUTES · 25% OF MUET</div><h1>Read smarter<br>with SCAN.</h1><p>Seven parts, ten texts and forty questions. Use SCAN on every question and let the text evidence decide your answer.</p></div><div class="hero-asset"><img src="assets/icons/reading.png" alt="Reading" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span hidden style="font-size:44px">📖</span></div></section>
+    <section class="reading-hero">
+      <div class="hero-main">
+        <div>
+          <div class="section-kicker">MUET Reading Guide</div>
+          <h1>Read smarter<br>with SCAN.</h1>
+          <p>Keep the important facts, but learn and practise them in a clearer part-by-part flow.</p>
+        </div>
+        <div class="hero-art"><img src="assets/heroes/small-muet-logo.svg" alt="Smart MUET Guide"></div>
+      </div>
+      <div class="hero-stats" aria-label="Reading test facts">
+        <div class="stat-tile"><strong>7</strong><span>Parts</span></div>
+        <div class="stat-tile"><strong>40</strong><span>Questions</span></div>
+        <div class="stat-tile"><strong>75</strong><span>Minutes</span></div>
+        <div class="stat-tile"><strong>25%</strong><span>of MUET</span></div>
+      </div>
+    </section>
 
-    <div class="quick-facts-standard"><div class="quick-fact" style="background:var(--np-blue);color:white"><strong>7</strong><span>Parts</span></div><div class="quick-fact" style="background:var(--np-yellow)"><strong>10</strong><span>Texts</span></div><div class="quick-fact" style="background:var(--np-green)"><strong>40</strong><span>Questions</span></div><div class="quick-fact" style="background:var(--np-pink)"><strong>90</strong><span>Marks</span></div></div>
-
-    <div class="card" style="margin-bottom:16px"><div class="tiny">MAIN TECHNIQUE</div><h2>SCAN</h2><div class="standard-strategy"><div class="strategy-chip" style="background:var(--np-blue);color:white"><b>S</b>Study the question</div><div class="strategy-chip" style="background:var(--np-yellow)"><b>C</b>Circle keywords</div><div class="strategy-chip" style="background:var(--np-green)"><b>A</b>Analyse the text</div><div class="strategy-chip" style="background:var(--np-pink)"><b>N</b>Narrow choices</div></div>
-      <details class="optional-guide"><summary>View important reading tips and test guidance</summary><div class="optional-guide-body">
-        <p style="font-weight:850;margin-bottom:10px"><b>Test format (MPM official):</b> 7 parts · 10 texts · 40 questions, graded out of 90 marks, in 75 minutes. Questions are multiple-choice with three or four options, and multiple-matching.</p>
-        <p style="font-weight:850;margin-bottom:10px"><b>Band 5 descriptor:</b> grasp lengthy and complex factual and literary texts while recognising different styles, and make sense of detailed articles and long technical instructions — even outside your own field.</p>
-        <p style="font-weight:850;margin-bottom:10px"><b>Reading comprehension:</b> read the text, understand its main ideas, and connect that information with what you already know — while keeping an eye on the time.</p>
-        <div class="guide-more-grid" style="padding:0">
+    <section class="essentials">
+      <div class="section-top">
+        <div><div class="section-kicker">Before You Start</div><h2>Reading Essentials</h2><p>Only the information students need before beginning practice.</p></div>
+      </div>
+      <div class="essentials-grid">
+        <div class="scan-panel">
+          <b>SCAN technique</b>
+          <div class="scan-row">
+            <div class="scan-step"><b>S</b>Study the question</div>
+            <div class="scan-step"><b>C</b>Circle keywords</div>
+            <div class="scan-step"><b>A</b>Analyse the text</div>
+            <div class="scan-step"><b>N</b>Narrow choices</div>
+          </div>
+        </div>
+        <div class="facts-panel">
+          <b>What the test measures</b>
+          <div class="facts-list">
+            <div class="fact-line"><img src="assets/heroes/icon-muet-intro.svg" alt=""><span>Locate facts and supporting details.</span></div>
+            <div class="fact-line"><img src="assets/heroes/icon-why-muet.svg" alt=""><span>Understand main ideas and meaning.</span></div>
+            <div class="fact-line"><img src="assets/heroes/icon-app-facts.svg" alt=""><span>Identify purpose, tone and text organisation.</span></div>
+          </div>
+        </div>
+      </div>
+      <details class="more-guide">
+        <summary>＋ View question types and exam reminders</summary>
+        <div class="guide-more-grid">
+          <div class="guide-mini"><b>Test format (MPM)</b>7 parts · 10 texts · 40 questions · 90 marks. MCQ with 3–4 options and multiple-matching.</div>
+          <div class="guide-mini"><b>Band 5 target</b>Grasp lengthy, complex factual and literary texts and recognise different styles.</div>
           <div class="guide-mini"><b>Common question types</b>Main idea, detail, inference, vocabulary, reference, tone and purpose.</div>
           <div class="guide-mini"><b>Use text evidence</b>Choose the answer supported by the passage, not outside knowledge.</div>
           <div class="guide-mini"><b>Avoid common traps</b>Do not choose an option only because it repeats words from the text.</div>
@@ -155,7 +167,8 @@ body{background:var(--np-black);overflow-x:hidden}
           <div class="guide-mini"><b>Manage your time</b>Complete easier items first and return to difficult questions later.</div>
           <div class="guide-mini"><b>Answer every item</b>Review unanswered questions before submitting the practice.</div>
         </div>
-      </div></details></div>
+      </details>
+    </section>
 
     <section class="practice-shell" id="practiceSection">
       <div class="practice-head">

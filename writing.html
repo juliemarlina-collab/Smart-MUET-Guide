@@ -86,38 +86,52 @@
   </style>
   <link rel="stylesheet" href="css/responsive-fix.css?v=20260726-1">
 <style>
-/* Smart MUET standardised Neopop */
-:root{--np-blue:#3854f5;--np-green:#19d39a;--np-yellow:#ffca3a;--np-pink:#f76bb2;--np-orange:#ff7043;--np-purple:#9c78ff;--np-teal:#18c7ba;--np-black:#101116}
-body{background:var(--np-black);overflow-x:hidden}
-.app-shell{width:min(1180px,calc(100% - 28px))!important;max-width:1180px!important;margin:16px auto!important;border-radius:30px!important;overflow:hidden}
-.screen.active{padding:18px!important}
-.card,.flow-step,.task-badge,.topic-item,.planner-box,.coach-note,.timer-card,.result-card,.submitted-banner{border-width:3px!important;box-shadow:6px 6px 0 var(--np-black)!important}
-.muet-standard-hero{display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:18px;align-items:center;border:3px solid var(--np-black);border-radius:24px;box-shadow:7px 7px 0 var(--np-black);padding:20px;margin-bottom:16px}
-.muet-standard-hero h1{font-size:clamp(28px,4vw,46px);line-height:1.02;margin:5px 0 9px}
-.muet-standard-hero p{font-weight:850;line-height:1.5}
-.hero-asset{width:104px;height:104px;background:#fff;border:3px solid var(--np-black);border-radius:22px;box-shadow:5px 5px 0 var(--np-black);display:grid;place-items:center;overflow:hidden}
-.hero-asset img{width:72px;height:72px;object-fit:contain}.hero-asset img[hidden]{display:none}
-.quick-facts-standard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 14px}
-.quick-fact{min-height:84px;padding:12px 8px;border:3px solid var(--np-black);border-radius:17px;box-shadow:4px 4px 0 var(--np-black);display:grid;place-items:center;text-align:center;font-weight:1000}
-.quick-fact strong{display:block;font-family:Sora;font-size:23px;line-height:1}.quick-fact span{display:block;font-size:10px;text-transform:uppercase;margin-top:5px}
-.standard-strategy{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:12px 0}
-.strategy-chip{border:3px solid var(--np-black);border-radius:15px;box-shadow:4px 4px 0 var(--np-black);padding:11px 8px;text-align:center;font-weight:1000;font-size:11px}
-.strategy-chip b{font-family:Sora;font-size:25px;display:block;line-height:1;margin-bottom:4px}
-.optional-guide{border:3px solid var(--np-black);border-radius:18px;background:#fff;box-shadow:5px 5px 0 var(--np-black);margin:14px 0;overflow:hidden}
-.optional-guide summary{padding:14px 16px;font-weight:1000;cursor:pointer;background:var(--np-yellow)}.optional-guide-body{padding:14px 16px}
-.standard-progress{display:flex;gap:8px;overflow-x:auto;padding:3px 2px 10px}
-.standard-progress button{flex:0 0 auto;border:3px solid var(--np-black);border-radius:999px;background:#fff;padding:8px 13px;font-weight:1000;cursor:pointer}
-.standard-progress button.active{background:var(--np-yellow);box-shadow:3px 3px 0 var(--np-black)}.standard-progress button.done{background:var(--np-green)}
-.part-practice-card{border:3px solid var(--np-black);border-radius:22px;background:#fff;box-shadow:7px 7px 0 var(--np-black);overflow:hidden;margin-bottom:16px}
-.part-practice-head{padding:15px 17px;border-bottom:3px solid var(--np-black)}.part-practice-body{padding:16px}
-.standard-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-@media(max-width:720px){.app-shell{width:min(100% - 12px,1180px)!important;margin:6px auto!important}.screen.active{padding:11px!important}.muet-standard-hero{grid-template-columns:1fr;padding:16px}.hero-asset{display:none}.quick-facts-standard,.standard-strategy{grid-template-columns:repeat(2,minmax(0,1fr))}.standard-actions{grid-template-columns:1fr}}
-
-.writing-feedback{display:none;margin-top:14px;border:3px solid var(--np-black);border-radius:20px;background:#fff;box-shadow:6px 6px 0 var(--np-black);overflow:hidden}
-.writing-feedback.show{display:block}.writing-feedback-head{padding:14px 16px;background:var(--np-green);border-bottom:3px solid var(--np-black)}
-.writing-feedback-body{padding:14px 16px}.writing-feedback-row{border:2px solid var(--np-black);border-radius:14px;padding:11px;margin-top:9px;font-size:13px;font-weight:800;line-height:1.5}
-.writing-feedback-row.pass{background:#dcfce7}.writing-feedback-row.review{background:#fef3c7}
-
+/* Smart MUET neopop v3 — shared hero & essentials (matches reading.html) */
+:root{
+  --np-blue:#3D50F5;--np-green:#18D18F;--np-yellow:#FFCA3A;
+  --np-pink:#F76BB3;--np-purple:#9B7BFF;--np-orange:#FF5A36;
+  --np-teal:#18C7B5;--np-soft:#F7F7FB;--np-black:#101116;
+}
+.neo-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(270px,.75fr);gap:16px;margin-bottom:16px}
+.hero-main,.hero-stats{border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow)}
+.hero-main{padding:22px;display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:185px}
+.hero-main h1{font-size:clamp(30px,4.2vw,48px);line-height:1.02;margin:5px 0 10px;max-width:650px}
+.hero-main p{font-weight:800;line-height:1.5;max-width:650px}
+.hero-art{width:112px;height:112px;border:var(--line);border-radius:26px;background:#fff;box-shadow:4px 4px 0 var(--ink);display:grid;place-items:center;flex:0 0 auto}
+.hero-art img{width:72px;height:72px;object-fit:contain}
+.hero-stats{background:#101116;padding:15px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.stat-tile{border:var(--line);border-radius:15px;padding:12px;text-align:center;background:var(--np-soft);box-shadow:2px 2px 0 var(--ink)}
+.stat-tile strong{display:block;font-family:'Sora';font-size:23px;line-height:1}
+.stat-tile span{display:block;font-size:10px;font-weight:1000;text-transform:uppercase;color:#111;margin-top:5px}
+.stat-tile:nth-child(1){background:var(--np-yellow)}.stat-tile:nth-child(2){background:var(--np-green)}
+.stat-tile:nth-child(3){background:var(--np-orange);color:#fff}.stat-tile:nth-child(3) span{color:#fff}.stat-tile:nth-child(4){background:var(--np-pink)}
+.essentials{background:#fff;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);padding:16px;margin-bottom:16px}
+.section-kicker{font-size:10px;font-weight:1000;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.section-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.section-top h2{font-size:21px;margin-top:3px}
+.section-top p{font-size:12px;font-weight:750;color:var(--muted);margin-top:4px}
+.essentials-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}
+.scan-panel,.facts-panel{border:var(--line);border-radius:16px;padding:13px;background:#fff;box-shadow:3px 3px 0 var(--ink)}
+.scan-panel{border-top:12px solid var(--np-yellow)}.facts-panel{border-top:12px solid var(--np-green)}
+.scan-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:9px}
+.scan-step{border:2px solid var(--ink);border-radius:13px;padding:10px 7px;text-align:center;font-size:10px;font-weight:950;box-shadow:2px 2px 0 var(--ink)}
+.scan-step b{display:block;font-family:'Sora';font-size:22px;line-height:1;margin-bottom:4px}
+.scan-step:nth-child(1){background:var(--np-blue);color:#fff}.scan-step:nth-child(2){background:var(--np-yellow)}
+.scan-step:nth-child(3){background:var(--np-green)}.scan-step:nth-child(4){background:var(--np-pink)}
+.facts-list{display:grid;gap:8px;margin-top:9px}
+.fact-line{display:grid;grid-template-columns:34px 1fr;align-items:center;gap:9px;border:2px solid var(--ink);border-radius:12px;background:#fff;padding:8px 10px;font-size:11px;font-weight:800}
+.fact-line img{width:30px;height:30px;object-fit:contain}
+.fact-line:nth-child(1){background:#EEF0FF;border-left:10px solid var(--np-blue)}
+.fact-line:nth-child(2){background:#E9FFF7;border-left:10px solid var(--np-green)}
+.fact-line:nth-child(3){background:#FFF1F8;border-left:10px solid var(--np-pink)}
+details.more-guide{margin-top:12px;border:3px solid var(--ink);border-radius:14px;background:var(--np-yellow);box-shadow:3px 3px 0 var(--ink)}
+details.more-guide summary{cursor:pointer;padding:10px 12px;font-size:12px;font-weight:1000;list-style:none}
+details.more-guide summary::-webkit-details-marker{display:none}
+.guide-more-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;padding:0 12px 12px}
+.guide-mini{border:2px solid var(--ink);border-radius:12px;padding:10px;background:#fff;font-size:11px;font-weight:750;line-height:1.45}
+.guide-mini b{display:block;margin-bottom:4px}
+@media(max-width:900px){.neo-hero{grid-template-columns:1fr}.hero-main{min-height:auto}.hero-stats{grid-template-columns:repeat(4,minmax(0,1fr))}.essentials-grid{grid-template-columns:1fr}.guide-more-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.hero-main{padding:17px}.hero-art{display:none}.hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.scan-row{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-more-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -131,7 +145,35 @@ body{background:var(--np-black);overflow-x:hidden}
     <button class="icon-btn">✍️</button>
   </div>
 
-  <!-- Standardised Hero --><section class="muet-standard-hero" style="background:var(--np-pink)"><div><div class="tiny">WRITING 800/4 · 2 TASKS · 25% OF MUET</div><h1>Plan first.<br>Write with purpose.</h1><p>Complete Task 1 and Task 2 separately, then submit for guided feedback.</p></div><div class="hero-asset"><img src="assets/icons/writing.png" alt="Writing" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span hidden style="font-size:44px">✍️</span></div></section><div class="quick-facts-standard"><div class="quick-fact" style="background:var(--np-blue);color:white"><strong>2</strong><span>Tasks</span></div><div class="quick-fact" style="background:var(--np-yellow)"><strong>75</strong><span>Minutes</span></div><div class="quick-fact" style="background:var(--np-green)"><strong>90</strong><span>Marks</span></div><div class="quick-fact" style="background:var(--np-pink)"><strong>25%</strong><span>of MUET</span></div></div><div class="card"><div class="tiny">MAIN TECHNIQUE</div><h2>PEEL</h2><div class="standard-strategy"><div class="strategy-chip" style="background:var(--np-blue);color:white"><b>P</b>Point</div><div class="strategy-chip" style="background:var(--np-yellow)"><b>E</b>Explain</div><div class="strategy-chip" style="background:var(--np-green)"><b>E</b>Example</div><div class="strategy-chip" style="background:var(--np-pink)"><b>L</b>Link</div></div><details class="optional-guide"><summary>View important writing tips and test guidance</summary><div class="optional-guide-body">Task 1: respond to every note in an appropriate style. Task 2: state a clear position, organise paragraphs and support each point with explanation and examples. Writing has no single correct answer; feedback checks task fulfilment, organisation, language and word count.</div></details></div>
+  <section class="neo-hero">
+    <div class="hero-main" style="background:var(--np-pink);">
+      <div>
+        <div class="section-kicker" style="color:var(--np-blue)">MUET Writing Guide · 800/4</div>
+        <h1>Plan first<br>with PEEL.</h1>
+        <p>Complete Task 1 and Task 2 separately, then submit for guided feedback. Writing has no single correct answer — clear structure earns the marks.</p>
+      </div>
+      <div class="hero-art"><img src="assets/heroes/small-muet-logo.svg" alt="Smart MUET Guide"></div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-tile"><strong>2</strong><span>Tasks</span></div><div class="stat-tile"><strong>75</strong><span>Minutes</span></div><div class="stat-tile"><strong>90</strong><span>Marks</span></div><div class="stat-tile"><strong>25%</strong><span>of MUET</span></div>
+    </div>
+  </section>
+
+  <section class="essentials">
+    <div class="section-top"><div><div class="section-kicker">Before You Start</div><h2>Writing Essentials</h2><p>Only the information students need before beginning practice.</p></div></div>
+    <div class="essentials-grid">
+      <div class="scan-panel"><b>Writing technique — PEEL</b>
+        <div class="scan-row"><div class="scan-step"><b>P</b>Point</div><div class="scan-step"><b>E</b>Explain</div><div class="scan-step"><b>E</b>Example</div><div class="scan-step"><b>L</b>Link</div></div>
+      </div>
+      <div class="facts-panel"><b>What the test measures</b>
+        <div class="facts-list"><div class="fact-line"><img src="assets/heroes/icon-muet-intro.svg" alt=""><span>Task 1: reply to an email covering every note.</span></div><div class="fact-line"><img src="assets/heroes/icon-why-muet.svg" alt=""><span>Task 2: write an essay with a clear, supported stand.</span></div><div class="fact-line"><img src="assets/heroes/icon-app-facts.svg" alt=""><span>Organisation, cohesion, vocabulary and grammar.</span></div></div>
+      </div>
+    </div>
+    <details class="more-guide">
+      <summary>＋ View question types and exam reminders</summary>
+      <div class="guide-more-grid"><div class="guide-mini"><b>Test format (MPM)</b>2 tasks · 75 minutes · 90 marks · 25% of MUET.</div><div class="guide-mini"><b>Task 1 — Email/Letter</b>Minimum 100 words · about 25 minutes · answer every note.</div><div class="guide-mini"><b>Task 2 — Essay</b>Minimum 250 words · about 50 minutes · clear stand + PEEL paragraphs.</div><div class="guide-mini"><b>No single answer</b>Feedback checks task fulfilment, organisation, cohesion, support and word count.</div><div class="guide-mini"><b>Model answers</b>A model response is available in Step 3 as a separate review resource.</div><div class="guide-mini"><b>Check before submit</b>Connectives, varied vocabulary, spelling and punctuation.</div></div>
+    </details>
+  </section>
 
   <!-- Task selector -->
   <div class="task-badges" style="margin-bottom:0">
