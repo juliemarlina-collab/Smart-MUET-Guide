@@ -8,30 +8,99 @@
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/muet-guide.css?v=20260726-2"/>
   <style>
-    .flow-step{background:#fff;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
-    .flow-step-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;font-weight:1000}
-    .flow-step-head:active{background:rgba(0,0,0,.04)}
-    .flow-body{display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)}
-    .step-num{width:38px;height:38px;border:var(--line);border-radius:50%;display:grid;place-items:center;font-weight:1000;font-size:16px;flex-shrink:0;box-shadow:2px 2px 0 var(--ink)}
-    .next-btn{display:block;width:100%;margin-top:14px;padding:13px 16px;border:var(--line);border-radius:14px;background:var(--green);box-shadow:3px 3px 0 var(--ink);font-weight:1000;cursor:pointer}
-    .info-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:4px 0 12px}
-    .info-tile{border:var(--line);border-radius:14px;padding:10px 4px;text-align:center;box-shadow:2px 2px 0 var(--ink);background:var(--green)}
-    .info-tile .big{font-family:"Sora";font-size:18px;font-weight:800;display:block}
-    .info-tile .lbl{font-size:10px;font-weight:1000;text-transform:uppercase;color:var(--muted);display:block;margin-top:2px}
-    .scan-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:4px 0 12px}
-    .scan-block{min-height:88px;border:var(--line);border-radius:16px;padding:10px 6px;text-align:center;box-shadow:3px 3px 0 var(--ink);font-weight:1000}
-    .scan-block strong{display:block;font-family:"Sora";font-size:30px;line-height:1;margin-bottom:5px}
-    .scan-block small{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.03em}
-    .scan-s{background:#dbeafe}.scan-c{background:#fef3c7}.scan-a{background:#dcfce7}.scan-n{background:#fce7f3}
-    .strategy-card{border:var(--line);border-radius:14px;padding:12px;box-shadow:3px 3px 0 var(--ink);font-size:13px;font-weight:800;line-height:1.55}
-    .qtag{display:inline-block;background:var(--pink);border:2px solid var(--ink);border-radius:999px;padding:3px 9px;font-size:11px;font-weight:1000;margin:3px}
-    .part-grid,.skill-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-    .mini-card{border:var(--line);border-radius:14px;padding:12px;background:#fff;box-shadow:2px 2px 0 var(--ink);font-size:12px;font-weight:800;line-height:1.45}
-    .mini-card b{display:block;font-size:13px;margin-bottom:3px}
-    .worked-line{border:var(--line);border-radius:14px;padding:12px;margin-top:8px;font-size:13px;font-weight:800;line-height:1.55}
-    .worked-label{display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;margin-bottom:6px;background:#fff}
-    .passage-box{background:white;border:var(--line);border-radius:var(--r);padding:14px;font-weight:700;line-height:1.6;font-size:14px;max-height:260px;overflow-y:auto;margin-bottom:14px}
-    @media(max-width:620px){.info-grid,.scan-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.part-grid,.skill-grid{grid-template-columns:1fr}.scan-block{min-height:76px}}
+    :root{
+      --read-blue:#3D50F5;--read-green:#18D18F;--read-yellow:#FFCA3A;
+      --read-pink:#F76BB3;--read-purple:#9B7BFF;--read-orange:#FF5A36;
+      --read-teal:#18C7B5;--read-soft:#F7F7FB;
+    }
+    *{box-sizing:border-box}
+    body{overflow-x:hidden}
+    .reading-wrap{width:min(1180px,100%);margin:0 auto;padding-bottom:34px}
+
+    .reading-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(270px,.75fr);gap:16px;margin-bottom:16px}
+    .hero-main,.hero-stats{border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow)}
+    .hero-main{background:var(--read-blue);color:#fff;padding:22px;display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:185px}
+    .hero-main h1{font-size:clamp(30px,4.2vw,48px);line-height:1.02;margin:5px 0 10px;max-width:650px}
+    .hero-main .section-kicker{color:#FFCA3A}.hero-main p{font-weight:800;line-height:1.5;max-width:650px}
+    .hero-art{width:112px;height:112px;border:var(--line);border-radius:26px;background:#fff;box-shadow:4px 4px 0 var(--ink);display:grid;place-items:center;flex:0 0 auto}
+    .hero-art img{width:72px;height:72px;object-fit:contain}
+    .hero-stats{background:#101116;padding:15px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .stat-tile{border:var(--line);border-radius:15px;padding:12px;text-align:center;background:var(--read-soft);box-shadow:2px 2px 0 var(--ink)}
+    .stat-tile strong{display:block;font-family:'Sora';font-size:23px;line-height:1}
+    .stat-tile span{display:block;font-size:10px;font-weight:1000;text-transform:uppercase;color:#111;margin-top:5px}
+    .stat-tile:nth-child(1){background:var(--read-yellow)}.stat-tile:nth-child(2){background:var(--read-green)}
+    .stat-tile:nth-child(3){background:var(--read-orange);color:#fff}.stat-tile:nth-child(3) span{color:#fff}.stat-tile:nth-child(4){background:var(--read-pink)}
+
+    .essentials{background:#fff;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);padding:16px;margin-bottom:16px}
+    .section-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+    .section-kicker{font-size:10px;font-weight:1000;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+    .section-top h2{font-size:21px;margin-top:3px}
+    .section-top p{font-size:12px;font-weight:750;color:var(--muted);margin-top:4px}
+    .essentials-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}
+    .scan-panel,.facts-panel{border:var(--line);border-radius:16px;padding:13px;background:#fff;box-shadow:3px 3px 0 var(--ink)}
+    .scan-panel{border-top:12px solid var(--read-yellow)}.facts-panel{border-top:12px solid var(--read-green)}
+    .scan-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:9px}
+    .scan-step{border:2px solid var(--ink);border-radius:13px;padding:10px 7px;text-align:center;font-size:10px;font-weight:950;box-shadow:2px 2px 0 var(--ink)}
+    .scan-step b{display:block;font-family:'Sora';font-size:22px;line-height:1;margin-bottom:4px}
+    .scan-step:nth-child(1){background:var(--read-blue);color:#fff}.scan-step:nth-child(2){background:var(--read-yellow)}
+    .scan-step:nth-child(3){background:var(--read-green)}.scan-step:nth-child(4){background:var(--read-pink)}
+    .facts-list{display:grid;gap:8px;margin-top:9px}
+    .fact-line{display:grid;grid-template-columns:34px 1fr;align-items:center;gap:9px;border:2px solid var(--ink);border-radius:12px;background:#fff;padding:8px 10px;font-size:11px;font-weight:800}
+    .fact-line img{width:30px;height:30px;object-fit:contain}.fact-line:nth-child(1){background:#EEF0FF;border-left:10px solid var(--read-blue)}.fact-line:nth-child(2){background:#E9FFF7;border-left:10px solid var(--read-green)}.fact-line:nth-child(3){background:#FFF1F8;border-left:10px solid var(--read-pink)}
+    details.more-guide{margin-top:12px;border:3px solid var(--ink);border-radius:14px;background:var(--read-yellow);box-shadow:3px 3px 0 var(--ink)}
+    details.more-guide summary{cursor:pointer;padding:10px 12px;font-size:12px;font-weight:1000;list-style:none}
+    details.more-guide summary::-webkit-details-marker{display:none}
+    .guide-more-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;padding:0 12px 12px}
+    .guide-mini{border:2px solid var(--ink);border-radius:12px;padding:10px;background:#fff;font-size:11px;font-weight:750;line-height:1.45}
+    .guide-mini b{display:block;margin-bottom:4px}
+
+    .practice-shell{background:#18C7B5;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);padding:16px}
+    .practice-head{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;margin-bottom:12px}
+    .timer-box{display:flex;align-items:center;gap:10px;border:var(--line);border-radius:14px;background:var(--read-yellow);padding:9px 11px;box-shadow:2px 2px 0 var(--ink)}
+    .timer-box strong{font-family:'Sora';font-size:22px}.timer-box span{font-size:9px;font-weight:1000;text-transform:uppercase;color:var(--muted);display:block}
+    .timer-box .btn{width:auto;min-width:72px;padding:7px 10px}
+    .part-tabs{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 10px;scrollbar-width:thin}
+    .part-tab{flex:0 0 auto;border:2px solid var(--ink);border-radius:999px;background:#fff;padding:7px 12px;font-weight:950;font-size:11px;cursor:pointer}
+    .part-tab.active{background:var(--read-yellow);box-shadow:2px 2px 0 var(--ink)}
+    .part-tab.done{background:var(--read-green)}
+
+    .part-card{border:var(--line);border-radius:18px;overflow:hidden;background:#fff}
+    .part-card-head{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--part-color,var(--read-blue));color:var(--part-text,#fff);border-bottom:2px solid rgba(0,0,0,.1)}
+    .part-icon{width:48px;height:48px;border:var(--line);border-radius:14px;background:#fff;display:grid;place-items:center;box-shadow:2px 2px 0 var(--ink);flex:0 0 auto}
+    .part-icon img{width:30px;height:30px;object-fit:contain}
+    .part-card-head h3{font-size:18px;margin:2px 0}.part-card-head .section-kicker,.part-card-head small{font-size:11px;font-weight:800;color:inherit;opacity:.85}
+    .part-body{padding:14px 16px 16px}
+    .passage-button{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;border:var(--line);border-radius:14px;background:var(--read-yellow);padding:11px 13px;font-weight:1000;cursor:pointer}
+    .passage-box{background:#fff;border:var(--line);border-radius:14px;padding:15px;font-weight:700;line-height:1.65;font-size:13px;max-height:360px;overflow-y:auto;margin:10px 0 13px}
+    .questions-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:12px}
+    .question-card{border:var(--line);border-radius:15px;padding:13px;background:#fff;box-shadow:2px 2px 0 var(--ink)}
+    .question-no{display:inline-block;background:var(--read-pink);border:2px solid var(--ink);border-radius:999px;padding:3px 8px;font-size:10px;font-weight:1000;margin-bottom:7px}
+    .question-card p{font-size:13px;font-weight:900;line-height:1.45;margin-bottom:9px}.question-card .option{font-size:12px}
+    .part-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}.part-actions .btn{width:100%}
+
+    .answer-final{margin-top:16px;border:var(--line);border-radius:18px;background:var(--read-purple);color:#111;padding:15px}
+    .answer-final.locked{opacity:.68}.answer-final h3{font-size:18px}.answer-final p{font-size:12px;font-weight:750;line-height:1.5;margin:4px 0 10px}
+    .answer-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0}
+    .summary-tile{border:var(--line);border-radius:14px;padding:12px;text-align:center;background:#fff;box-shadow:2px 2px 0 var(--ink)}
+    .summary-tile strong{display:block;font-family:'Sora';font-size:23px}.summary-tile span{font-size:10px;font-weight:1000;text-transform:uppercase;color:var(--muted)}
+    #answerReview{display:none;margin-top:11px}#answerReview.show{display:block}
+    .review-part{border:var(--line);border-radius:14px;background:#fff;padding:12px;margin-top:9px;font-size:12px;font-weight:750;line-height:1.5}
+
+
+    @media (hover:hover){
+      .part-tab:hover,.passage-button:hover,.btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+      .question-card:hover{transform:translateY(-2px);box-shadow:4px 4px 0 var(--ink)}
+    }
+    @media(max-width:900px){
+      .reading-hero{grid-template-columns:1fr}.hero-main{min-height:auto}.hero-stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+      .essentials-grid{grid-template-columns:1fr}.questions-grid{grid-template-columns:1fr}.guide-more-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:620px){
+      .reading-wrap{padding-inline:0}.hero-main{padding:17px}.hero-art{display:none}.hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .scan-row{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-more-grid{grid-template-columns:1fr}
+      .practice-head{grid-template-columns:1fr}.timer-box{justify-content:space-between}.part-actions{grid-template-columns:1fr}
+      .part-card-head{align-items:flex-start}.part-body{padding:12px}.questions-grid{gap:9px}
+    }
   </style>
   <link rel="stylesheet" href="css/responsive-fix.css?v=20260726-2">
 </head>
@@ -45,188 +114,87 @@
     <button class="icon-btn" aria-label="Reading guide">📖</button>
   </div>
 
-  <div class="card" style="background:var(--green);margin-bottom:16px">
-    <p class="tiny" style="color:rgba(0,0,0,.5)">Reading 800/3 · 90 marks · 25% of MUET</p>
-    <h1 style="margin-top:6px">Read smarter<br>with SCAN.</h1>
-    <p style="margin-top:8px;font-weight:800">Study the question, circle keywords, analyse the passage and narrow the choices.</p>
-  </div>
+  <div class="reading-wrap">
+    <section class="reading-hero">
+      <div class="hero-main">
+        <div>
+          <div class="section-kicker">MUET Reading Guide</div>
+          <h1>Read smarter<br>with SCAN.</h1>
+          <p>Keep the important facts, but learn and practise them in a clearer part-by-part flow.</p>
+        </div>
+        <div class="hero-art"><img src="assets/heroes/small-muet-logo.svg" alt="Smart MUET Guide"></div>
+      </div>
+      <div class="hero-stats" aria-label="Reading test facts">
+        <div class="stat-tile"><strong>7</strong><span>Parts</span></div>
+        <div class="stat-tile"><strong>40</strong><span>Questions</span></div>
+        <div class="stat-tile"><strong>75</strong><span>Minutes</span></div>
+        <div class="stat-tile"><strong>25%</strong><span>of MUET</span></div>
+      </div>
+    </section>
 
-  <!-- STEP 1 -->
-  <div class="flow-step" id="step1">
-    <div class="flow-step-head" onclick="R.toggle('s1')">
-      <div class="step-num" style="background:var(--blue)">1</div>
-      <div style="flex:1"><b>Before You Start</b><br><small style="color:var(--muted)">Understand the MUET Reading test</small></div>
-      <span id="c-s1">▴</span>
-    </div>
-    <div id="b-s1" class="flow-body" style="display:block">
-      <div class="info-grid">
-        <div class="info-tile"><span class="big">7</span><span class="lbl">Parts</span></div>
-        <div class="info-tile"><span class="big">40</span><span class="lbl">Questions</span></div>
-        <div class="info-tile"><span class="big">75</span><span class="lbl">Minutes</span></div>
-        <div class="info-tile"><span class="big">25%</span><span class="lbl">of MUET</span></div>
+    <section class="essentials">
+      <div class="section-top">
+        <div><div class="section-kicker">Before You Start</div><h2>Reading Essentials</h2><p>Only the information students need before beginning practice.</p></div>
       </div>
-      <div class="coach-note lime"><div class="tag">WHAT THE TEST MEASURES</div>
-        <p>Your ability to locate information, understand ideas, interpret meaning, identify a writer's purpose and evaluate how a text is organised.</p>
-      </div>
-      <div class="skill-grid" style="margin-top:10px">
-        <div class="mini-card"><b>📌 Locate information</b>Find specific facts, names, numbers, dates and details quickly.</div>
-        <div class="mini-card"><b>💡 Understand ideas</b>Identify main ideas, supporting details and relationships between points.</div>
-        <div class="mini-card"><b>🔍 Interpret meaning</b>Recognise paraphrases, vocabulary in context and implied meaning.</div>
-        <div class="mini-card"><b>🧭 Evaluate purpose</b>Identify tone, attitude, intention, audience and text organisation.</div>
-      </div>
-      <button class="next-btn" onclick="R.open('s2')">I understand — learn the SCAN technique →</button>
-    </div>
-  </div>
-
-  <!-- STEP 2 -->
-  <div class="flow-step" id="step2">
-    <div class="flow-step-head" onclick="R.toggle('s2')">
-      <div class="step-num" style="background:var(--orange)">2</div>
-      <div style="flex:1"><b>The SCAN Technique</b><br><small style="color:var(--muted)">A four-step method for every question</small></div>
-      <span id="c-s2">▾</span>
-    </div>
-    <div id="b-s2" class="flow-body">
-      <div class="scan-strip">
-        <div class="scan-block scan-s"><strong>S</strong><small>Study the question</small></div>
-        <div class="scan-block scan-c"><strong>C</strong><small>Circle keywords</small></div>
-        <div class="scan-block scan-a"><strong>A</strong><small>Analyse &amp; scan</small></div>
-        <div class="scan-block scan-n"><strong>N</strong><small>Narrow the choices</small></div>
-      </div>
-      <div style="display:grid;gap:9px">
-        <div class="strategy-card" style="background:#dbeafe"><b>S — Study the question first.</b><br>Identify what the question is asking: a fact, main idea, inference, purpose, vocabulary meaning or reference.</div>
-        <div class="strategy-card" style="background:#fef3c7"><b>C — Circle the keywords.</b><br>Mark names, dates, numbers and strong content words. Think of possible synonyms because the passage may paraphrase them.</div>
-        <div class="strategy-card" style="background:#dcfce7"><b>A — Analyse and scan the passage.</b><br>Move your eyes quickly to locate the matching section. Read one or two sentences before and after the keyword for context.</div>
-        <div class="strategy-card" style="background:#fce7f3"><b>N — Narrow the choices.</b><br>Eliminate options that are not mentioned, partly true, too general or opposite in meaning. Choose the option supported by evidence.</div>
-      </div>
-      <div class="coach-note pink" style="margin-top:12px"><div class="tag">GOLDEN RULE</div>
-        <p>Match the <b>meaning</b>, not only the same words. A distractor may copy words from the passage but change the idea.</p>
-      </div>
-      <button class="next-btn" onclick="R.open('s3')">I know SCAN — explore the question types →</button>
-    </div>
-  </div>
-
-  <!-- STEP 3 -->
-  <div class="flow-step" id="step3">
-    <div class="flow-step-head" onclick="R.toggle('s3')">
-      <div class="step-num" style="background:var(--yellow)">3</div>
-      <div style="flex:1"><b>Question Types &amp; Test Parts</b><br><small style="color:var(--muted)">Know what each question requires</small></div>
-      <span id="c-s3">▾</span>
-    </div>
-    <div id="b-s3" class="flow-body">
-      <p style="font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:7px">Common question types</p>
-      <div style="margin-bottom:12px">
-        <span class="qtag">Main Idea</span><span class="qtag">Specific Detail</span><span class="qtag">Inference</span>
-        <span class="qtag">Vocabulary in Context</span><span class="qtag">Writer's Purpose</span><span class="qtag">Tone &amp; Attitude</span><span class="qtag">Reference</span><span class="qtag">Cohesion</span>
-      </div>
-      <div class="part-grid">
-        <div class="mini-card" style="background:#dbeafe"><b>Parts 1–2</b>Short notices, advertisements, messages and everyday texts. Focus on direct information and purpose.</div>
-        <div class="mini-card" style="background:#dcfce7"><b>Parts 3–4</b>Longer factual or narrative texts. Track main ideas, details, sequence and paraphrases.</div>
-        <div class="mini-card" style="background:#fef3c7"><b>Part 5</b>Gapped text or cohesion task. Follow pronouns, linkers, repeated ideas and paragraph flow.</div>
-        <div class="mini-card" style="background:#fce7f3"><b>Parts 6–7</b>Extended academic texts. Handle inference, writer's view, purpose, tone and evaluation.</div>
-      </div>
-      <div style="background:#f8fafc;border:var(--line);border-radius:14px;padding:12px;margin-top:12px">
-        <h3 style="font-size:15px;margin-bottom:9px">Fast clue guide</h3>
-        <div style="display:grid;gap:7px;font-size:13px;font-weight:850">
-          <div><b>“According to the text…”</b> → locate a direct detail.</div>
-          <div><b>“It can be inferred…”</b> → combine clues; do not add outside knowledge.</div>
-          <div><b>“The writer's purpose…”</b> → decide whether the writer informs, explains, argues, warns or persuades.</div>
-          <div><b>“The word/phrase refers to…”</b> → look backwards for the nearest logical noun or idea.</div>
+      <div class="essentials-grid">
+        <div class="scan-panel">
+          <b>SCAN technique</b>
+          <div class="scan-row">
+            <div class="scan-step"><b>S</b>Study the question</div>
+            <div class="scan-step"><b>C</b>Circle keywords</div>
+            <div class="scan-step"><b>A</b>Analyse the text</div>
+            <div class="scan-step"><b>N</b>Narrow choices</div>
+          </div>
+        </div>
+        <div class="facts-panel">
+          <b>What the test measures</b>
+          <div class="facts-list">
+            <div class="fact-line"><img src="assets/heroes/icon-muet-intro.svg" alt=""><span>Locate facts and supporting details.</span></div>
+            <div class="fact-line"><img src="assets/heroes/icon-why-muet.svg" alt=""><span>Understand main ideas and meaning.</span></div>
+            <div class="fact-line"><img src="assets/heroes/icon-app-facts.svg" alt=""><span>Identify purpose, tone and text organisation.</span></div>
+          </div>
         </div>
       </div>
-      <button class="next-btn" onclick="R.open('s4')">Question types understood — see SCAN in action →</button>
-    </div>
-  </div>
-
-  <!-- STEP 4 -->
-  <div class="flow-step" id="step4">
-    <div class="flow-step-head" onclick="R.toggle('s4')">
-      <div class="step-num" style="background:var(--green)">4</div>
-      <div style="flex:1"><b>Worked Example</b><br><small style="color:var(--muted)">Apply SCAN step by step</small></div>
-      <span id="c-s4">▾</span>
-    </div>
-    <div id="b-s4" class="flow-body">
-      <div style="background:#ecfdf5;border:var(--line);border-radius:14px;padding:12px;font-size:13px;font-weight:800;line-height:1.6">
-        <b>Sample passage:</b> Despite the increasing availability of electric vehicles, many Malaysians still prefer conventional cars because they are concerned about charging infrastructure. A survey found that 68% identified limited charging stations as the main barrier.
-      </div>
-      <div style="border:var(--line);border-radius:14px;background:#fff;padding:12px;margin-top:10px">
-        <p style="font-weight:900;margin-bottom:10px;font-size:13px">Question: What is the main reason Malaysians hesitate to buy electric vehicles?</p>
-        <div class="options">
-          <label class="option correct"><input type="radio" name="demo-reading-q1" disabled checked/><span>A. Insufficient charging stations</span></label>
-          <label class="option wrong"><input type="radio" name="demo-reading-q1" disabled/><span>B. Electric vehicles are too expensive</span></label>
-          <label class="option wrong"><input type="radio" name="demo-reading-q1" disabled/><span>C. Drivers lack awareness of electric vehicles</span></label>
+      <details class="more-guide">
+        <summary>＋ View question types and exam reminders</summary>
+        <div class="guide-more-grid">
+          <div class="guide-mini"><b>Common question types</b>Main idea, detail, inference, vocabulary, reference, tone and purpose.</div>
+          <div class="guide-mini"><b>Use text evidence</b>Choose the answer supported by the passage, not outside knowledge.</div>
+          <div class="guide-mini"><b>Avoid common traps</b>Do not choose an option only because it repeats words from the text.</div>
+          <div class="guide-mini"><b>Read strategically</b>Study the question before searching the passage for evidence.</div>
+          <div class="guide-mini"><b>Manage your time</b>Complete easier items first and return to difficult questions later.</div>
+          <div class="guide-mini"><b>Answer every item</b>Review unanswered questions before submitting the practice.</div>
         </div>
-      </div>
-      <div class="worked-line" style="background:#dbeafe"><span class="worked-label">S — STUDY</span><br>The question asks for the <b>main reason</b> for hesitation.</div>
-      <div class="worked-line" style="background:#fef3c7"><span class="worked-label">C — CIRCLE</span><br>Keywords: <b>main reason</b>, <b>Malaysians</b>, <b>hesitate</b>, <b>electric vehicles</b>.</div>
-      <div class="worked-line" style="background:#dcfce7"><span class="worked-label">A — ANALYSE</span><br>The passage says “limited charging stations” are the “main barrier.” This is the evidence sentence.</div>
-      <div class="worked-line" style="background:#fce7f3"><span class="worked-label">N — NARROW</span><br>Option A paraphrases the evidence. Options B and C are not stated, so eliminate them.</div>
-      <div class="explain show" style="margin-top:10px"><b>Correct answer: A.</b> “Limited” is paraphrased as “insufficient,” while “main barrier” matches “main reason.”</div>
-      <button class="next-btn" onclick="R.open('s5')">I can apply SCAN — show me the exam workflow →</button>
-    </div>
-  </div>
+      </details>
+    </section>
 
-  <!-- STEP 5 -->
-  <div class="flow-step" id="step5">
-    <div class="flow-step-head" onclick="R.toggle('s5')">
-      <div class="step-num" style="background:var(--pink)">5</div>
-      <div style="flex:1"><b>Exam Workflow &amp; Quick Reference</b><br><small style="color:var(--muted)">Timing, traps and final checks</small></div>
-      <span id="c-s5">▾</span>
-    </div>
-    <div id="b-s5" class="flow-body">
-      <div class="coach-note lime"><div class="tag">75-MINUTE WORKFLOW</div>
-        <p><b>First pass:</b> answer easier direct questions. <b>Second pass:</b> return to inference and difficult items. Reserve the final minutes to check unanswered questions.</p>
+    <section class="practice-shell" id="practiceSection">
+      <div class="practice-head">
+        <div><div class="section-kicker">Part-by-Part Practice</div><h2 style="font-size:22px">Complete one reading part at a time</h2><p style="font-size:12px;font-weight:750;color:var(--muted);margin-top:4px">Open the passage, answer its questions and continue to the next part.</p></div>
+        <div class="timer-box"><div><span>Reading timer</span><strong id="timerDisp">75:00</strong></div><button class="btn yellow" id="timerBtn" onclick="toggleTimer()">Start</button></div>
       </div>
-      <div class="skill-grid" style="margin-top:10px">
-        <div class="mini-card"><b>⏱ Pace yourself</b>Aim for about 1½ minutes per question, but spend less time on short-text items.</div>
-        <div class="mini-card"><b>🚩 Mark and move</b>Do not allow one difficult question to consume several minutes.</div>
-        <div class="mini-card"><b>🧩 Use text evidence</b>Your answer must be supported by the passage, not personal experience.</div>
-        <div class="mini-card"><b>✅ Answer every item</b>There is no benefit in leaving a multiple-choice question blank.</div>
-      </div>
-      <div style="background:#fff7ed;border:var(--line);border-radius:14px;padding:12px;margin-top:12px">
-        <p style="font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px">Common traps to avoid</p>
-        <div style="display:grid;gap:7px;font-size:13px;font-weight:850">
-          <div>❌ Choosing an option only because it repeats words from the passage.</div>
-          <div>❌ Using outside knowledge instead of the information given.</div>
-          <div>❌ Reading the entire passage slowly before looking at the questions.</div>
-          <div>❌ Ignoring words such as <i>not</i>, <i>except</i>, <i>mainly</i> and <i>most likely</i>.</div>
+      <nav class="part-tabs" id="partTabs" aria-label="Reading test parts"></nav>
+      <div id="partStage"></div>
+
+      <section class="answer-final locked" id="answerFinal">
+        <div class="section-kicker">Final Step</div>
+        <h3>View Correct Answers</h3>
+        <p>Complete all seven parts first. The answers and explanations will only appear after submission.</p>
+        <button class="btn black wide" id="submitBtn" onclick="submitReading()" disabled>Submit &amp; View Correct Answers</button>
+        <div id="resultCard" class="result-card" style="background:#dcfce7">
+          <div class="tag">RESULT SAVED</div>
+          <div class="answer-summary">
+            <div class="summary-tile"><strong id="resultScore">—</strong><span>Score</span></div>
+            <div class="summary-tile"><strong id="resultBand">—</strong><span>Estimated Band</span></div>
+          </div>
+          <div id="resultFb" style="border:var(--line);border-radius:14px;background:white;padding:12px;margin:10px 0;font-size:13px;font-weight:800"></div>
+          <button class="btn white wide" onclick="toggleAnswerReview()">Show answer explanations</button>
+          <div id="answerReview"></div>
+          <button class="btn black wide" style="margin-top:12px" onclick="location.href='index.html'">← Back to Home</button>
         </div>
-      </div>
-      <div class="coach-note pink" style="margin-top:12px"><div class="tag">BEFORE YOU SUBMIT</div>
-        <p>Check that every question has one answer, difficult items were reviewed and your final choice matches evidence from the text.</p>
-      </div>
-      <button class="next-btn" onclick="R.open('s6')">Ready — begin Reading practice →</button>
-    </div>
+      </section>
+    </section>
   </div>
-
-  <!-- STEP 6 -->
-  <div class="flow-step" id="step6">
-    <div class="flow-step-head" onclick="R.toggle('s6')">
-      <div class="step-num" style="background:var(--purple, #c4b5fd)">6</div>
-      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Apply SCAN to all 40 questions</small></div>
-      <span id="c-s6">▾</span>
-    </div>
-    <div id="b-s6" class="flow-body">
-      <div class="timer-card blue">
-        <div><p class="tiny">Reading Timer — 75 min</p><div id="timerDisp" style="font-family:'Sora';font-size:36px;font-weight:800">75:00</div></div>
-        <button class="btn yellow" style="width:auto;min-width:80px" id="timerBtn" onclick="toggleTimer()">Start</button>
-      </div>
-      <div class="coach-note lime"><div class="tag">SCAN REMINDER</div><p><b>S</b>tudy the question · <b>C</b>ircle keywords · <b>A</b>nalyse and scan · <b>N</b>arrow the choices.</p></div>
-      <div class="card"><h3 id="passTitle">MUET Reading Practice — 7 Parts, 40 Questions</h3><p id="passText" style="font-size:12px;font-weight:800;color:var(--muted);margin-top:6px">Expand each part to read its passage, then answer the questions that follow.</p></div>
-      <div id="qList" style="display:grid;gap:14px"></div>
-      <div class="btn-row" style="margin-top:14px">
-        <button class="btn green wide" onclick="submitReading()">Submit Practice</button>
-        <button class="btn pink" onclick="location.href='index.html'">← Home</button>
-      </div>
-      <div id="resultCard" class="result-card" style="background:#dcfce7">
-        <div class="tag">RESULT SAVED</div>
-        <span id="resultScore" class="result-score"></span>
-        <span id="resultBand" class="result-band"></span>
-        <div id="resultFb" style="border:var(--line);border-radius:14px;background:white;padding:12px;margin:10px 0;font-size:13px;font-weight:800"></div>
-        <button class="btn black" onclick="location.href='index.html'">← Back to Home</button>
-      </div>
-    </div>
-  </div>
-
 </section>
 </main>
 <div id="toast" class="toast"></div>
@@ -297,68 +265,41 @@ const PART_LABELS = {
   'Part 7':'Part 7 — A Treatment to Get Pregnant'
 };
 
-const R={};
-R.toggle=function(id){const b=document.getElementById('b-'+id),c=document.getElementById('c-'+id);if(!b)return;const open=b.style.display==='none';b.style.display=open?'block':'none';if(c)c.textContent=open?'▴':'▾';};
-R.open=function(id){const b=document.getElementById('b-'+id),c=document.getElementById('c-'+id);if(!b)return;b.style.display='block';if(c)c.textContent='▴';setTimeout(()=>b.scrollIntoView({behavior:'smooth',block:'start'}),100);};
-
-let secs=4500,timerId=null,submitted=false;
-function toggleTimer(){if(timerId){clearInterval(timerId);timerId=null;document.getElementById('timerBtn').textContent='Resume';return;}timerId=setInterval(()=>{secs--;const m=String(Math.floor(secs/60)).padStart(2,'0'),s=String(secs%60).padStart(2,'0');document.getElementById('timerDisp').textContent=`${m}:${s}`;if(secs<=0){clearInterval(timerId);MUET.toast('Time is up!');}},1000);document.getElementById('timerBtn').textContent='Pause';}
-
-function renderPassage(){
-  const partOrder = ['Part 1','Part 2','Part 3','Part 4','Part 5','Part 6','Part 7'];
-  const groups = {};
-  readingQuestions.forEach((q,qi) => { (groups[q.type] = groups[q.type] || []).push({q,qi}); });
-
-  let html = '';
-  partOrder.forEach(part => {
-    if (!groups[part]) return;
-    const label = PART_LABELS[part] || part;
-    const articleId = 'article-' + part.replace(/\s+/g,'').toLowerCase();
-    html += `<div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px">
-        <h3 style="font-size:15px">${label}</h3>
-        <button type="button" class="btn white" style="width:auto;min-width:100px;padding:6px 12px;font-size:12px" onclick="R.toggle('${articleId}')">Show Passage</button>
-      </div>
-      <div id="b-${articleId}" class="passage-box" style="display:none;font-size:13px;font-weight:700;line-height:1.6">${PART_TEXTS[part] || ''}</div>
-    </div>`;
-    groups[part].forEach(({q,qi}) => {
-      html += `<div class="card"><div style="display:inline-block;background:var(--pink);border:2px solid var(--ink);border-radius:999px;padding:3px 9px;font-size:11px;font-weight:1000;margin-bottom:8px">${part}</div>
-      <p style="font-weight:900;margin-bottom:10px;font-size:13px">${q.id}. ${q.stem}</p>
-      <div class="options" id="opts-${qi}">${q.options.map((o,oi)=>`<label class="option" id="opt-${qi}-${oi}"><input type="radio" name="q${qi}" value="${oi}"/><span>${o}</span></label>`).join('')}</div>
-      <div class="explain" id="exp-${qi}">${q.explanation}</div></div>`;
-    });
-  });
-  document.getElementById('qList').innerHTML = html;
-}
-
-function submitReading(){
-  if(submitted)return;
-  let correct=0;
-  readingQuestions.forEach((q,qi)=>{
-    const sel=document.querySelector(`input[name="q${qi}"]:checked`);
-    const ans=sel?parseInt(sel.value):-1;
-    if(ans===q.answer)correct++;
-    q.options.forEach((_,oi)=>{const el=document.getElementById(`opt-${qi}-${oi}`);if(!el)return;if(oi===q.answer)el.classList.add('correct');else if(oi===ans)el.classList.add('wrong');});
-    document.getElementById(`exp-${qi}`)?.classList.add('show');
-  });
-  submitted=true;
-  const total=readingQuestions.length,score90=Math.round(correct/total*90),band=MUET.scoreToBand(score90);
-  const session={vaultId:'SKILL-MODULE',rawScore:correct,totalQ:total,score90,band,date:new Date().toISOString()};
-  const list=MUET.loadSessions('reading');list.push(session);MUET.saveSessions('reading',list);
-  MUET.awardBadge('passage_hunter');MUET.addXP(70);
-  document.getElementById('resultScore').textContent=`${correct}/${total} · ${score90}/90`;
-  document.getElementById('resultBand').textContent=`Estimated Band ${band}`;
-  document.getElementById('resultFb').textContent=MUET.feedbackText('reading',score90);
-  document.getElementById('resultCard').classList.add('show');
-  MUET.toast('Reading saved!');
-  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
-}
-
-document.addEventListener('DOMContentLoaded',()=>{
-  renderPassage();
-  document.getElementById('b-s1').style.display='block';
-  document.getElementById('c-s1').textContent='▴';
-});
+const PART_ORDER=['Part 1','Part 2','Part 3','Part 4','Part 5','Part 6','Part 7'];
+const PART_ICON={
+ 'Part 1':'assets/heroes/icon-muet-intro.svg','Part 2':'assets/heroes/icon-why-muet.svg',
+ 'Part 3':'assets/heroes/icon-muet-facts.svg','Part 4':'assets/heroes/icon-app-facts.svg',
+ 'Part 5':'assets/heroes/nav-progress.svg','Part 6':'assets/heroes/small-muet-logo.svg',
+ 'Part 7':'assets/heroes/study-vault-hero.svg'
+};
+const PART_THEME={
+ 'Part 1':['#3D50F5','#FFFFFF'],'Part 2':['#18D18F','#111111'],
+ 'Part 3':['#FFCA3A','#111111'],'Part 4':['#FF5A36','#FFFFFF'],
+ 'Part 5':['#F76BB3','#111111'],'Part 6':['#9B7BFF','#111111'],
+ 'Part 7':['#18C7B5','#111111']
+};
+let currentPart=0,secs=4500,timerId=null,submitted=false;
+const completedParts=new Set();
+const savedAnswers={};
+function itemsFor(part){return readingQuestions.map((q,qi)=>({q,qi})).filter(x=>x.q.type===part)}
+function saveVisibleAnswers(){itemsFor(PART_ORDER[currentPart]).forEach(({qi})=>{const el=document.querySelector(`input[name="q${qi}"]:checked`);if(el)savedAnswers[qi]=Number(el.value)})}
+function renderTabs(){document.getElementById('partTabs').innerHTML=PART_ORDER.map((p,i)=>`<button class="part-tab ${i===currentPart?'active':''} ${completedParts.has(p)?'done':''}" onclick="openPart(${i})">${p}${completedParts.has(p)?' ✓':''}</button>`).join('')}
+function renderPart(){const part=PART_ORDER[currentPart],items=itemsFor(part),first=items[0]?.q.id||'',last=items.at(-1)?.q.id||'';
+ const theme=PART_THEME[part]||['#3D50F5','#FFFFFF'];
+ document.getElementById('partStage').innerHTML=`<article class="part-card" style="--part-color:${theme[0]};--part-text:${theme[1]}"><header class="part-card-head"><div class="part-icon"><img src="${PART_ICON[part]}" alt=""></div><div><div class="section-kicker">${part} of 7</div><h3>${PART_LABELS[part]||part}</h3><small>${items.length} questions · ${first}–${last}</small></div></header><div class="part-body"><button class="passage-button" onclick="togglePassage()"><span style="display:flex;align-items:center;gap:8px"><img src="assets/heroes/icon-muet-intro.svg" alt="" style="width:26px;height:26px">Reading passage</span><span id="passageText">Show passage ▾</span></button><div id="partPassage" class="passage-box" style="display:none">${PART_TEXTS[part]||''}</div><div class="questions-grid">${items.map(({q,qi})=>`<div class="question-card"><span class="question-no">${q.id}</span><p>${q.stem}</p><div class="options">${q.options.map((o,oi)=>`<label class="option"><input type="radio" name="q${qi}" value="${oi}" ${savedAnswers[qi]===oi?'checked':''}><span>${o}</span></label>`).join('')}</div></div>`).join('')}</div><div class="part-actions"><button class="btn white" onclick="previousPart()" ${currentPart===0?'disabled':''}>← Previous Part</button>${currentPart<PART_ORDER.length-1?'<button class="btn green" onclick="nextPart()">Save & Continue →</button>':'<button class="btn green" onclick="finishPractice()">Finish Part 7 →</button>'}</div></div></article>`;
+ renderTabs();setTimeout(()=>document.getElementById('partStage').scrollIntoView({behavior:'smooth',block:'start'}),50)}
+function togglePassage(){const b=document.getElementById('partPassage'),t=document.getElementById('passageText'),open=b.style.display!=='none';b.style.display=open?'none':'block';t.textContent=open?'Show passage ▾':'Hide passage ▴'}
+function openPart(i){saveVisibleAnswers();currentPart=i;renderPart()}
+function previousPart(){saveVisibleAnswers();if(currentPart>0){currentPart--;renderPart()}}
+function completeCurrent(){saveVisibleAnswers();completedParts.add(PART_ORDER[currentPart]);updateFinal()}
+function nextPart(){completeCurrent();if(currentPart<PART_ORDER.length-1){currentPart++;renderPart()}}
+function finishPractice(){completeCurrent();document.getElementById('answerFinal').scrollIntoView({behavior:'smooth',block:'start'})}
+function updateFinal(){const ready=completedParts.size===7;document.getElementById('answerFinal').classList.toggle('locked',!ready);document.getElementById('submitBtn').disabled=!ready;renderTabs()}
+function toggleTimer(){if(timerId){clearInterval(timerId);timerId=null;document.getElementById('timerBtn').textContent='Resume';return}timerId=setInterval(()=>{secs--;const m=String(Math.floor(secs/60)).padStart(2,'0'),s=String(secs%60).padStart(2,'0');document.getElementById('timerDisp').textContent=`${m}:${s}`;if(secs<=0){clearInterval(timerId);timerId=null;MUET.toast('Time is up!')}},1000);document.getElementById('timerBtn').textContent='Pause'}
+function toggleAnswerReview(){document.getElementById('answerReview').classList.toggle('show')}
+function buildReview(){document.getElementById('answerReview').innerHTML=PART_ORDER.map(part=>`<div class="review-part"><b>${PART_LABELS[part]||part}</b>${itemsFor(part).map(({q,qi})=>{const a=savedAnswers[qi],mine=a===undefined?'No answer':q.options[a];return `<div style="margin-top:9px"><strong>${q.id}</strong> · Your answer: ${mine}<br>Correct answer: ${q.options[q.answer]}<br><span style="color:var(--muted)">${q.explanation}</span></div>`}).join('')}</div>`).join('')}
+function submitReading(){if(submitted||completedParts.size<7)return;saveVisibleAnswers();let correct=0;readingQuestions.forEach((q,qi)=>{if(savedAnswers[qi]===q.answer)correct++});submitted=true;if(timerId){clearInterval(timerId);timerId=null}const total=readingQuestions.length,score90=Math.round(correct/total*90),band=MUET.scoreToBand(score90),session={vaultId:'SKILL-MODULE',rawScore:correct,totalQ:total,score90,band,date:new Date().toISOString()},list=MUET.loadSessions('reading');list.push(session);MUET.saveSessions('reading',list);MUET.awardBadge('passage_hunter');MUET.addXP(70);document.getElementById('resultScore').textContent=`${correct}/${total}`;document.getElementById('resultBand').textContent=`Band ${band}`;document.getElementById('resultFb').textContent=MUET.feedbackText('reading',score90);buildReview();document.getElementById('resultCard').classList.add('show');document.getElementById('submitBtn').disabled=true;MUET.toast('Reading saved!');document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'start'})}
+document.addEventListener('DOMContentLoaded',()=>{renderPart();updateFinal()});
 </script>
 </body>
 </html>
