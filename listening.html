@@ -18,6 +18,34 @@
     .info-tile .lbl{font-size:10px;font-weight:1000;text-transform:uppercase;color:var(--muted);display:block;margin-top:2px}
   </style>
   <link rel="stylesheet" href="css/responsive-fix.css?v=20260726-1">
+<style>
+/* Smart MUET standardised Neopop */
+:root{--np-blue:#3854f5;--np-green:#19d39a;--np-yellow:#ffca3a;--np-pink:#f76bb2;--np-orange:#ff7043;--np-purple:#9c78ff;--np-teal:#18c7ba;--np-black:#101116}
+body{background:var(--np-black);overflow-x:hidden}
+.app-shell{width:min(1180px,calc(100% - 28px))!important;max-width:1180px!important;margin:16px auto!important;border-radius:30px!important;overflow:hidden}
+.screen.active{padding:18px!important}
+.card,.flow-step,.task-badge,.topic-item,.planner-box,.coach-note,.timer-card,.result-card,.submitted-banner{border-width:3px!important;box-shadow:6px 6px 0 var(--np-black)!important}
+.muet-standard-hero{display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:18px;align-items:center;border:3px solid var(--np-black);border-radius:24px;box-shadow:7px 7px 0 var(--np-black);padding:20px;margin-bottom:16px}
+.muet-standard-hero h1{font-size:clamp(28px,4vw,46px);line-height:1.02;margin:5px 0 9px}
+.muet-standard-hero p{font-weight:850;line-height:1.5}
+.hero-asset{width:104px;height:104px;background:#fff;border:3px solid var(--np-black);border-radius:22px;box-shadow:5px 5px 0 var(--np-black);display:grid;place-items:center;overflow:hidden}
+.hero-asset img{width:72px;height:72px;object-fit:contain}.hero-asset img[hidden]{display:none}
+.quick-facts-standard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 14px}
+.quick-fact{min-height:84px;padding:12px 8px;border:3px solid var(--np-black);border-radius:17px;box-shadow:4px 4px 0 var(--np-black);display:grid;place-items:center;text-align:center;font-weight:1000}
+.quick-fact strong{display:block;font-family:Sora;font-size:23px;line-height:1}.quick-fact span{display:block;font-size:10px;text-transform:uppercase;margin-top:5px}
+.standard-strategy{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:12px 0}
+.strategy-chip{border:3px solid var(--np-black);border-radius:15px;box-shadow:4px 4px 0 var(--np-black);padding:11px 8px;text-align:center;font-weight:1000;font-size:11px}
+.strategy-chip b{font-family:Sora;font-size:25px;display:block;line-height:1;margin-bottom:4px}
+.optional-guide{border:3px solid var(--np-black);border-radius:18px;background:#fff;box-shadow:5px 5px 0 var(--np-black);margin:14px 0;overflow:hidden}
+.optional-guide summary{padding:14px 16px;font-weight:1000;cursor:pointer;background:var(--np-yellow)}.optional-guide-body{padding:14px 16px}
+.standard-progress{display:flex;gap:8px;overflow-x:auto;padding:3px 2px 10px}
+.standard-progress button{flex:0 0 auto;border:3px solid var(--np-black);border-radius:999px;background:#fff;padding:8px 13px;font-weight:1000;cursor:pointer}
+.standard-progress button.active{background:var(--np-yellow);box-shadow:3px 3px 0 var(--np-black)}.standard-progress button.done{background:var(--np-green)}
+.part-practice-card{border:3px solid var(--np-black);border-radius:22px;background:#fff;box-shadow:7px 7px 0 var(--np-black);overflow:hidden;margin-bottom:16px}
+.part-practice-head{padding:15px 17px;border-bottom:3px solid var(--np-black)}.part-practice-body{padding:16px}
+.standard-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+@media(max-width:720px){.app-shell{width:min(100% - 12px,1180px)!important;margin:6px auto!important}.screen.active{padding:11px!important}.muet-standard-hero{grid-template-columns:1fr;padding:16px}.hero-asset{display:none}.quick-facts-standard,.standard-strategy{grid-template-columns:repeat(2,minmax(0,1fr))}.standard-actions{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <main class="app-shell">
@@ -29,13 +57,9 @@
     <button class="icon-btn">🎧</button>
   </div>
 
-  <div class="card" style="background:var(--yellow);margin-bottom:16px">
-    <p class="tiny" style="color:rgba(0,0,0,.5)">Listening 800/1 · 90 marks · 25% of MUET</p>
-    <h1 style="margin-top:6px">Write keywords.<br>Not sentences.</h1>
-    <p style="margin-top:8px;font-weight:800">Keyword notes · distractor awareness · answer checking.</p>
-  </div>
+  <section class="muet-standard-hero" style="background:var(--np-yellow)"><div><div class="tiny">LISTENING 800/1 · 90 MARKS · 25% OF MUET</div><h1>Focus on one part<br>at a time.</h1><p>Use FOCUS to predict, listen for meaning and check the final answer.</p></div><div class="hero-asset"><img src="assets/icons/listening.png" alt="Listening" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span hidden style="font-size:44px">🎧</span></div></section>
 
-  <!-- STEP 1 -->
+<div class="quick-facts-standard"><div class="quick-fact" style="background:var(--np-blue);color:white"><strong>5</strong><span>Parts</span></div><div class="quick-fact" style="background:var(--np-green)"><strong>30</strong><span>Questions</span></div><div class="quick-fact" style="background:var(--np-orange)"><strong>≈50</strong><span>Minutes</span></div><div class="quick-fact" style="background:var(--np-pink)"><strong>25%</strong><span>of MUET</span></div></div><div class="card"><div class="tiny">MAIN TECHNIQUE</div><h2>FOCUS</h2><div class="standard-strategy" style="grid-template-columns:repeat(5,minmax(0,1fr))"><div class="strategy-chip" style="background:var(--np-blue);color:white"><b>F</b>Forecast</div><div class="strategy-chip" style="background:var(--np-yellow)"><b>O</b>Observe</div><div class="strategy-chip" style="background:var(--np-green)"><b>C</b>Catch clues</div><div class="strategy-chip" style="background:var(--np-pink)"><b>U</b>Use context</div><div class="strategy-chip" style="background:var(--np-orange)"><b>S</b>Select</div></div><details class="optional-guide"><summary>View important listening tips and test guidance</summary><div class="optional-guide-body">Read the questions first, predict the answer type, note keywords, watch for corrections and match meaning rather than repeated words.</div></details></div>  <!-- STEP 1 -->
   <div class="flow-step">
     <div class="flow-step-head" onclick="L.toggle('s1')">
       <div class="step-num">1</div>
@@ -142,7 +166,7 @@
         <h3>Keyword Notes <span class="req">Required</span></h3>
         <textarea id="lstNotes" rows="3" style="margin-top:10px" placeholder="e.g. Thu→Fri / Hall L3 / 9am / student card / confirm Tue"></textarea>
       </div>
-      <div id="lstQList" style="display:grid;gap:12px"></div>
+      <div class="standard-progress" id="listenPartNav"></div><div id="lstQList" style="display:grid;gap:12px"></div>
       <div class="btn-row" style="margin-top:14px">
         <button class="btn yellow wide" onclick="submitListening()">Submit Practice</button>
         <button class="btn pink" onclick="location.href='index.html'">← Home</button>
@@ -547,27 +571,22 @@ L.open=function(id){const b=document.getElementById('b-'+id),c=document.getEleme
 
 function toggleScript(){const s=document.getElementById('practiceScript'),b=document.getElementById('scriptBtn');const show=s.style.display==='none';s.style.display=show?'block':'none';b.textContent=show?'Hide Script':'Show Script';}
 
-function renderQuestions(){
-  const groups = {};
-  sampleQs.forEach((q,qi) => { (groups[q.part] = groups[q.part] || []).push({q,qi}); });
-  let html = '';
-  PART_ORDER.forEach(part => {
-    if (!groups[part]) return;
-    html += `<div style="font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:6px 0 2px">${part}</div>`;
-    groups[part].forEach(({q,qi}) => {
-      html += `<div class="card"><p style="font-weight:900;margin-bottom:10px;font-size:13px">${q.id}. ${q.stem}</p>
-      <div class="options" id="lopts-${qi}">${q.options.map((o,oi)=>`<label class="option" id="lopt-${qi}-${oi}"><input type="radio" name="lq${qi}" value="${oi}"/><span>${o}</span></label>`).join('')}</div>
-      <div class="explain" id="lexp-${qi}">${q.explanation}</div></div>`;
-    });
-  });
-  document.getElementById('lstQList').innerHTML = html;
-}
+let listeningPartIndex=0;const listeningCompleted=new Set();
+function listenGroups(){const g={};sampleQs.forEach((q,qi)=>{(g[q.part]=g[q.part]||[]).push({q,qi});});return g;}
+function saveListeningChoices(){sampleQs.forEach((q,qi)=>{const s=document.querySelector(`input[name="lq${qi}"]:checked`);if(s)sessionStorage.setItem(`smart-listening-${qi}`,s.value);});}
+function restoreListeningChoices(){sampleQs.forEach((q,qi)=>{const v=sessionStorage.getItem(`smart-listening-${qi}`);if(v!==null){const e=document.querySelector(`input[name="lq${qi}"][value="${v}"]`);if(e)e.checked=true;}});}
+function renderListenNav(){const n=document.getElementById('listenPartNav');if(!n)return;n.innerHTML=PART_ORDER.map((p,i)=>`<button class="${i===listeningPartIndex?'active ':''}${listeningCompleted.has(p)?'done':''}" onclick="goListeningPart(${i})">${i+1}</button>`).join('');}
+function goListeningPart(i){saveListeningChoices();listeningPartIndex=i;renderQuestions();}
+function nextListeningPart(){saveListeningChoices();listeningCompleted.add(PART_ORDER[listeningPartIndex]);if(listeningPartIndex<PART_ORDER.length-1)listeningPartIndex++;renderQuestions();}
+function previousListeningPart(){saveListeningChoices();if(listeningPartIndex>0)listeningPartIndex--;renderQuestions();}
+function finishListeningParts(){saveListeningChoices();listeningCompleted.add(PART_ORDER[listeningPartIndex]);renderListenNav();}
+function renderQuestions(){const groups=listenGroups(),part=PART_ORDER[listeningPartIndex],items=groups[part]||[];let h=`<section class="part-practice-card"><div class="part-practice-head" style="background:${['var(--np-blue)','var(--np-green)','var(--np-yellow)','var(--np-orange)','var(--np-pink)'][listeningPartIndex]}"><div class="tiny">PART ${listeningPartIndex+1} OF ${PART_ORDER.length}</div><h2>${part}</h2><p style="font-weight:800;margin-top:4px">${items.length} questions</p></div><div class="part-practice-body">`;items.forEach(({q,qi})=>{h+=`<div class="card"><p style="font-weight:900;margin-bottom:10px;font-size:13px">${q.id}. ${q.stem}</p><div class="options" id="lopts-${qi}">${q.options.map((o,oi)=>`<label class="option" id="lopt-${qi}-${oi}"><input type="radio" name="lq${qi}" value="${oi}"/><span>${o}</span></label>`).join('')}</div><div class="explain" id="lexp-${qi}">${q.explanation}</div></div>`;});h+=`<div class="standard-actions"><button class="btn white" onclick="previousListeningPart()" ${listeningPartIndex===0?'disabled':''}>← Previous Part</button>${listeningPartIndex<PART_ORDER.length-1?'<button class="btn yellow" onclick="nextListeningPart()">Save & Continue →</button>':'<button class="btn green" onclick="finishListeningParts()">Finish Part 5 →</button>'}</div></div></section>`;document.getElementById('lstQList').innerHTML=h;restoreListeningChoices();renderListenNav();}
 
 function submitListening(){
   const notes=document.getElementById('lstNotes').value.trim();
   if(!notes){MUET.toast('Please write keyword notes before submitting.');return;}
   let correct=0;
-  sampleQs.forEach((q,qi)=>{const sel=document.querySelector(`input[name="lq${qi}"]:checked`);const ans=sel?parseInt(sel.value):-1;if(ans===q.answer)correct++;q.options.forEach((_,oi)=>{const el=document.getElementById(`lopt-${qi}-${oi}`);if(!el)return;if(oi===q.answer)el.classList.add('correct');else if(oi===ans)el.classList.add('wrong');});document.getElementById(`lexp-${qi}`)?.classList.add('show');});
+  sampleQs.forEach((q,qi)=>{const stored=sessionStorage.getItem(`smart-listening-${qi}`);const ans=stored!==null?parseInt(stored):-1;if(ans===q.answer)correct++;q.options.forEach((_,oi)=>{const el=document.getElementById(`lopt-${qi}-${oi}`);if(!el)return;if(oi===q.answer)el.classList.add('correct');else if(oi===ans)el.classList.add('wrong');});document.getElementById(`lexp-${qi}`)?.classList.add('show');});
   const total=sampleQs.length,score90=Math.round(correct/total*90),band=MUET.scoreToBand(score90);
   const session={vaultId:'SKILL-MODULE',rawScore:correct,totalQ:total,score90,band,notes,date:new Date().toISOString()};
   const list=MUET.loadSessions('listening');list.push(session);MUET.saveSessions('listening',list);

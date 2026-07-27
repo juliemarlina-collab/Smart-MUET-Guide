@@ -1,0 +1,1 @@
+Updated Speaking, Listening and Writing pages with a shared vibrant Neopop system, responsive desktop/tablet/mobile layout, asset icon paths with emoji fallback, compact strategy blocks, optional guidance and preserved existing functions. Listening practice is now separated part by part. Rename files to speaking.html, listening.html and writing.html before deployment.
