@@ -44,6 +44,14 @@
     .pb-e{background:var(--green)}
     .pb-p2{background:var(--pink)}
 
+    /* -- PREP set-count pills -- */
+    .prep-count-pill{display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:4px 10px;font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;box-shadow:2px 2px 0 var(--ink)}
+    .prep-count-pill.pill-solo{background:var(--blue);color:#fff}
+    .prep-count-pill.pill-multi{background:var(--pink);color:#111}
+    .prep-count-pill.on-color{background:rgba(255,255,255,.92);color:#111;border-color:rgba(0,0,0,.2);box-shadow:none}
+    .prep-usage-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .task-badge .prep-count-pill{margin-top:8px}
+
     /* ── Language function chips ── */
     .fn-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
     .fn-chip{border:2px solid var(--ink);border-radius:12px;padding:8px 10px;font-size:12px;font-weight:900;display:flex;align-items:center;gap:8px;background:white}
@@ -146,8 +154,10 @@
 .scan-panel,.facts-panel{border:var(--line);border-radius:16px;padding:13px;background:#fff;box-shadow:3px 3px 0 var(--ink)}
 .scan-panel{border-top:12px solid var(--np-yellow)}.facts-panel{border-top:12px solid var(--np-green)}
 .scan-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:9px}
-.scan-step{border:2px solid var(--ink);border-radius:13px;padding:10px 7px;text-align:center;font-size:10px;font-weight:950;box-shadow:2px 2px 0 var(--ink)}
-.scan-step b{display:block;font-family:'Sora';font-size:22px;line-height:1;margin-bottom:4px}
+.scan-step{border:2px solid var(--ink);border-radius:13px;padding:11px 8px;text-align:center;font-size:10px;font-weight:950;box-shadow:2px 2px 0 var(--ink)}
+.scan-step b{display:block;font-family:'Sora';font-size:20px;line-height:1;margin-bottom:4px}
+.scan-step-label{display:block;margin-bottom:5px}
+.scan-step-desc{display:block;font-size:9.5px;font-weight:700;line-height:1.4;opacity:.8;text-transform:none;letter-spacing:0}
 .scan-step:nth-child(1){background:var(--np-blue);color:#fff}.scan-step:nth-child(2){background:var(--np-yellow)}
 .scan-step:nth-child(3){background:var(--np-green)}.scan-step:nth-child(4){background:var(--np-pink)}
 .facts-list{display:grid;gap:8px;margin-top:9px}
@@ -195,7 +205,11 @@ details.more-guide summary::-webkit-details-marker{display:none}
     <div class="section-top"><div><div class="section-kicker">Before You Start</div><h2>Speaking Essentials</h2><p>Only the information students need before beginning practice.</p></div></div>
     <div class="essentials-grid">
       <div class="scan-panel"><b>Speaking technique — PREP</b>
-        <div class="scan-row"><div class="scan-step"><b>P</b>Point</div><div class="scan-step"><b>R</b>Reason</div><div class="scan-step"><b>E</b>Example</div><div class="scan-step"><b>P</b>Point again</div></div>
+        <div class="scan-row"><div class="scan-step"><b>P</b><span class="scan-step-label">Point</span><span class="scan-step-desc">State your stand in sentence 1.</span></div><div class="scan-step"><b>R</b><span class="scan-step-label">Reason</span><span class="scan-step-desc">Give one strong reason why.</span></div><div class="scan-step"><b>E</b><span class="scan-step-label">Example</span><span class="scan-step-desc">Add a specific Malaysian example.</span></div><div class="scan-step"><b>P</b><span class="scan-step-label">Point again</span><span class="scan-step-desc">Restate your stand to close.</span></div></div>
+        <div class="prep-usage-row">
+          <span class="prep-count-pill pill-solo">Task A &middot; 1&times; full PREP cycle</span>
+          <span class="prep-count-pill pill-multi">Task B &middot; mini-PREP every turn</span>
+        </div>
       </div>
       <div class="facts-panel"><b>What the test measures</b>
         <div class="facts-list"><div class="fact-line"><img src="assets/heroes/icon-muet-intro.svg" alt=""><span>Express opinions, give reasons and elaborate.</span></div><div class="fact-line"><img src="assets/heroes/icon-why-muet.svg" alt=""><span>Justify, summarise and conclude your response.</span></div><div class="fact-line"><img src="assets/heroes/icon-app-facts.svg" alt=""><span>Task B: initiate, prompt, negotiate and turn-take.</span></div></div>
@@ -230,11 +244,13 @@ details.more-guide summary::-webkit-details-marker{display:none}
           <span class="icon">&#127908;</span>
           <b>Task A</b>
           <small>Individual · 2 min<br>2 min prep + 2 min speak<br>CEFR B1–B2</small>
+          <span class="prep-count-pill on-color">1&times; PREP cycle</span>
         </div>
         <div class="task-badge tb-b">
           <span class="icon">&#128101;</span>
           <b>Task B</b>
           <small>Group · 8–12 min<br>3 min prep · max 4 people<br>CEFR B2</small>
+          <span class="prep-count-pill on-color">Mini-PREP · every turn</span>
         </div>
       </div>
 
@@ -290,11 +306,17 @@ details.more-guide summary::-webkit-details-marker{display:none}
     <div class="flow-body" id="body2">
 
       <!-- PREP visual -->
+      <div class="prep-usage-row">
+        <span class="prep-count-pill pill-solo">Task A: run this PREP cycle ONCE for your full 2-minute response</span>
+      </div>
       <div class="prep-strip">
         <div class="prep-b pb-p">P<small>Point</small></div>
         <div class="prep-b pb-r">R<small>Reason</small></div>
         <div class="prep-b pb-e">E<small>Example</small></div>
         <div class="prep-b pb-p2">P<small>Point<br>again</small></div>
+      </div>
+      <div class="prep-usage-row">
+        <span class="prep-count-pill pill-multi">Task B: use mini P-R-E moments across several turns, save "Point again" for the group's final decision</span>
       </div>
 
       <!-- PREP explanation cards -->
@@ -430,6 +452,7 @@ details.more-guide summary::-webkit-details-marker{display:none}
       <div style="background:#fce7f3;border:var(--line);border-radius:16px;padding:14px;margin-bottom:14px">
         <p class="tiny" style="color:var(--muted)">Practice Topic</p>
         <h3 id="taskTitle" style="margin-top:6px">Task A &#8212; Individual Response</h3>
+        <span id="taskPrepPill" class="prep-count-pill pill-solo" style="margin-top:8px">1&times; PREP cycle for this response</span>
         <select id="topicSel" style="margin-top:10px" onchange="changeTopic()"></select>
         <p id="topicPrompt" style="margin-top:10px;font-weight:800;font-size:14px;line-height:1.45"></p>
       </div>
@@ -570,6 +593,11 @@ function setTask(t) {
   document.getElementById('btnB').className = 'task-btn' + (t==='B' ? ' active-b' : '');
   document.getElementById('taskTitle').textContent = t==='A'
     ? 'Task A \u2014 Individual Response' : 'Task B \u2014 Group Discussion';
+  const prepPill = document.getElementById('taskPrepPill');
+  if(prepPill){
+    prepPill.className = 'prep-count-pill ' + (t==='A' ? 'pill-solo' : 'pill-multi');
+    prepPill.textContent = t==='A' ? '1\u00d7 PREP cycle for this response' : 'Mini-PREP \u00b7 use it every turn';
+  }
   secs = t==='A' ? 120 : 180;
   stopTimer(); renderTimer(); renderTopics(); changeTopic();
   document.getElementById('submittedBanner').classList.remove('show');
