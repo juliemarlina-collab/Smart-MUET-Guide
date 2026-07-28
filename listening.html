@@ -1,92 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>Listening Guide · MUET SmartHub</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/muet-guide.css?v=20260726-1"/>
-  <style>
-    .flow-step{background:white;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
-    .flow-step-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;font-weight:1000}
-    .flow-step-head:active{background:rgba(0,0,0,.04)}
-    .step-num{width:38px;height:38px;border:var(--line);border-radius:50%;background:var(--yellow);display:grid;place-items:center;font-weight:1000;font-size:16px;flex-shrink:0;box-shadow:2px 2px 0 var(--ink)}
-    .info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:4px 0 10px}
-    .info-tile{border:var(--line);border-radius:14px;padding:10px 4px;text-align:center;box-shadow:2px 2px 0 var(--ink);background:var(--yellow)}
-    .info-tile .big{font-family:"Sora";font-size:18px;font-weight:800;display:block}
-    .info-tile .lbl{font-size:10px;font-weight:1000;text-transform:uppercase;color:var(--muted);display:block;margin-top:2px}
-  </style>
-  <link rel="stylesheet" href="css/responsive-fix.css?v=20260726-1">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Listening Guide · Smart MUET Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/muet-guide.css?v=20260729-1"/>
+<link rel="stylesheet" href="css/responsive-fix.css?v=20260729-1">
 <style>
-/* Smart MUET neopop v3 — shared hero & essentials (matches reading.html) */
 :root{
-  --np-blue:#3D50F5;--np-green:#18D18F;--np-yellow:#FFCA3A;
-  --np-pink:#F76BB3;--np-purple:#9B7BFF;--np-orange:#FF5A36;
-  --np-teal:#18C7B5;--np-soft:#F7F7FB;--np-black:#101116;
+  --listen-blue:#3854F5;--listen-green:#19D39A;--listen-yellow:#FFCA3A;
+  --listen-pink:#F76BB2;--listen-purple:#9C78FF;--listen-orange:#FF7043;
+  --listen-teal:#18C7BA;--listen-soft:#F7F7FB;
 }
-.neo-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(270px,.75fr);gap:16px;margin-bottom:16px}
+*{box-sizing:border-box}
+body{overflow-x:hidden}
+.listen-wrap{width:min(1180px,100%);margin:0 auto;padding-bottom:34px}
+
+/* ===== Section 2: Hero (mirrors .reading-hero) ===== */
+.listen-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(270px,.75fr);gap:16px;margin-bottom:16px}
 .hero-main,.hero-stats{border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow)}
-.hero-main{padding:22px;display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:185px}
+.hero-main{background:var(--listen-blue);color:#fff;padding:22px;display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:185px}
 .hero-main h1{font-size:clamp(30px,4.2vw,48px);line-height:1.02;margin:5px 0 10px;max-width:650px}
-.hero-main p{font-weight:800;line-height:1.5;max-width:650px}
+.hero-main .section-kicker{color:var(--listen-yellow)}.hero-main p{font-weight:800;line-height:1.5;max-width:650px}
 .hero-art{width:112px;height:112px;border:var(--line);border-radius:26px;background:#fff;box-shadow:4px 4px 0 var(--ink);display:grid;place-items:center;flex:0 0 auto}
 .hero-art img{width:72px;height:72px;object-fit:contain}
 .hero-stats{background:#101116;padding:15px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.stat-tile{border:var(--line);border-radius:15px;padding:12px;text-align:center;background:var(--np-soft);box-shadow:2px 2px 0 var(--ink)}
+.stat-tile{border:var(--line);border-radius:15px;padding:12px;text-align:center;background:var(--listen-soft);box-shadow:2px 2px 0 var(--ink)}
 .stat-tile strong{display:block;font-family:'Sora';font-size:23px;line-height:1}
 .stat-tile span{display:block;font-size:10px;font-weight:1000;text-transform:uppercase;color:#111;margin-top:5px}
-.stat-tile:nth-child(1){background:var(--np-yellow)}.stat-tile:nth-child(2){background:var(--np-green)}
-.stat-tile:nth-child(3){background:var(--np-orange);color:#fff}.stat-tile:nth-child(3) span{color:#fff}.stat-tile:nth-child(4){background:var(--np-pink)}
+.stat-tile:nth-child(1){background:var(--listen-yellow)}.stat-tile:nth-child(2){background:var(--listen-green)}
+.stat-tile:nth-child(3){background:var(--listen-orange);color:#fff}.stat-tile:nth-child(3) span{color:#fff}.stat-tile:nth-child(4){background:var(--listen-pink)}
+
+/* ===== Section 3: Essentials (mirrors .essentials) ===== */
 .essentials{background:#fff;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);padding:16px;margin-bottom:16px}
-.section-kicker{font-size:10px;font-weight:1000;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
 .section-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.section-kicker{font-size:10px;font-weight:1000;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
 .section-top h2{font-size:21px;margin-top:3px}
 .section-top p{font-size:12px;font-weight:750;color:var(--muted);margin-top:4px}
 .essentials-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}
-.scan-panel,.facts-panel{border:var(--line);border-radius:16px;padding:13px;background:#fff;box-shadow:3px 3px 0 var(--ink)}
-.scan-panel{border-top:12px solid var(--np-yellow)}.facts-panel{border-top:12px solid var(--np-green)}
-.scan-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:9px}
-.scan-step{border:2px solid var(--ink);border-radius:13px;padding:10px 7px;text-align:center;font-size:10px;font-weight:950;box-shadow:2px 2px 0 var(--ink)}
-.scan-step b{display:block;font-family:'Sora';font-size:22px;line-height:1;margin-bottom:4px}
-.scan-step:nth-child(1){background:var(--np-blue);color:#fff}.scan-step:nth-child(2){background:var(--np-yellow)}
-.scan-step:nth-child(3){background:var(--np-green)}.scan-step:nth-child(4){background:var(--np-pink)}
+.hear-panel,.facts-panel{border:var(--line);border-radius:16px;padding:13px;background:#fff;box-shadow:3px 3px 0 var(--ink)}
+.hear-panel{border-top:12px solid var(--listen-yellow)}.facts-panel{border-top:12px solid var(--listen-green)}
+.hear-intro{font-size:11px;font-weight:750;color:var(--muted);margin-top:5px;line-height:1.5}
+.hear-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:9px}
+.hear-step{border:2px solid var(--ink);border-radius:13px;padding:11px 8px;text-align:center;font-size:10px;font-weight:950;box-shadow:2px 2px 0 var(--ink)}
+.hear-step-icon{width:24px;height:24px;object-fit:contain;display:block;margin:0 auto 5px}
+.hear-step b{display:block;font-family:'Sora';font-size:20px;line-height:1;margin-bottom:4px}
+.hear-step-label{display:block;margin-bottom:5px}
+.hear-step-desc{display:block;font-size:9.5px;font-weight:700;line-height:1.4;opacity:.8;text-transform:none;letter-spacing:0}
+.hear-step:nth-child(1){background:var(--listen-blue);color:#fff}.hear-step:nth-child(2){background:var(--listen-yellow)}
+.hear-step:nth-child(3){background:var(--listen-green)}.hear-step:nth-child(4){background:var(--listen-pink)}
 .facts-list{display:grid;gap:8px;margin-top:9px}
 .fact-line{display:grid;grid-template-columns:34px 1fr;align-items:center;gap:9px;border:2px solid var(--ink);border-radius:12px;background:#fff;padding:8px 10px;font-size:11px;font-weight:800}
-.fact-line img{width:30px;height:30px;object-fit:contain}
-.fact-line:nth-child(1){background:#EEF0FF;border-left:10px solid var(--np-blue)}
-.fact-line:nth-child(2){background:#E9FFF7;border-left:10px solid var(--np-green)}
-.fact-line:nth-child(3){background:#FFF1F8;border-left:10px solid var(--np-pink)}
-details.more-guide{margin-top:12px;border:3px solid var(--ink);border-radius:14px;background:var(--np-yellow);box-shadow:3px 3px 0 var(--ink)}
+.fact-line img{width:30px;height:30px;object-fit:contain}.fact-line:nth-child(1){background:#EEF0FF;border-left:10px solid var(--listen-blue)}.fact-line:nth-child(2){background:#E9FFF7;border-left:10px solid var(--listen-green)}.fact-line:nth-child(3){background:#FFF1F8;border-left:10px solid var(--listen-pink)}
+details.more-guide{margin-top:12px;border:3px solid var(--ink);border-radius:14px;background:var(--listen-yellow);box-shadow:3px 3px 0 var(--ink)}
 details.more-guide summary{cursor:pointer;padding:10px 12px;font-size:12px;font-weight:1000;list-style:none}
 details.more-guide summary::-webkit-details-marker{display:none}
 .guide-more-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;padding:0 12px 12px}
 .guide-mini{border:2px solid var(--ink);border-radius:12px;padding:10px;background:#fff;font-size:11px;font-weight:750;line-height:1.45}
 .guide-mini b{display:block;margin-bottom:4px}
-@media(max-width:900px){.neo-hero{grid-template-columns:1fr}.hero-main{min-height:auto}.hero-stats{grid-template-columns:repeat(4,minmax(0,1fr))}.essentials-grid{grid-template-columns:1fr}.guide-more-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:620px){.hero-main{padding:17px}.hero-art{display:none}.hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.scan-row{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-more-grid{grid-template-columns:1fr}}
 
-/* Part-by-part practice (rendered by JS) */
-.standard-progress{display:flex;gap:8px;overflow-x:auto;padding:3px 2px 10px}
-.standard-progress button{flex:0 0 auto;border:2px solid var(--ink);border-radius:999px;background:#fff;padding:8px 13px;font-weight:1000;cursor:pointer}
-.standard-progress button.active{background:var(--np-yellow);box-shadow:2px 2px 0 var(--ink)}.standard-progress button.done{background:var(--np-green)}
-.part-practice-card{border:var(--line);border-radius:18px;background:#fff;box-shadow:var(--shadow);overflow:hidden;margin-bottom:16px}
-.part-practice-head{padding:15px 17px;border-bottom:2px solid rgba(0,0,0,.1)}.part-practice-body{padding:16px}
-.standard-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-@media(max-width:620px){.standard-actions{grid-template-columns:1fr}}
-/* Per-part audio player */
-.part-audio{background:var(--ink);color:#fff;border:var(--line);border-radius:14px;padding:12px;margin-bottom:12px}
-.part-audio .tiny{color:rgba(255,255,255,.65)}
-.audio-frame{width:100%;height:88px;border:2px solid var(--ink);border-radius:12px;background:#f8fafc;margin-top:8px}
-.part-audio-note{font-size:11px;font-weight:800;color:rgba(255,255,255,.75);margin-top:6px;line-height:1.4}
-/* Answer review (after submit only) */
-.answer-review{display:none;margin-top:14px}
-.answer-review.show{display:block}
-.answer-review-part{border:var(--line);border-radius:16px;background:#fff;padding:14px;margin-top:12px;box-shadow:2px 2px 0 var(--ink)}
-.answer-review-item{border-top:2px dashed rgba(0,0,0,.18);padding-top:10px;margin-top:10px;font-size:13px;line-height:1.55;font-weight:750}
-.answer-review-item:first-child{border-top:0;padding-top:0}
-.answer-status{display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;margin-bottom:5px}
-.answer-status.correct{background:var(--np-green)}.answer-status.wrong{background:var(--np-pink)}
+/* ===== Section 4: Practice shell (mirrors .practice-shell) ===== */
+.practice-shell{background:var(--listen-teal);border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);padding:16px}
+.practice-head{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;margin-bottom:12px}
+.timer-box{display:flex;align-items:center;gap:10px;border:var(--line);border-radius:14px;background:var(--listen-yellow);padding:9px 11px;box-shadow:2px 2px 0 var(--ink)}
+.timer-box strong{font-family:'Sora';font-size:22px}.timer-box span{font-size:9px;font-weight:1000;text-transform:uppercase;color:var(--muted);display:block}
+.timer-box .btn{width:auto;min-width:72px;padding:7px 10px}
+.part-tabs{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 10px;scrollbar-width:thin}
+.part-tab{flex:0 0 auto;border:2px solid var(--ink);border-radius:999px;background:#fff;padding:7px 12px;font-weight:950;font-size:11px;cursor:pointer}
+.part-tab.active{background:var(--listen-yellow);box-shadow:2px 2px 0 var(--ink)}
+.part-tab.done{background:var(--listen-green)}
+
+.part-card{border:var(--line);border-radius:18px;overflow:hidden;background:#fff}
+.part-card-head{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--part-color,var(--listen-blue));color:var(--part-text,#fff);border-bottom:2px solid rgba(0,0,0,.1)}
+.part-icon{width:48px;height:48px;border:var(--line);border-radius:14px;background:#fff;display:grid;place-items:center;box-shadow:2px 2px 0 var(--ink);flex:0 0 auto}
+.part-icon img{width:30px;height:30px;object-fit:contain}
+.part-card-head h3{font-size:18px;margin:2px 0}.part-card-head .section-kicker,.part-card-head small{font-size:11px;font-weight:800;color:inherit;opacity:.85}
+.part-body{padding:14px 16px 16px}
+.questions-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:12px}
+.question-card{border:var(--line);border-radius:15px;padding:13px;background:#fff;box-shadow:2px 2px 0 var(--ink)}
+.question-card:has(.diagramWrap){grid-column:1 / -1}
+.question-no{display:inline-block;background:var(--listen-pink);border:2px solid var(--ink);border-radius:999px;padding:3px 8px;font-size:10px;font-weight:1000;margin-bottom:7px}
+.question-card p{font-size:13px;font-weight:900;line-height:1.45;margin-bottom:9px}.question-card .option{font-size:12px}
+.part-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}.part-actions .btn{width:100%}
+
+/* Listening-specific: audio players + comprehension diagram (unique content inside part-body) */
+.part-audio{border:3px solid var(--ink);border-radius:16px;background:#101116;color:#fff;box-shadow:4px 4px 0 var(--ink);padding:14px;margin-bottom:14px}
+.part-audio-title{font-family:'Sora';font-size:15px;font-weight:800;margin:4px 0 9px}
+.part-audio small{display:block;color:rgba(255,255,255,.68);font-weight:800;line-height:1.45;margin-top:7px}
+.part-audio audio,.dialogue-audio audio{width:100%;display:block}
+.part-audio-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.part-audio-links a,.dialogue-audio a{display:inline-block;color:var(--listen-yellow);font-size:10px;font-weight:1000;margin-top:7px}
+.dialogue-audio-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.dialogue-audio{border:3px solid var(--ink);border-radius:14px;background:#172442;color:#fff;box-shadow:3px 3px 0 var(--ink);padding:12px}
+.dialogue-audio b{display:block;font-family:'Sora';font-size:13px;margin-bottom:7px}
+.diagramWrap{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.hall{border:2px solid var(--ink);background:#fff;padding:6px;min-height:170px;font-family:Arial}
+.stage{text-align:center;border:1px solid var(--ink);padding:4px;font-weight:bold}
+.rows{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:6px}
+.row{display:grid;gap:3px}.booth{border:1px solid var(--ink);min-height:24px;padding:3px;font-size:9px;display:flex;align-items:center;justify-content:center;text-align:center}
+.question-card .options{display:grid!important;grid-template-columns:1fr!important;gap:9px!important;width:100%!important}
+.question-card .option{display:flex!important;width:100%!important;align-items:flex-start!important;gap:10px!important;margin:0!important;padding:11px 12px!important;text-align:left!important}
+.question-card .option input{flex:0 0 auto!important;margin-top:3px!important}
+.question-card .option span{display:block!important;flex:1 1 auto!important;line-height:1.5!important}
+
+/* ===== Section 5: Answer final (mirrors .answer-final, shared rules in muet-guide.css) ===== */
+.review-part{border:var(--line);border-radius:16px;background:#fff;padding:14px;margin-top:12px;box-shadow:3px 3px 0 var(--ink)}
+.review-item{border-top:2px dashed rgba(0,0,0,.18);padding-top:10px;margin-top:10px;font-size:13px;line-height:1.55}
+.review-item:first-child{border-top:0;padding-top:0}
+.answer-review{display:none}.answer-review.show{display:block}
+
+@media(max-width:850px){.dialogue-audio-grid{grid-template-columns:1fr}}
+@media(max-width:720px){.listen-hero,.essentials-grid,.practice-head{grid-template-columns:1fr}.hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-more-grid{grid-template-columns:1fr}.questions-grid{grid-template-columns:1fr}.part-actions{grid-template-columns:1fr}.diagramWrap{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -96,750 +122,244 @@ details.more-guide summary::-webkit-details-marker{display:none}
   <div class="brand-bar">
     <button class="icon-btn" onclick="location.href='index.html'" style="margin-left:0;margin-right:8px">←</button>
     <div><div class="bar-label">Skill Module</div><div class="bar-title">Listening 800/1</div></div>
-    <button class="icon-btn">🎧</button>
+    <button class="icon-btn" aria-label="Listening guide">🎧</button>
   </div>
 
-  <section class="neo-hero">
-    <div class="hero-main" style="background:var(--np-yellow);">
-      <div>
-        <div class="section-kicker" style="color:var(--np-blue)">MUET Listening Guide · 800/1</div>
-        <h1>Listen sharper<br>with HEAR.</h1>
-        <p>Prepare before the audio, follow it part by part and confirm each answer with evidence.</p>
-      </div>
-      <div class="hero-art"><img src="assets/heroes/small-muet-logo.svg" alt="Smart MUET Guide"></div>
-    </div>
-    <div class="hero-stats">
-      <div class="stat-tile"><strong>5</strong><span>Parts</span></div><div class="stat-tile"><strong>30</strong><span>Questions</span></div><div class="stat-tile"><strong>≈50</strong><span>Minutes</span></div><div class="stat-tile"><strong>25%</strong><span>of MUET</span></div>
-    </div>
-  </section>
-
-  <section class="essentials">
-    <div class="section-top"><div><div class="section-kicker">Before You Start</div><h2>Listening Essentials</h2><p>Only the information students need before beginning practice.</p></div></div>
-    <div class="essentials-grid">
-      <div class="scan-panel"><b>Listening technique — HEAR</b>
-        <div class="scan-row"><div class="scan-step"><b>H</b>Highlight keywords</div><div class="scan-step"><b>E</b>Expect the answer type</div><div class="scan-step"><b>A</b>Attend to clues</div><div class="scan-step"><b>R</b>Review the evidence</div></div>
-      </div>
-      <div class="facts-panel"><b>What the test measures</b>
-        <div class="facts-list"><div class="fact-line"><img src="assets/heroes/icon-muet-intro.svg" alt=""><span>Understand conversations, talks and announcements.</span></div><div class="fact-line"><img src="assets/heroes/icon-why-muet.svg" alt=""><span>Identify main ideas, details and speakers’ purposes.</span></div><div class="fact-line"><img src="assets/heroes/icon-app-facts.svg" alt=""><span>Follow corrections — the audio plays once only.</span></div></div>
-      </div>
-    </div>
-    <details class="more-guide">
-      <summary>＋ View question types and exam reminders</summary>
-      <div class="guide-more-grid"><div class="guide-mini"><b>Test format (MPM)</b>5 parts · 30 questions · 90 marks · about 50 minutes. Part V contains three short dialogues.</div><div class="guide-mini"><b>Question types</b>Note completion, MCQ, matching and short answer.</div><div class="guide-mini"><b>Audio plays once</b>You cannot replay in the real exam. Read the questions first.</div><div class="guide-mini"><b>Keyword notes</b>Write 2–3 keywords per blank — never full sentences.</div><div class="guide-mini"><b>Distractor watch</b>The first option mentioned is often corrected: but · however · actually.</div><div class="guide-mini"><b>Match meaning</b>Answers paraphrase the audio — do not chase repeated words.</div></div>
-    </details>
-  </section>
-
-  <!-- STEP 1 -->
-  <div class="flow-step">
-    <div class="flow-step-head" onclick="L.toggle('s1')">
-      <div class="step-num">1</div>
-      <div style="flex:1"><b>Before You Start</b><br><small style="color:var(--muted)">What Listening 800/1 tests</small></div>
-      <span id="c-s1">▴</span>
-    </div>
-    <div id="b-s1" style="padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
-      <div class="info-grid">
-        <div class="info-tile"><span class="big">5</span><span class="lbl">Parts</span></div>
-        <div class="info-tile"><span class="big">30</span><span class="lbl">Questions</span></div>
-        <div class="info-tile"><span class="big">~50</span><span class="lbl">Minutes</span></div>
-        <div class="info-tile"><span class="big">25%</span><span class="lbl">of MUET</span></div>
-      </div>
-      <div style="background:#fef9c3;border:var(--line);border-radius:14px;padding:12px;margin-bottom:10px;font-size:13px;font-weight:900">
-        ⚠️ Audio plays <b>once only</b> in the real exam. You cannot replay.
-      </div>
-      <div style="background:#fefce8;border:2px solid var(--ink);border-radius:14px;padding:12px;font-size:12px;font-weight:900">
-        <p style="margin-bottom:6px;font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)">Question Types</p>
-        <div style="display:flex;flex-wrap:wrap;gap:6px">
-          <span style="background:white;border:2px solid var(--ink);border-radius:999px;padding:3px 10px">Note Completion</span>
-          <span style="background:white;border:2px solid var(--ink);border-radius:999px;padding:3px 10px">MCQ</span>
-          <span style="background:white;border:2px solid var(--ink);border-radius:999px;padding:3px 10px">Matching</span>
-          <span style="background:white;border:2px solid var(--ink);border-radius:999px;padding:3px 10px">Short Answer</span>
+  <div class="listen-wrap">
+    <section class="listen-hero">
+      <div class="hero-main">
+        <div>
+          <div class="section-kicker">MUET Listening Guide</div>
+          <h1>Listen once<br>with HEAR.</h1>
+          <p>Play each part's audio, answer as you go, then view the official answers and explanations after submission.</p>
         </div>
-        <p style="margin-top:8px">Audio includes: <b>conversations · announcements · talks · discussions</b></p>
+        <div class="hero-art"><img src="assets/heroes/small-muet-logo.svg" alt="Smart MUET Guide"></div>
       </div>
-      <button class="btn yellow" style="margin-top:14px" onclick="L.open('s2')">I understand — show me tips →</button>
-    </div>
-  </div>
+      <div class="hero-stats" aria-label="Listening test facts">
+        <div class="stat-tile"><strong>5</strong><span>Parts</span></div>
+        <div class="stat-tile"><strong>30</strong><span>Questions</span></div>
+        <div class="stat-tile"><strong>50</strong><span>Minutes</span></div>
+        <div class="stat-tile"><strong>25%</strong><span>of MUET</span></div>
+      </div>
+    </section>
 
-  <!-- STEP 2 -->
-  <div class="flow-step">
-    <div class="flow-step-head" onclick="L.toggle('s2')">
-      <div class="step-num">2</div>
-      <div style="flex:1"><b>Tips &amp; Tricks</b><br><small style="color:var(--muted)">Keyword and distractor strategy</small></div>
-      <span id="c-s2">▾</span>
-    </div>
-    <div id="b-s2" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
-      <div class="coach-note lime"><div class="tag">KEYWORD STRATEGY</div>
-        <p>Write <b>2–3 keywords per blank</b> — not full sentences. If you miss a word, leave it and move on. Complete notes after audio ends.</p></div>
-      <div class="coach-note pink" style="margin-top:10px"><div class="tag">DISTRACTOR WATCH</div>
-        <p>First option mentioned is often <b>corrected</b> by the speaker. Listen for: <i>but · however · actually · in fact · no, I mean</i>. The correction = the answer.</p></div>
-      <div style="background:#f8fafc;border:var(--line);border-radius:14px;padding:12px;margin-top:10px">
-        <h3 style="font-size:14px;margin-bottom:8px">Good vs Poor Notes</h3>
-        <div style="font-size:13px;font-weight:850;display:grid;gap:6px">
-          <div style="background:#fecaca;border:2px solid var(--ink);border-radius:10px;padding:8px">❌ "The meeting was moved from Thursday to Friday at 2:30 in the science block"</div>
-          <div style="background:#bbf7d0;border:2px solid var(--ink);border-radius:10px;padding:8px">✅ "Fri / 2.30pm / sci block"</div>
+    <section class="essentials">
+      <div class="section-top">
+        <div><div class="section-kicker">Before You Start</div><h2>Listening Essentials</h2><p>Only the information students need before beginning practice.</p></div>
+      </div>
+      <div class="essentials-grid">
+        <div class="hear-panel">
+          <b>HEAR technique</b>
+          <p class="hear-intro">Run through these four steps before and during every audio clip — HEAR keeps you listening for evidence instead of guessing from memory.</p>
+          <div class="hear-row">
+            <div class="hear-step"><img class="hear-step-icon" src="assets/heroes/icon-muet-intro.svg" alt=""><b>H</b><span class="hear-step-label">Highlight keywords</span><span class="hear-step-desc">Mark the keywords in each question before its audio starts.</span></div>
+            <div class="hear-step"><img class="hear-step-icon" src="assets/heroes/icon-why-muet.svg" alt=""><b>E</b><span class="hear-step-label">Expect answer type</span><span class="hear-step-desc">Predict what kind of answer is needed — a name, number, reason or place.</span></div>
+            <div class="hear-step"><img class="hear-step-icon" src="assets/heroes/icon-muet-facts.svg" alt=""><b>A</b><span class="hear-step-label">Attend to clues</span><span class="hear-step-desc">Listen for signal words like "however" or "actually" that correct earlier information.</span></div>
+            <div class="hear-step"><img class="hear-step-icon" src="assets/heroes/icon-app-facts.svg" alt=""><b>R</b><span class="hear-step-label">Review evidence</span><span class="hear-step-desc">Check what you heard against each option before you commit to an answer.</span></div>
+          </div>
+        </div>
+        <div class="facts-panel">
+          <b>What the test measures</b>
+          <div class="facts-list">
+            <div class="fact-line"><img src="assets/heroes/icon-muet-intro.svg" alt=""><span>Catch specific facts, details and numbers.</span></div>
+            <div class="fact-line"><img src="assets/heroes/icon-why-muet.svg" alt=""><span>Understand speaker attitude, opinion and purpose.</span></div>
+            <div class="fact-line"><img src="assets/heroes/icon-app-facts.svg" alt=""><span>Follow gist, sequence and relationships between ideas.</span></div>
+          </div>
         </div>
       </div>
-      <button class="btn yellow" style="margin-top:14px" onclick="L.open('s3')">I've read the tips — show me a sample →</button>
-    </div>
-  </div>
-
-  <!-- STEP 3 -->
-  <div class="flow-step">
-    <div class="flow-step-head" onclick="L.toggle('s3')">
-      <div class="step-num">3</div>
-      <div style="flex:1"><b>Sample &amp; Transcript</b><br><small style="color:var(--muted)">See a distractor in action</small></div>
-      <span id="c-s3">▾</span>
-    </div>
-    <div id="b-s3" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
-      <div style="background:#dcfce7;border:var(--line);border-radius:14px;padding:12px;font-size:13px;font-weight:800;line-height:1.5;margin-bottom:12px;font-style:italic">
-        "Good morning students. The library will be closed this <u>Thursday</u> for maintenance. Actually — sorry, I made an error. The library will be closed on <u>Friday</u>, not Thursday."
-      </div>
-      <div style="border:var(--line);border-radius:14px;background:white;padding:12px;margin-bottom:10px">
-        <p style="font-weight:900;margin-bottom:10px;font-size:13px">When will the library be closed?</p>
-        <div class="options">
-          <label class="option wrong"><input type="radio" name="demo-listening-q1" id="demo-listening-q1-a" disabled/><span>A. Thursday</span></label>
-          <label class="option correct"><input type="radio" name="demo-listening-q1" id="demo-listening-q1-b" disabled checked/><span>B. Friday</span></label>
-          <label class="option wrong"><input type="radio" name="demo-listening-q1" id="demo-listening-q1-c" disabled/><span>C. Monday</span></label>
+      <details class="more-guide">
+        <summary>＋ View question types and exam reminders</summary>
+        <div class="guide-more-grid">
+          <div class="guide-mini"><b>Common question types</b>Gist, detail, inference, attitude, numbers and spelling.</div>
+          <div class="guide-mini"><b>Use audio evidence</b>Choose the answer supported by what is said, not what you expect to hear.</div>
+          <div class="guide-mini"><b>Watch for corrections</b>Speakers often say one thing then correct themselves — the correction is usually the answer.</div>
+          <div class="guide-mini"><b>Read ahead</b>Skim each part's questions before its audio starts playing.</div>
+          <div class="guide-mini"><b>One playthrough only</b>In the real exam you hear each part once — treat practice the same way.</div>
+          <div class="guide-mini"><b>Answer every item</b>Make your best guess rather than leaving an item blank.</div>
         </div>
-        <div class="explain show" style="margin-top:10px"><b>B — Friday.</b> Speaker first says Thursday (distractor), then corrects to Friday. Signal: <i>"Actually — sorry, I made an error."</i></div>
-      </div>
-      <button class="btn yellow" style="margin-top:4px" onclick="L.open('s4')">I'm ready — start practice →</button>
-    </div>
-  </div>
+      </details>
+    </section>
 
-  <!-- STEP 4 -->
-  <div class="flow-step">
-    <div class="flow-step-head" onclick="L.toggle('s4')">
-      <div class="step-num">4</div>
-      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Keyword notes + MCQ answers</small></div>
-      <span id="c-s4">▾</span>
-    </div>
-    <div id="b-s4" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
-      <div style="background:var(--ink);color:white;border:var(--line);border-radius:var(--r2);padding:14px;margin-bottom:14px">
-        <p class="tiny" style="color:rgba(255,255,255,.7)">Audio &amp; Script Mode</p>
-        <div style="height:36px;background:repeating-linear-gradient(90deg,var(--yellow) 0 6px,transparent 6px 12px);border:2px solid rgba(255,255,255,.3);border-radius:10px;margin:8px 0;opacity:.5"></div>
-        <p style="font-weight:800;font-size:13px;margin-bottom:8px">Every part has its own Google Drive audio player inside the part card below. Play the part audio first, then answer its questions. The script stays available as backup. In the real exam, audio plays once only.</p>
-        <button class="btn yellow" id="scriptBtn" onclick="toggleScript()" style="width:auto;min-width:130px">Show Script</button>
+    <section class="practice-shell" id="practiceSection">
+      <div class="practice-head">
+        <div><div class="section-kicker">Part-by-Part Practice</div><h2 style="font-size:22px">Complete one listening part at a time</h2><p style="font-size:12px;font-weight:750;color:var(--muted);margin-top:4px">Play the audio, answer its questions and continue to the next part.</p></div>
+        <div class="timer-box"><div><span>Listening timer</span><strong id="timerDisp">50:00</strong></div><button class="btn yellow" id="timerBtn" onclick="toggleTimer()">Start</button></div>
       </div>
-      <div id="practiceScript" style="display:none;background:#f0fdf4;border:var(--line);border-radius:16px;padding:14px;margin-bottom:14px;font-size:13px;font-weight:800;line-height:1.6">
-        <h3 style="margin-bottom:10px">Script Summary (5 Parts)</h3>
-        <div style="display:grid;gap:10px">
-          <div style="border-left:4px solid var(--blue);padding-left:10px"><b>Part I — Conversation:</b> Leanne and Amir discuss The Pet Club and Leanne's tortoise named Tito — his garden house, floor stones, and sensitivity to touch.</div>
-          <div style="border-left:4px solid var(--green);padding-left:10px"><b>Part II — Talk:</b> Dr Yusof shares his education journey — primary school in Negeri Sembilan, first job at Elizabeth University, his grandmother's encouragement, and balancing study and work in postgraduate.</div>
-          <div style="border-left:4px solid var(--yellow);padding-left:10px"><b>Part III — Three Speakers:</b> Lina, Saiful and Sarah each explain their main reason for travelling. Match each speaker to one reason from options A–E.</div>
-          <div style="border-left:4px solid var(--orange);padding-left:10px"><b>Part IV — Radio Interview:</b> Dr Ruben discusses memorisation techniques — word association, imagining images on walls for dates, singing for new concepts, and the "Teach it" method.</div>
-          <div style="border-left:4px solid var(--pink);padding-left:10px"><b>Part V — Three Dialogues:</b> Dialogue 1: whale stuck in river + plastic reduction. Dialogue 2: preserved traditional house as national treasure. Dialogue 3: bubble tea sugar and hidden dangers of trans fat.</div>
+      <nav class="part-tabs" id="partTabs" aria-label="Listening test parts"></nav>
+      <div id="partStage"></div>
+
+      <section class="answer-final locked" id="answerFinal">
+        <div class="section-kicker">Final Step</div>
+        <h3>View Correct Answers</h3>
+        <p>Complete all five parts first. The answers and explanations will only appear after submission.</p>
+        <button class="btn black wide" id="submitBtn" onclick="submitListening()" disabled>Submit &amp; View Correct Answers</button>
+        <div id="resultCard" class="result-card" style="background:#dcfce7">
+          <div class="tag">RESULT SAVED</div>
+          <div class="answer-summary">
+            <div class="summary-tile"><strong id="resultScore">—</strong><span>Score</span></div>
+            <div class="summary-tile"><strong id="resultBand">—</strong><span>Estimated Band</span></div>
+          </div>
+          <div id="resultFb" style="border:var(--line);border-radius:14px;background:white;padding:12px;margin:10px 0;font-size:13px;font-weight:800"></div>
+          <button class="btn white wide" onclick="toggleAnswerReview()">Show answer explanations</button>
+          <div id="answerReview" class="answer-review"></div>
+          <button class="btn black wide" style="margin-top:12px" onclick="location.href='index.html'">← Back to Home</button>
         </div>
-      </div>
-      <div class="coach-note lime"><div class="tag">BEFORE YOU LISTEN</div><p>Read the questions below first. Write keywords in the note box. Then answer.</p></div>
-      <div class="card">
-        <h3>Keyword Notes <span class="req">Required</span></h3>
-        <textarea id="lstNotes" rows="3" style="margin-top:10px" placeholder="e.g. Thu→Fri / Hall L3 / 9am / student card / confirm Tue"></textarea>
-      </div>
-      <div class="standard-progress" id="listenPartNav"></div><div id="lstQList" style="display:grid;gap:12px"></div>
-      <div class="btn-row" style="margin-top:14px">
-        <button class="btn yellow wide" onclick="submitListening()">Submit Practice</button>
-        <button class="btn pink" onclick="location.href='index.html'">← Home</button>
-      </div>
-      <div id="resultCard" class="result-card" style="background:#fef9c3">
-        <div class="tag">RESULT SAVED</div>
-        <span id="resultScore" class="result-score"></span>
-        <span id="resultBand" class="result-band"></span>
-        <div id="resultFb" style="border:var(--line);border-radius:14px;background:white;padding:12px;margin:10px 0;font-size:13px;font-weight:800"></div>
-        <button class="btn white wide" onclick="toggleListeningReview()">View Correct Answers &amp; Explanations</button>
-        <div id="listeningAnswerReview" class="answer-review"></div>
-        <button class="btn black" style="margin-top:12px" onclick="location.href='index.html'">← Back to Home</button>
-      </div>
-    </div>
+      </section>
+    </section>
   </div>
-
 </section>
 </main>
 <div id="toast" class="toast"></div>
-<script src="js/muet-shared.js?v=20260726-1"></script>
-<script src="js/backend-config.js?v=20260726-1"></script>
+<script src="js/muet-shared.js?v=20260729-1"></script>
 <script>
-const sampleQs = [
-  {
-    "id": "L1",
-    "part": "Part I — Conversation",
-    "stem": "Leanne is happy because she can",
-    "options": [
-      "A. bring her pet to school",
-      "B. be in charge of her club",
-      "C. talk to Amir about her pet"
-    ],
-    "answer": 1,
-    "explanation": "Leanne says she is the president of the Pet Club — she is 'in charge' of the club. Option A is wrong (she cannot bring Tito to school). Option C is a distractor — talking to Amir happens but is not the reason she is happy."
-  },
-  {
-    "id": "L2",
-    "part": "Part I — Conversation",
-    "stem": "Leanne agrees with Amir that tortoises are",
-    "options": [
-      "A. rare as pets",
-      "B. famous in movies",
-      "C. popular nowadays"
-    ],
-    "answer": 2,
-    "explanation": "Leanne says tortoises are 'popular' as pets now. Option A (rare) is the opposite. Option B (famous in movies) is not mentioned."
-  },
-  {
-    "id": "L3",
-    "part": "Part I — Conversation",
-    "stem": "Tito lives in the garden because he",
-    "options": [
-      "A. smells",
-      "B. is a pet",
-      "C. has a house"
-    ],
-    "answer": 2,
-    "explanation": "Leanne explains Tito lives in the garden because he has his own house there. Option A (smells) is a distractor Amir raises but Leanne dismisses it."
-  },
-  {
-    "id": "L4",
-    "part": "Part I — Conversation",
-    "stem": "Tito’s house was easy to build because",
-    "options": [
-      "A. it was a simple design",
-      "B. the family built it together",
-      "C. Leanne’s father is a good builder"
-    ],
-    "answer": 0,
-    "explanation": "Leanne says the design was simple — it was easy to build because of the simple design. Option B (family built together) is not stated. Option C is not mentioned."
-  },
-  {
-    "id": "L5",
-    "part": "Part I — Conversation",
-    "stem": "Leanne covered the floor with stones to",
-    "options": [
-      "A. decorate the floor",
-      "B. let Tito move easily",
-      "C. protect Tito from the weather"
-    ],
-    "answer": 1,
-    "explanation": "Leanne covered the floor with stones so Tito could move around easily — stones provide grip for tortoise movement. Option A (decorate) is not mentioned. Option C (weather) is not the reason given."
-  },
-  {
-    "id": "L6",
-    "part": "Part I — Conversation",
-    "stem": "Amir is surprised that tortoises are",
-    "options": [
-      "A. easy to love",
-      "B. sensitive to touch",
-      "C. born with hard skin"
-    ],
-    "answer": 1,
-    "explanation": "Amir is surprised that tortoises are sensitive to touch — they can feel through their shells. Option A is not what surprises him. Option C (born with hard skin) is a distractor."
-  },
-  {
-    "id": "L7",
-    "part": "Part I — Conversation",
-    "stem": "Which picture shows the correct position of The Pet Club’s table in the hall?",
-    "options": [
-      "A. Picture A",
-      "B. Picture B",
-      "C. Picture C"
-    ],
-    "answer": 0,
-    "explanation": "The Pet Club's table is described as being at the back-left corner of the hall. Picture A shows this position. Note: diagram-based question — answer A reflects the described layout."
-  },
-  {
-    "id": "L8",
-    "part": "Part II — Talk",
-    "stem": "Dr Yusof went to a primary school in",
-    "options": [
-      "A. Perak",
-      "B. Negeri Sembilan",
-      "C. the United Kingdom"
-    ],
-    "answer": 1,
-    "explanation": "Dr Yusof says he went to a primary school in Negeri Sembilan. Option A (Perak) is mentioned as where he later studied. Option C (UK) is where he did postgraduate work."
-  },
-  {
-    "id": "L9",
-    "part": "Part II — Talk",
-    "stem": "Dr Yusof’s first job was at",
-    "options": [
-      "A. KL University",
-      "B. Charles University",
-      "C. Elizabeth University"
-    ],
-    "answer": 2,
-    "explanation": "Dr Yusof says his first job was at Elizabeth University. Option A (KL University) is a distractor. Option B (Charles University) is not his first job."
-  },
-  {
-    "id": "L10",
-    "part": "Part II — Talk",
-    "stem": "Who encouraged Dr Yusof to succeed in education?",
-    "options": [
-      "A. His parents",
-      "B. His teachers",
-      "C. His grandmother"
-    ],
-    "answer": 2,
-    "explanation": "Dr Yusof says his grandmother encouraged him — she told him education was the key to success. Option A (parents) is a distractor. Option B (teachers) is not stated as the main encourager."
-  },
-  {
-    "id": "L11",
-    "part": "Part II — Talk",
-    "stem": "Dr Yusof’s father took the extra effort to learn English by",
-    "options": [
-      "A. reading the newspaper daily",
-      "B. carrying books to the school office",
-      "C. volunteering to clean his teacher’s house"
-    ],
-    "answer": 0,
-    "explanation": "Dr Yusof's father read the newspaper every day to improve his English. Option B (carrying books) is not stated. Option C (cleaning teacher's house) is a distractor detail."
-  },
-  {
-    "id": "L12",
-    "part": "Part II — Talk",
-    "stem": "During his A-Level, Dr Yusof used his weekends to",
-    "options": [
-      "A. assist his classmates",
-      "B. do part-time teaching",
-      "C. complete assignments"
-    ],
-    "answer": 1,
-    "explanation": "During A-Level, Dr Yusof used weekends to do part-time teaching to support himself. Option A (assist classmates) is not mentioned. Option C (assignments) is a distractor."
-  },
-  {
-    "id": "L13",
-    "part": "Part II — Talk",
-    "stem": "While doing his postgraduate studies, Dr Yusof",
-    "options": [
-      "A. studied every day",
-      "B. avoided working part-time",
-      "C. balanced his study and work"
-    ],
-    "answer": 2,
-    "explanation": "Dr Yusof says he balanced study and work during his postgraduate studies. Option A (studied every day) is too extreme. Option B (avoided working) is incorrect — he worked."
-  },
-  {
-    "id": "L14",
-    "part": "Part II — Talk",
-    "stem": "The most important advice to the new students is to",
-    "options": [
-      "A. learn from your friends",
-      "B. join many student activities",
-      "C. aim high in whatever you do"
-    ],
-    "answer": 2,
-    "explanation": "Dr Yusof's most important advice is to aim high in whatever you do. Option A (learn from friends) is not the main advice. Option B (join activities) is mentioned but not emphasised as most important."
-  },
-  {
-    "id": "L15",
-    "part": "Part III — Matching",
-    "stem": "Lina — main reason for travelling",
-    "options": [
-      "A. To become more creative",
-      "B. To make new friends",
-      "C. To learn new languages",
-      "D. To have new experiences",
-      "E. To escape a routine life"
-    ],
-    "answer": 3,
-    "explanation": "Lina says she travels mainly to have new experiences — to discover things she has never encountered before. Option D is correct."
-  },
-  {
-    "id": "L16",
-    "part": "Part III — Matching",
-    "stem": "Saiful — main reason for travelling",
-    "options": [
-      "A. To become more creative",
-      "B. To make new friends",
-      "C. To learn new languages",
-      "D. To have new experiences",
-      "E. To escape a routine life"
-    ],
-    "answer": 1,
-    "explanation": "Saiful says he travels to make new friends — meeting people from different backgrounds is his main reason. Option B is correct."
-  },
-  {
-    "id": "L17",
-    "part": "Part III — Matching",
-    "stem": "Sarah — main reason for travelling",
-    "options": [
-      "A. To become more creative",
-      "B. To make new friends",
-      "C. To learn new languages",
-      "D. To have new experiences",
-      "E. To escape a routine life"
-    ],
-    "answer": 4,
-    "explanation": "Sarah says she travels to escape her routine life — she finds daily life boring and travel refreshes her. Option E is correct."
-  },
-  {
-    "id": "L18",
-    "part": "Part IV — Radio Interview",
-    "stem": "Memorisation process occurs when you",
-    "options": [
-      "A. make a grocery list",
-      "B. stand at the supermarket",
-      "C. study for an examination"
-    ],
-    "answer": 1,
-    "explanation": "Dr Ruben says the memorisation process occurs when you are standing at the supermarket — trying to recall your grocery list. Option A (making the list) is preparation, not memorisation."
-  },
-  {
-    "id": "L19",
-    "part": "Part IV — Radio Interview",
-    "stem": "Dr Ruben’s tips on memorisation are based on what we",
-    "options": [
-      "A. did as young children",
-      "B. learnt at nursery school",
-      "C. went through as children"
-    ],
-    "answer": 2,
-    "explanation": "Dr Ruben says his tips are based on what we went through as children — childhood learning experiences. Option A (did as young children) and C overlap but C is the closer match to 'went through'."
-  },
-  {
-    "id": "L20",
-    "part": "Part IV — Radio Interview",
-    "stem": "We use both types of memory to",
-    "options": [
-      "A. construct answers",
-      "B. recall information",
-      "C. remember concepts"
-    ],
-    "answer": 1,
-    "explanation": "Dr Ruben says we use both short-term and long-term memory to recall information — retrieving stored knowledge. Option A (construct) and C (remember concepts) are distractors."
-  },
-  {
-    "id": "L21",
-    "part": "Part IV — Radio Interview",
-    "stem": "To use the word association technique, Dr Ruben suggests",
-    "options": [
-      "A. naming your pet dog",
-      "B. using familiar words",
-      "C. reading a science concept"
-    ],
-    "answer": 1,
-    "explanation": "Dr Ruben suggests using familiar words to practise word association — linking new terms to known words. Option A (naming a dog) is an example, not the technique itself. Option C is a context, not the technique."
-  },
-  {
-    "id": "L22",
-    "part": "Part IV — Radio Interview",
-    "stem": "It is easy to remember dates when you imagine the",
-    "options": [
-      "A. lists on the wall",
-      "B. graffiti on the wall",
-      "C. images on the wall"
-    ],
-    "answer": 2,
-    "explanation": "It is easy to remember dates when you imagine images on the wall — visual memory technique. Option A (lists) and B (graffiti) are distractors from the same visual context."
-  },
-  {
-    "id": "L23",
-    "part": "Part IV — Radio Interview",
-    "stem": "Dr Ruben claims that singing is",
-    "options": [
-      "A. useful for tricking your mind",
-      "B. better than reading a text aloud",
-      "C. effective when learning new concepts"
-    ],
-    "answer": 2,
-    "explanation": "Dr Ruben says singing is effective when learning new concepts — the rhythm helps retention. Option A (tricking your mind) is not the claim. Option B (better than reading aloud) is not stated."
-  },
-  {
-    "id": "L24",
-    "part": "Part IV — Radio Interview",
-    "stem": "The best method for “Teach it” is to",
-    "options": [
-      "A. teach your group members",
-      "B. pretend teaching your friends",
-      "C. record a video of yourself teaching"
-    ],
-    "answer": 1,
-    "explanation": "The best method for 'Teach it' is to pretend teaching your friends — imaginary teaching reinforces memory. Option A (teach group members) requires real people. Option C (record video) is not mentioned."
-  },
-  {
-    "id": "L25",
-    "part": "Part V — Dialogue 1",
-    "stem": "The Thai rescuers reported that the whale was",
-    "options": [
-      "A. sheltered by umbrellas",
-      "B. stuck in the river mouth",
-      "C. covered with plastic bags"
-    ],
-    "answer": 1,
-    "explanation": "The Thai rescuers reported the whale was stuck in the river mouth — it could not swim back to sea. Option A (umbrellas) and C (plastic bags) are distractors from other details in the rescue story."
-  },
-  {
-    "id": "L26",
-    "part": "Part V — Dialogue 1",
-    "stem": "To reduce the use of plastic, we should",
-    "options": [
-      "A. buy things in large quantities",
-      "B. avoid shopping at supermarkets",
-      "C. use metal straws and containers"
-    ],
-    "answer": 2,
-    "explanation": "To reduce plastic use, we should use metal straws and containers — reusable alternatives. Option A (buy in bulk) does not reduce plastic. Option B (avoid supermarkets) is extreme and not stated."
-  },
-  {
-    "id": "L27",
-    "part": "Part V — Dialogue 2",
-    "stem": "According to Fatima, the house was preserved to",
-    "options": [
-      "A. honour the village chief",
-      "B. restore the oldest traditional Malay house",
-      "C. prevent further damage to a national treasure"
-    ],
-    "answer": 2,
-    "explanation": "Fatima says the house was preserved to prevent further damage to a national treasure. Option A (honour village chief) is not stated. Option B (restore oldest) is a distractor — it is preserved, not just restored."
-  },
-  {
-    "id": "L28",
-    "part": "Part V — Dialogue 2",
-    "stem": "The traditional house was not just a family house because it",
-    "options": [
-      "A. served the family and community",
-      "B. functioned as an entertainment centre",
-      "C. exhibited traditional Malay culture and history"
-    ],
-    "answer": 0,
-    "explanation": "The traditional house was not just a family house because it served both the family and the community — it was a community gathering place. Option C describes its cultural value but not why it was not 'just' a family house."
-  },
-  {
-    "id": "L29",
-    "part": "Part V — Dialogue 3",
-    "stem": "People gain weight from drinking bubble tea because it mainly contains",
-    "options": [
-      "A. sugar",
-      "B. trans fat",
-      "C. carbohydrate"
-    ],
-    "answer": 0,
-    "explanation": "People gain weight from bubble tea mainly because of its high sugar content. Option B (trans fat) and C (carbohydrate) are mentioned but sugar is identified as the main cause of weight gain."
-  },
-  {
-    "id": "L30",
-    "part": "Part V — Dialogue 3",
-    "stem": "A hidden danger of trans fat is it",
-    "options": [
-      "A. raises the cholesterol level",
-      "B. increases the risk of diabetes",
-      "C. affects the reproductive system"
-    ],
-    "answer": 2,
-    "explanation": "A hidden danger of trans fat is that it affects the reproductive system — this is described as a less-known risk. Option A (cholesterol) and B (diabetes) are also mentioned but are well-known, not hidden dangers."
+const TRACKS=[{"name": "Track 1", "view": "https://drive.google.com/file/d/1QQj-1FvvZUddWZwo8LeipWk55mPePYum/view", "stream": "https://drive.google.com/uc?export=download&id=1QQj-1FvvZUddWZwo8LeipWk55mPePYum"}, {"name": "Track 2", "view": "https://drive.google.com/file/d/112QBpHeyqud6f4UjBy_F_-HDJnWLmTYP/view", "stream": "https://drive.google.com/uc?export=download&id=112QBpHeyqud6f4UjBy_F_-HDJnWLmTYP"}, {"name": "Track 3", "view": "https://drive.google.com/file/d/1JVpMKOYpyvKUVy7-2gwcpUIpXfEHQC2K/view", "stream": "https://drive.google.com/uc?export=download&id=1JVpMKOYpyvKUVy7-2gwcpUIpXfEHQC2K"}, {"name": "Track 4", "view": "https://drive.google.com/file/d/16hCkjfiQSaVwvTyC-1kx7GV1liFq013h/view", "stream": "https://drive.google.com/uc?export=download&id=16hCkjfiQSaVwvTyC-1kx7GV1liFq013h"}, {"name": "Track 5", "view": "https://drive.google.com/file/d/1-LEHYtc22LskHNUe32tC7bqio6jLS6F6/view", "stream": "https://drive.google.com/uc?export=download&id=1-LEHYtc22LskHNUe32tC7bqio6jLS6F6"}, {"name": "Track 6", "view": "https://drive.google.com/file/d/1tgXGA_NX-UuQe-MdCZFQb2zPN0QKs2LV/view", "stream": "https://drive.google.com/uc?export=download&id=1tgXGA_NX-UuQe-MdCZFQb2zPN0QKs2LV"}, {"name": "Track 7", "view": "https://drive.google.com/file/d/1iFzDIUACYJMhhzZsX45RERBKvSNmFBk-/view", "stream": "https://drive.google.com/uc?export=download&id=1iFzDIUACYJMhhzZsX45RERBKvSNmFBk-"}, {"name": "Track 8", "view": "https://drive.google.com/file/d/1AZRh_FI-yGae-MI-o1MR-kw02RvHeqhu/view", "stream": "https://drive.google.com/uc?export=download&id=1AZRh_FI-yGae-MI-o1MR-kw02RvHeqhu"}, {"name": "Track 9", "view": "https://drive.google.com/file/d/1MD-FtTZuYOS1czO_AP_oK2sUZXNQOyiA/view", "stream": "https://drive.google.com/uc?export=download&id=1MD-FtTZuYOS1czO_AP_oK2sUZXNQOyiA"}];
+const QUESTIONS=[{"part": "Part I", "q": 1, "text": "Leanne is happy because she can", "options": {"A": "bring her pet to school", "B": "be in charge of her club", "C": "talk to Amir about her pet"}, "answer": "A", "explanation": "Leanne is happy because she is able to bring her pet to school."}, {"part": "Part I", "q": 2, "text": "Leanne agrees with Amir that tortoises are", "options": {"A": "rare as pets", "B": "famous in movies", "C": "popular nowadays"}, "answer": "A", "explanation": "Leanne agrees that tortoises are rare as pets."}, {"part": "Part I", "q": 3, "text": "Tito lives in the garden because he", "options": {"A": "smells", "B": "is a pet", "C": "has a house"}, "answer": "A", "explanation": "Tito stays in the garden because the family considers him smelly."}, {"part": "Part I", "q": 4, "text": "Tito’s house was easy to build because", "options": {"A": "it was a simple design", "B": "the family built it together", "C": "Leanne’s father is a good builder"}, "answer": "B", "explanation": "The house was easy to build because the family worked together."}, {"part": "Part I", "q": 5, "text": "Leanne covered the floor with stones to", "options": {"A": "decorate the floor", "B": "let Tito move easily", "C": "protect Tito from the weather"}, "answer": "B", "explanation": "The stones made it easier for Tito to move around."}, {"part": "Part I", "q": 6, "text": "Amir is surprised that tortoises are", "options": {"A": "easy to love", "B": "sensitive to touch", "C": "born with hard skin"}, "answer": "B", "explanation": "Amir is surprised that tortoises are sensitive to touch."}, {"part": "Part I", "q": 7, "text": "Which picture shows the correct position of The Pet Club’s table in the hall?", "options": {"A": "Layout A", "B": "Layout B", "C": "Layout C"}, "answer": "C", "explanation": "The Pet Club table is on the right side of the hall, between the Green Earth Club and the Save Our Rivers Club.", "diagram": "petclub"}, {"part": "Part II", "q": 8, "text": "Dr Yusof went to a primary school in", "options": {"A": "Perak", "B": "Negeri Sembilan", "C": "the United Kingdom"}, "answer": "B", "explanation": "Dr Yusof attended primary school in Negeri Sembilan."}, {"part": "Part II", "q": 9, "text": "Dr Yusof’s first job was at", "options": {"A": "KL University", "B": "Charles University", "C": "Elizabeth University"}, "answer": "A", "explanation": "The official key identifies KL University as his first workplace."}, {"part": "Part II", "q": 10, "text": "Who encouraged Dr Yusof to succeed in education?", "options": {"A": "His parents", "B": "His teachers", "C": "His grandmother"}, "answer": "A", "explanation": "The official key identifies his parents as the people who encouraged him."}, {"part": "Part II", "q": 11, "text": "Dr Yusof’s father took the extra effort to learn English by", "options": {"A": "reading the newspaper daily", "B": "carrying books to the school office", "C": "volunteering to clean his teacher’s house"}, "answer": "C", "explanation": "His father volunteered to clean his teacher’s house to create opportunities to practise English."}, {"part": "Part II", "q": 12, "text": "During his A-Level, Dr Yusof used his weekends to", "options": {"A": "assist his classmates", "B": "do part-time teaching", "C": "complete assignments"}, "answer": "C", "explanation": "He used weekends to complete his assignments."}, {"part": "Part II", "q": 13, "text": "While doing his postgraduate studies, Dr Yusof", "options": {"A": "studied every day", "B": "avoided working part-time", "C": "balanced his study and work"}, "answer": "C", "explanation": "He balanced his studies with work."}, {"part": "Part II", "q": 14, "text": "The most important advice to the new students is to", "options": {"A": "learn from your friends", "B": "join many student activities", "C": "aim high in whatever you do"}, "answer": "C", "explanation": "His final advice is to aim high in whatever you do."}, {"part": "Part III", "q": 15, "text": "Lina’s main reason for travelling", "options": {"A": "To become more creative", "B": "To make new friends", "C": "To learn new languages", "D": "To have new experiences", "E": "To escape a routine life"}, "answer": "E", "explanation": "Lina travels to escape a routine life."}, {"part": "Part III", "q": 16, "text": "Saiful’s main reason for travelling", "options": {"A": "To become more creative", "B": "To make new friends", "C": "To learn new languages", "D": "To have new experiences", "E": "To escape a routine life"}, "answer": "D", "explanation": "Saiful travels to have new experiences."}, {"part": "Part III", "q": 17, "text": "Sarah’s main reason for travelling", "options": {"A": "To become more creative", "B": "To make new friends", "C": "To learn new languages", "D": "To have new experiences", "E": "To escape a routine life"}, "answer": "B", "explanation": "Sarah travels to make new friends."}, {"part": "Part IV", "q": 18, "text": "Memorisation process occurs when you", "options": {"A": "make a grocery list", "B": "stand at the supermarket", "C": "study for an examination"}, "answer": "C", "explanation": "Studying for an examination involves memorisation."}, {"part": "Part IV", "q": 19, "text": "Dr Ruben’s tips on memorisation are based on what we", "options": {"A": "did as young children", "B": "learnt at nursery school", "C": "went through as children"}, "answer": "A", "explanation": "His tips are based on activities we did as young children."}, {"part": "Part IV", "q": 20, "text": "We use both types of memory to", "options": {"A": "construct answers", "B": "recall information", "C": "remember concepts"}, "answer": "B", "explanation": "Short-term and long-term memory work together to recall information."}, {"part": "Part IV", "q": 21, "text": "To use the word association technique, Dr Ruben suggests", "options": {"A": "naming your pet dog", "B": "using familiar words", "C": "reading a science concept"}, "answer": "B", "explanation": "Word association works by linking new information with familiar words."}, {"part": "Part IV", "q": 22, "text": "It is easy to remember dates when you imagine the", "options": {"A": "lists on the wall", "B": "graffiti on the wall", "C": "images on the wall"}, "answer": "B", "explanation": "The date is remembered by imagining graffiti on the wall."}, {"part": "Part IV", "q": 23, "text": "Dr Ruben claims that singing is", "options": {"A": "useful for tricking your mind", "B": "better than reading a text aloud", "C": "effective when learning new concepts"}, "answer": "C", "explanation": "Singing is effective for learning new concepts."}, {"part": "Part IV", "q": 24, "text": "The best method for “Teach it” is to", "options": {"A": "teach your group members", "B": "pretend teaching your friends", "C": "record a video of yourself teaching"}, "answer": "C", "explanation": "The recommended method is to record a video of yourself teaching."}, {"part": "Part V — Dialogue 1", "q": 25, "text": "The Thai rescuers reported that the whale was", "options": {"A": "sheltered by umbrellas", "B": "stuck in the river mouth", "C": "covered with plastic bags"}, "answer": "B", "explanation": "The whale was stuck in the river mouth."}, {"part": "Part V — Dialogue 1", "q": 26, "text": "To reduce the use of plastic, we should", "options": {"A": "buy things in large quantities", "B": "avoid shopping at supermarkets", "C": "use metal straws and containers"}, "answer": "C", "explanation": "Reusable metal straws and containers reduce plastic use."}, {"part": "Part V — Dialogue 2", "q": 27, "text": "According to Fatima, the house was preserved to", "options": {"A": "honour the village chief", "B": "restore the oldest traditional Malay house", "C": "prevent further damage to a national treasure"}, "answer": "C", "explanation": "The house was preserved to prevent further damage to a national treasure."}, {"part": "Part V — Dialogue 2", "q": 28, "text": "The traditional house was not just a family house because it", "options": {"A": "served the family and community", "B": "functioned as an entertainment centre", "C": "exhibited traditional Malay culture and history"}, "answer": "A", "explanation": "The house served both the family and the community."}, {"part": "Part V — Dialogue 3", "q": 29, "text": "People gain weight from drinking bubble tea because it mainly contains", "options": {"A": "sugar", "B": "trans fat", "C": "carbohydrate"}, "answer": "A", "explanation": "Bubble tea mainly contains a large amount of sugar."}, {"part": "Part V — Dialogue 3", "q": 30, "text": "A hidden danger of trans fat is it", "options": {"A": "raises the cholesterol level", "B": "increases the risk of diabetes", "C": "affects the reproductive system"}, "answer": "C", "explanation": "The hidden danger highlighted is its effect on the reproductive system."}];
+const PART_ORDER=['Part I','Part II','Part III','Part IV','Part V'];
+const PART_META={
+ 'Part I':'Conversation between Leanne and Amir · Q1–Q7',
+ 'Part II':'Talk by Dr Yusof Lokman · Q8–Q14',
+ 'Part III':'Three speakers on travelling · Q15–Q17',
+ 'Part IV':'Interview on improving memory · Q18–Q24',
+ 'Part V':'Three short dialogues · Q25–Q30'
+};
+const PART_ICON={
+ 'Part I':'assets/heroes/icon-muet-intro.svg','Part II':'assets/heroes/icon-why-muet.svg',
+ 'Part III':'assets/heroes/icon-muet-facts.svg','Part IV':'assets/heroes/icon-app-facts.svg',
+ 'Part V':'assets/heroes/nav-progress.svg'
+};
+const PART_THEME={
+ 'Part I':['#3854F5','#FFFFFF'],'Part II':['#19D39A','#111111'],
+ 'Part III':['#FFCA3A','#111111'],'Part IV':['#FF7043','#FFFFFF'],
+ 'Part V':['#F76BB2','#111111']
+};
+let currentPart=0,secs=3000,timerId=null,submitted=false;
+const completedParts=new Set();
+
+function storageKey(q){return `smart-muet-s3-2022-listening-q-${q}`;}
+function partQuestions(part){return QUESTIONS.filter(q=>part==='Part V'?q.part.startsWith('Part V'):q.part===part);}
+
+function audioCard(trackIndex,title,description){
+ const t=TRACKS[trackIndex];
+ return `<section class="part-audio">
+   <div class="section-kicker" style="color:rgba(255,255,255,.65)">Audio for this part</div>
+   <div class="part-audio-title">${title}</div>
+   <audio controls preload="metadata" playsinline><source src="${t.stream}" type="audio/mpeg"></audio>
+   <small>${description}</small>
+   <div class="part-audio-links"><a href="${t.view}" target="_blank">Open audio in Google Drive</a></div>
+ </section>`;
+}
+function dialogueAudio(trackIndex,title,range){
+ const t=TRACKS[trackIndex];
+ return `<section class="dialogue-audio">
+   <b>${title}</b>
+   <audio controls preload="metadata" playsinline><source src="${t.stream}" type="audio/mpeg"></audio>
+   <small style="display:block;margin-top:6px;color:rgba(255,255,255,.68);font-weight:800">${range}</small>
+   <a href="${t.view}" target="_blank">Open in Google Drive</a>
+ </section>`;
+}
+function partAudio(part){
+ if(part==='Part I') return audioCard(1,'Part I Audio · Leanne and Amir','Use this audio for Questions 1–7.');
+ if(part==='Part II') return audioCard(2,'Part II Audio · Dr Yusof Lokman','Use this audio for Questions 8–14.');
+ if(part==='Part III') return audioCard(3,'Part III Audio · Reasons for Travelling','Use this audio for Questions 15–17.');
+ if(part==='Part IV') return audioCard(4,'Part IV Audio · Improving Memory','Use this audio for Questions 18–24.');
+ return `<div class="dialogue-audio-grid">
+   ${dialogueAudio(5,'Dialogue 1 · Plastic Waste','Questions 25–26')}
+   ${dialogueAudio(6,'Dialogue 2 · Traditional Malay House','Questions 27–28')}
+   ${dialogueAudio(7,'Dialogue 3 · Bubble Tea','Questions 29–30')}
+ </div>`;
+}
+function petClubDiagram(){
+ function hall(type){
+   const right=type!=='B';
+   const seq=type==='A'?['Green Earth Club','Save Our Rivers Club','The Pet Club','','X','','X']:
+             type==='B'?['Green Earth Club','The Pet Club','Save Our Rivers Club','','X','','X']:
+                        ['Green Earth Club','The Pet Club','Save Our Rivers Club','','X','','X'];
+   return `<div class="hall"><b>Layout ${type}</b><div class="stage">STAGE</div><div class="rows">
+   <div class="row">${(!right?seq:Array(7).fill('')).map(x=>`<div class="booth">${x}</div>`).join('')}</div>
+   <div class="row">${(right?seq:Array(7).fill('')).map(x=>`<div class="booth">${x}</div>`).join('')}</div></div></div>`;
+ }
+ return `<div class="diagramWrap">${['A','B','C'].map(hall).join('')}</div>`;
+}
+
+function renderTabs(){document.getElementById('partTabs').innerHTML=PART_ORDER.map((p,i)=>`<button class="part-tab ${i===currentPart?'active':''} ${completedParts.has(p)?'done':''}" onclick="openPart(${i})">${p.replace('Part ','')}${completedParts.has(p)?' ✓':''}</button>`).join('');}
+function openPart(i){if(submitted)return;saveVisibleChoices();currentPart=i;renderPart();}
+function saveVisibleChoices(){
+ QUESTIONS.forEach(q=>{
+  const s=document.querySelector(`input[name="q${q.q}"]:checked`);
+  if(s)localStorage.setItem(storageKey(q.q),s.value);
+ });
+}
+function restoreChoices(){
+ QUESTIONS.forEach(q=>{
+  const v=localStorage.getItem(storageKey(q.q));
+  if(v!==null){
+   const el=document.querySelector(`input[name="q${q.q}"][value="${v}"]`);
+   if(el)el.checked=true;
   }
-];
-
-const PART_ORDER = ['Part I','Part II','Part III','Part IV','Part V'];
-const PART_TITLES = {
-  'Part I':'Part I — Conversation',
-  'Part II':'Part II — Talk',
-  'Part III':'Part III — Matching',
-  'Part IV':'Part IV — Radio Interview',
-  'Part V':'Part V — Three Short Dialogues'
-};
-const PART_AUDIO = {
-  'Part I':  {title:'Part I Audio — Conversation: Leanne and Amir', track:'MT1 - Part 1.mp3',
-              url:'https://drive.google.com/file/d/1CG10pjf7puLvpyHuOl-K8FjWD9DoTPGs/preview'},
-  'Part II': {title:'Part II Audio — Talk by Dr Yusof Lokman', track:'MT1 - Part 2.mp3',
-              url:'https://drive.google.com/file/d/1s_zRc3WolzfhZT7GrO4IbRuBf6K4qCIP/preview'},
-  'Part III':{title:'Part III Audio — Lina, Saiful and Sarah on travelling', track:'MT1 - Part 3.mp3',
-              url:'https://drive.google.com/file/d/1hJadCWBrSMnYu7YuqojYLcHWaooL5Hfm/preview'},
-  'Part IV': {title:'Part IV Audio — Radio interview with Dr Ruben', track:'MT1 - Part 4.mp3',
-              url:'https://drive.google.com/file/d/1_t2D-9JGNQEqQgYnaWK6I6Ulsa4v6JZn/preview'},
-  'Part V':  {title:'Part V Audio — Three short dialogues', tracks:[
-              {label:'Dialogue 1 · L25–L26', track:'MT1 - Part 5 - Dialogue 1.mp3', url:'https://drive.google.com/file/d/1e3YKM2Jnx2nbR_ugTBaD8hMw_TrmtIK6/preview'},
-              {label:'Dialogue 2 · L27–L28', track:'MT1 - Part 5 - Dialogue 2.mp3', url:'https://drive.google.com/file/d/1bhWqEaCoL6JRj43Azqeo3_J4uT7GSVBe/preview'},
-              {label:'Dialogue 3 · L29–L30', track:'MT1 - Part 5 - Dialogue 3.mp3', url:'https://drive.google.com/file/d/1IOj-82Z_BOho3OaygBSYd8ziSHDuefqP/preview'}]}
-};
-function partKey(label){
-  const m=String(label||'').match(/^Part\s+(IV|V|I{1,3})\b/);
-  return m ? `Part ${m[1]}` : label;
+ });
 }
-
-const L={};
-L.toggle=function(id){const b=document.getElementById('b-'+id),c=document.getElementById('c-'+id);if(!b)return;const open=b.style.display==='none';b.style.display=open?'block':'none';if(c)c.textContent=open?'▴':'▾';};
-L.open=function(id){const b=document.getElementById('b-'+id),c=document.getElementById('c-'+id);if(!b)return;b.style.display='block';if(c)c.textContent='▴';setTimeout(()=>b.scrollIntoView({behavior:'smooth',block:'start'}),100);};
-
-function toggleScript(){const s=document.getElementById('practiceScript'),b=document.getElementById('scriptBtn');const show=s.style.display==='none';s.style.display=show?'block':'none';b.textContent=show?'Hide Script':'Show Script';}
-
-let listeningPartIndex=0;
-let listeningSubmitted=false;
-const listeningCompleted=new Set();
-
-function listenGroups(){
-  const g={};
-  sampleQs.forEach((q,qi)=>{
-    const key=partKey(q.part);
-    (g[key]=g[key]||[]).push({q,qi});
-  });
-  return g;
+function completeCurrent(){saveVisibleChoices();completedParts.add(PART_ORDER[currentPart]);updateFinal();}
+function nextPart(){completeCurrent();if(currentPart<PART_ORDER.length-1){currentPart++;renderPart();}}
+function previousPart(){saveVisibleChoices();if(currentPart>0){currentPart--;renderPart();}}
+function finishPractice(){completeCurrent();document.getElementById('answerFinal').scrollIntoView({behavior:'smooth',block:'start'});}
+function updateFinal(){
+ const ready=completedParts.size===PART_ORDER.length;
+ document.getElementById('answerFinal').classList.toggle('locked',!ready);
+ document.getElementById('submitBtn').disabled=!ready;
+ renderTabs();
 }
-function saveListeningChoices(){
-  sampleQs.forEach((q,qi)=>{
-    const s=document.querySelector(`input[name="lq${qi}"]:checked`);
-    if(s)sessionStorage.setItem(`smart-listening-${qi}`,s.value);
-  });
+function toggleTimer(){
+ if(timerId){clearInterval(timerId);timerId=null;document.getElementById('timerBtn').textContent='Resume';return;}
+ timerId=setInterval(()=>{
+   secs--;
+   const m=String(Math.floor(secs/60)).padStart(2,'0'),s=String(secs%60).padStart(2,'0');
+   document.getElementById('timerDisp').textContent=`${m}:${s}`;
+   if(secs<=0){clearInterval(timerId);timerId=null;MUET.toast('Time is up!');}
+ },1000);
+ document.getElementById('timerBtn').textContent='Pause';
 }
-function restoreListeningChoices(){
-  sampleQs.forEach((q,qi)=>{
-    const v=sessionStorage.getItem(`smart-listening-${qi}`);
-    if(v!==null){
-      const e=document.querySelector(`input[name="lq${qi}"][value="${v}"]`);
-      if(e)e.checked=true;
-    }
-  });
+function renderPart(){
+ const part=PART_ORDER[currentPart],qs=partQuestions(part);
+ const theme=PART_THEME[part]||['#3854F5','#FFFFFF'];
+ document.getElementById('partStage').innerHTML=`<article class="part-card" style="--part-color:${theme[0]};--part-text:${theme[1]}"><header class="part-card-head"><div class="part-icon"><img src="${PART_ICON[part]}" alt=""></div><div><div class="section-kicker">${part} of 5</div><h3>${part}</h3><small>${PART_META[part]}</small></div></header><div class="part-body">${partAudio(part)}<div class="questions-grid">${qs.map(q=>`<div class="question-card"><span class="question-no">Q${q.q}</span><p>${q.text}</p>${q.diagram==='petclub'?petClubDiagram():''}<div class="options">${Object.entries(q.options).map(([k,v])=>`<label class="option"><input type="radio" name="q${q.q}" value="${k}" ${submitted?'disabled':''}><span><b>${k}.</b> ${v}</span></label>`).join('')}</div></div>`).join('')}</div><div class="part-actions"><button class="btn white" onclick="previousPart()" ${currentPart===0?'disabled':''}>← Previous Part</button>${currentPart<PART_ORDER.length-1?'<button class="btn green" onclick="nextPart()">Save & Continue →</button>':'<button class="btn green" onclick="finishPractice()">Finish Part V →</button>'}</div></div></article>`;
+ restoreChoices();
+ renderTabs();
+ setTimeout(()=>document.getElementById('partStage').scrollIntoView({behavior:'smooth',block:'start'}),50);
 }
-function renderListenNav(){
-  const n=document.getElementById('listenPartNav');
-  if(!n)return;
-  n.innerHTML=PART_ORDER.map((p,i)=>`<button class="${i===listeningPartIndex?'active ':''}${listeningCompleted.has(p)?'done':''}" onclick="goListeningPart(${i})">${i+1}${listeningCompleted.has(p)?' ✓':''}</button>`).join('');
-}
-function goListeningPart(i){
-  if(listeningSubmitted)return;
-  saveListeningChoices();
-  listeningPartIndex=i;
-  renderQuestions();
-}
-function completeCurrentListeningPart(){
-  saveListeningChoices();
-  listeningCompleted.add(PART_ORDER[listeningPartIndex]);
-}
-function nextListeningPart(){
-  completeCurrentListeningPart();
-  if(listeningPartIndex<PART_ORDER.length-1)listeningPartIndex++;
-  renderQuestions();
-}
-function previousListeningPart(){
-  saveListeningChoices();
-  if(listeningPartIndex>0)listeningPartIndex--;
-  renderQuestions();
-}
-function finishListeningParts(){
-  completeCurrentListeningPart();
-  renderListenNav();
-  document.querySelector('[onclick="submitListening()"]')?.scrollIntoView({behavior:'smooth',block:'center'});
-  MUET.toast('All five parts are ready to submit.');
-}
-function renderQuestions(){
-  const groups=listenGroups();
-  const part=PART_ORDER[listeningPartIndex];
-  const items=groups[part]||[];
-  const colours=['var(--np-blue)','var(--np-green)','var(--np-yellow)','var(--np-orange)','var(--np-pink)'];
-  let h=`<section class="part-practice-card">
-    <div class="part-practice-head" style="background:${colours[listeningPartIndex]};${listeningPartIndex===0?'color:white':''}">
-      <div class="tiny">PART ${listeningPartIndex+1} OF 5</div>
-      <h2>${PART_TITLES[part]}</h2>
-      <p style="font-weight:800;margin-top:4px">${items.length} questions · Apply HEAR before selecting an answer</p>
-    </div>
-    <div class="part-practice-body">
-      ${(()=>{const a=PART_AUDIO[part]||{};return `<div class="part-audio">
-        <div class="tiny">LISTEN FIRST · AUDIO PLAYS ONCE IN THE REAL EXAM</div>
-        <div style="font-weight:900;font-size:13px;margin-top:3px">${a.title||''}</div>
-        ${a.tracks?a.tracks.map(t=>`<div style="font-weight:900;font-size:12px;margin-top:10px">${t.label}</div>
-        <iframe class="audio-frame" src="${t.url}" allow="autoplay"></iframe>`).join('')+
-        `<div class="part-audio-note">Play each dialogue once, then answer its questions below.</div>`
-        :a.url?`<iframe class="audio-frame" src="${a.url}" allow="autoplay"></iframe>
-        <div class="part-audio-note">Connected to Google Drive: ${a.track}. Play the audio, then answer the questions below.</div>`
-        :`<div class="part-audio-note">${a.note||'Audio link pending for this part.'}</div>`}
-      </div>`})()}
-      <div class="coach-note lime"><div class="tag">HEAR REMINDER</div>
-        <p><b>H</b>ighlight keywords · <b>E</b>xpect the answer type · <b>A</b>ttend to clues · <b>R</b>eview the evidence.</p>
-      </div>`;
-  items.forEach(({q,qi})=>{
-    h+=`<div class="card">
-      <div class="tiny">${q.part}</div>
-      <p style="font-weight:900;margin:6px 0 10px;font-size:13px">${q.id}. ${q.stem}</p>
-      <div class="options" id="lopts-${qi}">
-        ${q.options.map((o,oi)=>`<label class="option" id="lopt-${qi}-${oi}">
-          <input type="radio" name="lq${qi}" value="${oi}" ${listeningSubmitted?'disabled':''}/>
-          <span>${o}</span>
-        </label>`).join('')}
-      </div>
-    </div>`;
-  });
-  h+=`<div class="standard-actions">
-    <button class="btn white" onclick="previousListeningPart()" ${listeningPartIndex===0?'disabled':''}>← Previous Part</button>
-    ${listeningPartIndex<PART_ORDER.length-1
-      ?'<button class="btn yellow" onclick="nextListeningPart()">Save & Continue →</button>'
-      :'<button class="btn green" onclick="finishListeningParts()">Finish Part 5 →</button>'}
-  </div></div></section>`;
-  document.getElementById('lstQList').innerHTML=h;
-  restoreListeningChoices();
-  renderListenNav();
-}
-function buildListeningReview(){
-  const groups=listenGroups();
-  const review=document.getElementById('listeningAnswerReview');
-  review.innerHTML=PART_ORDER.map(part=>`<section class="answer-review-part">
-    <div class="tiny">${part}</div>
-    <h3>${PART_TITLES[part]}</h3>
-    ${(groups[part]||[]).map(({q,qi})=>{
-      const stored=sessionStorage.getItem(`smart-listening-${qi}`);
-      const selected=stored!==null?Number(stored):-1;
-      const correct=selected===q.answer;
-      const mine=selected>=0?q.options[selected]:'No answer selected';
-      return `<div class="answer-review-item">
-        <span class="answer-status ${correct?'correct':'wrong'}">${correct?'Correct':'Review'}</span>
-        <b>${q.id}. ${q.stem}</b><br>
-        <b>Your answer:</b> ${mine}<br>
-        <b>Correct answer:</b> ${q.options[q.answer]}<br>
-        <b>Why:</b> ${q.explanation}
-      </div>`;
-    }).join('')}
-  </section>`).join('');
-}
-function toggleListeningReview(){
-  document.getElementById('listeningAnswerReview')?.classList.toggle('show');
+function toggleAnswerReview(){document.getElementById('answerReview').classList.toggle('show');}
+function buildReview(){
+ document.getElementById('answerReview').innerHTML=PART_ORDER.map(part=>`<div class="review-part"><b>${part} — ${PART_META[part]}</b>${partQuestions(part).map(q=>{
+   const user=localStorage.getItem(storageKey(q.q));
+   const ok=user===q.answer;
+   return `<div class="review-item"><strong>Q${q.q}.</strong> ${q.text}<br>
+   <b>Your answer:</b> ${user?`${user} — ${q.options[user]}`:'No answer'}<br>
+   <b>Correct answer:</b> ${q.answer} — ${q.options[q.answer]}<br>
+   <span style="color:var(--muted)">${q.explanation}</span><br>
+   <span style="font-weight:1000;color:${ok?'#166534':'#b91c1c'}">${ok?'Correct':'Review this item'}</span></div>`;
+ }).join('')}</div>`).join('');
 }
 function submitListening(){
-  if(listeningSubmitted)return;
-  const notes=document.getElementById('lstNotes').value.trim();
-  if(!notes){MUET.toast('Please write keyword notes before submitting.');return;}
-  saveListeningChoices();
-
-  let correct=0;
-  sampleQs.forEach((q,qi)=>{
-    const stored=sessionStorage.getItem(`smart-listening-${qi}`);
-    const ans=stored!==null?Number(stored):-1;
-    if(ans===q.answer)correct++;
-  });
-
-  listeningSubmitted=true;
-  const total=sampleQs.length;
-  const score90=Math.round(correct/total*90);
-  const band=MUET.scoreToBand(score90);
-  const session={vaultId:'SKILL-MODULE',rawScore:correct,totalQ:total,score90,band,notes,date:new Date().toISOString()};
-  const list=MUET.loadSessions('listening');
-  list.push(session);
-  MUET.saveSessions('listening',list);
-  MUET.awardBadge('audio_focus');
-  MUET.addXP(70);
-
-  if(typeof saveSmartMuetAttempt==='function'){
-    const p=MUET.loadProfile()||{};
-    saveSmartMuetAttempt({
-      studentName:p.name||'', studentEmail:p.email||'', studentRegNo:p.regNo||'', classGroup:p.group||'',
-      component:'listening', vaultId:'SKILL-MODULE', taskType:'HEAR Practice',
-      rawScore:correct, totalItems:total, score90, estimatedBand:band,
-      xpEarned:70, answerText:notes, date:new Date().toISOString()
-    });
-  }
-
-  document.getElementById('resultScore').textContent=`${correct}/${total} · ${score90}/90`;
-  document.getElementById('resultBand').textContent=`Estimated Band ${band}`;
-  document.getElementById('resultFb').innerHTML=`${MUET.feedbackText('listening',score90)}<br><br><b>Feedback rule:</b> Each explanation shows the exact clue, correction or meaning that supports the correct option.`;
-  buildListeningReview();
-  document.getElementById('resultCard').classList.add('show');
-  document.querySelector('[onclick="submitListening()"]').disabled=true;
-  renderQuestions();
-  MUET.toast('Listening submitted. Correct answers are now available.');
-  document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'start'});
+ if(submitted||completedParts.size!==PART_ORDER.length)return;
+ saveVisibleChoices();
+ let correct=0;
+ QUESTIONS.forEach(q=>{if(localStorage.getItem(storageKey(q.q))===q.answer)correct++;});
+ submitted=true;
+ if(timerId){clearInterval(timerId);timerId=null;}
+ const score90=Math.round(correct/30*90),band=MUET.scoreToBand(score90);
+ const session={vaultId:'VAULT-01-S3-2022',rawScore:correct,totalQ:30,score90,band,date:new Date().toISOString()};
+ const list=MUET.loadSessions('listening');list.push(session);MUET.saveSessions('listening',list);
+ MUET.awardBadge('audio_focus');MUET.addXP(70);
+ document.getElementById('resultScore').textContent=`${correct}/30`;
+ document.getElementById('resultBand').textContent=`Band ${band}`;
+ document.getElementById('resultFb').textContent=MUET.feedbackText('listening',score90);
+ buildReview();
+ document.getElementById('resultCard').classList.add('show');
+ document.getElementById('submitBtn').disabled=true;
+ renderPart();
+ MUET.toast('Listening submitted. Correct answers and explanations are now available.');
+ document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'start'});
 }
-
-document.addEventListener('DOMContentLoaded',()=>{
-  renderQuestions();
-  document.getElementById('b-s1').style.display='block';
-  document.getElementById('c-s1').textContent='▴';
-});
+document.addEventListener('DOMContentLoaded',()=>{renderPart();updateFinal();});
 </script>
 </body>
 </html>
