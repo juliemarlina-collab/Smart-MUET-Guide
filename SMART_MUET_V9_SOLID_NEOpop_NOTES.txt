@@ -1,0 +1,16 @@
+SMART MUET V9 — SOLID NEOpop COLOUR UPDATE
+
+What changed:
+- Removed gradient and two-tone background styling.
+- Replaced them with solid vibrant Neopop colours.
+- Preserved strong black outlines and clear section-by-section cards.
+- Kept white text on bold coloured hero cards for stronger visual impact.
+- Updated all four component pages:
+  speaking.html
+  listening.html
+  reading.html
+  writing.html
+
+Colour direction:
+- Blue, orange, green, yellow, pink and purple are now flat solid fills only.
+- No gradient or shaded dual-tone hero blocks.

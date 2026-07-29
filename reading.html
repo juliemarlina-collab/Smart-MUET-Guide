@@ -391,6 +391,188 @@
 }
 </style>
 
+
+<style id="smart-muet-v9-solid-neopop">
+/* ===== SMART MUET V9: SOLID NEOpop COLORS, NO GRADIENTS ===== */
+:root{
+  --neo-blue:#215CF5;
+  --neo-yellow:#FFD23F;
+  --neo-green:#27D58A;
+  --neo-pink:#F56AB4;
+  --neo-orange:#FF6236;
+  --neo-purple:#8F67FF;
+  --neo-black:#101116;
+  --neo-white:#FFFFFF;
+  --neo-cream:#F8F8F8;
+}
+
+/* Global cleanup */
+*{text-shadow:none!important}
+body{
+  background:#20C8BE !important;
+}
+.section-kicker,.tiny,.muted,small{
+  letter-spacing:.02em!important;
+}
+.btn,.task-choice,.route-item,.model-tag,.tag,.task-choice .badge,.task-rule{
+  font-weight:1000!important;
+}
+
+/* Generic card appearance */
+.hero-main,.writing-overview-main,.writing-overview-side,.writing-stat,
+.standard-flow-note,.process-guide,.flow-step,.standard-language-section,
+.practice-shell,.reading-standard-sections details,.standard-footer-nav,
+.task-distinction,.compact-route,.task-choice,.language-card,.peel-build,
+.peel-planner-box,.planner-box,.coach-note,.model-section,
+.fact-line,.guide-step,.guide-mini,.task2-overview-card,.task2-fact,
+.essay-process-step,.peel-learning-card,.peel-build-row,.model-section{
+  background-image:none!important;
+  border-color:var(--neo-black)!important;
+  box-shadow:6px 6px 0 var(--neo-black)!important;
+}
+
+/* Roadmap / navigation */
+.component-roadmap{
+  background:var(--neo-black)!important;
+}
+.component-roadmap a{
+  background:var(--neo-white)!important;
+  color:var(--neo-black)!important;
+}
+.component-roadmap a.current{
+  background:var(--neo-yellow)!important;
+  color:var(--neo-black)!important;
+  box-shadow:4px 4px 0 var(--neo-white)!important;
+}
+
+/* Buttons */
+.btn.yellow{background:var(--neo-yellow)!important;color:var(--neo-black)!important}
+.btn.green{background:var(--neo-green)!important;color:var(--neo-black)!important}
+.btn.pink{background:var(--neo-pink)!important;color:var(--neo-black)!important}
+.btn.orange{background:var(--neo-orange)!important;color:var(--neo-white)!important}
+.btn.dark,.standard-footer-buttons a.menu{background:var(--neo-black)!important;color:var(--neo-white)!important}
+.standard-footer-buttons a.next{background:var(--neo-green)!important;color:var(--neo-black)!important}
+.standard-footer-nav{background:#D7F4F1!important;color:var(--neo-black)!important}
+
+/* Top instruction / overview cards */
+.standard-flow-note,.process-guide,.task-distinction,.compact-route{
+  background:var(--neo-white)!important;
+  color:var(--neo-black)!important;
+}
+.standard-flow-chip:nth-child(1){background:var(--neo-yellow)!important}
+.standard-flow-chip:nth-child(2){background:var(--neo-orange)!important;color:#fff!important}
+.standard-flow-chip:nth-child(3){background:var(--neo-green)!important}
+.standard-flow-chip:nth-child(4){background:var(--neo-pink)!important}
+.standard-flow-chip:nth-child(5){background:var(--neo-purple)!important;color:#fff!important}
+
+/* Guide alert */
+.guide-alert{
+  background:var(--neo-black)!important;color:#fff!important
+}
+.guide-step:nth-child(1) .num{background:var(--neo-yellow)!important}
+.guide-step:nth-child(2) .num{background:var(--neo-green)!important}
+.guide-step:nth-child(3) .num{background:var(--neo-pink)!important}
+
+/* Hero / stat blocks */
+.hero-main,.writing-overview-main{
+  color:var(--neo-white)!important;
+}
+.hero-main h1,.hero-main p,.writing-overview-main h1,.writing-overview-main p{
+  color:var(--neo-white)!important;
+}
+.hero-main{background:var(--neo-orange)!important}
+.reading-wrap .hero-main,.reading-overview-main,.read-hero,.reading-hero,.scan-panel{background:var(--neo-green)!important}
+.listen-wrap .hero-main,.hear-panel,.listening-hero{background:var(--neo-blue)!important}
+.writing-overview-main{background:var(--neo-pink)!important}
+.writing-overview-icon,.hero-art{
+  background:var(--neo-white)!important;color:var(--neo-black)!important
+}
+.hero-stats,.writing-overview-side{
+  background:var(--neo-black)!important;
+}
+.writing-stat:nth-child(1), .hero-stats .summary-tile:nth-child(1), .hero-stats > div:nth-child(1){background:var(--neo-yellow)!important;color:#111!important}
+.writing-stat:nth-child(2), .hero-stats .summary-tile:nth-child(2), .hero-stats > div:nth-child(2){background:var(--neo-green)!important;color:#111!important}
+.writing-stat:nth-child(3), .hero-stats .summary-tile:nth-child(3), .hero-stats > div:nth-child(3){background:var(--neo-orange)!important;color:#fff!important}
+.writing-stat:nth-child(4), .hero-stats .summary-tile:nth-child(4), .hero-stats > div:nth-child(4){background:var(--neo-pink)!important;color:#111!important}
+
+/* Essentials / technique blocks */
+.essentials,.flow-step,.standard-language-section,.practice-shell,.reading-standard-sections details{
+  background:var(--neo-cream)!important;
+}
+.flow-step-head,.standard-language-head,.reading-standard-sections summary{
+  background:var(--neo-cream)!important;
+  color:var(--neo-black)!important;
+}
+.flow-body,.standard-language-body,.reading-standard-sections .std-body{
+  background:var(--neo-white)!important;
+}
+.step-num,.std-num{
+  color:var(--neo-black)!important;
+  border-color:var(--neo-black)!important;
+}
+#s1 .step-num, .flow-step:nth-of-type(1) .step-num{background:var(--neo-yellow)!important}
+#s2 .step-num, .flow-step:nth-of-type(2) .step-num{background:var(--neo-orange)!important;color:#fff!important}
+#s3 .step-num, .flow-step:nth-of-type(3) .step-num{background:var(--neo-green)!important}
+#s4 .step-num, .flow-step:nth-of-type(4) .step-num{background:var(--neo-pink)!important}
+#s5 .step-num, .flow-step:nth-of-type(5) .step-num{background:var(--neo-purple)!important;color:#fff!important}
+
+/* Technique letter cards */
+.scan-step:nth-child(1), .hear-step:nth-child(1), .prep-b:nth-child(1), .peel-b:nth-child(1),
+.peel-learning-card:nth-child(1){background:var(--neo-blue)!important;color:#fff!important}
+.scan-step:nth-child(2), .hear-step:nth-child(2), .prep-b:nth-child(2), .peel-b:nth-child(2),
+.peel-learning-card:nth-child(2){background:var(--neo-yellow)!important;color:#111!important}
+.scan-step:nth-child(3), .hear-step:nth-child(3), .prep-b:nth-child(3), .peel-b:nth-child(3),
+.peel-learning-card:nth-child(3){background:var(--neo-green)!important;color:#111!important}
+.scan-step:nth-child(4), .hear-step:nth-child(4), .prep-b:nth-child(4), .peel-b:nth-child(4),
+.peel-learning-card:nth-child(4){background:var(--neo-pink)!important;color:#111!important}
+.prep-b small,.peel-b small,.scan-step small,.hear-step small,.scan-step .scan-step-desc,.hear-step .hear-step-desc{
+  color:inherit!important
+}
+
+/* Info lines / language */
+.fact-line:nth-child(1), .language-card:nth-child(1), .guide-mini:nth-child(1){background:#EEF3FF!important}
+.fact-line:nth-child(2), .language-card:nth-child(2), .guide-mini:nth-child(2){background:#ECFFF4!important}
+.fact-line:nth-child(3), .language-card:nth-child(3), .guide-mini:nth-child(3){background:#FFF0F7!important}
+.language-card:nth-child(4){background:#FFF8DD!important}
+.language-card:nth-child(5){background:#F1EAFF!important}
+
+/* Writing-specific */
+.task-choice.t1{background:var(--neo-yellow)!important}
+.task-choice.t2{background:var(--neo-green)!important}
+.task-choice.active{outline:5px solid var(--neo-blue)!important}
+.task-choice .badge{background:var(--neo-white)!important;color:var(--neo-black)!important}
+.task-rule{background:#F1EAFF!important;color:var(--neo-black)!important}
+.route-item{background:var(--neo-white)!important}
+.task2-fact:nth-child(1){background:#FFF0F7!important}
+.task2-fact:nth-child(2){background:#FFF8DD!important}
+.task2-fact:nth-child(3){background:#ECFFF4!important}
+.essay-process-step:nth-child(1){background:var(--neo-yellow)!important}
+.essay-process-step:nth-child(2){background:var(--neo-pink)!important}
+.essay-process-step:nth-child(3){background:#89D7FF!important}
+.essay-process-step:nth-child(4){background:var(--neo-green)!important}
+.essay-process-step:nth-child(5){background:var(--neo-purple)!important;color:#fff!important}
+.essay-process-step:nth-child(6){background:var(--neo-orange)!important;color:#fff!important}
+.peel-build{background:#EEF7FF!important}
+.peel-build-row:nth-child(2) .peel-build-label{background:var(--neo-blue)!important;color:#fff!important}
+.peel-build-row:nth-child(3) .peel-build-label{background:var(--neo-yellow)!important}
+.peel-build-row:nth-child(4) .peel-build-label{background:var(--neo-green)!important}
+.peel-build-row:nth-child(5) .peel-build-label{background:var(--neo-pink)!important}
+.model-section.intro .model-tag{background:var(--neo-yellow)!important}
+.model-section.point .model-tag{background:var(--neo-blue)!important;color:#fff!important}
+.model-section.explain .model-tag{background:var(--neo-yellow)!important}
+.model-section.example .model-tag{background:var(--neo-green)!important}
+.model-section.link .model-tag{background:var(--neo-pink)!important}
+.model-section.conclusion .model-tag{background:var(--neo-purple)!important;color:#fff!important}
+
+/* Responsive readability */
+body, p, li, button, textarea, input, small{
+  font-size:1rem!important;
+}
+@media (max-width:768px){
+  body{font-size:1rem!important}
+}
+</style>
+
 </head>
 <body>
 <main class="app-shell">

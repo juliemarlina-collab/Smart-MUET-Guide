@@ -421,6 +421,541 @@ details.more-guide summary::-webkit-details-marker{display:none}
 }
 </style>
 
+
+<style id="task2-peel-intro-v6">
+.task2-overview-card{
+  border:3px solid var(--ink);border-radius:22px;background:linear-gradient(180deg,#fff 0%,#fff8fd 100%);
+  box-shadow:5px 5px 0 var(--ink);padding:16px;margin-bottom:12px
+}
+.task2-overview-title{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.task2-overview-title .emoji{width:44px;height:44px;border:2px solid var(--ink);border-radius:14px;background:var(--pink);display:grid;place-items:center;font-size:23px;box-shadow:2px 2px 0 var(--ink)}
+.task2-overview-title h3{font-size:18px;margin:0}.task2-overview-title p{font-size:11px;font-weight:800;color:var(--muted);margin-top:3px}
+.task2-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:10px 0 14px}
+.task2-fact{border:2px solid var(--ink);border-radius:16px;padding:11px;text-align:center;background:#fff;box-shadow:3px 3px 0 var(--ink)}
+.task2-fact:nth-child(1){background:#fff1f8}.task2-fact:nth-child(2){background:#fff7d8}.task2-fact:nth-child(3){background:#eafff6}
+.task2-fact strong{display:block;font-family:"Sora";font-size:17px}.task2-fact span{font-size:10px;font-weight:900;color:var(--muted)}
+.essay-process{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px;margin-top:12px}
+.essay-process-step{position:relative;border:2px solid var(--ink);border-radius:16px;padding:11px 8px;text-align:center;background:#fff;box-shadow:3px 3px 0 var(--ink);font-size:10px;font-weight:900;min-height:84px;display:flex;flex-direction:column;justify-content:center}
+.essay-process-step::after{content:"➜";position:absolute;right:-18px;top:50%;transform:translateY(-50%);font-size:18px}
+.essay-process-step:last-child::after{display:none}
+.essay-process-step b{font-family:"Sora";font-size:13px;display:block;margin-bottom:4px}
+.essay-process-step:nth-child(1){background:#ffd45c}.essay-process-step:nth-child(2){background:#f6a2cf}.essay-process-step:nth-child(3){background:#8fdcff}.essay-process-step:nth-child(4){background:#84e7bd}.essay-process-step:nth-child(5){background:#b89cff}.essay-process-step:nth-child(6){background:#ffb08b}
+.peel-learning-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}
+.peel-learning-card{border:3px solid var(--ink);border-radius:18px;padding:13px 11px;box-shadow:4px 4px 0 var(--ink);min-height:176px}
+.peel-learning-card:nth-child(1){background:#6351f4;color:#fff}.peel-learning-card:nth-child(2){background:#ffd05a}.peel-learning-card:nth-child(3){background:#23d39b}.peel-learning-card:nth-child(4){background:#ef6ab3}
+.peel-learning-card .letter{font-family:"Sora";font-size:30px;font-weight:800;display:block}
+.peel-learning-card h4{font-size:13px;margin:4px 0 7px}.peel-learning-card p{font-size:11px;font-weight:800;line-height:1.45;margin:0 0 8px}
+.peel-learning-card .starter{background:rgba(255,255,255,.85);color:#111;border:2px solid var(--ink);border-radius:11px;padding:7px;font-size:10px;font-weight:900}
+.peel-build{border:3px solid var(--ink);border-radius:20px;background:#eef8ff;padding:14px;margin-top:12px;box-shadow:4px 4px 0 var(--ink)}
+.peel-build-row{display:grid;grid-template-columns:52px 1fr;gap:10px;align-items:start;background:#fff;border:2px solid var(--ink);border-radius:14px;padding:10px;margin-top:8px}
+.peel-build-label{width:44px;height:44px;border:2px solid var(--ink);border-radius:12px;display:grid;place-items:center;font-family:"Sora";font-size:20px;font-weight:800}
+.peel-build-row:nth-child(2) .peel-build-label{background:#6351f4;color:#fff}.peel-build-row:nth-child(3) .peel-build-label{background:#ffd05a}.peel-build-row:nth-child(4) .peel-build-label{background:#23d39b}.peel-build-row:nth-child(5) .peel-build-label{background:#ef6ab3}
+.peel-build-row b{font-size:12px}.peel-build-row p{font-size:12px;font-weight:750;line-height:1.55;margin-top:3px}
+.model-labelled{display:grid;gap:10px}
+.model-section{border:2px solid var(--ink);border-radius:16px;padding:12px;background:#fff;box-shadow:2px 2px 0 var(--ink)}
+.model-section .model-tag{display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:3px 8px;font-size:10px;font-weight:1000;margin-bottom:7px}
+.model-section.intro .model-tag{background:#ffd05a}.model-section.point .model-tag{background:#6351f4;color:#fff}.model-section.explain .model-tag{background:#ffd05a}.model-section.example .model-tag{background:#23d39b}.model-section.link .model-tag{background:#ef6ab3}.model-section.conclusion .model-tag{background:#b89cff}
+.model-section p{font-size:12px;font-weight:800;line-height:1.65}
+.peel-planner-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.peel-planner-box{border:3px solid var(--ink);border-radius:18px;background:#fff;padding:12px;box-shadow:3px 3px 0 var(--ink)}
+.peel-planner-box h3{font-size:13px;margin-bottom:6px}.peel-planner-box textarea{min-height:72px}
+@media(max-width:950px){.essay-process{grid-template-columns:repeat(3,minmax(0,1fr))}.essay-process-step::after{display:none}.peel-learning-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.task2-facts,.essay-process,.peel-learning-grid,.peel-planner-grid{grid-template-columns:1fr}.peel-build-row{grid-template-columns:44px 1fr}}
+</style>
+
+
+<style id="writing-v7-no-redundancy">
+.writing-overview{
+  display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);
+  gap:16px;margin-bottom:16px
+}
+.writing-overview-main,.writing-overview-side{
+  border:3px solid var(--ink);border-radius:24px;box-shadow:6px 6px 0 var(--ink)
+}
+.writing-overview-main{
+  background:linear-gradient(135deg,#f66bb2 0%,#ff8bc5 100%);
+  padding:24px;display:flex;align-items:center;justify-content:space-between;gap:18px
+}
+.writing-overview-main h1{font-size:clamp(32px,4vw,48px);line-height:1.03;margin:5px 0 10px}
+.writing-overview-main p{font-size:13px;font-weight:850;line-height:1.6;max-width:680px}
+.writing-overview-icon{
+  width:120px;height:120px;border:3px solid var(--ink);border-radius:28px;background:#fff;
+  display:grid;place-items:center;font-size:58px;box-shadow:4px 4px 0 var(--ink);flex:0 0 auto
+}
+.writing-overview-side{
+  background:#101116;padding:14px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px
+}
+.writing-stat{
+  border:3px solid var(--ink);border-radius:18px;background:#fff;padding:13px;text-align:center;
+  box-shadow:3px 3px 0 rgba(255,255,255,.85)
+}
+.writing-stat:nth-child(1){background:#ffd05a}.writing-stat:nth-child(2){background:#23d39b}
+.writing-stat:nth-child(3){background:#ff7043;color:#fff}.writing-stat:nth-child(4){background:#f66bb2}
+.writing-stat strong{display:block;font-family:"Sora";font-size:23px}.writing-stat span{font-size:10px;font-weight:1000;text-transform:uppercase}
+.task-distinction{
+  border:3px solid var(--ink);border-radius:24px;background:#fff;box-shadow:6px 6px 0 var(--ink);
+  padding:16px;margin-bottom:16px
+}
+.task-distinction-head{display:flex;align-items:flex-start;gap:11px;margin-bottom:12px}
+.task-distinction-head .alert{
+  width:44px;height:44px;border:3px solid var(--ink);border-radius:14px;background:#ffd05a;
+  display:grid;place-items:center;font-size:22px;box-shadow:2px 2px 0 var(--ink);flex:0 0 auto
+}
+.task-distinction-head h2{font-size:20px;margin:0 0 4px}
+.task-distinction-head p{font-size:12px;font-weight:800;color:var(--muted);line-height:1.5}
+.task-choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.task-choice{
+  border:3px solid var(--ink);border-radius:20px;padding:15px;text-align:left;
+  box-shadow:4px 4px 0 var(--ink);cursor:pointer;transition:.15s;background:#fff
+}
+.task-choice:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.task-choice.active{outline:4px solid rgba(61,80,245,.2)}
+.task-choice.t1{background:linear-gradient(180deg,#fff7d7 0%,#ffe88c 100%)}
+.task-choice.t2{background:linear-gradient(180deg,#eafff6 0%,#a9f1d4 100%)}
+.task-choice .top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.task-choice .emoji{font-size:30px}.task-choice .badge{border:2px solid var(--ink);border-radius:999px;background:#fff;padding:4px 9px;font-size:10px;font-weight:1000}
+.task-choice h3{font-size:17px;margin:8px 0 5px}.task-choice p{font-size:12px;font-weight:800;line-height:1.55}
+.task-choice ul{margin:8px 0 0 18px;padding:0}.task-choice li{font-size:11px;font-weight:800;line-height:1.5;margin-top:3px}
+.task-rule{
+  margin-top:12px;border:3px solid var(--ink);border-radius:16px;background:#f6f3ff;padding:11px 13px;
+  font-size:12px;font-weight:900;line-height:1.55
+}
+.compact-route{
+  display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:0 0 16px;
+  border:3px solid var(--ink);border-radius:18px;background:#fff;padding:11px 13px;box-shadow:4px 4px 0 var(--ink)
+}
+.route-item{border:2px solid var(--ink);border-radius:999px;padding:6px 10px;font-size:10px;font-weight:1000;background:#fff}
+.route-arrow{font-weight:1000}
+#languageContent .language-grid{margin-top:4px}
+@media(max-width:850px){
+  .writing-overview{grid-template-columns:1fr}.writing-overview-main{min-height:auto}
+  .task-choice-grid{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .writing-overview-main{padding:18px}.writing-overview-icon{display:none}
+  .writing-overview-side{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+</style>
+
+
+<style id="writing-v8-font-card-upgrade">
+/* ===== V8 FONT SIZE + STRONG NEOpop CARD UPGRADE ===== */
+html{font-size:18px}
+body{
+  font-size:18px !important;
+  line-height:1.65 !important;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+p, li, textarea, input, button, label, small, .tiny, .muted, .desc, .task-rule, .language-card, .planner-box, .peel-planner-box, .coach-note p, .tip-card p{
+  font-size:1rem !important;
+  line-height:1.65 !important;
+}
+h1{font-size:clamp(2.2rem,4vw,3.3rem) !important; line-height:1.08 !important}
+h2{font-size:clamp(1.55rem,2.4vw,2rem) !important; line-height:1.2 !important}
+h3{font-size:clamp(1.2rem,2vw,1.45rem) !important; line-height:1.25 !important}
+h4{font-size:1.1rem !important}
+.section-kicker,.tiny{
+  font-size:.9rem !important;
+  letter-spacing:.04em;
+}
+button,.btn,.task-choice .badge,.route-item,.model-tag,.tag{
+  font-size:.98rem !important;
+  font-weight:1000 !important;
+}
+textarea{
+  font-size:1rem !important;
+  min-height:92px !important;
+}
+.writing-overview-main,
+.writing-overview-side,
+.task-distinction,
+.compact-route,
+.flow-step,
+.peel-build,
+.peel-planner-box,
+.language-card,
+.task-choice,
+.coach-note,
+.model-section,
+.answer-final,
+.standard-footer-nav{
+  border-width:4px !important;
+  box-shadow:7px 7px 0 #101116 !important;
+}
+.writing-overview-main{
+  background:linear-gradient(135deg,#ff5cab 0%,#ff8c42 100%) !important;
+  color:#101116 !important;
+}
+.writing-overview-side{
+  background:#101116 !important;
+}
+.writing-stat{
+  border-width:3px !important;
+  box-shadow:4px 4px 0 rgba(255,255,255,.95) !important;
+  padding:15px !important;
+}
+.writing-stat strong{
+  font-size:1.55rem !important;
+}
+.task-distinction{
+  background:linear-gradient(180deg,#ffffff 0%,#fff7e4 100%) !important;
+}
+.task-choice{
+  padding:18px !important;
+  border-radius:22px !important;
+}
+.task-choice.t1{
+  background:linear-gradient(180deg,#fff5b8 0%,#ffd64d 100%) !important;
+}
+.task-choice.t2{
+  background:linear-gradient(180deg,#dffff2 0%,#39d98a 100%) !important;
+}
+.task-choice.active{
+  outline:5px solid #3d50f5 !important;
+  transform:translate(-2px,-2px);
+}
+.task-choice h3{margin-bottom:8px !important}
+.task-choice ul{margin-top:10px !important}
+.task-choice li{font-size:.98rem !important}
+.task-rule{
+  background:#f3ecff !important;
+  border-width:4px !important;
+}
+.compact-route{
+  background:linear-gradient(180deg,#ffffff 0%,#eef4ff 100%) !important;
+}
+.route-item{
+  border-width:3px !important;
+  background:#fff !important;
+}
+.flow-step-head{
+  padding:16px 18px !important;
+}
+.flow-step-head b{
+  font-size:1.22rem !important;
+}
+.flow-step-head small{
+  font-size:.98rem !important;
+}
+.step-num{
+  width:54px !important;
+  height:54px !important;
+  font-size:1.2rem !important;
+  border-width:3px !important;
+  box-shadow:3px 3px 0 #101116 !important;
+}
+.flow-body, #b-s1, #b-s2, #b-s3, #b-s4, #b-s5{
+  padding:18px !important;
+}
+.tip-card, .coach-note, .peel-build-row, .model-section, .question-card, .planner-box, .peel-planner-box{
+  border-width:3px !important;
+  border-radius:18px !important;
+  box-shadow:4px 4px 0 #101116 !important;
+}
+.language-card{
+  background:linear-gradient(180deg,#ffffff 0%,#f7fbff 100%) !important;
+  padding:14px !important;
+}
+.language-card b{
+  font-size:1.02rem !important;
+}
+.peel-learning-card .letter,
+.peel-build-label{
+  font-size:1.6rem !important;
+}
+.peel-build-row p,
+.model-section p{
+  font-size:1rem !important;
+}
+.btn{
+  min-height:54px !important;
+  padding:12px 16px !important;
+  border-width:3px !important;
+  border-radius:18px !important;
+  box-shadow:4px 4px 0 #101116 !important;
+}
+.standard-footer-nav{
+  background:linear-gradient(180deg,#dffcff 0%,#7ce5ff 100%) !important;
+}
+.standard-footer-buttons a{
+  min-height:64px !important;
+  font-size:1rem !important;
+  border-width:3px !important;
+  border-radius:18px !important;
+}
+.standard-footer-buttons a.next{
+  background:linear-gradient(180deg,#dfffea 0%,#39d98a 100%) !important;
+}
+.standard-footer-buttons a.menu{
+  background:#101116 !important;
+  color:#fff !important;
+}
+@media (max-width: 1024px){
+  html{font-size:17px}
+  body{font-size:17px !important}
+  .writing-overview-main p,
+  .task-choice p,
+  .task-choice li,
+  .task-rule,
+  .language-card,
+  .model-section p,
+  .peel-build-row p,
+  .coach-note p{font-size:1rem !important}
+}
+@media (max-width: 768px){
+  html{font-size:18px}
+  body{font-size:18px !important}
+  .app-shell,.screen,.reading-wrap,.listen-wrap,.writing-overview,.task-distinction,.flow-step,.compact-route{max-width:100%}
+  .writing-overview-main{
+    padding:20px !important;
+    border-radius:22px !important;
+  }
+  .writing-overview-side{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:10px !important;
+  }
+  .writing-stat{
+    padding:14px 10px !important;
+  }
+  .writing-stat strong{font-size:1.45rem !important}
+  .task-choice-grid,
+  .language-grid,
+  .peel-planner-grid,
+  .planner-grid{
+    grid-template-columns:1fr !important;
+  }
+  .task-choice .badge{
+    font-size:.92rem !important;
+  }
+  .flow-step-head{
+    padding:14px !important;
+  }
+  .flow-step-head b{font-size:1.15rem !important}
+  .flow-step-head small{font-size:.96rem !important}
+  .compact-route{
+    gap:8px !important;
+    padding:12px !important;
+  }
+  .route-item{
+    width:100%;
+    text-align:center;
+    padding:9px 12px !important;
+  }
+  .route-arrow{
+    width:100%;
+    text-align:center;
+    font-size:1.1rem;
+  }
+  .btn{
+    width:100% !important;
+  }
+}
+@media (max-width: 480px){
+  html{font-size:19px}
+  body{font-size:19px !important}
+  .writing-overview-main h1{font-size:2rem !important}
+  .writing-overview-main p,
+  p, li, label, small, textarea, button{
+    font-size:1rem !important;
+    line-height:1.7 !important;
+  }
+  .section-kicker,.tiny{font-size:.86rem !important}
+  .writing-overview-side{
+    grid-template-columns:1fr 1fr !important;
+  }
+  .task-choice{
+    padding:16px !important;
+  }
+  .step-num{
+    width:50px !important;
+    height:50px !important;
+  }
+}
+</style>
+
+
+<style id="smart-muet-v9-solid-neopop">
+/* ===== SMART MUET V9: SOLID NEOpop COLORS, NO GRADIENTS ===== */
+:root{
+  --neo-blue:#215CF5;
+  --neo-yellow:#FFD23F;
+  --neo-green:#27D58A;
+  --neo-pink:#F56AB4;
+  --neo-orange:#FF6236;
+  --neo-purple:#8F67FF;
+  --neo-black:#101116;
+  --neo-white:#FFFFFF;
+  --neo-cream:#F8F8F8;
+}
+
+/* Global cleanup */
+*{text-shadow:none!important}
+body{
+  background:#20C8BE !important;
+}
+.section-kicker,.tiny,.muted,small{
+  letter-spacing:.02em!important;
+}
+.btn,.task-choice,.route-item,.model-tag,.tag,.task-choice .badge,.task-rule{
+  font-weight:1000!important;
+}
+
+/* Generic card appearance */
+.hero-main,.writing-overview-main,.writing-overview-side,.writing-stat,
+.standard-flow-note,.process-guide,.flow-step,.standard-language-section,
+.practice-shell,.reading-standard-sections details,.standard-footer-nav,
+.task-distinction,.compact-route,.task-choice,.language-card,.peel-build,
+.peel-planner-box,.planner-box,.coach-note,.model-section,
+.fact-line,.guide-step,.guide-mini,.task2-overview-card,.task2-fact,
+.essay-process-step,.peel-learning-card,.peel-build-row,.model-section{
+  background-image:none!important;
+  border-color:var(--neo-black)!important;
+  box-shadow:6px 6px 0 var(--neo-black)!important;
+}
+
+/* Roadmap / navigation */
+.component-roadmap{
+  background:var(--neo-black)!important;
+}
+.component-roadmap a{
+  background:var(--neo-white)!important;
+  color:var(--neo-black)!important;
+}
+.component-roadmap a.current{
+  background:var(--neo-yellow)!important;
+  color:var(--neo-black)!important;
+  box-shadow:4px 4px 0 var(--neo-white)!important;
+}
+
+/* Buttons */
+.btn.yellow{background:var(--neo-yellow)!important;color:var(--neo-black)!important}
+.btn.green{background:var(--neo-green)!important;color:var(--neo-black)!important}
+.btn.pink{background:var(--neo-pink)!important;color:var(--neo-black)!important}
+.btn.orange{background:var(--neo-orange)!important;color:var(--neo-white)!important}
+.btn.dark,.standard-footer-buttons a.menu{background:var(--neo-black)!important;color:var(--neo-white)!important}
+.standard-footer-buttons a.next{background:var(--neo-green)!important;color:var(--neo-black)!important}
+.standard-footer-nav{background:#D7F4F1!important;color:var(--neo-black)!important}
+
+/* Top instruction / overview cards */
+.standard-flow-note,.process-guide,.task-distinction,.compact-route{
+  background:var(--neo-white)!important;
+  color:var(--neo-black)!important;
+}
+.standard-flow-chip:nth-child(1){background:var(--neo-yellow)!important}
+.standard-flow-chip:nth-child(2){background:var(--neo-orange)!important;color:#fff!important}
+.standard-flow-chip:nth-child(3){background:var(--neo-green)!important}
+.standard-flow-chip:nth-child(4){background:var(--neo-pink)!important}
+.standard-flow-chip:nth-child(5){background:var(--neo-purple)!important;color:#fff!important}
+
+/* Guide alert */
+.guide-alert{
+  background:var(--neo-black)!important;color:#fff!important
+}
+.guide-step:nth-child(1) .num{background:var(--neo-yellow)!important}
+.guide-step:nth-child(2) .num{background:var(--neo-green)!important}
+.guide-step:nth-child(3) .num{background:var(--neo-pink)!important}
+
+/* Hero / stat blocks */
+.hero-main,.writing-overview-main{
+  color:var(--neo-white)!important;
+}
+.hero-main h1,.hero-main p,.writing-overview-main h1,.writing-overview-main p{
+  color:var(--neo-white)!important;
+}
+.hero-main{background:var(--neo-orange)!important}
+.reading-wrap .hero-main,.reading-overview-main,.read-hero,.reading-hero,.scan-panel{background:var(--neo-green)!important}
+.listen-wrap .hero-main,.hear-panel,.listening-hero{background:var(--neo-blue)!important}
+.writing-overview-main{background:var(--neo-pink)!important}
+.writing-overview-icon,.hero-art{
+  background:var(--neo-white)!important;color:var(--neo-black)!important
+}
+.hero-stats,.writing-overview-side{
+  background:var(--neo-black)!important;
+}
+.writing-stat:nth-child(1), .hero-stats .summary-tile:nth-child(1), .hero-stats > div:nth-child(1){background:var(--neo-yellow)!important;color:#111!important}
+.writing-stat:nth-child(2), .hero-stats .summary-tile:nth-child(2), .hero-stats > div:nth-child(2){background:var(--neo-green)!important;color:#111!important}
+.writing-stat:nth-child(3), .hero-stats .summary-tile:nth-child(3), .hero-stats > div:nth-child(3){background:var(--neo-orange)!important;color:#fff!important}
+.writing-stat:nth-child(4), .hero-stats .summary-tile:nth-child(4), .hero-stats > div:nth-child(4){background:var(--neo-pink)!important;color:#111!important}
+
+/* Essentials / technique blocks */
+.essentials,.flow-step,.standard-language-section,.practice-shell,.reading-standard-sections details{
+  background:var(--neo-cream)!important;
+}
+.flow-step-head,.standard-language-head,.reading-standard-sections summary{
+  background:var(--neo-cream)!important;
+  color:var(--neo-black)!important;
+}
+.flow-body,.standard-language-body,.reading-standard-sections .std-body{
+  background:var(--neo-white)!important;
+}
+.step-num,.std-num{
+  color:var(--neo-black)!important;
+  border-color:var(--neo-black)!important;
+}
+#s1 .step-num, .flow-step:nth-of-type(1) .step-num{background:var(--neo-yellow)!important}
+#s2 .step-num, .flow-step:nth-of-type(2) .step-num{background:var(--neo-orange)!important;color:#fff!important}
+#s3 .step-num, .flow-step:nth-of-type(3) .step-num{background:var(--neo-green)!important}
+#s4 .step-num, .flow-step:nth-of-type(4) .step-num{background:var(--neo-pink)!important}
+#s5 .step-num, .flow-step:nth-of-type(5) .step-num{background:var(--neo-purple)!important;color:#fff!important}
+
+/* Technique letter cards */
+.scan-step:nth-child(1), .hear-step:nth-child(1), .prep-b:nth-child(1), .peel-b:nth-child(1),
+.peel-learning-card:nth-child(1){background:var(--neo-blue)!important;color:#fff!important}
+.scan-step:nth-child(2), .hear-step:nth-child(2), .prep-b:nth-child(2), .peel-b:nth-child(2),
+.peel-learning-card:nth-child(2){background:var(--neo-yellow)!important;color:#111!important}
+.scan-step:nth-child(3), .hear-step:nth-child(3), .prep-b:nth-child(3), .peel-b:nth-child(3),
+.peel-learning-card:nth-child(3){background:var(--neo-green)!important;color:#111!important}
+.scan-step:nth-child(4), .hear-step:nth-child(4), .prep-b:nth-child(4), .peel-b:nth-child(4),
+.peel-learning-card:nth-child(4){background:var(--neo-pink)!important;color:#111!important}
+.prep-b small,.peel-b small,.scan-step small,.hear-step small,.scan-step .scan-step-desc,.hear-step .hear-step-desc{
+  color:inherit!important
+}
+
+/* Info lines / language */
+.fact-line:nth-child(1), .language-card:nth-child(1), .guide-mini:nth-child(1){background:#EEF3FF!important}
+.fact-line:nth-child(2), .language-card:nth-child(2), .guide-mini:nth-child(2){background:#ECFFF4!important}
+.fact-line:nth-child(3), .language-card:nth-child(3), .guide-mini:nth-child(3){background:#FFF0F7!important}
+.language-card:nth-child(4){background:#FFF8DD!important}
+.language-card:nth-child(5){background:#F1EAFF!important}
+
+/* Writing-specific */
+.task-choice.t1{background:var(--neo-yellow)!important}
+.task-choice.t2{background:var(--neo-green)!important}
+.task-choice.active{outline:5px solid var(--neo-blue)!important}
+.task-choice .badge{background:var(--neo-white)!important;color:var(--neo-black)!important}
+.task-rule{background:#F1EAFF!important;color:var(--neo-black)!important}
+.route-item{background:var(--neo-white)!important}
+.task2-fact:nth-child(1){background:#FFF0F7!important}
+.task2-fact:nth-child(2){background:#FFF8DD!important}
+.task2-fact:nth-child(3){background:#ECFFF4!important}
+.essay-process-step:nth-child(1){background:var(--neo-yellow)!important}
+.essay-process-step:nth-child(2){background:var(--neo-pink)!important}
+.essay-process-step:nth-child(3){background:#89D7FF!important}
+.essay-process-step:nth-child(4){background:var(--neo-green)!important}
+.essay-process-step:nth-child(5){background:var(--neo-purple)!important;color:#fff!important}
+.essay-process-step:nth-child(6){background:var(--neo-orange)!important;color:#fff!important}
+.peel-build{background:#EEF7FF!important}
+.peel-build-row:nth-child(2) .peel-build-label{background:var(--neo-blue)!important;color:#fff!important}
+.peel-build-row:nth-child(3) .peel-build-label{background:var(--neo-yellow)!important}
+.peel-build-row:nth-child(4) .peel-build-label{background:var(--neo-green)!important}
+.peel-build-row:nth-child(5) .peel-build-label{background:var(--neo-pink)!important}
+.model-section.intro .model-tag{background:var(--neo-yellow)!important}
+.model-section.point .model-tag{background:var(--neo-blue)!important;color:#fff!important}
+.model-section.explain .model-tag{background:var(--neo-yellow)!important}
+.model-section.example .model-tag{background:var(--neo-green)!important}
+.model-section.link .model-tag{background:var(--neo-pink)!important}
+.model-section.conclusion .model-tag{background:var(--neo-purple)!important;color:#fff!important}
+
+/* Responsive readability */
+body, p, li, button, textarea, input, small{
+  font-size:1rem!important;
+}
+@media (max-width:768px){
+  body{font-size:1rem!important}
+}
+</style>
+
 </head>
 <body>
 <main class="app-shell">
@@ -433,70 +968,71 @@ details.more-guide summary::-webkit-details-marker{display:none}
     <button class="icon-btn">✍️</button>
   </div>
 
-  <nav class="component-roadmap"><a href="speaking.html" class=""><span>🎤 Speaking<span class="state">Open component</span></span></a><a href="listening.html" class=""><span>🎧 Listening<span class="state">Open component</span></span></a><a href="reading.html" class=""><span>📖 Reading<span class="state">Open component</span></span></a><a href="writing.html" class="current"><span>✍️ Writing<span class="state">Current component</span></span></a></nav><div class="page-jump-actions"><button class="btn yellow" onclick="document.querySelector('.flow-step, .reading-standard-sections')?.scrollIntoView({behavior:'smooth'})">Learn the Technique</button><button class="btn green" onclick="document.querySelector('.practice-shell, .task-switcher, [id=&quot;s4&quot;], [id=&quot;s5&quot;]')?.scrollIntoView({behavior:'smooth'})">Go Directly to Practice</button></div><section class="standard-flow-note"><div class="section-kicker">Standard Learning Sequence</div><h2>Writing page overview</h2><p>Follow the same five-step flow used throughout Smart MUET.</p><div class="standard-flow-strip"><div class="standard-flow-chip"><b>1</b>Before You Start</div><div class="standard-flow-chip"><b>2</b>Tips &amp; PEEL</div><div class="standard-flow-chip"><b>3</b>Worked Sample</div><div class="standard-flow-chip"><b>4</b>Language Support</div><div class="standard-flow-chip"><b>5</b>Your Practice</div></div></section>
+  <nav class="component-roadmap"><a href="speaking.html" class=""><span>🎤 Speaking<span class="state">Open component</span></span></a><a href="listening.html" class=""><span>🎧 Listening<span class="state">Open component</span></span></a><a href="reading.html" class=""><span>📖 Reading<span class="state">Open component</span></span></a><a href="writing.html" class="current"><span>✍️ Writing<span class="state">Current component</span></span></a></nav>
 
-<section class="process-guide">
-  <div class="guide-alert"><span class="pulse"></span> Smart Flow · Follow the steps one by one</div>
-  <h3>✍️ How to use this Writing page</h3>
-  <p>✍️ Plan first, then write. Use PEEL to keep each paragraph clear and organised.</p>
-  <div class="guide-steps">
-    <div class="guide-step">
-      <div class="num">1</div>
-      <b>Start here</b>
-      <span>Read the overview card first 👉 understand the test format, marks and important reminders.</span>
+
+
+
+<section class="writing-overview">
+  <div class="writing-overview-main">
+    <div>
+      <div class="section-kicker" style="color:#3D50F5">MUET Writing Guide · 800/4</div>
+      <h1>Two tasks.<br>Two approaches.</h1>
+      <p>Task 1 requires a direct response to every email note. Task 2 requires an opinion essay, with PEEL used only to develop the body paragraphs.</p>
     </div>
-    <div class="guide-step">
-      <div class="num">2</div>
-      <b>Learn the method</b>
-      <span>Study the technique section carefully ➜ then review the worked sample and language support.</span>
-    </div>
-    <div class="guide-step">
-      <div class="num">3</div>
-      <b>Go to practice</b>
-      <span>➡️ Complete Task 1 first, then Task 2. Check the word count and task fulfilment. ✅ Finally submit and read the feedback before moving to the next component.</span>
-    </div>
+    <div class="writing-overview-icon" aria-hidden="true">✍️</div>
+  </div>
+  <div class="writing-overview-side" aria-label="Writing test facts">
+    <div class="writing-stat"><strong>2</strong><span>Tasks</span></div>
+    <div class="writing-stat"><strong>75</strong><span>Minutes</span></div>
+    <div class="writing-stat"><strong>90</strong><span>Marks</span></div>
+    <div class="writing-stat"><strong>25%</strong><span>of MUET</span></div>
   </div>
 </section>
 
-<section class="neo-hero">
-    <div class="hero-main" style="background:var(--np-pink);">
-      <div>
-        <div class="section-kicker" style="color:var(--np-blue)">MUET Writing Guide · 800/4</div>
-        <h1>Plan first<br>with PEEL.</h1>
-        <p>Complete Task 1 and Task 2 separately, then submit for guided feedback. Writing has no single correct answer — clear structure earns the marks.</p>
-      </div>
-      <div class="hero-art"><img src="assets/heroes/small-muet-logo.svg" alt="Smart MUET Guide"></div>
+<section class="task-distinction">
+  <div class="task-distinction-head">
+    <div class="alert">⚠️</div>
+    <div>
+      <h2>Choose the correct approach</h2>
+      <p>The two tasks are different. Select a task below to load only the guidance, sample and practice relevant to that task.</p>
     </div>
-    <div class="hero-stats">
-      <div class="stat-tile"><strong>2</strong><span>Tasks</span></div><div class="stat-tile"><strong>75</strong><span>Minutes</span></div><div class="stat-tile"><strong>90</strong><span>Marks</span></div><div class="stat-tile"><strong>25%</strong><span>of MUET</span></div>
-    </div>
-  </section>
+  </div>
 
-  <section class="essentials">
-    <div class="section-top"><div><div class="section-kicker">Before You Start</div><h2>Writing Essentials</h2><p>Only the information students need before beginning practice.</p></div></div>
-    <div class="essentials-grid">
-      <div class="scan-panel"><b>Writing technique — PEEL</b>
-        <div class="scan-row"><div class="scan-step"><b>P</b>Point</div><div class="scan-step"><b>E</b>Explain</div><div class="scan-step"><b>E</b>Example</div><div class="scan-step"><b>L</b>Link</div></div>
-      </div>
-      <div class="facts-panel"><b>What the test measures</b>
-        <div class="facts-list"><div class="fact-line"><img src="assets/heroes/icon-muet-intro.svg" alt=""><span>Task 1: reply to an email covering every note.</span></div><div class="fact-line"><img src="assets/heroes/icon-why-muet.svg" alt=""><span>Task 2: write an essay with a clear, supported stand.</span></div><div class="fact-line"><img src="assets/heroes/icon-app-facts.svg" alt=""><span>Organisation, cohesion, vocabulary and grammar.</span></div></div>
-      </div>
-    </div>
-    <details class="more-guide">
-      <summary>＋ View question types and exam reminders</summary>
-      <div class="guide-more-grid"><div class="guide-mini"><b>Test format (MPM)</b>2 tasks · 75 minutes · 90 marks · 25% of MUET.</div><div class="guide-mini"><b>Task 1 — Email/Letter</b>Minimum 100 words · about 25 minutes · answer every note.</div><div class="guide-mini"><b>Task 2 — Essay</b>Minimum 250 words · about 50 minutes · clear stand + PEEL paragraphs.</div><div class="guide-mini"><b>No single answer</b>Feedback checks task fulfilment, organisation, cohesion, support and word count.</div><div class="guide-mini"><b>Model answers</b>A model response is available in Step 3 as a separate review resource.</div><div class="guide-mini"><b>Check before submit</b>Connectives, varied vocabulary, spelling and punctuation.</div></div>
-    </details>
-  </section>
-
-  <!-- Task selector -->
-  <div class="task-badges" style="margin-bottom:0">
-    <button id="tabT1" class="task-badge" style="background:var(--yellow)" onclick="setTask('T1')">
-      <span class="icon">📧</span><b>Task 1</b><small>Email / Letter<br>25 min · ~150w</small>
+  <div class="task-choice-grid">
+    <button id="tabT1" class="task-choice t1 active" onclick="setTask('T1')">
+      <div class="top"><span class="emoji">📧</span><span class="badge">25 min · 100+ words</span></div>
+      <h3>Task 1 — Email Reply</h3>
+      <p>Respond directly to all the notes in the email.</p>
+      <ul>
+        <li>Answer every note clearly.</li>
+        <li>Use an appropriate tone and email format.</li>
+        <li>PEEL is not used for Task 1.</li>
+      </ul>
     </button>
-    <button id="tabT2" class="task-badge" style="background:white" onclick="setTask('T2')">
-      <span class="icon">📝</span><b>Task 2</b><small>Essay<br>50 min · ~350w</small>
+
+    <button id="tabT2" class="task-choice t2" onclick="setTask('T2')">
+      <div class="top"><span class="emoji">📝</span><span class="badge">50 min · 250+ words</span></div>
+      <h3>Task 2 — Opinion Essay</h3>
+      <p>State a clear position and support it with developed ideas.</p>
+      <ul>
+        <li>Analyse the statement and choose a stand.</li>
+        <li>Use PEEL for each body paragraph.</li>
+        <li>Write the introduction and conclusion separately.</li>
+      </ul>
     </button>
   </div>
+
+  <div class="task-rule">📌 Remember: <b>Task 1 = direct email response.</b> <b>Task 2 = essay with PEEL body paragraphs.</b></div>
+</section>
+
+<div class="compact-route" aria-label="Writing learning route">
+  <span class="route-item">1 · Understand</span><span class="route-arrow">→</span>
+  <span class="route-item">2 · Learn</span><span class="route-arrow">→</span>
+  <span class="route-item">3 · Study a sample</span><span class="route-arrow">→</span>
+  <span class="route-item">4 · Use language support</span><span class="route-arrow">→</span>
+  <span class="route-item">5 · Practise</span>
+</div>
 
   <!-- ═══ STEP 1: Before You Start ═══ -->
   <div class="flow-step" style="margin-top:14px">
@@ -511,7 +1047,7 @@ details.more-guide summary::-webkit-details-marker{display:none}
     </div>
   </div>
 
-  <!-- ═══ STEP 2: Tips & Tricks ═══ -->
+  <!-- ═══ STEP 2: Tips & Technique ═══ -->
   <div class="flow-step">
     <div class="flow-step-head" onclick="W.toggle('s2')">
       <div class="step-num">2</div>
@@ -533,15 +1069,29 @@ details.more-guide summary::-webkit-details-marker{display:none}
     </div>
     <div id="b-s3" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
       <div id="sampleContent"></div>
-      <button class="btn pink" style="margin-top:14px" onclick="W.open('s4')">I'm ready — start writing →</button>
+      <button class="btn pink" style="margin-top:14px" onclick="W.open('s4')">Continue to Language Support →</button>
     </div>
   </div>
 
-  <!-- ═══ STEP 4: Your Practice ═══ -->
+
+  <!-- ═══ STEP 4: Language Support ═══ -->
+  <div class="flow-step">
+    <div class="flow-step-head" onclick="W.toggle('s5')">
+      <div class="step-num" style="background:var(--pink)">4</div>
+      <div style="flex:1"><b>Language Support</b><br><small id="s4sub" style="color:var(--muted)">Useful expressions for Task 1</small></div>
+      <span id="c-s5">▾</span>
+    </div>
+    <div id="b-s5" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+      <div id="languageContent"></div>
+      <button class="btn pink" style="margin-top:14px" onclick="W.open('s5')">I am ready — go to practice →</button>
+    </div>
+  </div>
+
+  <!-- ═══ STEP 5: Your Practice ═══ -->
   <div class="flow-step">
     <div class="flow-step-head" onclick="W.toggle('s4')">
-      <div class="step-num">4</div>
-      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Choose topic · write · submit</small></div>
+      <div class="step-num" style="background:var(--purple)">5</div>
+      <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Choose a prompt · plan · write · submit</small></div>
       <span id="c-s4">▾</span>
     </div>
     <div id="b-s4" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
@@ -583,14 +1133,18 @@ details.more-guide summary::-webkit-details-marker{display:none}
         <!-- Essay planner (Task 2 only) -->
         <div id="plannerArea" style="display:none">
           <div style="background:var(--yellow);border:var(--line);border-radius:16px;padding:12px;margin-bottom:12px">
-            <b style="font-size:13px;font-weight:1000">📋 Step 1: Essay Planner (5 min)</b>
-            <p style="font-size:12px;font-weight:800;margin-top:4px">Students who plan score better — decide your stand and 2–3 points before writing.</p>
+            <b style="font-size:13px;font-weight:1000">📋 Task 2 Planning Process (5–7 min)</b>
+            <p style="font-size:12px;font-weight:800;margin-top:4px">Analyse the statement, choose your stand, plan 2–3 ideas and turn each idea into a PEEL body paragraph.</p>
           </div>
-          <div class="planner-grid">
-            <div class="planner-box"><h3>📌 Introduction — My stand</h3><textarea id="planIntro" placeholder="I agree/disagree because..."></textarea></div>
-            <div class="planner-box"><h3>Point 1 + Example</h3><textarea id="planP1" placeholder="Firstly..."></textarea></div>
-            <div class="planner-box"><h3>Point 2 + Example</h3><textarea id="planP2" placeholder="Furthermore..."></textarea></div>
-            <div class="planner-box"><h3>Conclusion</h3><textarea id="planConc" placeholder="In conclusion..."></textarea></div>
+          <div class="peel-planner-grid">
+            <div class="peel-planner-box"><h3>🔍 Question Analysis</h3><textarea id="planAnalysis" placeholder="Topic · instruction · key words"></textarea></div>
+            <div class="peel-planner-box"><h3>🎯 Introduction — My Stand</h3><textarea id="planIntro" placeholder="I agree, disagree or partly agree because..."></textarea></div>
+            <div class="peel-planner-box"><h3>🟣 Body 1 — P: Point</h3><textarea id="planP1" placeholder="One important reason is that..."></textarea></div>
+            <div class="peel-planner-box"><h3>🟡 Body 1 — E: Explain</h3><textarea id="planE1" placeholder="This is because..."></textarea></div>
+            <div class="peel-planner-box"><h3>🟢 Body 1 — E: Example</h3><textarea id="planEx1" placeholder="For example..."></textarea></div>
+            <div class="peel-planner-box"><h3>🩷 Body 1 — L: Link</h3><textarea id="planL1" placeholder="Therefore, this shows that..."></textarea></div>
+            <div class="peel-planner-box"><h3>🧱 Body Paragraph 2</h3><textarea id="planP2" placeholder="Plan a second PEEL paragraph using another main idea."></textarea></div>
+            <div class="peel-planner-box"><h3>✅ Conclusion</h3><textarea id="planConc" placeholder="Restate your stand and summarise the argument."></textarea></div>
           </div>
         </div>
 
@@ -721,17 +1275,17 @@ const TIPS = {
     {icon:'🔢',title:'Word Count',body:'Aim for 100 to 150 words. Count before submitting.'}
   ],
   T2:[
-    {icon:'🎯',title:'Thesis First',body:'State your position clearly in sentence one. Examiners decide within 30 seconds if you understand the question.'},
-    {icon:'📐',title:'One PEEL per Paragraph',body:'Do not mix two arguments in one paragraph. Point → Explain → Evidence → Link back.'},
-    {icon:'🇲🇾',title:'Malaysian Examples',body:'Use local examples: PTPTN, public transport, social media, workplace culture in Malaysia.'},
-    {icon:'⚖️',title:'Balanced View Scores Better',body:'Partial agreement scores better than extreme positions. Acknowledge the other side before countering.'},
-    {icon:'🔢',title:'Word Count',body:'Minimum 250 words. Aim for 300–400. Quality matters more than quantity.'}
+    {icon:'🔍',title:'Analyse the Statement',body:'Identify the main topic, the instruction and the key words before deciding your position.'},
+    {icon:'🎯',title:'Choose a Clear Stand',body:'You may agree, disagree or partly agree. Choose the position you can support consistently with relevant ideas.'},
+    {icon:'🧱',title:'Use One PEEL per Body Paragraph',body:'Build each body paragraph in this order: Point → Explain → Example or Evidence → Link to the question.'},
+    {icon:'📝',title:'Introduction and Conclusion',body:'The introduction states the issue and your stand. The conclusion restates your position and summarises the argument.'},
+    {icon:'🔢',title:'Word Count and Review',body:'Write at least 250 words. Check task fulfilment, paragraph organisation, vocabulary, grammar, spelling and punctuation.'}
   ]
 };
 
 const MODEL_T1 = `Dear Cindy,\n\nThank you so much for your email! I was absolutely delighted to hear that you will be joining the cooking competition organised by the Lions Club. What fantastic news — I am sure you will do brilliantly!\n\nAs for suggestions for afternoon tea, I would recommend you prepare a classic Malaysian kuih, such as kuih lapis, along with mini sandwiches with a variety of fillings. Both dishes are elegant, easy to prepare in advance, and are always crowd-pleasers.\n\nRegarding recipe books, I personally think they can be very helpful, especially for someone trying out competition cooking for the first time. They provide detailed instructions and presentation ideas that can really elevate your dishes. However, do also search for online videos for more visual guidance.\n\nI have full confidence in you, Cindy! Please keep me updated.\n\nYours sincerely,\nNora`;
 
-const MODEL_T2 = `Mental health, once considered a taboo subject, has gradually gained recognition as an essential component of overall wellbeing in the 21st century. I firmly agree with the view that education on mental health is not merely beneficial, but absolutely necessary in today's world.\n\nFirstly, the prevalence of mental health issues among young people has increased significantly. According to various health organisations, cases of depression and anxiety among teenagers and young adults have risen sharply in recent years, partly due to academic pressure and social media influence. By educating students about mental health from an early age, schools can equip them with the tools to identify and manage these challenges before they escalate.\n\nFurthermore, education on mental health helps to reduce the stigma associated with seeking help. When students learn about mental health in school, they develop greater empathy and understanding, creating a more supportive environment for those who are struggling.\n\nIn conclusion, I strongly believe that mental health education is a necessity, not a luxury, for the 21st century. By incorporating it into school curricula, we can produce a generation that is not only academically successful, but also emotionally resilient and socially responsible.`;
+const MODEL_T2 = `Many young adults lack some practical survival skills because they depend heavily on their parents. When parents manage cooking, household tasks and financial decisions, young people have fewer opportunities to practise these responsibilities independently. For example, some university students struggle to plan a monthly budget or prepare simple meals when they begin living away from home. Therefore, limited exposure to daily responsibilities can weaken their ability to cope independently.`;
 
 const T1_BEFORE = `
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
@@ -742,24 +1296,46 @@ const T1_BEFORE = `
 </div>`;
 
 const T2_BEFORE = `
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-  <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center"><span style="font-size:24px;display:block">📝</span><b style="font-family:'Sora';font-size:13px;display:block;margin-top:4px">Discursive Essay</b><small style="color:var(--muted);font-weight:900">State a clear thesis</small></div>
-  <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center"><span style="font-size:24px;display:block">⏱️</span><b style="font-family:'Sora';font-size:13px;display:block;margin-top:4px">50 minutes</b><small style="color:var(--muted);font-weight:900">~350 words minimum</small></div>
-  <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:12px;box-shadow:2px 2px 0 var(--ink);text-align:center;grid-column:span 2">
-    <b style="font-family:'Sora';font-size:12px;display:block;margin-bottom:8px">PEEL Structure</b>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
-      <div style="background:#7a43ff;color:white;border:2px solid var(--ink);border-radius:10px;padding:8px 4px;text-align:center;font-family:'Sora';font-weight:800;font-size:16px">P<small style="display:block;font-family:'DM Sans';font-size:9px;font-weight:900;margin-top:2px">Point</small></div>
-      <div style="background:var(--blue);color:white;border:2px solid var(--ink);border-radius:10px;padding:8px 4px;text-align:center;font-family:'Sora';font-weight:800;font-size:16px">E<small style="display:block;font-family:'DM Sans';font-size:9px;font-weight:900;margin-top:2px">Explain</small></div>
-      <div style="background:var(--green);border:2px solid var(--ink);border-radius:10px;padding:8px 4px;text-align:center;font-family:'Sora';font-weight:800;font-size:16px">E<small style="display:block;font-family:'DM Sans';font-size:9px;font-weight:900;margin-top:2px">Evidence</small></div>
-      <div style="background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:8px 4px;text-align:center;font-family:'Sora';font-weight:800;font-size:16px">L<small style="display:block;font-family:'DM Sans';font-size:9px;font-weight:900;margin-top:2px">Link</small></div>
-    </div>
+<div class="task2-overview-card">
+  <div class="task2-overview-title">
+    <div class="emoji">🧭</div>
+    <div><h3>Task 2: From Question to Complete Essay</h3><p>PEEL is used to build each body paragraph — not the introduction or conclusion.</p></div>
+  </div>
+
+  <div class="task2-facts">
+    <div class="task2-fact"><strong>Opinion Essay</strong><span>Express and support a clear position</span></div>
+    <div class="task2-fact"><strong>50 minutes</strong><span>Recommended time for Task 2</span></div>
+    <div class="task2-fact"><strong>250+ words</strong><span>Minimum required length</span></div>
+  </div>
+
+  <div style="font-family:'Sora';font-size:13px;font-weight:800">How to complete Task 2</div>
+  <div class="essay-process">
+    <div class="essay-process-step"><b>1. Analyse</b>Identify the topic and instruction.</div>
+    <div class="essay-process-step"><b>2. Choose</b>Decide your stand.</div>
+    <div class="essay-process-step"><b>3. Plan</b>Select 2–3 main ideas.</div>
+    <div class="essay-process-step"><b>4. Build</b>Use PEEL for each body paragraph.</div>
+    <div class="essay-process-step"><b>5. Complete</b>Write introduction and conclusion.</div>
+    <div class="essay-process-step"><b>6. Review</b>Check task, language and word count.</div>
+  </div>
+</div>
+
+<div class="task2-overview-card">
+  <div style="font-family:'Sora';font-size:15px;font-weight:800">Use PEEL to Build Each Body Paragraph</div>
+  <p style="font-size:11px;font-weight:800;color:var(--muted);line-height:1.55;margin-top:5px">Each body paragraph should develop one main idea clearly and connect it back to your stand.</p>
+  <div class="peel-learning-grid">
+    <div class="peel-learning-card"><span class="letter">P</span><h4>Point</h4><p>State one reason that supports your stand.</p><div class="starter">Starter: One important reason is that…</div></div>
+    <div class="peel-learning-card"><span class="letter">E</span><h4>Explain</h4><p>Explain why the point is true or important.</p><div class="starter">Starter: This is because…</div></div>
+    <div class="peel-learning-card"><span class="letter">E</span><h4>Example / Evidence</h4><p>Give a relevant situation, fact or example.</p><div class="starter">Starter: For example…</div></div>
+    <div class="peel-learning-card"><span class="letter">L</span><h4>Link</h4><p>Connect the paragraph to the question and stand.</p><div class="starter">Starter: Therefore, this shows that…</div></div>
   </div>
 </div>`;
 
 const T2_CHECKLIST = [
   'Wrote a clear introduction with my stand',
-  'Paragraph 2: Point + Reason + Example',
-  'Paragraph 3: Point + Reason + Example',
+  'Each body paragraph contains a clear Point',
+  'Each Point is Explained clearly',
+  'Each paragraph includes a relevant Example or Evidence',
+  'Each paragraph Links back to the question',
   'Wrote a clear conclusion',
   'Used connectives (Firstly, Furthermore, etc.)',
   'At least 250 words written',
@@ -790,12 +1366,34 @@ W.open = function(id){
 };
 
 /* ── Task switcher ── */
+
+const LANGUAGE_SUPPORT = {
+  T1: `
+    <div class="language-grid">
+      <div class="language-card"><b>Opening</b><br>Hi Johan, · Thank you for your email. · It was good to hear from you.</div>
+      <div class="language-card"><b>Expressing a Reaction</b><br>I am sorry to hear that… · I am glad that… · I hope…</div>
+      <div class="language-card"><b>Responding to Notes</b><br>Yes, I did… · Regarding your question… · As for the activities…</div>
+      <div class="language-card"><b>Declining or Suggesting</b><br>No, I am afraid I cannot… · Perhaps we could… · How about…?</div>
+      <div class="language-card"><b>Closing</b><br>Take care. · Best wishes, · Hope to hear from you soon.</div>
+    </div>`,
+  T2: `
+    <div class="language-grid">
+      <div class="language-card"><b>Stating a Stand</b><br>I agree that… · I disagree with the view that… · I partly agree because…</div>
+      <div class="language-card"><b>Point and Explanation</b><br>One important reason is that… · This is because… · This can lead to…</div>
+      <div class="language-card"><b>Example or Evidence</b><br>For example… · For instance… · A clear example can be seen in…</div>
+      <div class="language-card"><b>Linking the Paragraph</b><br>Therefore, this shows that… · As a result… · This supports the view that…</div>
+      <div class="language-card"><b>Contrasting and Concluding</b><br>However… · On the other hand… · In conclusion…</div>
+    </div>`
+};
+
 function setTask(t){
   currentTask = t;
   selectedTopic = null;
-  document.getElementById('tabT1').style.background = t === 'T1' ? 'var(--yellow)' : 'white';
-  document.getElementById('tabT2').style.background = t === 'T2' ? 'var(--lime)'   : 'white';
-  document.getElementById('s1sub').textContent = t === 'T1' ? 'What Task 1 tests' : 'What Task 2 tests';
+  document.getElementById('tabT1').classList.toggle('active', t === 'T1');
+  document.getElementById('tabT2').classList.toggle('active', t === 'T2');
+  document.getElementById('s1sub').textContent = t === 'T1' ? 'How to respond to the email notes' : 'How to plan and develop the essay';
+  document.getElementById('s4sub').textContent = t === 'T1' ? 'Useful expressions for Task 1' : 'Useful expressions for Task 2';
+  document.getElementById('languageContent').innerHTML = LANGUAGE_SUPPORT[t];
 
   // Step 1 content
   document.getElementById('beforeContent').innerHTML = t === 'T1' ? T1_BEFORE : T2_BEFORE;
@@ -807,15 +1405,35 @@ function setTask(t){
     ).join('');
 
   // Step 3 sample
-  const sampleLabel = t === 'T1' ? 'Sample reply — Band 4.0:' : 'Sample intro + PEEL paragraph — Band 4.0:';
-  const sampleNote  = t === 'T1'
-    ? 'All four notes addressed · friendly but appropriate tone · approximately 150 words · each note in its own paragraph.'
-    : 'Clear thesis · well-structured PEEL · local evidence · link back to the question. Avoid full agreement or full disagreement.';
-  document.getElementById('sampleContent').innerHTML =
-    `<div style="background:#dcfce7;border:var(--line);border-radius:14px;padding:14px;font-size:13px;font-weight:800;line-height:1.7">
-       <b>${sampleLabel}</b><br><br>${(t==='T1'?MODEL_T1:MODEL_T2).replace(/\n/g,'<br>')}
-     </div>
-     <div class="coach-note lime" style="margin-top:10px"><div class="tag">EXAMINER NOTE</div><p>${sampleNote}</p></div>`;
+  if(t === 'T1'){
+    document.getElementById('sampleContent').innerHTML =
+      `<div style="background:#dcfce7;border:var(--line);border-radius:18px;padding:14px;font-size:13px;font-weight:800;line-height:1.7">
+        <b>Sample reply — Band 4.0:</b><br><br>${MODEL_T1.replace(/\n/g,'<br>')}
+      </div>
+      <div class="coach-note lime" style="margin-top:10px"><div class="tag">EXAMINER NOTE</div><p>All notes are addressed clearly, the tone is appropriate and the response is organised logically.</p></div>`;
+  }else{
+    document.getElementById('sampleContent').innerHTML =
+      `<div class="peel-build">
+        <b style="font-family:'Sora';font-size:14px">Worked Example: Building One PEEL Paragraph</b>
+        <p style="font-size:11px;font-weight:800;color:var(--muted);margin-top:4px">Statement: “Young adults today lack survival skills.” · Stand: Partly agree</p>
+
+        <div class="peel-build-row"><div class="peel-build-label">P</div><div><b>Point — What is the paragraph arguing?</b><p>Many young adults lack basic practical skills because they depend heavily on their parents.</p></div></div>
+        <div class="peel-build-row"><div class="peel-build-label">E</div><div><b>Explain — Why is the point true?</b><p>When parents manage cooking, household tasks and financial decisions, young people have fewer opportunities to practise these responsibilities independently.</p></div></div>
+        <div class="peel-build-row"><div class="peel-build-label">E</div><div><b>Example — What illustrates the idea?</b><p>For example, some university students struggle to plan a monthly budget or prepare simple meals when they begin living away from home.</p></div></div>
+        <div class="peel-build-row"><div class="peel-build-label">L</div><div><b>Link — How does it answer the question?</b><p>Therefore, limited exposure to daily responsibilities can weaken their ability to cope independently.</p></div></div>
+      </div>
+
+      <div class="model-labelled" style="margin-top:12px">
+        <div class="model-section intro"><span class="model-tag">INTRODUCTION</span><p>I partly agree that young adults today lack some traditional survival skills, although they possess useful modern abilities.</p></div>
+        <div class="model-section point"><span class="model-tag">P — POINT</span><p>Many young adults lack basic practical skills because they depend heavily on their parents.</p></div>
+        <div class="model-section explain"><span class="model-tag">E — EXPLAIN</span><p>When parents manage cooking, household tasks and financial decisions, young people have fewer opportunities to practise these responsibilities independently.</p></div>
+        <div class="model-section example"><span class="model-tag">E — EXAMPLE</span><p>For example, some university students struggle to plan a monthly budget or prepare simple meals when they begin living away from home.</p></div>
+        <div class="model-section link"><span class="model-tag">L — LINK</span><p>Therefore, limited exposure to daily responsibilities can weaken their ability to cope independently.</p></div>
+        <div class="model-section conclusion"><span class="model-tag">CONCLUSION</span><p>Young adults do not completely lack survival skills, but they need more opportunities to develop practical independence alongside their digital abilities.</p></div>
+      </div>
+
+      <div class="coach-note lime" style="margin-top:10px"><div class="tag">EXAMINER NOTE</div><p>A strong response states a consistent stand, develops each body point clearly, supports ideas with relevant examples and links every paragraph to the question.</p></div>`;
+  }
 
   // Step 4: reset practice area
   document.getElementById('topicSelectionArea').style.display = 'block';
@@ -926,7 +1544,7 @@ function startPractice(){
   }
 
   document.getElementById('coachNote').textContent = selectedTopic.coach ||
-    (currentTask === 'T1' ? 'Address ALL bullet points. Missing one costs Task Fulfilment marks.' : 'State your thesis in sentence one. Use PEEL for each body paragraph.');
+    (currentTask === 'T1' ? 'Address ALL bullet points. Missing one costs Task Fulfilment marks.' : 'Analyse the statement, state a clear stand, then use PEEL to develop each body paragraph.');
   document.getElementById('wcGuide').textContent = currentTask === 'T1' ? 'Task 1: minimum 100 words' : 'Task 2: minimum 250 words';
   document.getElementById('answerBox').value = '';
   document.getElementById('wcNum').textContent = '0';
