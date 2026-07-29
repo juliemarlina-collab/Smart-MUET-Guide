@@ -1,0 +1,11 @@
+SMART MUET V5 — Card Style Upgrade
+
+What changed:
+- Replaced flatter square blocks with rounded, layered card styling.
+- Added a new "How to use this page" guide card with step-by-step directions.
+- Enhanced button styling for clearer next actions.
+- Added emoji-supported guidance and visual direction arrows.
+- Added animated pulse alert badge to guide students.
+- Added image fallback emojis when icon assets do not load.
+- Corrected Listening hero wording from "Listen once" to "Listen closely".
+- Preserved the standardised page flow and the existing practice logic.

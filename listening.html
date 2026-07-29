@@ -6,8 +6,8 @@
 <title>Listening Guide · Smart MUET Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/muet-guide.css?v=20260729-1"/>
-<link rel="stylesheet" href="css/responsive-fix.css?v=20260729-1">
+<link rel="stylesheet" href="css/muet-guide.css?v=20260729-std1"/>
+<link rel="stylesheet" href="css/responsive-fix.css?v=20260729-std1">
 <style>
 :root{
   --listen-blue:#3854F5;--listen-green:#19D39A;--listen-yellow:#FFCA3A;
@@ -158,6 +158,294 @@ details.more-guide summary::-webkit-details-marker{display:none}
 @media(max-width:850px){.dialogue-audio-grid{grid-template-columns:1fr}}
 @media(max-width:720px){.listen-hero,.essentials-grid,.practice-head{grid-template-columns:1fr}.hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-more-grid{grid-template-columns:1fr}.questions-grid{grid-template-columns:1fr}.part-actions{grid-template-columns:1fr}.diagramWrap{grid-template-columns:1fr}.fn-grid{grid-template-columns:1fr}}
 </style>
+<style>
+.component-roadmap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 14px;padding:10px;background:#101116;border:3px solid #101116;border-radius:18px;box-shadow:5px 5px 0 #101116}
+.component-roadmap a{display:flex;align-items:center;justify-content:center;min-height:42px;border:2px solid #101116;border-radius:12px;background:#fff;color:#101116;text-decoration:none;font-size:11px;font-weight:1000;text-align:center;padding:7px}
+.component-roadmap a.current{background:#FFCA3A;box-shadow:3px 3px 0 #fff}
+.component-roadmap .state{font-size:9px;opacity:.7;display:block;margin-top:2px}
+.page-jump-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 16px}.page-jump-actions .btn{width:100%}
+.standard-flow-note{background:#fff;border:3px solid #101116;border-radius:18px;box-shadow:5px 5px 0 #101116;padding:14px 16px;margin-bottom:14px}
+.standard-flow-note h2{font-size:19px;margin:3px 0 6px}.standard-flow-note p{font-size:12px;font-weight:800;line-height:1.5;color:var(--muted)}
+.standard-flow-strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-top:11px}
+.standard-flow-chip{border:2px solid #101116;border-radius:12px;padding:8px 6px;text-align:center;font-size:10px;font-weight:1000;box-shadow:2px 2px 0 #101116}
+.standard-flow-chip:nth-child(1){background:#FFCA3A}.standard-flow-chip:nth-child(2){background:#FF7043}.standard-flow-chip:nth-child(3){background:#19D39A}.standard-flow-chip:nth-child(4){background:#F76BB2}.standard-flow-chip:nth-child(5){background:#9C78FF}
+.standard-flow-chip b{display:block;font-family:"Sora";font-size:15px;margin-bottom:2px}
+.standard-footer-nav{margin-top:18px;border:3px solid #101116;border-radius:22px;background:#18C7BA;box-shadow:7px 7px 0 #101116;padding:16px}
+.standard-footer-nav .footer-kicker{font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em}.standard-footer-nav h2{font-size:20px;margin:4px 0 12px}
+.standard-footer-buttons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.standard-footer-buttons a{display:flex;align-items:center;justify-content:center;min-height:50px;border:3px solid #101116;border-radius:15px;text-decoration:none;font-weight:1000;text-align:center;padding:10px;box-shadow:4px 4px 0 #101116;color:#101116;background:#fff}
+.standard-footer-buttons a.menu{background:#101116;color:#fff}.standard-footer-buttons a.next{background:#19D39A}.standard-footer-buttons a.disabled{opacity:.45;pointer-events:none}
+.standard-language-section{background:#fff;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+.standard-language-head{display:flex;align-items:center;gap:12px;padding:14px 16px}.standard-language-body{padding:14px 16px 18px;border-top:2px solid rgba(0,0,0,.08)}
+.language-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.language-card{border:2px solid #101116;border-radius:14px;padding:11px;background:#fff;box-shadow:2px 2px 0 #101116;font-size:12px;font-weight:800;line-height:1.55}
+.reading-standard-sections{margin-bottom:14px}.reading-standard-sections details{background:#fff;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+.reading-standard-sections summary{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;font-weight:1000;list-style:none}.reading-standard-sections summary::-webkit-details-marker{display:none}
+.reading-standard-sections .std-num{width:38px;height:38px;border:var(--line);border-radius:50%;display:grid;place-items:center;box-shadow:2px 2px 0 var(--ink);flex:0 0 auto}
+.reading-standard-sections .std-body{padding:14px 16px 18px;border-top:2px solid rgba(0,0,0,.08)}.reading-standard-sections .std-body p{font-size:12px;font-weight:800;line-height:1.55}
+@media(max-width:760px){.component-roadmap{grid-template-columns:repeat(2,minmax(0,1fr))}.page-jump-actions,.standard-footer-buttons,.language-grid{grid-template-columns:1fr}.standard-flow-strip{grid-template-columns:1fr}}
+</style>
+
+<style id="v5-card-upgrade">
+:root{
+  --card-white:#ffffff;
+  --card-mint:#f4fffb;
+  --card-lilac:#f8f5ff;
+  --card-yellow:#fff8dd;
+  --card-peach:#fff1ea;
+  --soft-shadow:0 10px 24px rgba(16,17,22,.08), 4px 4px 0 #101116;
+}
+
+/* softer modern card system */
+.component-roadmap{
+  border-radius:26px!important;
+  box-shadow:0 12px 28px rgba(16,17,22,.16), 5px 5px 0 #101116!important;
+  padding:14px!important;
+}
+.component-roadmap a{
+  border-radius:18px!important;
+  min-height:56px!important;
+  box-shadow:0 4px 10px rgba(16,17,22,.08)!important;
+}
+.component-roadmap a.current{
+  background:linear-gradient(180deg,#ffd860 0%, #f3c748 100%)!important;
+}
+.page-jump-actions .btn{
+  min-height:52px!important;
+  border-radius:16px!important;
+  border:3px solid #101116!important;
+  box-shadow:4px 4px 0 #101116!important;
+  font-weight:1000!important;
+  font-size:14px!important;
+}
+.page-jump-actions .btn:first-child{background:linear-gradient(180deg,#fff6ce 0%,#ffd860 100%)!important}
+.page-jump-actions .btn:last-child{background:linear-gradient(180deg,#dffcf3 0%,#7ce5b9 100%)!important}
+
+.standard-flow-note,
+.process-guide,
+.essentials,
+.flow-step,
+.standard-language-section,
+.practice-shell,
+.reading-standard-sections details,
+.standard-footer-nav,
+.part-card,
+.answer-final,
+.review-part{
+  border-radius:24px!important;
+  box-shadow:0 10px 26px rgba(16,17,22,.08), 6px 6px 0 #101116!important;
+  overflow:hidden;
+}
+.standard-flow-note{
+  background:linear-gradient(180deg,#ffffff 0%, #f7f8ff 100%)!important;
+}
+.standard-flow-strip{
+  gap:10px!important;
+}
+.standard-flow-chip{
+  border-radius:18px!important;
+  padding:12px 10px!important;
+  min-height:70px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  position:relative;
+}
+.standard-flow-chip::after{
+  content:"➜";
+  position:absolute;
+  right:-11px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:18px;
+  font-weight:1000;
+  color:#101116;
+}
+.standard-flow-chip:last-child::after{display:none}
+
+.process-guide{
+  background:linear-gradient(180deg,#ffffff 0%, #f8fffd 100%);
+  border:3px solid #101116;
+  padding:16px 18px;
+  margin-bottom:16px;
+}
+.process-guide h3{
+  font-size:20px;
+  margin:0 0 6px;
+}
+.process-guide p{
+  margin:0 0 12px;
+  font-size:12.5px;
+  font-weight:800;
+  color:var(--muted);
+  line-height:1.6;
+}
+.guide-alert{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:#101116;
+  color:#fff;
+  border-radius:999px;
+  padding:7px 12px;
+  font-size:11px;
+  font-weight:1000;
+  margin-bottom:12px;
+}
+.guide-alert .pulse{
+  width:10px;height:10px;border-radius:999px;background:#19D39A;
+  box-shadow:0 0 0 rgba(25,211,154,.8);
+  animation:pulseDot 1.4s infinite;
+}
+@keyframes pulseDot{
+  0%{box-shadow:0 0 0 0 rgba(25,211,154,.7)}
+  70%{box-shadow:0 0 0 12px rgba(25,211,154,0)}
+  100%{box-shadow:0 0 0 0 rgba(25,211,154,0)}
+}
+.guide-steps{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+.guide-step{
+  background:#fff;
+  border:2px solid #101116;
+  border-radius:18px;
+  padding:13px 12px;
+  box-shadow:0 4px 12px rgba(16,17,22,.06), 3px 3px 0 #101116;
+}
+.guide-step .num{
+  width:34px;height:34px;border-radius:12px;
+  display:grid;place-items:center;
+  font-weight:1000;
+  border:2px solid #101116;
+  margin-bottom:8px;
+  background:#fff;
+}
+.guide-step:nth-child(1) .num{background:#FFD860}
+.guide-step:nth-child(2) .num{background:#7CE5B9}
+.guide-step:nth-child(3) .num{background:#F7A7D0}
+.guide-step b{display:block;font-size:13px;margin-bottom:4px}
+.guide-step span{display:block;font-size:11.5px;font-weight:800;line-height:1.55;color:#374151}
+
+.hero-main,.hero-stats,.scan-panel,.facts-panel,.hear-panel,.task-badge,.listen-part-badge,.info-tile,.fact-line,.guide-mini,.question-card,.task-btn,.task-badge,.topic-item,.planner-box,.note-card,.tip-item,.part-audio,.dialogue-audio,.summary-tile,.crit-tile{
+  border-radius:20px!important;
+}
+.hero-main,.hero-stats,.scan-panel,.facts-panel,.hear-panel,.task-badge,.listen-part-badge,.info-tile,.fact-line,.guide-mini,.question-card,.task-btn,.topic-item,.planner-box,.note-card,.tip-item,.part-audio,.dialogue-audio,.summary-tile,.crit-tile{
+  box-shadow:0 8px 16px rgba(16,17,22,.06), 4px 4px 0 #101116!important;
+}
+.hero-main{
+  padding:26px!important;
+}
+.hero-main h1{
+  margin-bottom:12px!important;
+}
+.hero-main p{
+  font-size:14px!important;
+  line-height:1.6!important;
+}
+.hero-art{
+  width:128px!important;height:128px!important;border-radius:30px!important;
+  background:linear-gradient(180deg,#ffffff 0%, #f2f4ff 100%)!important;
+}
+.hero-emoji{font-size:60px; line-height:1; display:block; animation:floatEmoji 2.6s ease-in-out infinite;}
+@keyframes floatEmoji{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+.scan-step,.hear-step,.prep-b,.peel-b{
+  border-radius:18px!important;
+  padding:14px 10px!important;
+  min-height:92px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  box-shadow:0 6px 14px rgba(16,17,22,.06), 3px 3px 0 #101116!important;
+}
+.scan-step b,.hear-step b,.prep-b,.peel-b{
+  margin-bottom:6px!important;
+}
+.scan-step small,.hear-step small,.prep-b small,.peel-b small,
+.scan-step .scan-step-desc,.hear-step .hear-step-desc{
+  font-size:10.5px!important;
+  line-height:1.45!important;
+  opacity:1!important;
+}
+.fact-line{
+  padding:12px 14px!important;
+  grid-template-columns:42px 1fr!important;
+  background:#fff!important;
+}
+.fact-line:nth-child(1){background:#eef3ff!important}
+.fact-line:nth-child(2){background:#ebfff5!important}
+.fact-line:nth-child(3){background:#fff2f8!important}
+
+.img-fallback{
+  width:32px;height:32px;border-radius:12px;border:2px solid #101116;background:#fff;
+  display:grid;place-items:center;font-size:18px;box-shadow:2px 2px 0 #101116
+}
+.fact-line img,.part-icon img,.hero-art img{border-radius:10px}
+.guide-mini{
+  background:#fff!important;
+}
+.guide-mini b::before{content:"✨ ";}
+
+.flow-step-head,.standard-language-head,.reading-standard-sections summary{
+  background:linear-gradient(180deg,#ffffff 0%, #f8f8ff 100%);
+}
+.flow-body,.standard-language-body,.reading-standard-sections .std-body{
+  background:#fff;
+}
+.flow-step-head b,.standard-language-head b,.reading-standard-sections summary span{
+  font-size:18px;
+}
+.flow-step-head small,.standard-language-head small,.reading-standard-sections summary small{
+  font-size:12px!important;
+  line-height:1.45;
+}
+.step-num,.std-num{
+  border-radius:14px!important;
+}
+
+.language-card{
+  background:linear-gradient(180deg,#ffffff 0%,#fafcff 100%);
+}
+.language-card b::before{content:"💬 ";}
+
+.part-card-head,.standard-language-head{
+  align-items:flex-start!important;
+}
+.part-card-head h3,.standard-footer-nav h2{
+  line-height:1.25!important;
+}
+.part-audio,.dialogue-audio{
+  background:linear-gradient(180deg,#111827 0%, #1f2940 100%)!important;
+}
+.part-audio-title::before{content:"🔊 "}
+
+.option{
+  border-radius:14px!important;
+}
+.question-card p,.question-card span{
+  line-height:1.55!important;
+}
+.review-item{
+  background:#fffdf6;
+  border:2px dashed rgba(16,17,22,.12);
+  border-radius:14px;
+  padding:10px 12px!important;
+}
+.standard-footer-nav{
+  background:linear-gradient(180deg,#e9fffa 0%, #c9fff1 100%)!important;
+}
+.standard-footer-buttons a{
+  border-radius:18px!important;
+  min-height:58px!important;
+}
+
+@media(max-width:900px){
+  .guide-steps{grid-template-columns:1fr}
+  .standard-flow-chip::after{display:none}
+}
+</style>
+
 </head>
 <body>
 <main class="app-shell">
@@ -169,13 +457,38 @@ details.more-guide summary::-webkit-details-marker{display:none}
     <button class="icon-btn" aria-label="Listening guide">🎧</button>
   </div>
 
-  <div class="listen-wrap">
+  <nav class="component-roadmap"><a href="speaking.html" class=""><span>🎤 Speaking<span class="state">Open component</span></span></a><a href="listening.html" class="current"><span>🎧 Listening<span class="state">Current component</span></span></a><a href="reading.html" class=""><span>📖 Reading<span class="state">Open component</span></span></a><a href="writing.html" class=""><span>✍️ Writing<span class="state">Open component</span></span></a></nav><div class="page-jump-actions"><button class="btn yellow" onclick="document.querySelector('.flow-step, .reading-standard-sections')?.scrollIntoView({behavior:'smooth'})">Learn the Technique</button><button class="btn green" onclick="document.querySelector('.practice-shell, .task-switcher, [id=&quot;s4&quot;], [id=&quot;s5&quot;]')?.scrollIntoView({behavior:'smooth'})">Go Directly to Practice</button></div><section class="standard-flow-note"><div class="section-kicker">Standard Learning Sequence</div><h2>Listening page overview</h2><p>Follow the same five-step flow used throughout Smart MUET.</p><div class="standard-flow-strip"><div class="standard-flow-chip"><b>1</b>Before You Start</div><div class="standard-flow-chip"><b>2</b>Tips &amp; HEAR</div><div class="standard-flow-chip"><b>3</b>Worked Sample</div><div class="standard-flow-chip"><b>4</b>Language Support</div><div class="standard-flow-chip"><b>5</b>Your Practice</div></div></section>
+
+<section class="process-guide">
+  <div class="guide-alert"><span class="pulse"></span> Smart Flow · Follow the steps one by one</div>
+  <h3>🎧 How to use this Listening page</h3>
+  <p>🎧 Listen carefully and use HEAR. Focus on clues, corrections and paraphrases.</p>
+  <div class="guide-steps">
+    <div class="guide-step">
+      <div class="num">1</div>
+      <b>Start here</b>
+      <span>Read the overview card first 👉 understand the test format, marks and important reminders.</span>
+    </div>
+    <div class="guide-step">
+      <div class="num">2</div>
+      <b>Learn the method</b>
+      <span>Study the technique section carefully ➜ then review the worked sample and language support.</span>
+    </div>
+    <div class="guide-step">
+      <div class="num">3</div>
+      <b>Go to practice</b>
+      <span>➡️ Open the audio inside each part, answer the questions, then submit to view answers. ✅ Finally submit and read the feedback before moving to the next component.</span>
+    </div>
+  </div>
+</section>
+
+<div class="listen-wrap">
     <section class="listen-hero">
       <div class="hero-main">
         <div>
           <div class="section-kicker">MUET Listening Guide</div>
-          <h1>Listen once<br>with HEAR.</h1>
-          <p>Play each part's audio, answer as you go, then view the official answers and explanations after submission.</p>
+          <h1>Listen closely<br>with HEAR.</h1>
+          <p>Play each part’s audio, answer step by step, then submit to view the official answers and explanations.</p>
         </div>
         <div class="hero-art"><img src="assets/heroes/small-muet-logo.svg" alt="Smart MUET Guide"></div>
       </div>
@@ -293,7 +606,7 @@ details.more-guide summary::-webkit-details-marker{display:none}
     <div class="flow-step" id="step2">
       <div class="flow-step-head" onclick="S.toggle(2)">
         <div class="step-num" style="background:var(--listen-orange)">2</div>
-        <div style="flex:1"><b>Tips &amp; Tricks</b><br><small style="color:var(--muted)">HEAR strategy before you practise</small></div>
+        <div style="flex:1"><b>Tips &amp; Technique</b><br><small style="color:var(--muted)">HEAR strategy before you practise</small></div>
         <span class="chev" id="chev2">▾</span>
       </div>
       <div class="flow-body" id="body2">
@@ -351,7 +664,7 @@ details.more-guide summary::-webkit-details-marker{display:none}
     <div class="flow-step" id="step3">
       <div class="flow-step-head" onclick="S.toggle(3)">
         <div class="step-num" style="background:var(--listen-green)">3</div>
-        <div style="flex:1"><b>Sample Answer</b><br><small style="color:var(--muted)">See how HEAR finds the correct option</small></div>
+        <div style="flex:1"><b>Worked Sample</b><br><small style="color:var(--muted)">See how HEAR finds the correct option</small></div>
         <span class="chev" id="chev3">▾</span>
       </div>
       <div class="flow-body" id="body3">
@@ -380,7 +693,7 @@ details.more-guide summary::-webkit-details-marker{display:none}
     <div class="flow-step" id="step4">
       <div class="flow-step-head" onclick="S.toggle(4)">
         <div class="step-num" style="background:var(--listen-pink)">4</div>
-        <div style="flex:1"><b>Phrase Bank</b><br><small style="color:var(--muted)">Signal words to listen for</small></div>
+        <div style="flex:1"><b>Signal Word Bank</b><br><small style="color:var(--muted)">Signal words to listen for</small></div>
         <span class="chev" id="chev4">▾</span>
       </div>
       <div class="flow-body" id="body4">
@@ -451,10 +764,11 @@ details.more-guide summary::-webkit-details-marker{display:none}
       </div>
     </div>
   </div>
+<section class="standard-footer-nav"><div class="footer-kicker">Continue Your Smart MUET Journey</div><h2>Listening complete — choose your next step</h2><div class="standard-footer-buttons"><a href="speaking.html">← Previous: Speaking</a><a class="menu" href="index.html">⌂ Back to Main Menu</a><a class="next" href="reading.html">Next: Reading →</a></div></section>
 </section>
 </main>
 <div id="toast" class="toast"></div>
-<script src="js/muet-shared.js?v=20260729-1"></script>
+<script src="js/muet-shared.js?v=20260729-std1"></script>
 <script>
 const TRACKS=[{"name": "Track 1", "view": "https://drive.google.com/file/d/1QQj-1FvvZUddWZwo8LeipWk55mPePYum/view", "stream": "https://drive.google.com/uc?export=download&id=1QQj-1FvvZUddWZwo8LeipWk55mPePYum"}, {"name": "Track 2", "view": "https://drive.google.com/file/d/112QBpHeyqud6f4UjBy_F_-HDJnWLmTYP/view", "stream": "https://drive.google.com/uc?export=download&id=112QBpHeyqud6f4UjBy_F_-HDJnWLmTYP"}, {"name": "Track 3", "view": "https://drive.google.com/file/d/1JVpMKOYpyvKUVy7-2gwcpUIpXfEHQC2K/view", "stream": "https://drive.google.com/uc?export=download&id=1JVpMKOYpyvKUVy7-2gwcpUIpXfEHQC2K"}, {"name": "Track 4", "view": "https://drive.google.com/file/d/16hCkjfiQSaVwvTyC-1kx7GV1liFq013h/view", "stream": "https://drive.google.com/uc?export=download&id=16hCkjfiQSaVwvTyC-1kx7GV1liFq013h"}, {"name": "Track 5", "view": "https://drive.google.com/file/d/1-LEHYtc22LskHNUe32tC7bqio6jLS6F6/view", "stream": "https://drive.google.com/uc?export=download&id=1-LEHYtc22LskHNUe32tC7bqio6jLS6F6"}, {"name": "Track 6", "view": "https://drive.google.com/file/d/1tgXGA_NX-UuQe-MdCZFQb2zPN0QKs2LV/view", "stream": "https://drive.google.com/uc?export=download&id=1tgXGA_NX-UuQe-MdCZFQb2zPN0QKs2LV"}, {"name": "Track 7", "view": "https://drive.google.com/file/d/1iFzDIUACYJMhhzZsX45RERBKvSNmFBk-/view", "stream": "https://drive.google.com/uc?export=download&id=1iFzDIUACYJMhhzZsX45RERBKvSNmFBk-"}, {"name": "Track 8", "view": "https://drive.google.com/file/d/1AZRh_FI-yGae-MI-o1MR-kw02RvHeqhu/view", "stream": "https://drive.google.com/uc?export=download&id=1AZRh_FI-yGae-MI-o1MR-kw02RvHeqhu"}, {"name": "Track 9", "view": "https://drive.google.com/file/d/1MD-FtTZuYOS1czO_AP_oK2sUZXNQOyiA/view", "stream": "https://drive.google.com/uc?export=download&id=1MD-FtTZuYOS1czO_AP_oK2sUZXNQOyiA"}];
 const QUESTIONS=[{"part": "Part I", "q": 1, "text": "Leanne is happy because she can", "options": {"A": "bring her pet to school", "B": "be in charge of her club", "C": "talk to Amir about her pet"}, "answer": "A", "explanation": "Leanne is happy because she is able to bring her pet to school."}, {"part": "Part I", "q": 2, "text": "Leanne agrees with Amir that tortoises are", "options": {"A": "rare as pets", "B": "famous in movies", "C": "popular nowadays"}, "answer": "A", "explanation": "Leanne agrees that tortoises are rare as pets."}, {"part": "Part I", "q": 3, "text": "Tito lives in the garden because he", "options": {"A": "smells", "B": "is a pet", "C": "has a house"}, "answer": "A", "explanation": "Tito stays in the garden because the family considers him smelly."}, {"part": "Part I", "q": 4, "text": "Tito’s house was easy to build because", "options": {"A": "it was a simple design", "B": "the family built it together", "C": "Leanne’s father is a good builder"}, "answer": "B", "explanation": "The house was easy to build because the family worked together."}, {"part": "Part I", "q": 5, "text": "Leanne covered the floor with stones to", "options": {"A": "decorate the floor", "B": "let Tito move easily", "C": "protect Tito from the weather"}, "answer": "B", "explanation": "The stones made it easier for Tito to move around."}, {"part": "Part I", "q": 6, "text": "Amir is surprised that tortoises are", "options": {"A": "easy to love", "B": "sensitive to touch", "C": "born with hard skin"}, "answer": "B", "explanation": "Amir is surprised that tortoises are sensitive to touch."}, {"part": "Part I", "q": 7, "text": "Which picture shows the correct position of The Pet Club’s table in the hall?", "options": {"A": "Layout A", "B": "Layout B", "C": "Layout C"}, "answer": "C", "explanation": "The Pet Club table is on the right side of the hall, between the Green Earth Club and the Save Our Rivers Club.", "diagram": "petclub"}, {"part": "Part II", "q": 8, "text": "Dr Yusof went to a primary school in", "options": {"A": "Perak", "B": "Negeri Sembilan", "C": "the United Kingdom"}, "answer": "B", "explanation": "Dr Yusof attended primary school in Negeri Sembilan."}, {"part": "Part II", "q": 9, "text": "Dr Yusof’s first job was at", "options": {"A": "KL University", "B": "Charles University", "C": "Elizabeth University"}, "answer": "A", "explanation": "The official key identifies KL University as his first workplace."}, {"part": "Part II", "q": 10, "text": "Who encouraged Dr Yusof to succeed in education?", "options": {"A": "His parents", "B": "His teachers", "C": "His grandmother"}, "answer": "A", "explanation": "The official key identifies his parents as the people who encouraged him."}, {"part": "Part II", "q": 11, "text": "Dr Yusof’s father took the extra effort to learn English by", "options": {"A": "reading the newspaper daily", "B": "carrying books to the school office", "C": "volunteering to clean his teacher’s house"}, "answer": "C", "explanation": "His father volunteered to clean his teacher’s house to create opportunities to practise English."}, {"part": "Part II", "q": 12, "text": "During his A-Level, Dr Yusof used his weekends to", "options": {"A": "assist his classmates", "B": "do part-time teaching", "C": "complete assignments"}, "answer": "C", "explanation": "He used weekends to complete his assignments."}, {"part": "Part II", "q": 13, "text": "While doing his postgraduate studies, Dr Yusof", "options": {"A": "studied every day", "B": "avoided working part-time", "C": "balanced his study and work"}, "answer": "C", "explanation": "He balanced his studies with work."}, {"part": "Part II", "q": 14, "text": "The most important advice to the new students is to", "options": {"A": "learn from your friends", "B": "join many student activities", "C": "aim high in whatever you do"}, "answer": "C", "explanation": "His final advice is to aim high in whatever you do."}, {"part": "Part III", "q": 15, "text": "Lina’s main reason for travelling", "options": {"A": "To become more creative", "B": "To make new friends", "C": "To learn new languages", "D": "To have new experiences", "E": "To escape a routine life"}, "answer": "E", "explanation": "Lina travels to escape a routine life."}, {"part": "Part III", "q": 16, "text": "Saiful’s main reason for travelling", "options": {"A": "To become more creative", "B": "To make new friends", "C": "To learn new languages", "D": "To have new experiences", "E": "To escape a routine life"}, "answer": "D", "explanation": "Saiful travels to have new experiences."}, {"part": "Part III", "q": 17, "text": "Sarah’s main reason for travelling", "options": {"A": "To become more creative", "B": "To make new friends", "C": "To learn new languages", "D": "To have new experiences", "E": "To escape a routine life"}, "answer": "B", "explanation": "Sarah travels to make new friends."}, {"part": "Part IV", "q": 18, "text": "Memorisation process occurs when you", "options": {"A": "make a grocery list", "B": "stand at the supermarket", "C": "study for an examination"}, "answer": "C", "explanation": "Studying for an examination involves memorisation."}, {"part": "Part IV", "q": 19, "text": "Dr Ruben’s tips on memorisation are based on what we", "options": {"A": "did as young children", "B": "learnt at nursery school", "C": "went through as children"}, "answer": "A", "explanation": "His tips are based on activities we did as young children."}, {"part": "Part IV", "q": 20, "text": "We use both types of memory to", "options": {"A": "construct answers", "B": "recall information", "C": "remember concepts"}, "answer": "B", "explanation": "Short-term and long-term memory work together to recall information."}, {"part": "Part IV", "q": 21, "text": "To use the word association technique, Dr Ruben suggests", "options": {"A": "naming your pet dog", "B": "using familiar words", "C": "reading a science concept"}, "answer": "B", "explanation": "Word association works by linking new information with familiar words."}, {"part": "Part IV", "q": 22, "text": "It is easy to remember dates when you imagine the", "options": {"A": "lists on the wall", "B": "graffiti on the wall", "C": "images on the wall"}, "answer": "B", "explanation": "The date is remembered by imagining graffiti on the wall."}, {"part": "Part IV", "q": 23, "text": "Dr Ruben claims that singing is", "options": {"A": "useful for tricking your mind", "B": "better than reading a text aloud", "C": "effective when learning new concepts"}, "answer": "C", "explanation": "Singing is effective for learning new concepts."}, {"part": "Part IV", "q": 24, "text": "The best method for “Teach it” is to", "options": {"A": "teach your group members", "B": "pretend teaching your friends", "C": "record a video of yourself teaching"}, "answer": "C", "explanation": "The recommended method is to record a video of yourself teaching."}, {"part": "Part V — Dialogue 1", "q": 25, "text": "The Thai rescuers reported that the whale was", "options": {"A": "sheltered by umbrellas", "B": "stuck in the river mouth", "C": "covered with plastic bags"}, "answer": "B", "explanation": "The whale was stuck in the river mouth."}, {"part": "Part V — Dialogue 1", "q": 26, "text": "To reduce the use of plastic, we should", "options": {"A": "buy things in large quantities", "B": "avoid shopping at supermarkets", "C": "use metal straws and containers"}, "answer": "C", "explanation": "Reusable metal straws and containers reduce plastic use."}, {"part": "Part V — Dialogue 2", "q": 27, "text": "According to Fatima, the house was preserved to", "options": {"A": "honour the village chief", "B": "restore the oldest traditional Malay house", "C": "prevent further damage to a national treasure"}, "answer": "C", "explanation": "The house was preserved to prevent further damage to a national treasure."}, {"part": "Part V — Dialogue 2", "q": 28, "text": "The traditional house was not just a family house because it", "options": {"A": "served the family and community", "B": "functioned as an entertainment centre", "C": "exhibited traditional Malay culture and history"}, "answer": "A", "explanation": "The house served both the family and the community."}, {"part": "Part V — Dialogue 3", "q": 29, "text": "People gain weight from drinking bubble tea because it mainly contains", "options": {"A": "sugar", "B": "trans fat", "C": "carbohydrate"}, "answer": "A", "explanation": "Bubble tea mainly contains a large amount of sugar."}, {"part": "Part V — Dialogue 3", "q": 30, "text": "A hidden danger of trans fat is it", "options": {"A": "raises the cholesterol level", "B": "increases the risk of diabetes", "C": "affects the reproductive system"}, "answer": "C", "explanation": "The hidden danger highlighted is its effect on the reproductive system."}];
@@ -629,5 +943,48 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('chev1').classList.add('open');
 });
 </script>
+
+<script id="v5-enhanced-cards-js">
+document.addEventListener('DOMContentLoaded', ()=>{
+  const heroEmoji = '🎧';
+  const factEmojis = ['💡','✅','🧭','📌','📝','🔎','⏱️','📘','🎯'];
+  const partEmojis = ['🎧','📖','✍️','🎤','🗂️','📚'];
+
+  function replaceWithEmoji(el, emoji){
+    if(!el) return;
+    const span = document.createElement('span');
+    span.className = 'img-fallback';
+    span.textContent = emoji;
+    el.replaceWith(span);
+  }
+
+  const heroArt = document.querySelector('.hero-art');
+  if(heroArt){
+    const heroImg = heroArt.querySelector('img');
+    if(!heroImg || !heroImg.complete || heroImg.naturalWidth === 0){
+      heroArt.innerHTML = '<span class="hero-emoji">'+ heroEmoji +'</span>';
+    }else{
+      heroImg.onerror = ()=> heroArt.innerHTML = '<span class="hero-emoji">'+ heroEmoji +'</span>';
+    }
+  }
+
+  document.querySelectorAll('.fact-line img').forEach((img, idx)=>{
+    if(!img.complete || img.naturalWidth === 0){
+      replaceWithEmoji(img, factEmojis[idx % factEmojis.length]);
+    }else{
+      img.onerror = ()=> replaceWithEmoji(img, factEmojis[idx % factEmojis.length]);
+    }
+  });
+
+  document.querySelectorAll('.part-icon img').forEach((img, idx)=>{
+    if(!img.complete || img.naturalWidth === 0){
+      replaceWithEmoji(img, partEmojis[idx % partEmojis.length]);
+    }else{
+      img.onerror = ()=> replaceWithEmoji(img, partEmojis[idx % partEmojis.length]);
+    }
+  });
+});
+</script>
+
 </body>
 </html>
