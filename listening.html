@@ -10,8 +10,8 @@
 <link rel="stylesheet" href="css/responsive-fix.css?v=20260729-std1">
 <style>
 :root{
-  --listen-blue:#3854F5;--listen-green:#19D39A;--listen-yellow:#FFCA3A;
-  --listen-pink:#F76BB2;--listen-purple:#9C78FF;--listen-orange:#FF7043;
+  --listen-blue:#215CF5;--listen-green:#27D58A;--listen-yellow:#FFD23F;
+  --listen-pink:#F56AB4;--listen-purple:#8F67FF;--listen-orange:#FF6236;
   --listen-teal:#18C7BA;--listen-soft:#F7F7FB;
 }
 *{box-sizing:border-box}
@@ -217,8 +217,8 @@ details.more-guide summary::-webkit-details-marker{display:none}
   font-weight:1000!important;
   font-size:14px!important;
 }
-.page-jump-actions .btn:first-child{background:linear-gradient(180deg,#fff6ce 0%,#ffd860 100%)!important}
-.page-jump-actions .btn:last-child{background:linear-gradient(180deg,#dffcf3 0%,#7ce5b9 100%)!important}
+.page-jump-actions .btn:first-child{background:var(--neo-yellow)!important}
+.page-jump-actions .btn:last-child{background:var(--neo-green)!important}
 
 .standard-flow-note,
 .process-guide,
@@ -416,7 +416,7 @@ details.more-guide summary::-webkit-details-marker{display:none}
   line-height:1.25!important;
 }
 .part-audio,.dialogue-audio{
-  background:linear-gradient(180deg,#111827 0%, #1f2940 100%)!important;
+  background:var(--neo-black)!important;
 }
 .part-audio-title::before{content:"🔊 "}
 
@@ -536,7 +536,7 @@ body{
   color:var(--neo-white)!important;
 }
 .hero-main{background:var(--neo-orange)!important}
-.reading-wrap .hero-main,.reading-overview-main,.read-hero,.reading-hero,.scan-panel{background:var(--neo-green)!important}
+.reading-wrap .hero-main,.reading-overview-main,.read-hero,.reading-hero{background:var(--neo-green)!important}
 .listen-wrap .hero-main,.hear-panel,.listening-hero{background:var(--neo-blue)!important}
 .writing-overview-main{background:var(--neo-pink)!important}
 .writing-overview-icon,.hero-art{
@@ -619,13 +619,8 @@ body{
 .model-section.link .model-tag{background:var(--neo-pink)!important}
 .model-section.conclusion .model-tag{background:var(--neo-purple)!important;color:#fff!important}
 
-/* Responsive readability */
-body, p, li, button, textarea, input, small{
-  font-size:1rem!important;
-}
-@media (max-width:768px){
-  body{font-size:1rem!important}
-}
+/* Prevent iOS zoom on form focus, without overriding designed text hierarchy */
+textarea, input{font-size:16px}
 </style>
 
 </head>

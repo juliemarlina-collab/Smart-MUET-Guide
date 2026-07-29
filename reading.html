@@ -9,8 +9,8 @@
   <link rel="stylesheet" href="css/muet-guide.css?v=20260729-std1"/>
   <style>
     :root{
-      --read-blue:#3D50F5;--read-green:#18D18F;--read-yellow:#FFCA3A;
-      --read-pink:#F76BB3;--read-purple:#9B7BFF;--read-orange:#FF5A36;
+      --read-blue:#215CF5;--read-green:#27D58A;--read-yellow:#FFD23F;
+      --read-pink:#F56AB4;--read-purple:#8F67FF;--read-orange:#FF6236;
       --read-teal:#18C7B5;--read-soft:#F7F7FB;
     }
     *{box-sizing:border-box}
@@ -162,8 +162,8 @@
   font-weight:1000!important;
   font-size:14px!important;
 }
-.page-jump-actions .btn:first-child{background:linear-gradient(180deg,#fff6ce 0%,#ffd860 100%)!important}
-.page-jump-actions .btn:last-child{background:linear-gradient(180deg,#dffcf3 0%,#7ce5b9 100%)!important}
+.page-jump-actions .btn:first-child{background:var(--neo-yellow)!important}
+.page-jump-actions .btn:last-child{background:var(--neo-green)!important}
 
 .standard-flow-note,
 .process-guide,
@@ -361,7 +361,7 @@
   line-height:1.25!important;
 }
 .part-audio,.dialogue-audio{
-  background:linear-gradient(180deg,#111827 0%, #1f2940 100%)!important;
+  background:var(--neo-black)!important;
 }
 .part-audio-title::before{content:"🔊 "}
 
@@ -564,13 +564,60 @@ body{
 .model-section.link .model-tag{background:var(--neo-pink)!important}
 .model-section.conclusion .model-tag{background:var(--neo-purple)!important;color:#fff!important}
 
-/* Responsive readability */
-body, p, li, button, textarea, input, small{
-  font-size:1rem!important;
-}
-@media (max-width:768px){
-  body{font-size:1rem!important}
-}
+/* Prevent iOS zoom on form focus, without overriding designed text hierarchy */
+textarea, input{font-size:16px}
+
+/* ===== 5-step guided flow (restored — mirrors listening.html/speaking.html's flow-step accordion) ===== */
+.flow-step{background:white;border:var(--line);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+.flow-step-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;font-weight:1000;user-select:none}
+.flow-step-head:active{background:rgba(0,0,0,.04)}
+.step-num{width:38px;height:38px;border:var(--line);border-radius:50%;background:var(--read-yellow);display:grid;place-items:center;font-weight:1000;font-size:16px;flex-shrink:0;box-shadow:2px 2px 0 var(--ink)}
+.flow-body{display:none;padding:14px 16px 18px;border-top:2px solid rgba(0,0,0,.07)}
+.flow-body.open{display:block}
+.chev{margin-left:auto;font-size:16px;transition:transform .2s}
+.chev.open{transform:rotate(180deg)}
+
+.scan-panel{color:#fff}
+.scan-panel>b{color:#fff}
+.scan-intro{font-size:11px;font-weight:750;color:rgba(255,255,255,.85);margin-top:5px;line-height:1.5}
+.scan-step-desc{display:block;font-size:9.5px;font-weight:700;line-height:1.4;opacity:.8;margin-top:4px}
+
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0 12px}
+.info-tile{border:var(--line);border-radius:16px;padding:12px 10px;text-align:center;box-shadow:3px 3px 0 var(--ink)}
+.info-tile .big{font-family:"Sora";font-size:22px;font-weight:800;display:block}
+.info-tile .lbl{font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);display:block;margin-top:3px}
+.info-tile.blue{background:var(--read-blue);color:white}.info-tile.blue .lbl{color:rgba(255,255,255,.7)}
+
+.reading-part-badges{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin:10px 0}
+.reading-part-badge{border:var(--line);border-radius:14px;padding:9px 5px;text-align:center;box-shadow:3px 3px 0 var(--ink)}
+.reading-part-badge .icon{font-size:19px;display:block}
+.reading-part-badge b{font-family:"Sora";font-size:11px;display:block;margin-top:3px}
+.reading-part-badge small{font-size:9px;font-weight:900;display:block;margin-top:2px;line-height:1.3}
+.reading-part-badge.rpb-1{background:var(--read-blue);color:#fff}.reading-part-badge.rpb-1 small{color:rgba(255,255,255,.75)}
+.reading-part-badge.rpb-2{background:var(--read-green)}
+.reading-part-badge.rpb-3{background:var(--read-yellow)}
+.reading-part-badge.rpb-4{background:var(--read-orange);color:#fff}.reading-part-badge.rpb-4 small{color:rgba(255,255,255,.75)}
+.reading-part-badge.rpb-5{background:var(--read-pink)}
+.reading-part-badge.rpb-6{background:var(--read-purple)}
+.reading-part-badge.rpb-7{background:var(--read-teal)}
+
+.fn-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.fn-chip{border:2px solid var(--ink);border-radius:12px;padding:8px 10px;font-size:12px;font-weight:900;display:flex;align-items:center;gap:8px;background:white}
+.fn-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;border:2px solid var(--ink)}
+
+.phrase-bank{background:var(--read-blue);border:var(--line);border-radius:18px;padding:16px}
+.phrase-section{background:rgba(255,255,255,.12);border-radius:12px;padding:12px;margin-bottom:8px}
+.phrase-section:last-child{margin-bottom:0}
+.phrase-label{font-size:10px;font-weight:1000;text-transform:uppercase;color:rgba(255,255,255,.65);letter-spacing:.1em;margin-bottom:6px}
+.phrase-text{font-size:13px;font-weight:800;color:white;line-height:1.65}
+.phrase-avoid{background:rgba(239,68,68,.25);border-radius:12px;padding:10px 12px;margin-top:8px}
+
+.next-btn{display:none;background:var(--read-yellow);border:var(--line);border-radius:14px;box-shadow:var(--shadow);padding:13px 16px;font-weight:1000;cursor:pointer;width:100%;margin-top:10px;font-size:14px}
+.next-btn.show{display:block}
+.next-btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+
+@media(max-width:900px){.reading-part-badges{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:620px){.info-grid{grid-template-columns:repeat(2,1fr)}.reading-part-badges{grid-template-columns:repeat(2,1fr)}.fn-grid{grid-template-columns:1fr}}
 </style>
 
 </head>
@@ -634,11 +681,12 @@ body, p, li, button, textarea, input, small{
       <div class="essentials-grid">
         <div class="scan-panel">
           <b>SCAN technique</b>
+          <p class="scan-intro">Run through these four steps for every question — SCAN keeps you anchored to the text instead of guessing from memory.</p>
           <div class="scan-row">
-            <div class="scan-step"><b>S</b>Study the question</div>
-            <div class="scan-step"><b>C</b>Circle keywords</div>
-            <div class="scan-step"><b>A</b>Analyse the text</div>
-            <div class="scan-step"><b>N</b>Narrow choices</div>
+            <div class="scan-step"><b>S</b>Study the question<span class="scan-step-desc">Know what you're looking for before you read.</span></div>
+            <div class="scan-step"><b>C</b>Circle keywords<span class="scan-step-desc">Pick the exact word or number to scan for.</span></div>
+            <div class="scan-step"><b>A</b>Analyse the text<span class="scan-step-desc">Read closely around where the keyword appears.</span></div>
+            <div class="scan-step"><b>N</b>Narrow choices<span class="scan-step-desc">Eliminate options the text doesn't support.</span></div>
           </div>
         </div>
         <div class="facts-panel">
@@ -665,6 +713,206 @@ body, p, li, button, textarea, input, small{
       </details>
     </section>
 
+    <!-- STEP 1: BEFORE YOU START -->
+    <div class="flow-step" id="step1">
+      <div class="flow-step-head" onclick="S.toggle(1)">
+        <div class="step-num">1</div>
+        <div style="flex:1">
+          <b>Before You Start</b>
+          <br><small style="color:var(--muted)">What Reading 800/3 tests</small>
+        </div>
+        <span class="chev open" id="chev1">▾</span>
+      </div>
+      <div class="flow-body open" id="body1">
+        <div class="info-grid">
+          <div class="info-tile blue"><span class="big">7</span><span class="lbl">Parts</span></div>
+          <div class="info-tile blue"><span class="big">40</span><span class="lbl">Questions</span></div>
+          <div class="info-tile blue"><span class="big">75</span><span class="lbl">Minutes</span></div>
+          <div class="info-tile blue"><span class="big">25%</span><span class="lbl">of MUET</span></div>
+        </div>
+
+        <div class="reading-part-badges">
+          <div class="reading-part-badge rpb-1"><span class="icon">🏢</span><b>Part 1</b><small>3 texts<br>Q1–4</small></div>
+          <div class="reading-part-badge rpb-2"><span class="icon">🐭</span><b>Part 2</b><small>Story<br>Q5–9</small></div>
+          <div class="reading-part-badge rpb-3"><span class="icon">🛕</span><b>Part 3</b><small>Recount<br>Q10–14</small></div>
+          <div class="reading-part-badge rpb-4"><span class="icon">🌍</span><b>Part 4</b><small>2 texts<br>Q15–20</small></div>
+          <div class="reading-part-badge rpb-5"><span class="icon">🧩</span><b>Part 5</b><small>Gapped text<br>Q21–26</small></div>
+          <div class="reading-part-badge rpb-6"><span class="icon">🏔️</span><b>Part 6</b><small>Memoir<br>Q27–33</small></div>
+          <div class="reading-part-badge rpb-7"><span class="icon">📰</span><b>Part 7</b><small>Article<br>Q34–40</small></div>
+        </div>
+
+        <div style="background:#f0f9ff;border:2px solid var(--ink);border-radius:16px;padding:14px;margin-top:10px">
+          <p style="font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px">🎯 WHAT TO LOOK FOR</p>
+          <div class="fn-grid">
+            <div class="fn-chip"><div class="fn-dot" style="background:var(--read-blue)"></div>Main idea</div>
+            <div class="fn-chip"><div class="fn-dot" style="background:var(--read-orange)"></div>Specific detail</div>
+            <div class="fn-chip"><div class="fn-dot" style="background:var(--read-green)"></div>Inference</div>
+            <div class="fn-chip"><div class="fn-dot" style="background:var(--read-pink)"></div>Vocabulary in context</div>
+            <div class="fn-chip"><div class="fn-dot" style="background:var(--read-yellow)"></div>Reference (pronouns)</div>
+            <div class="fn-chip"><div class="fn-dot" style="background:var(--ink)"></div>Tone &amp; purpose</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+          <div style="background:var(--read-yellow);border:var(--line);border-radius:14px;padding:10px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
+            <div style="font-size:18px">🔍</div>
+            <div style="font-size:12px;font-weight:1000;margin-top:4px">Detail</div>
+            <div style="font-size:10px;font-weight:800;color:rgba(0,0,0,.55);margin-top:2px">Facts stated directly in the text</div>
+          </div>
+          <div style="background:var(--read-green);border:var(--line);border-radius:14px;padding:10px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
+            <div style="font-size:18px">🧭</div>
+            <div style="font-size:12px;font-weight:1000;margin-top:4px">Main Idea</div>
+            <div style="font-size:10px;font-weight:800;color:rgba(0,0,0,.55);margin-top:2px">What the whole passage is about</div>
+          </div>
+          <div style="background:#fce7f3;border:var(--line);border-radius:14px;padding:10px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
+            <div style="font-size:18px">💭</div>
+            <div style="font-size:12px;font-weight:1000;margin-top:4px">Inference</div>
+            <div style="font-size:10px;font-weight:800;color:rgba(0,0,0,.55);margin-top:2px">What is implied, not stated</div>
+          </div>
+          <div style="background:#dbeafe;border:var(--line);border-radius:14px;padding:10px;text-align:center;box-shadow:3px 3px 0 var(--ink)">
+            <div style="font-size:18px">📖</div>
+            <div style="font-size:12px;font-weight:1000;margin-top:4px">Vocabulary</div>
+            <div style="font-size:10px;font-weight:800;color:rgba(0,0,0,.55);margin-top:2px">Meaning from surrounding context</div>
+          </div>
+        </div>
+
+        <button class="next-btn show" onclick="S.next(2)">I understand — go to Tips &amp; Technique →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: TIPS & TECHNIQUE -->
+    <div class="flow-step" id="step2">
+      <div class="flow-step-head" onclick="S.toggle(2)">
+        <div class="step-num" style="background:var(--read-orange)">2</div>
+        <div style="flex:1"><b>Tips &amp; Technique</b><br><small style="color:var(--muted)">SCAN strategy before you practise</small></div>
+        <span class="chev" id="chev2">▾</span>
+      </div>
+      <div class="flow-body" id="body2">
+        <div class="scan-row" style="margin-top:0">
+          <div class="scan-step"><b>S</b>Study</div>
+          <div class="scan-step"><b>C</b>Circle</div>
+          <div class="scan-step"><b>A</b>Analyse</div>
+          <div class="scan-step"><b>N</b>Narrow</div>
+        </div>
+
+        <div style="display:grid;gap:8px;margin-top:10px">
+          <div style="background:#dbeafe;border:2px solid var(--ink);border-radius:14px;padding:12px;box-shadow:3px 3px 0 var(--ink)">
+            <div style="font-weight:1000;font-size:14px;margin-bottom:4px;color:var(--read-blue)">S — Study: Read the question <em>before</em> the passage</div>
+            <div style="font-size:13px;font-weight:800;color:#1e3a5f;line-height:1.5">Know exactly what you are looking for before you start reading — a name, a reason, an opinion, a comparison.</div>
+          </div>
+          <div style="background:#fef3c7;border:2px solid var(--ink);border-radius:14px;padding:12px;box-shadow:3px 3px 0 var(--ink)">
+            <div style="font-weight:1000;font-size:14px;margin-bottom:4px">C — Circle: Identify the <em>keywords</em> to scan for</div>
+            <div style="font-size:13px;font-weight:800;color:#78350f;line-height:1.5">Pick out the specific noun, number or phrase in the question that you can search for in the passage.</div>
+          </div>
+          <div style="background:#dcfce7;border:2px solid var(--ink);border-radius:14px;padding:12px;box-shadow:3px 3px 0 var(--ink)">
+            <div style="font-weight:1000;font-size:14px;margin-bottom:4px;color:#166534">A — Analyse: Read closely <em>around</em> the keyword</div>
+            <div style="font-size:13px;font-weight:800;color:#166534;line-height:1.5">Once you locate the keyword, read the full sentence (and the one before/after) carefully — the answer is rarely just the keyword itself.</div>
+          </div>
+          <div style="background:#fce7f3;border:2px solid var(--ink);border-radius:14px;padding:12px;box-shadow:3px 3px 0 var(--ink)">
+            <div style="font-weight:1000;font-size:14px;margin-bottom:4px;color:#be185d">N — Narrow: Eliminate options the text <em>does not support</em></div>
+            <div style="font-size:13px;font-weight:800;color:#be185d;line-height:1.5">Cross out any option that isn't directly backed by the passage, then pick the one that is — even if another option sounds true in real life.</div>
+          </div>
+        </div>
+
+        <div style="background:var(--read-teal);border:var(--line);border-radius:16px;padding:14px;margin-top:12px">
+          <p style="font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px">⚠️ COMMON DISTRACTOR PATTERNS</p>
+          <div style="display:grid;gap:8px;font-size:13px;font-weight:850">
+            <div style="display:flex;gap:10px"><span style="font-size:16px">🔁</span><span><b>Word match trap:</b> an option repeats a word from the text but changes its meaning.</span></div>
+            <div style="display:flex;gap:10px"><span style="font-size:16px">🌍</span><span><b>Outside knowledge trap:</b> an option is true in real life but is never actually stated in the passage.</span></div>
+            <div style="display:flex;gap:10px"><span style="font-size:16px">⚖️</span><span><b>Absolute word trap:</b> words like "always", "never" or "all" are often too extreme to be supported by the text.</span></div>
+            <div style="display:flex;gap:10px"><span style="font-size:16px">📍</span><span><b>Off-topic detail:</b> a fact that is true and in the text, but does not answer the actual question asked.</span></div>
+          </div>
+        </div>
+
+        <div style="background:#f8fafc;border:var(--line);border-radius:14px;padding:14px;margin-top:12px">
+          <h3 style="margin-bottom:10px">Quick Reminders</h3>
+          <div style="display:grid;gap:8px;font-size:13px;font-weight:850">
+            <div style="display:flex;gap:10px"><span style="font-size:16px">🎯</span><span>Study the question before searching the passage for evidence</span></div>
+            <div style="display:flex;gap:10px"><span style="font-size:16px">📝</span><span>Choose the answer supported by the text, not outside knowledge</span></div>
+            <div style="display:flex;gap:10px"><span style="font-size:16px">⏱️</span><span>Complete easier items first and return to difficult questions later</span></div>
+            <div style="display:flex;gap:10px"><span style="font-size:16px">🚫</span><span>Do not choose an option only because it repeats words from the text</span></div>
+          </div>
+        </div>
+
+        <button class="next-btn show" onclick="S.next(3)">I've read the tips — show me a sample →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: WORKED SAMPLE -->
+    <div class="flow-step" id="step3">
+      <div class="flow-step-head" onclick="S.toggle(3)">
+        <div class="step-num" style="background:var(--read-green)">3</div>
+        <div style="flex:1"><b>Worked Sample</b><br><small style="color:var(--muted)">See how SCAN finds the correct option</small></div>
+        <span class="chev" id="chev3">▾</span>
+      </div>
+      <div class="flow-body" id="body3">
+        <div class="scan-row" style="margin-top:0">
+          <div class="scan-step"><b>S</b>Study</div>
+          <div class="scan-step"><b>C</b>Circle</div>
+          <div class="scan-step"><b>A</b>Analyse</div>
+          <div class="scan-step"><b>N</b>Narrow</div>
+        </div>
+        <div style="background:#f0f9ff;border:var(--line);border-radius:16px;padding:14px;margin-top:10px">
+          <p style="font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px">Sample question: Part 1, Q1 — Which place has the cheapest wi-fi?</p>
+          <div class="sample-box"><span class="sample-label">S — Study</span>The question asks you to compare one specific detail — wi-fi cost — across three places (A, B and C).</div>
+          <div class="sample-box" style="margin-top:8px"><span class="sample-label">C — Circle</span>Keywords to scan for: "cheapest" and "wi-fi".</div>
+          <div class="sample-box" style="margin-top:8px"><span class="sample-label">A — Analyse</span>Scanning each text: Place A charges RM10/day for wi-fi, Place B charges RM20/day, Place C charges RM20/day.</div>
+          <div class="sample-box" style="margin-top:8px"><span class="sample-label">N — Narrow</span>RM10 is lower than RM20, so Place B and Place C are eliminated. Place A is the cheapest — the answer is A.</div>
+        </div>
+        <div class="coach-note lime" style="margin-top:12px">
+          <div class="tag">📝 EXAMINER NOTE</div>
+          <p>Answer: A. Notice the question never says "RM10" — that number only appears in the text. This is why circling the keyword first, then analysing the exact sentence it appears in, is the reliable way to find the answer.</p>
+        </div>
+        <button class="next-btn show" onclick="S.next(4)">I'm ready — show me Language Support →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: LANGUAGE SUPPORT -->
+    <div class="flow-step" id="step4">
+      <div class="flow-step-head" onclick="S.toggle(4)">
+        <div class="step-num" style="background:var(--read-pink)">4</div>
+        <div style="flex:1"><b>Language Support</b><br><small style="color:var(--muted)">Signal words to look for in the text</small></div>
+        <span class="chev" id="chev4">▾</span>
+      </div>
+      <div class="flow-body" id="body4">
+        <div class="phrase-bank">
+          <div class="phrase-section">
+            <div class="phrase-label">🔄 CONTRAST &amp; CONCESSION SIGNALS</div>
+            <div class="phrase-text">"however…" · "although…" · "on the other hand…" · "despite…"<br>"even though…" · "in contrast…"</div>
+          </div>
+          <div class="phrase-section">
+            <div class="phrase-label">➡️ CAUSE &amp; EFFECT SIGNALS</div>
+            <div class="phrase-text">"because…" · "as a result…" · "therefore…" · "due to…"<br>"this led to…" · "consequently…"</div>
+          </div>
+          <div class="phrase-section">
+            <div class="phrase-label">❗ EMPHASIS SIGNALS</div>
+            <div class="phrase-text">"notably…" · "in particular…" · "above all…" · "most importantly…"<br>"significantly…"</div>
+          </div>
+          <div class="phrase-section">
+            <div class="phrase-label">🔗 SEQUENCE &amp; DISCOURSE SIGNALS</div>
+            <div class="phrase-text">"firstly…" · "meanwhile…" · "subsequently…" · "in conclusion…"<br>"since then…" · "eventually…"</div>
+          </div>
+          <div class="phrase-section">
+            <div class="phrase-label">👉 REFERENCE WORD TRAPS</div>
+            <div class="phrase-text">Pronouns like "this", "it", "these" and "which" — always check exactly what they refer back to before answering.</div>
+          </div>
+          <div class="phrase-avoid">
+            <div class="phrase-label" style="color:rgba(255,200,200,.9)">❌ DON'T BE FOOLED BY</div>
+            <div class="phrase-text" style="color:rgba(255,220,220,.9)">Options that use exact words from the text but change their meaning · absolute words ("always", "never", "all", "none") that overstate what the text says · opinions mistaken for facts (or facts mistaken for the writer's opinion).<br>Choose only what the passage actually supports.</div>
+          </div>
+        </div>
+        <button class="next-btn show" onclick="S.next(5)">I've reviewed the signal words — go to practice →</button>
+      </div>
+    </div>
+
+    <!-- STEP 5: YOUR PRACTICE -->
+    <div class="flow-step" id="step5">
+      <div class="flow-step-head" onclick="S.toggle(5)">
+        <div class="step-num" style="background:var(--ink);color:white">5</div>
+        <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Passage + questions + submit</small></div>
+        <span class="chev" id="chev5">▾</span>
+      </div>
+      <div class="flow-body open" id="body5">
     <section class="practice-shell" id="practiceSection">
       <div class="practice-head">
         <div><div class="section-kicker">Part-by-Part Practice</div><h2 style="font-size:22px">Complete one reading part at a time</h2><p style="font-size:12px;font-weight:750;color:var(--muted);margin-top:4px">Open the passage, answer its questions and continue to the next part.</p></div>
@@ -691,6 +939,8 @@ body, p, li, button, textarea, input, small{
         </div>
       </section>
     </section>
+      </div>
+    </div>
   </div>
 <section class="standard-footer-nav"><div class="footer-kicker">Continue Your Smart MUET Journey</div><h2>Reading complete — choose your next step</h2><div class="standard-footer-buttons"><a href="listening.html">← Previous: Listening</a><a class="menu" href="index.html">⌂ Back to Main Menu</a><a class="next" href="writing.html">Next: Writing →</a></div></section>
 </section>
@@ -777,6 +1027,24 @@ const PART_THEME={
  'Part 5':['#F76BB3','#111111'],'Part 6':['#9B7BFF','#111111'],
  'Part 7':['#18C7B5','#111111']
 };
+/* Step navigation (restored — mirrors listening.html/speaking.html's flow-step controller) */
+const S = {
+  toggle(n) {
+    const body = document.getElementById('body'+n);
+    const chev = document.getElementById('chev'+n);
+    const open = body.classList.toggle('open');
+    if(chev){ chev.classList.toggle('open', open); }
+    if(open) setTimeout(() => body.scrollIntoView({behavior:'smooth', block:'start'}), 100);
+  },
+  next(n) {
+    const body = document.getElementById('body'+n);
+    const chev = document.getElementById('chev'+n);
+    if(body){ body.classList.add('open'); }
+    if(chev){ chev.classList.add('open'); }
+    setTimeout(() => body?.scrollIntoView({behavior:'smooth', block:'start'}), 150);
+  }
+};
+
 let currentPart=0,secs=4500,timerId=null,submitted=false;
 const completedParts=new Set();
 const savedAnswers={};
@@ -798,7 +1066,13 @@ function toggleTimer(){if(timerId){clearInterval(timerId);timerId=null;document.
 function toggleAnswerReview(){document.getElementById('answerReview').classList.toggle('show')}
 function buildReview(){document.getElementById('answerReview').innerHTML=PART_ORDER.map(part=>`<div class="review-part"><b>${PART_LABELS[part]||part}</b>${itemsFor(part).map(({q,qi})=>{const a=savedAnswers[qi],mine=a===undefined?'No answer':q.options[a];return `<div style="margin-top:9px"><strong>${q.id}</strong> · Your answer: ${mine}<br>Correct answer: ${q.options[q.answer]}<br><span style="color:var(--muted)">${q.explanation}</span></div>`}).join('')}</div>`).join('')}
 function submitReading(){if(submitted||completedParts.size<7)return;saveVisibleAnswers();let correct=0;readingQuestions.forEach((q,qi)=>{if(savedAnswers[qi]===q.answer)correct++});submitted=true;if(timerId){clearInterval(timerId);timerId=null}const total=readingQuestions.length,score90=Math.round(correct/total*90),band=MUET.scoreToBand(score90),session={vaultId:'SKILL-MODULE',rawScore:correct,totalQ:total,score90,band,date:new Date().toISOString()},list=MUET.loadSessions('reading');list.push(session);MUET.saveSessions('reading',list);MUET.awardBadge('passage_hunter');MUET.addXP(70);if(typeof saveSmartMuetAttempt==='function'){const p=MUET.loadProfile()||{};saveSmartMuetAttempt({studentName:p.name||'',studentEmail:p.email||'',studentRegNo:p.regNo||'',classGroup:p.group||'',component:'reading',vaultId:'SKILL-MODULE',taskType:'SCAN Practice',rawScore:correct,totalItems:total,score90,estimatedBand:band,xpEarned:70,date:new Date().toISOString()});}document.getElementById('resultScore').textContent=`${correct}/${total} · ${score90}/90`;document.getElementById('resultBand').textContent=`Band ${band}`;document.getElementById('resultFb').textContent=MUET.feedbackText('reading',score90);buildReview();document.getElementById('resultCard').classList.add('show');document.getElementById('submitBtn').disabled=true;MUET.toast('Reading saved!');document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'start'})}
-document.addEventListener('DOMContentLoaded',()=>{renderPart(false);updateFinal()});
+document.addEventListener('DOMContentLoaded',()=>{
+  renderPart(false);
+  updateFinal();
+  // Step 1 is open by default
+  document.getElementById('body1').classList.add('open');
+  document.getElementById('chev1').classList.add('open');
+});
 </script>
 
 <script id="v5-enhanced-cards-js">

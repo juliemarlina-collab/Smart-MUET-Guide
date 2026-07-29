@@ -88,8 +88,8 @@
 <style>
 /* Smart MUET neopop v3 — shared hero & essentials (matches reading.html) */
 :root{
-  --np-blue:#3D50F5;--np-green:#18D18F;--np-yellow:#FFCA3A;
-  --np-pink:#F76BB3;--np-purple:#9B7BFF;--np-orange:#FF5A36;
+  --np-blue:#215CF5;--np-green:#27D58A;--np-yellow:#FFD23F;
+  --np-pink:#F56AB4;--np-purple:#8F67FF;--np-orange:#FF6236;
   --np-teal:#18C7B5;--np-soft:#F7F7FB;--np-black:#101116;
 }
 .neo-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(270px,.75fr);gap:16px;margin-bottom:16px}
@@ -192,8 +192,8 @@ details.more-guide summary::-webkit-details-marker{display:none}
   font-weight:1000!important;
   font-size:14px!important;
 }
-.page-jump-actions .btn:first-child{background:linear-gradient(180deg,#fff6ce 0%,#ffd860 100%)!important}
-.page-jump-actions .btn:last-child{background:linear-gradient(180deg,#dffcf3 0%,#7ce5b9 100%)!important}
+.page-jump-actions .btn:first-child{background:var(--neo-yellow)!important}
+.page-jump-actions .btn:last-child{background:var(--neo-green)!important}
 
 .standard-flow-note,
 .process-guide,
@@ -391,7 +391,7 @@ details.more-guide summary::-webkit-details-marker{display:none}
   line-height:1.25!important;
 }
 .part-audio,.dialogue-audio{
-  background:linear-gradient(180deg,#111827 0%, #1f2940 100%)!important;
+  background:var(--neo-black)!important;
 }
 .part-audio-title::before{content:"🔊 "}
 
@@ -424,7 +424,7 @@ details.more-guide summary::-webkit-details-marker{display:none}
 
 <style id="task2-peel-intro-v6">
 .task2-overview-card{
-  border:3px solid var(--ink);border-radius:22px;background:linear-gradient(180deg,#fff 0%,#fff8fd 100%);
+  border:3px solid var(--ink);border-radius:22px;background-color:#fff8fd;background:linear-gradient(180deg,#fff 0%,#fff8fd 100%);
   box-shadow:5px 5px 0 var(--ink);padding:16px;margin-bottom:12px
 }
 .task2-overview-title{display:flex;align-items:center;gap:10px;margin-bottom:10px}
@@ -947,13 +947,8 @@ body{
 .model-section.link .model-tag{background:var(--neo-pink)!important}
 .model-section.conclusion .model-tag{background:var(--neo-purple)!important;color:#fff!important}
 
-/* Responsive readability */
-body, p, li, button, textarea, input, small{
-  font-size:1rem!important;
-}
-@media (max-width:768px){
-  body{font-size:1rem!important}
-}
+/* Prevent iOS zoom on form focus, without overriding designed text hierarchy */
+textarea, input{font-size:16px}
 </style>
 
 </head>
@@ -1076,12 +1071,12 @@ body, p, li, button, textarea, input, small{
 
   <!-- ═══ STEP 4: Language Support ═══ -->
   <div class="flow-step">
-    <div class="flow-step-head" onclick="W.toggle('s5')">
+    <div class="flow-step-head" onclick="W.toggle('s4')">
       <div class="step-num" style="background:var(--pink)">4</div>
       <div style="flex:1"><b>Language Support</b><br><small id="s4sub" style="color:var(--muted)">Useful expressions for Task 1</small></div>
-      <span id="c-s5">▾</span>
+      <span id="c-s4">▾</span>
     </div>
-    <div id="b-s5" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+    <div id="b-s4" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
       <div id="languageContent"></div>
       <button class="btn pink" style="margin-top:14px" onclick="W.open('s5')">I am ready — go to practice →</button>
     </div>
@@ -1089,12 +1084,12 @@ body, p, li, button, textarea, input, small{
 
   <!-- ═══ STEP 5: Your Practice ═══ -->
   <div class="flow-step">
-    <div class="flow-step-head" onclick="W.toggle('s4')">
+    <div class="flow-step-head" onclick="W.toggle('s5')">
       <div class="step-num" style="background:var(--purple)">5</div>
       <div style="flex:1"><b>Your Practice</b><br><small style="color:var(--muted)">Choose a prompt · plan · write · submit</small></div>
-      <span id="c-s4">▾</span>
+      <span id="c-s5">▾</span>
     </div>
-    <div id="b-s4" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
+    <div id="b-s5" style="display:none;padding:14px 16px 16px;border-top:2px solid rgba(0,0,0,.08)">
 
       <!-- Topic selection -->
       <div id="topicSelectionArea">
@@ -1257,13 +1252,14 @@ const T2_TOPICS = [
   {id:8, cat:'society',      emoji:'💼', theme:'Society',      statement:'"Young people today lack the resilience needed to face life\'s challenges."'}
 ];
 
+/* Single source of truth for Task 2 phrases — shared with the Language Support cards (Step 4)
+   so the read-only explanation and the clickable insert-chips never drift out of sync. */
 const VOCAB_BANK = {
-  'Opinion':          ['"In my opinion,"','"I strongly believe that"','"From my perspective,"','"It is my view that"'],
-  'Agreement':        ['"I completely agree with"','"There is no doubt that"','"I wholeheartedly support"'],
-  'Disagreement':     ['"I beg to differ"','"On the contrary,"','"However, this argument overlooks"'],
-  'Adding points':    ['"Furthermore,"','"In addition,"','"Moreover,"','"Not only that, but also"'],
-  'Giving examples':  ['"For example,"','"For instance,"','"A prime example of this is"','"This can be seen in"'],
-  'Conclusion':       ['"In conclusion,"','"To summarise,"','"Therefore, it is clear that"','"Taking everything into account,"']
+  'Stating a Stand':          ['"I agree that…"','"I disagree with the view that…"','"I partly agree because…"','"In my opinion,"','"From my perspective,"','"There is no doubt that…"'],
+  'Point and Explanation':     ['"One important reason is that…"','"This is because…"','"This can lead to…"','"Furthermore,"','"In addition,"'],
+  'Example or Evidence':       ['"For example…"','"For instance…"','"A clear example can be seen in…"','"This can be seen in…"'],
+  'Linking the Paragraph':     ['"Therefore, this shows that…"','"As a result…"','"This supports the view that…"','"Not only that, but also"'],
+  'Contrasting and Concluding':['"However…"','"On the other hand…"','"In conclusion…"','"To summarise,"','"Taking everything into account,"']
 };
 
 const TIPS = {
@@ -1378,12 +1374,13 @@ const LANGUAGE_SUPPORT = {
     </div>`,
   T2: `
     <div class="language-grid">
-      <div class="language-card"><b>Stating a Stand</b><br>I agree that… · I disagree with the view that… · I partly agree because…</div>
-      <div class="language-card"><b>Point and Explanation</b><br>One important reason is that… · This is because… · This can lead to…</div>
-      <div class="language-card"><b>Example or Evidence</b><br>For example… · For instance… · A clear example can be seen in…</div>
-      <div class="language-card"><b>Linking the Paragraph</b><br>Therefore, this shows that… · As a result… · This supports the view that…</div>
-      <div class="language-card"><b>Contrasting and Concluding</b><br>However… · On the other hand… · In conclusion…</div>
-    </div>`
+      <div class="language-card"><b>Stating a Stand</b><br>I agree that… · I disagree with the view that… · I partly agree because… · In my opinion, · From my perspective, · There is no doubt that…</div>
+      <div class="language-card"><b>Point and Explanation</b><br>One important reason is that… · This is because… · This can lead to… · Furthermore, · In addition,</div>
+      <div class="language-card"><b>Example or Evidence</b><br>For example… · For instance… · A clear example can be seen in… · This can be seen in…</div>
+      <div class="language-card"><b>Linking the Paragraph</b><br>Therefore, this shows that… · As a result… · This supports the view that… · Not only that, but also</div>
+      <div class="language-card"><b>Contrasting and Concluding</b><br>However… · On the other hand… · In conclusion… · To summarise, · Taking everything into account,</div>
+    </div>
+    <p style="font-size:11px;font-weight:800;color:var(--muted);margin-top:8px">💡 These are the same phrases available as click-to-insert chips in the Vocab Bank during practice.</p>`
 };
 
 function setTask(t){
@@ -1413,22 +1410,14 @@ function setTask(t){
       <div class="coach-note lime" style="margin-top:10px"><div class="tag">EXAMINER NOTE</div><p>All notes are addressed clearly, the tone is appropriate and the response is organised logically.</p></div>`;
   }else{
     document.getElementById('sampleContent').innerHTML =
-      `<div class="peel-build">
-        <b style="font-family:'Sora';font-size:14px">Worked Example: Building One PEEL Paragraph</b>
-        <p style="font-size:11px;font-weight:800;color:var(--muted);margin-top:4px">Statement: “Young adults today lack survival skills.” · Stand: Partly agree</p>
-
-        <div class="peel-build-row"><div class="peel-build-label">P</div><div><b>Point — What is the paragraph arguing?</b><p>Many young adults lack basic practical skills because they depend heavily on their parents.</p></div></div>
-        <div class="peel-build-row"><div class="peel-build-label">E</div><div><b>Explain — Why is the point true?</b><p>When parents manage cooking, household tasks and financial decisions, young people have fewer opportunities to practise these responsibilities independently.</p></div></div>
-        <div class="peel-build-row"><div class="peel-build-label">E</div><div><b>Example — What illustrates the idea?</b><p>For example, some university students struggle to plan a monthly budget or prepare simple meals when they begin living away from home.</p></div></div>
-        <div class="peel-build-row"><div class="peel-build-label">L</div><div><b>Link — How does it answer the question?</b><p>Therefore, limited exposure to daily responsibilities can weaken their ability to cope independently.</p></div></div>
-      </div>
-
-      <div class="model-labelled" style="margin-top:12px">
+      `<div class="model-labelled">
+        <b style="font-family:'Sora';font-size:14px;display:block;margin-bottom:4px">Worked Example: One Full PEEL Essay</b>
+        <p style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:8px">Statement: “Young adults today lack survival skills.” · Stand: Partly agree</p>
         <div class="model-section intro"><span class="model-tag">INTRODUCTION</span><p>I partly agree that young adults today lack some traditional survival skills, although they possess useful modern abilities.</p></div>
-        <div class="model-section point"><span class="model-tag">P — POINT</span><p>Many young adults lack basic practical skills because they depend heavily on their parents.</p></div>
-        <div class="model-section explain"><span class="model-tag">E — EXPLAIN</span><p>When parents manage cooking, household tasks and financial decisions, young people have fewer opportunities to practise these responsibilities independently.</p></div>
-        <div class="model-section example"><span class="model-tag">E — EXAMPLE</span><p>For example, some university students struggle to plan a monthly budget or prepare simple meals when they begin living away from home.</p></div>
-        <div class="model-section link"><span class="model-tag">L — LINK</span><p>Therefore, limited exposure to daily responsibilities can weaken their ability to cope independently.</p></div>
+        <div class="model-section point"><span class="model-tag">P — POINT</span><p style="font-size:10px;font-weight:800;color:var(--muted);margin-bottom:4px">What is the paragraph arguing?</p><p>Many young adults lack basic practical skills because they depend heavily on their parents.</p></div>
+        <div class="model-section explain"><span class="model-tag">E — EXPLAIN</span><p style="font-size:10px;font-weight:800;color:var(--muted);margin-bottom:4px">Why is the point true?</p><p>When parents manage cooking, household tasks and financial decisions, young people have fewer opportunities to practise these responsibilities independently.</p></div>
+        <div class="model-section example"><span class="model-tag">E — EXAMPLE</span><p style="font-size:10px;font-weight:800;color:var(--muted);margin-bottom:4px">What illustrates the idea?</p><p>For example, some university students struggle to plan a monthly budget or prepare simple meals when they begin living away from home.</p></div>
+        <div class="model-section link"><span class="model-tag">L — LINK</span><p style="font-size:10px;font-weight:800;color:var(--muted);margin-bottom:4px">How does it answer the question?</p><p>Therefore, limited exposure to daily responsibilities can weaken their ability to cope independently.</p></div>
         <div class="model-section conclusion"><span class="model-tag">CONCLUSION</span><p>Young adults do not completely lack survival skills, but they need more opportunities to develop practical independence alongside their digital abilities.</p></div>
       </div>
 
@@ -1450,7 +1439,7 @@ function setTask(t){
   stopTimer(); renderTimer();
 
   // Close all steps and reopen step 1
-  ['s1','s2','s3','s4'].forEach(id => {
+  ['s1','s2','s3','s4','s5'].forEach(id => {
     const b = document.getElementById('b-'+id);
     const c = document.getElementById('c-'+id);
     if(b){ b.style.display = 'none'; if(c) c.textContent = '▾'; }
@@ -1550,7 +1539,7 @@ function startPractice(){
   document.getElementById('wcNum').textContent = '0';
   document.getElementById('wcNum').className = 'wc-num wc-low';
 
-  W.open('s4');
+  W.open('s5');
   document.getElementById('practiceArea').scrollIntoView({behavior:'smooth', block:'start'});
 }
 

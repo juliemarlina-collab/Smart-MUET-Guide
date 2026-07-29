@@ -128,8 +128,8 @@
 <style>
 /* Smart MUET neopop v3 — shared hero & essentials (matches reading.html) */
 :root{
-  --np-blue:#3D50F5;--np-green:#18D18F;--np-yellow:#FFCA3A;
-  --np-pink:#F76BB3;--np-purple:#9B7BFF;--np-orange:#FF5A36;
+  --np-blue:#215CF5;--np-green:#27D58A;--np-yellow:#FFD23F;
+  --np-pink:#F56AB4;--np-purple:#8F67FF;--np-orange:#FF6236;
   --np-teal:#18C7B5;--np-soft:#F7F7FB;--np-black:#101116;
 }
 .neo-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(270px,.75fr);gap:16px;margin-bottom:16px}
@@ -151,15 +151,15 @@
 .section-top h2{font-size:21px;margin-top:3px}
 .section-top p{font-size:12px;font-weight:750;color:var(--muted);margin-top:4px}
 .essentials-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}
-.scan-panel,.facts-panel{border:var(--line);border-radius:16px;padding:13px;background:#fff;box-shadow:3px 3px 0 var(--ink)}
-.scan-panel{border-top:12px solid var(--np-yellow)}.facts-panel{border-top:12px solid var(--np-green)}
-.scan-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:9px}
-.scan-step{border:2px solid var(--ink);border-radius:13px;padding:11px 8px;text-align:center;font-size:10px;font-weight:950;box-shadow:2px 2px 0 var(--ink)}
-.scan-step b{display:block;font-family:'Sora';font-size:20px;line-height:1;margin-bottom:4px}
-.scan-step-label{display:block;margin-bottom:5px}
-.scan-step-desc{display:block;font-size:9.5px;font-weight:700;line-height:1.4;opacity:.8;text-transform:none;letter-spacing:0}
-.scan-step:nth-child(1){background:var(--np-blue);color:#fff}.scan-step:nth-child(2){background:var(--np-yellow)}
-.scan-step:nth-child(3){background:var(--np-green)}.scan-step:nth-child(4){background:var(--np-pink)}
+.prep-panel,.facts-panel{border:var(--line);border-radius:16px;padding:13px;background:#fff;box-shadow:3px 3px 0 var(--ink)}
+.prep-panel{border-top:12px solid var(--np-yellow)}.facts-panel{border-top:12px solid var(--np-green)}
+.prep-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:9px}
+.prep-step{border:2px solid var(--ink);border-radius:13px;padding:11px 8px;text-align:center;font-size:10px;font-weight:950;box-shadow:2px 2px 0 var(--ink)}
+.prep-step b{display:block;font-family:'Sora';font-size:20px;line-height:1;margin-bottom:4px}
+.prep-step-label{display:block;margin-bottom:5px}
+.prep-step-desc{display:block;font-size:9.5px;font-weight:700;line-height:1.4;opacity:.8;text-transform:none;letter-spacing:0}
+.prep-step:nth-child(1){background:var(--np-blue);color:#fff}.prep-step:nth-child(2){background:var(--np-yellow)}
+.prep-step:nth-child(3){background:var(--np-green)}.prep-step:nth-child(4){background:var(--np-pink)}
 .facts-list{display:grid;gap:8px;margin-top:9px}
 .fact-line{display:grid;grid-template-columns:34px 1fr;align-items:center;gap:9px;border:2px solid var(--ink);border-radius:12px;background:#fff;padding:8px 10px;font-size:11px;font-weight:800}
 .fact-line img{width:30px;height:30px;object-fit:contain}
@@ -173,7 +173,7 @@ details.more-guide summary::-webkit-details-marker{display:none}
 .guide-mini{border:2px solid var(--ink);border-radius:12px;padding:10px;background:#fff;font-size:11px;font-weight:750;line-height:1.45}
 .guide-mini b{display:block;margin-bottom:4px}
 @media(max-width:900px){.neo-hero{grid-template-columns:1fr}.hero-main{min-height:auto}.hero-stats{grid-template-columns:repeat(4,minmax(0,1fr))}.essentials-grid{grid-template-columns:1fr}.guide-more-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:620px){.hero-main{padding:17px}.hero-art{display:none}.hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.scan-row{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-more-grid{grid-template-columns:1fr}}
+@media(max-width:620px){.hero-main{padding:17px}.hero-art{display:none}.hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.prep-row{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-more-grid{grid-template-columns:1fr}}
 </style>
 <style>
 .component-roadmap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 14px;padding:10px;background:#101116;border:3px solid #101116;border-radius:18px;box-shadow:5px 5px 0 #101116}
@@ -234,8 +234,8 @@ details.more-guide summary::-webkit-details-marker{display:none}
   font-weight:1000!important;
   font-size:14px!important;
 }
-.page-jump-actions .btn:first-child{background:linear-gradient(180deg,#fff6ce 0%,#ffd860 100%)!important}
-.page-jump-actions .btn:last-child{background:linear-gradient(180deg,#dffcf3 0%,#7ce5b9 100%)!important}
+.page-jump-actions .btn:first-child{background:var(--neo-yellow)!important}
+.page-jump-actions .btn:last-child{background:var(--neo-green)!important}
 
 .standard-flow-note,
 .process-guide,
@@ -344,10 +344,10 @@ details.more-guide summary::-webkit-details-marker{display:none}
 .guide-step b{display:block;font-size:13px;margin-bottom:4px}
 .guide-step span{display:block;font-size:11.5px;font-weight:800;line-height:1.55;color:#374151}
 
-.hero-main,.hero-stats,.scan-panel,.facts-panel,.hear-panel,.task-badge,.listen-part-badge,.info-tile,.fact-line,.guide-mini,.question-card,.task-btn,.task-badge,.topic-item,.planner-box,.note-card,.tip-item,.part-audio,.dialogue-audio,.summary-tile,.crit-tile{
+.hero-main,.hero-stats,.prep-panel,.facts-panel,.hear-panel,.task-badge,.listen-part-badge,.info-tile,.fact-line,.guide-mini,.question-card,.task-btn,.task-badge,.topic-item,.planner-box,.note-card,.tip-item,.part-audio,.dialogue-audio,.summary-tile,.crit-tile{
   border-radius:20px!important;
 }
-.hero-main,.hero-stats,.scan-panel,.facts-panel,.hear-panel,.task-badge,.listen-part-badge,.info-tile,.fact-line,.guide-mini,.question-card,.task-btn,.topic-item,.planner-box,.note-card,.tip-item,.part-audio,.dialogue-audio,.summary-tile,.crit-tile{
+.hero-main,.hero-stats,.prep-panel,.facts-panel,.hear-panel,.task-badge,.listen-part-badge,.info-tile,.fact-line,.guide-mini,.question-card,.task-btn,.topic-item,.planner-box,.note-card,.tip-item,.part-audio,.dialogue-audio,.summary-tile,.crit-tile{
   box-shadow:0 8px 16px rgba(16,17,22,.06), 4px 4px 0 #101116!important;
 }
 .hero-main{
@@ -367,7 +367,7 @@ details.more-guide summary::-webkit-details-marker{display:none}
 .hero-emoji{font-size:60px; line-height:1; display:block; animation:floatEmoji 2.6s ease-in-out infinite;}
 @keyframes floatEmoji{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
-.scan-step,.hear-step,.prep-b,.peel-b{
+.prep-step,.hear-step,.prep-b,.peel-b{
   border-radius:18px!important;
   padding:14px 10px!important;
   min-height:92px;
@@ -376,11 +376,11 @@ details.more-guide summary::-webkit-details-marker{display:none}
   justify-content:center;
   box-shadow:0 6px 14px rgba(16,17,22,.06), 3px 3px 0 #101116!important;
 }
-.scan-step b,.hear-step b,.prep-b,.peel-b{
+.prep-step b,.hear-step b,.prep-b,.peel-b{
   margin-bottom:6px!important;
 }
-.scan-step small,.hear-step small,.prep-b small,.peel-b small,
-.scan-step .scan-step-desc,.hear-step .hear-step-desc{
+.prep-step small,.hear-step small,.prep-b small,.peel-b small,
+.prep-step .prep-step-desc,.hear-step .hear-step-desc{
   font-size:10.5px!important;
   line-height:1.45!important;
   opacity:1!important;
@@ -433,7 +433,7 @@ details.more-guide summary::-webkit-details-marker{display:none}
   line-height:1.25!important;
 }
 .part-audio,.dialogue-audio{
-  background:linear-gradient(180deg,#111827 0%, #1f2940 100%)!important;
+  background:var(--neo-black)!important;
 }
 .part-audio-title::before{content:"🔊 "}
 
@@ -553,7 +553,7 @@ body{
   color:var(--neo-white)!important;
 }
 .hero-main{background:var(--neo-orange)!important}
-.reading-wrap .hero-main,.reading-overview-main,.read-hero,.reading-hero,.scan-panel{background:var(--neo-green)!important}
+.reading-wrap .hero-main,.reading-overview-main,.read-hero,.reading-hero{background:var(--neo-green)!important}
 .listen-wrap .hero-main,.hear-panel,.listening-hero{background:var(--neo-blue)!important}
 .writing-overview-main{background:var(--neo-pink)!important}
 .writing-overview-icon,.hero-art{
@@ -589,15 +589,15 @@ body{
 #s5 .step-num, .flow-step:nth-of-type(5) .step-num{background:var(--neo-purple)!important;color:#fff!important}
 
 /* Technique letter cards */
-.scan-step:nth-child(1), .hear-step:nth-child(1), .prep-b:nth-child(1), .peel-b:nth-child(1),
+.prep-step:nth-child(1), .hear-step:nth-child(1), .prep-b:nth-child(1), .peel-b:nth-child(1),
 .peel-learning-card:nth-child(1){background:var(--neo-blue)!important;color:#fff!important}
-.scan-step:nth-child(2), .hear-step:nth-child(2), .prep-b:nth-child(2), .peel-b:nth-child(2),
+.prep-step:nth-child(2), .hear-step:nth-child(2), .prep-b:nth-child(2), .peel-b:nth-child(2),
 .peel-learning-card:nth-child(2){background:var(--neo-yellow)!important;color:#111!important}
-.scan-step:nth-child(3), .hear-step:nth-child(3), .prep-b:nth-child(3), .peel-b:nth-child(3),
+.prep-step:nth-child(3), .hear-step:nth-child(3), .prep-b:nth-child(3), .peel-b:nth-child(3),
 .peel-learning-card:nth-child(3){background:var(--neo-green)!important;color:#111!important}
-.scan-step:nth-child(4), .hear-step:nth-child(4), .prep-b:nth-child(4), .peel-b:nth-child(4),
+.prep-step:nth-child(4), .hear-step:nth-child(4), .prep-b:nth-child(4), .peel-b:nth-child(4),
 .peel-learning-card:nth-child(4){background:var(--neo-pink)!important;color:#111!important}
-.prep-b small,.peel-b small,.scan-step small,.hear-step small,.scan-step .scan-step-desc,.hear-step .hear-step-desc{
+.prep-b small,.peel-b small,.prep-step small,.hear-step small,.prep-step .prep-step-desc,.hear-step .hear-step-desc{
   color:inherit!important
 }
 
@@ -636,13 +636,8 @@ body{
 .model-section.link .model-tag{background:var(--neo-pink)!important}
 .model-section.conclusion .model-tag{background:var(--neo-purple)!important;color:#fff!important}
 
-/* Responsive readability */
-body, p, li, button, textarea, input, small{
-  font-size:1rem!important;
-}
-@media (max-width:768px){
-  body{font-size:1rem!important}
-}
+/* Prevent iOS zoom on form focus, without overriding designed text hierarchy */
+textarea, input{font-size:16px}
 </style>
 
 </head>
@@ -699,8 +694,8 @@ body, p, li, button, textarea, input, small{
   <section class="essentials">
     <div class="section-top"><div><div class="section-kicker">Before You Start</div><h2>Speaking Essentials</h2><p>Only the information students need before beginning practice.</p></div></div>
     <div class="essentials-grid">
-      <div class="scan-panel"><b>Speaking technique — PREP</b>
-        <div class="scan-row"><div class="scan-step"><b>P</b><span class="scan-step-label">Point</span><span class="scan-step-desc">State your stand in sentence 1.</span></div><div class="scan-step"><b>R</b><span class="scan-step-label">Reason</span><span class="scan-step-desc">Give one strong reason why.</span></div><div class="scan-step"><b>E</b><span class="scan-step-label">Example</span><span class="scan-step-desc">Add a specific Malaysian example.</span></div><div class="scan-step"><b>P</b><span class="scan-step-label">Point again</span><span class="scan-step-desc">Restate your stand to close.</span></div></div>
+      <div class="prep-panel"><b>Speaking technique — PREP</b>
+        <div class="prep-row"><div class="prep-step"><b>P</b><span class="prep-step-label">Point</span><span class="prep-step-desc">State your stand in sentence 1.</span></div><div class="prep-step"><b>R</b><span class="prep-step-label">Reason</span><span class="prep-step-desc">Give one strong reason why.</span></div><div class="prep-step"><b>E</b><span class="prep-step-label">Example</span><span class="prep-step-desc">Add a specific Malaysian example.</span></div><div class="prep-step"><b>P</b><span class="prep-step-label">Point again</span><span class="prep-step-desc">Restate your stand to close.</span></div></div>
         <div class="prep-usage-row">
           <span class="prep-count-pill pill-solo">Task A &middot; 1&times; full PREP cycle</span>
           <span class="prep-count-pill pill-multi">Task B &middot; mini-PREP every turn</span>
@@ -712,7 +707,7 @@ body, p, li, button, textarea, input, small{
     </div>
     <details class="more-guide">
       <summary>＋ View question types and exam reminders</summary>
-      <div class="guide-more-grid"><div class="guide-mini"><b>Test format (MPM)</b>2 tasks · 90 marks (45 per task) · 25% of MUET.</div><div class="guide-mini"><b>Task A — Individual</b>2 min prep + 2 min speaking · CEFR B1–B2.</div><div class="guide-mini"><b>Task B — Group</b>3 min prep · 8–12 min discussion · max 4 people · CEFR B2.</div><div class="guide-mini"><b>No fixed script</b>Speaking has no single correct answer — feedback checks structure, relevance and language functions.</div><div class="guide-mini"><b>Four criteria</b>Task fulfilment · accuracy · range · fluency.</div><div class="guide-mini"><b>Local examples</b>Malaysian examples (PTPTN, campus life, EPF) score better than vague ones.</div></div>
+      <div class="guide-more-grid"><div class="guide-mini"><b>Session flow</b>Task A (individual) runs first, then you move straight into a group of 3–4 for Task B — same sitting, same room.</div><div class="guide-mini"><b>Task A — Individual</b>2 min prep + 2 min speaking · CEFR B1–B2.</div><div class="guide-mini"><b>Task B — Group</b>3 min prep · 8–12 min discussion · max 4 people · CEFR B2.</div><div class="guide-mini"><b>No fixed script</b>Speaking has no single correct answer — feedback checks structure, relevance and language functions.</div><div class="guide-mini"><b>Four criteria</b>Task fulfilment · accuracy · range · fluency.</div><div class="guide-mini"><b>Local examples</b>Malaysian examples (PTPTN, campus life, EPF) score better than vague ones.</div></div>
     </details>
   </section>
 
